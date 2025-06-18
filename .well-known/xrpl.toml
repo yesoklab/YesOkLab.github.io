@@ -1,0 +1,22 @@
+# ===================================================
+# LJMSID 토큰의 xrp-ledger.toml 파일 (최종 완성본)
+# ===================================================
+
+# [ACCOUNTS] 섹션: 이 파일을 관리하는 계정들을 명시합니다.
+[ACCOUNTS]
+#발행지갑
+r95GJxcghgMyQXittPHjYZvGUMWfVwtzPs
+# 운영 지갑 
+rMg969ypN8n1TXJe4ipAkZrJj13a1ZZqwD
+
+# [[CURRENCIES]] 섹션: 토큰의 상세 정보를 기입합니다.
+[[CURRENCIES]]
+# 이 정보가 어떤 토큰에 대한 것인지 명시합니다.
+issuer = "r95GJxcghgMyQXittPHjYZvGUMWfVwtzPs"
+currency = "LJM"
+
+# 아래는 실제로 지갑과 서비스에 표시될 내용입니다.
+name = "LJMSID"
+desc = " 국민을 위한 국민에 의한 국민의 대통령 대한민국 제21대 대통령'이재명 대통령'을 축하하고 대한민국 인구절벽의 문제를 해결하기 위해 탄생한 토큰"
+# IPFS 이미지를 사용하기 위한 표준 URL 형식입니다.
+icon = "https://ipfs.io/ipfs/bafybeierio436xmn23hapcxxno4pgc7j73dbidam2fx6wl6pd3uofzrd4q"
