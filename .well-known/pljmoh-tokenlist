@@ -1,0 +1,22 @@
+{
+  "name": "PLJMOH Token List",
+  "timestamp": "2025-06-30T13:30:00+09:00",
+  "version": {
+    "major": 1,
+    "minor": 0,
+    "patch": 0
+  },
+  "tags": {},
+  "logoURI": "https://yesoklab.github.io/.well-known/pljmoh.png",
+  "keywords": ["pljmoh", "meme", "polygon", "yesoklab"],
+  "tokens": [
+    {
+      "chainId": 137,
+      "address": "0xdE7f4d96ecF41f2838D41d5355E60DF8A58CA2e41",
+      "symbol": "PLJMOH",
+      "name": "PLJMOH",
+      "decimals": 18,
+      "logoURI": "https://yesoklab.github.io/.well-known/pljmoh.png"
+    }
+  ]
+}
