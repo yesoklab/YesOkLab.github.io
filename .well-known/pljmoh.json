@@ -1,6 +1,6 @@
 {
   "name": "PLJMOH Token List",
-  "timestamp": "2025-06-30T13:30:00+09:00",
+  "timestamp": "2025-06-30T13:00:00+09:00",
   "version": {
     "major": 1,
     "minor": 0,
@@ -12,7 +12,7 @@
   "tokens": [
     {
       "chainId": 137,
-      "address": "0xdE7f4d96ecF41f2838D41d5355E60DF8A58CA2e41",
+      "address": "0xd764049e9ccf4f12838b4d13555E660DF8A5C4e241",
       "symbol": "PLJMOH",
       "name": "PLJMOH",
       "decimals": 18,
