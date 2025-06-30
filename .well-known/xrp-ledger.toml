@@ -1,0 +1,14 @@
+[ACCOUNTS]
+# 발행 지갑
+r95GJxcghgMyQXittPHjYZvGUMWfVwtzPs
+# 운영 지갑
+rMg969ypN8n1TXJe4ipAkZrJj13a1ZZqwD
+
+[[CURRENCIES]]
+issuer = "r95GJxcghgMyQXittPHjYZvGUMWfVwtzPs"
+currency = "LOH"
+name = "Leejaemyung's One Hour"
+desc = "나의 1시간은 대한민국 국민의 시간입니다. 국민주권의 가치를 담은 토큰."
+# 아이콘 URL은 로고 이미지의 IPFS 주소입니다.
+# 예시: "ipfs://Qm..._LOH_LOGO_CID"
+icon = "bafybeihy6ldngpizt2mwyzmz42bk2n7vusj3lli57krtw2tfxmqfmey3r4" 
