@@ -3,6 +3,7 @@ code = "POH"
 issuer = "GB3AVON3T52FJRCBAKUPFXM46BTAUCJ3PCXUCXCKCEFVKCES6QEXSD2B"
 name = "President One Hour"
 desc = "대통령의 한 시간은 국민 전체의 시간입니다. 대한민국 제21대 대통령 이재명을 기리는 상징 토큰입니다."
-image = "https://yourdomain.com/assets/poh_logo.png"
-conditions = "Non-transferable after issuance. Symbolic token only."
+image = "https://yesoklab.github.io/.well-known/Poh.png"
+condition = "Non-transferable after issuance. Symbolic token only."
 fixed_number = true
+
