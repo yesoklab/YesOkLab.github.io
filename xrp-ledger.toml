@@ -1,0 +1,8 @@
+[[CURRENCIES]]
+code="POH"
+issuer="r95GJxcghgMyQXittPHjYZvGUMWfVwtzPs"
+display_decimals=6
+name="President One Hour"
+desc="제21대 대통령 이재명님의 국정철학과 '대통령이 1시간은 대한민국 국민 51,169,148명의 시간입니다'를 상징하는 대한민국 이재명 대통령과 국민들 모두에게 매우 특별한 XRPL 기반 토큰입니다."
+image="https://yesoklab.github.io/poh-token/poh-icon.png"
+conditions="이 토큰은 대한민국 제21대 대통령 이재명님의 국정철학을 기념하고 국민들과의 소통을 위한 목적으로 발행되었습니다."
