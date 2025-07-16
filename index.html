@@ -1,7 +1,206 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Digital Heritage Archiving Project - The LJM Clockwork | YesOkLab</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
 
-   
-    
-      
+        body {
+            font-family: 'Noto Sans KR', sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: linear-gradient(135deg, #003876 0%, #CD212A 100%);
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Header */
+        header {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            padding: 1rem 0;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 2px 20px rgba(0, 0, 0, 0.1);
+        }
+
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .logo-icon {
+            width: 40px;
+            height: 40px;
+            background: linear-gradient(45deg, #003876, #CD212A);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: bold;
+            font-size: 14px;
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: #333;
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+
+        .nav-links a:hover {
+            color: #CD212A;
+        }
+
+        /* Hero Section */
+        .hero {
+            margin-top: 80px;
+            padding: 4rem 0;
+            text-align: center;
+            color: white;
+        }
+
+        .hero h1 {
+            font-size: 3.5rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+        }
+
+        .hero-subtitle {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            opacity: 0.9;
+        }
+
+        .hero-description {
+            font-size: 1.2rem;
+            max-width: 800px;
+            margin: 0 auto 2rem;
+            opacity: 0.8;
+            line-height: 1.8;
+        }
+
+        .cta-button {
+            display: inline-block;
+            padding: 15px 40px;
+            background: rgba(255, 255, 255, 0.2);
+            color: white;
+            text-decoration: none;
+            border-radius: 50px;
+            font-weight: 600;
+            font-size: 1.1rem;
+            transition: all 0.3s;
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            backdrop-filter: blur(10px);
+        }
+
+        .cta-button:hover {
+            background: rgba(255, 255, 255, 0.3);
+            transform: translateY(-2px);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+        }
+
+        /* Features Section */
+        .features {
+            background: white;
+            padding: 5rem 0;
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 2.5rem;
+            margin-bottom: 3rem;
+            color: #003876;
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .feature-card {
+            background: #f8f9fa;
+            padding: 2rem;
+            border-radius: 15px;
+            text-align: center;
+            transition: transform 0.3s;
+            border: 1px solid #e9ecef;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.1);
+        }
+
+        .feature-icon {
+            width: 60px;
+            height: 60px;
+            background: linear-gradient(45deg, #003876, #CD212A);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 1rem;
+            color: white;
+            font-size: 1.5rem;
+        }
+
+        /* Stats Section */
+        .stats {
+            background: linear-gradient(135deg, #003876 0%, #CD212A 100%);
+            padding: 4rem 0;
+            color: white;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            text-align: center;
+        }
+
+        .stat-item h3 {
+            font-size: 3rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+        }
+
+        .stat-item p {
+            font-size: 1.1rem;
+            opacity: 0.9;
+        }
+
+        /* Token Info */
         .token-info {
             background: white;
             padding: 5rem 0;
@@ -133,7 +332,7 @@
                     XRP Ledger 기반의 디지털 자산(NFT)으로 변환하여<br>
                     새로운 디지털 레거시 시장을 개척하는 혁신적인 프로젝트입니다.
                 </p>
-                <a href="#features" class="cta-button">5,800개 한정판 NFT 컬렉션 보기</a>
+                <a href="#about" class="cta-button">5,800개 한정판 NFT 컬렉션 보기</a>
             </div>
         </section>
 
@@ -165,7 +364,7 @@
             </div>
         </section>
 
-        <section class="stats">
+        <section id="features" class="stats">
             <div class="container">
                 <h2 class="section-title" style="color: white;">The LJM Clockwork 핵심 수치</h2>
                 <div class="stats-grid">
@@ -191,43 +390,43 @@
 
         <section id="whitepaper" class="features">
             <div class="container">
-                <h2 class="section-title">POH 백서 (White Paper)</h2>
+                <h2 class="section-title">프로젝트 백서</h2>
                 
                 <div style="max-width: 900px; margin: 0 auto;">
                     <div class="info-card" style="margin-bottom: 2rem;">
                         <h3>📄 프로젝트 비전</h3>
                         <p style="margin-bottom: 1rem;">
-                            <strong>POH(President One Hour)</strong>는 단순한 디지털 토큰을 넘어서, 
-                            제21대 대통령 이재명님의 혁신적인 국정철학을 블록체인 기술로 구현한 
-                            역사적 의미를 가진 프로젝트입니다.
+                            <strong>The LJM Clockwork</strong>는 이재명 대통령의 친필메시지와 관련 IP를 
+                            XRP Ledger 기반의 디지털 자산(NFT)으로 변환하여 새로운 디지털 레거시 시장을 개척하는 
+                            혁신적인 프로젝트입니다.
                         </p>
                         <p>
-                            <em>"대통령이 1시간은 대한민국 국민 51,169,148명의 시간입니다"</em>라는 
-                            철학은 민주주의의 본질인 국민주권과 시간의 공평한 분배 개념을 
-                            디지털 자산으로 표현한 혁신적 접근입니다.
+                            강력한 지지자 그룹을 보유한 정치적 상징물을 '소유 가능한 디지털 자산'으로 
+                            구현하여 역사적 가치를 창출합니다.
                         </p>
                     </div>
 
                     <div class="features-grid">
                         <div class="feature-card">
-                            <div class="feature-icon">📊</div>
-                            <h3>경제적 모델</h3>
+                            <div class="feature-icon">💎</div>
+                            <h3>NFT 컬렉션</h3>
                             <ul style="text-align: left; margin-top: 1rem;">
-                                <li>총 발행량: 51,169,148,000 POH</li>
-                                <li>국민 1명당 1,000 POH 할당</li>
-                                <li>디플레이션 구조 (추가 발행 불가)</li>
-                                <li>XRPL 기반 저비용 거래</li>
+                                <li>총 5,800개 한정판</li>
+                                <li>LEGENDARY: 1개</li>
+                                <li>EPIC: 99개</li>
+                                <li>RARE: 700개</li>
+                                <li>COMMON: 5,000개</li>
                             </ul>
                         </div>
                         
                         <div class="feature-card">
-                            <div class="feature-icon">🎯</div>
-                            <h3>사회적 가치</h3>
+                            <div class="feature-icon">🪙</div>
+                            <h3>LOH 토큰</h3>
                             <ul style="text-align: left; margin-top: 1rem;">
-                                <li>시간 민주주의 실현</li>
-                                <li>국정철학의 디지털 보존</li>
-                                <li>국민 참여형 거버넌스</li>
-                                <li>미래 세대를 위한 유산</li>
+                                <li>Lee One Hour (LOH)</li>
+                                <li>총 51,169,148개 발행</li>
+                                <li>네이티브 유틸리티 토큰</li>
+                                <li>생태계 거버넌스 기능</li>
                             </ul>
                         </div>
                         
@@ -235,45 +434,21 @@
                             <div class="feature-icon">🔬</div>
                             <h3>기술적 구현</h3>
                             <ul style="text-align: left; margin-top: 1rem;">
-                                <li>XRP Ledger 블록체인</li>
-                                <li>3-5초 빠른 거래 처리</li>
-                                <li>친환경 에너지 효율성</li>
-                                <li>탈중앙화 투명성</li>
+                                <li>XRP Ledger 네이티브 NFT</li>
+                                <li>IPFS 분산 저장</li>
+                                <li>3-5초 빠른 거래</li>
+                                <li>극저비용 수수료</li>
                             </ul>
                         </div>
                     </div>
 
-                    <div class="info-card" style="margin-top: 2rem;">
-                        <h3>📈 로드맵</h3>
-                        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1rem; margin-top: 1rem;">
-                            <div>
-                                <strong>1단계 (2025 Q1)</strong><br>
-                                • 토큰 발행 및 배포<br>
-                                • 메타데이터 등록<br>
-                                • 공식 웹사이트 런칭
-                            </div>
-                            <div>
-                                <strong>2단계 (2025 Q2)</strong><br>
-                                • 커뮤니티 구축<br>
-                                • 거래소 상장 추진<br>
-                                • 파트너십 확대
-                            </div>
-                            <div>
-                                <strong>3단계 (2025 Q3-Q4)</strong><br>
-                                • DeFi 생태계 연동<br>
-                                • NFT 컬렉션 출시<br>
-                                • 글로벌 확산
-                            </div>
-                        </div>
-                    </div>
-
                     <div style="text-align: center; margin-top: 2rem;">
-                        <a href="#" class="cta-button" style="background: #003876; border: none; margin-right: 1rem;">
-                            📄 POH 백서 다운로드 (PDF)
-                        </a>
-                        <a href="#" class="cta-button" style="background: #CD212A; border: none;">
-                            🏛️ LJM Clockwork 백서 다운로드 (PDF)
-                        </a>
+                        <button onclick="showWhitepaper('ljm')" class="cta-button" style="background: #CD212A; border: none; margin-right: 1rem;">
+                            📄 LJM Clockwork 백서 보기
+                        </button>
+                        <button onclick="showWhitepaper('poh')" class="cta-button" style="background: #003876; border: none;">
+                            📄 POH 토큰 백서 보기
+                        </button>
                     </div>
                 </div>
             </div>
@@ -285,8 +460,7 @@
                 
                 <div style="max-width: 1000px; margin: 0 auto; text-align: center;">
                     <p style="font-size: 1.3rem; margin-bottom: 3rem; opacity: 0.9; line-height: 1.8;">
-                        POH 토큰은 단순한 암호화폐가 아닌, <strong>대한민국 제21대 대통령 시대의 디지털 유산</strong>을 
-                        영구적으로 보존하는 혁신적인 아카이빙 프로젝트입니다.
+                        이재명 대통령의 디지털 레거시를 영구적으로 보존하는 혁신적인 아카이빙 프로젝트입니다.
                     </p>
                 </div>
 
@@ -307,17 +481,7 @@
                             <li>대통령 연설문 및 정책 자료</li>
                             <li>국정 운영 철학과 비전</li>
                             <li>국민과의 소통 기록</li>
-                            <li>POH 토큰 생성 과정 전체 기록</li>
-                        </ul>
-                    </div>
-
-                    <div style="background: rgba(255, 255, 255, 0.1); padding: 2rem; border-radius: 15px; backdrop-filter: blur(10px);">
-                        <h3 style="color: #FFD700; margin-bottom: 1rem; font-size: 1.5rem;">🌐 글로벌 접근</h3>
-                        <ul style="text-align: left; line-height: 1.8;">
-                            <li>전 세계 어디서나 접근 가능</li>
-                            <li>다국어 번역 지원</li>
-                            <li>검열 불가능한 탈중앙화 저장</li>
-                            <li>학술 연구 및 교육 자료 제공</li>
+                            <li>친필메시지 디지털 보존</li>
                         </ul>
                     </div>
 
@@ -331,47 +495,12 @@
                         </ul>
                     </div>
                 </div>
-
-                <div style="background: rgba(255, 255, 255, 0.1); padding: 3rem; border-radius: 20px; margin-top: 3rem; backdrop-filter: blur(10px);">
-                    <h3 style="color: #FFD700; margin-bottom: 2rem; font-size: 1.8rem;">📖 아카이브 액세스 방법</h3>
-                    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 2rem;">
-                        <div>
-                            <strong style="color: white;">🔍 검색 기능</strong><br>
-                            키워드, 날짜, 카테고리별<br>
-                            스마트 검색 지원
-                        </div>
-                        <div>
-                            <strong style="color: white;">📱 모바일 앱</strong><br>
-                            언제 어디서나<br>
-                            아카이브 접근 가능
-                        </div>
-                        <div>
-                            <strong style="color: white;">🎓 교육 플랫폼</strong><br>
-                            학교, 연구기관<br>
-                            교육 자료 제공
-                        </div>
-                        <div>
-                            <strong style="color: white;">🌍 API 서비스</strong><br>
-                            개발자, 연구자<br>
-                            데이터 활용 지원
-                        </div>
-                    </div>
-                </div>
-
-                <div style="text-align: center; margin-top: 3rem;">
-                    <p style="font-size: 1.2rem; opacity: 0.9; margin-bottom: 2rem;">
-                        "기술로 역사를 보존하고, 블록체인으로 미래를 연결합니다"
-                    </p>
-                    <a href="#" class="cta-button">
-                        🏛️ 디지털 아카이브 탐방하기
-                    </a>
-                </div>
             </div>
         </section>
 
         <section id="loh-token" class="features">
             <div class="container">
-                <h2 class="section-title">LOH 토큰 - 이재명 원 아워</h2>
+                <h2 class="section-title">LOH 토큰 - Lee One Hour</h2>
                 
                 <div style="text-align: center; margin-bottom: 3rem;">
                     <div style="display: inline-block; padding: 2rem; background: linear-gradient(135deg, #FFD700, #FFA500); border-radius: 50%; margin-bottom: 2rem;">
@@ -391,7 +520,7 @@
                         <ul style="text-align: left; margin-top: 1rem; line-height: 1.8;">
                             <li><strong>토큰명:</strong> LOH (Lee One Hour)</li>
                             <li><strong>블록체인:</strong> XRP Ledger (XRPL)</li>
-                            <li><strong>총 발행량:</strong> 510,169,148개</li>
+                            <li><strong>총 발행량:</strong> 51,169,148개</li>
                             <li><strong>소수점:</strong> 6자리</li>
                         </ul>
                     </div>
@@ -420,7 +549,7 @@
                 </div>
 
                 <div style="background: linear-gradient(135deg, #003876, #CD212A); padding: 3rem; border-radius: 20px; color: white; text-align: center; margin-top: 3rem;">
-                    <h3 style="font-size: 1.8rem; margin-bottom: 2rem; color: #FFD700;">📊 LOH 토큰 발행 계획</h3>
+                    <h3 style="font-size: 1.8rem; margin-bottom: 2rem; color: #FFD700;">📊 LOH 토큰 발행 정보</h3>
                     
                     <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 2rem; margin-bottom: 2rem;">
                         <div style="background: rgba(255, 255, 255, 0.1); padding: 1.5rem; border-radius: 10px;">
@@ -432,7 +561,7 @@
                             <div>대한민국 국민 수</div>
                         </div>
                         <div style="background: rgba(255, 255, 255, 0.1); padding: 1.5rem; border-radius: 10px;">
-                            <div style="font-size: 2rem; font-weight: bold; color: #FFD700;">×1</div>
+                            <div style="font-size: 2rem; font-weight: bold; color: #FFD700;">1:1</div>
                             <div>국민 1명당 1개</div>
                         </div>
                         <div style="background: rgba(255, 255, 255, 0.1); padding: 1.5rem; border-radius: 10px;">
@@ -443,36 +572,8 @@
 
                     <p style="font-size: 1.2rem; opacity: 0.9; line-height: 1.8;">
                         LOH 토큰은 이재명 대통령의 1시간이 대한민국 국민 51,169,148명과 같다는<br>
-                        상징적 의미를 바탕으로 설계된 네이티브 유틸리티 토큰입니다.<br>
-                        각 토큰은 대통령과 국민이 공유하는 소중한 시간의 가치를 나타냅니다.
+                        상징적 의미를 바탕으로 설계된 네이티브 유틸리티 토큰입니다.
                     </p>
-
-                    <div style="margin-top: 2rem;">
-                        <a href="#" class="cta-button" style="background: #FFD700; color: #003876; border: none; font-weight: bold;">
-                            🪙 LOH 토큰 자세히 보기
-                        </a>
-                    </div>
-                </div>
-
-                <div style="margin-top: 3rem; padding: 2rem; background: #f8f9fa; border-radius: 15px;">
-                    <h3 style="color: #003876; text-align: center; margin-bottom: 2rem;">🔗 연관 프로젝트</h3>
-                    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 2rem;">
-                        <div style="text-align: center;">
-                            <h4 style="color: #CD212A;">LJM Clockwork NFT</h4>
-                            <p>5,800개 한정판 디지털 레거시 컬렉션</p>
-                            <div class="badge">메인 프로젝트</div>
-                        </div>
-                        <div style="text-align: center;">
-                            <h4 style="color: #CD212A;">LOH 토큰</h4>
-                            <p>Lee One Hour - 생태계 네이티브 유틸리티 토큰</p>
-                            <div class="badge">유틸리티 토큰</div>
-                        </div>
-                        <div style="text-align: center;">
-                            <h4 style="color: #CD212A;">Digital Archiving</h4>
-                            <p>이재명 대통령 친필메시지 영구 보존</p>
-                            <div class="badge">아카이빙 시스템</div>
-                        </div>
-                    </div>
                 </div>
             </div>
         </section>
@@ -481,44 +582,52 @@
             <div class="container">
                 <h2 class="section-title">핵심 기술</h2>
                 
-                <div class="features-grid">
-                    <div class="feature-card">
-                        <div class="feature-icon">⚡</div>
-                        <h3>XRP Ledger 네이티브 NFT</h3>
-                        <p>스마트 컨트랙트 없이도 안전하고 효율적인 NFT 발행이 가능한 XRPL의 네이티브 NFT 기술을 활용합니다.</p>
+                <div style="max-width: 1000px; margin: 0 auto;">
+                    <div style="text-align: center; margin-bottom: 3rem;">
+                        <p style="font-size: 1.2rem; color: #666; line-height: 1.8;">
+                            YesOkLab의 혁신적인 기술력으로 구현되는 세계 최고 수준의 디지털 헤리티지 시스템
+                        </p>
                     </div>
-                    
-                    <div class="feature-card">
-                        <div class="feature-icon">🔒</div>
-                        <h3>IPFS 분산 저장</h3>
-                        <p>이미지와 메타데이터를 IPFS(InterPlanetary File System)에 저장하여 영구적이고 검열 저항적인 보존을 보장합니다.</p>
-                    </div>
-                    
-                    <div class="feature-card">
-                        <div class="feature-icon">🚀</div>
-                        <h3>고속 거래 처리</h3>
-                        <p>3-5초 내 거래 완료와 극저비용 수수료(0.00001 XRP)로 사용자 경험을 최적화합니다.</p>
-                    </div>
-                </div>
 
-                <div style="background: #f8f9fa; padding: 3rem; border-radius: 20px; margin-top: 3rem;">
-                    <h3 style="color: #003876; text-align: center; margin-bottom: 2rem;">🛠️ 기술 스택</h3>
-                    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 2rem;">
-                        <div style="text-align: center; padding: 1rem;">
-                            <h4 style="color: #CD212A;">블록체인</h4>
-                            <p>XRP Ledger<br>Consensus Protocol</p>
+                    <div class="features-grid">
+                        <div class="feature-card">
+                            <div class="feature-icon">⚡</div>
+                            <h3>XRP Ledger 네이티브</h3>
+                            <p>스마트 컨트랙트 없이도 안전하고 효율적인 NFT 발행이 가능한 XRPL의 네이티브 NFT 기술을 활용합니다.</p>
                         </div>
-                        <div style="text-align: center; padding: 1rem;">
-                            <h4 style="color: #CD212A;">저장</h4>
-                            <p>IPFS<br>Pinata Cloud</p>
+                        
+                        <div class="feature-card">
+                            <div class="feature-icon">🔒</div>
+                            <h3>IPFS 분산 저장</h3>
+                            <p>이미지와 메타데이터를 IPFS에 저장하여 영구적이고 검열 저항적인 보존을 보장합니다.</p>
                         </div>
-                        <div style="text-align: center; padding: 1rem;">
-                            <h4 style="color: #CD212A;">개발</h4>
-                            <p>XRPL.js<br>Python SDK</p>
+                        
+                        <div class="feature-card">
+                            <div class="feature-icon">🚀</div>
+                            <h3>고속 거래 처리</h3>
+                            <p>3-5초 내 거래 완료와 극저비용 수수료로 최적화된 사용자 경험을 제공합니다.</p>
                         </div>
-                        <div style="text-align: center; padding: 1rem;">
-                            <h4 style="color: #CD212A;">도구</h4>
-                            <p>XRPL Labs Tools<br>Xaman Wallet</p>
+                    </div>
+
+                    <div style="background: #f8f9fa; padding: 3rem; border-radius: 20px; margin-top: 3rem;">
+                        <h3 style="color: #003876; text-align: center; margin-bottom: 2rem;">🛠️ 기술 스택</h3>
+                        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 2rem;">
+                            <div style="text-align: center; padding: 1rem;">
+                                <h4 style="color: #CD212A;">블록체인</h4>
+                                <p>XRP Ledger<br>Consensus Protocol</p>
+                            </div>
+                            <div style="text-align: center; padding: 1rem;">
+                                <h4 style="color: #CD212A;">저장소</h4>
+                                <p>IPFS<br>Pinata Cloud</p>
+                            </div>
+                            <div style="text-align: center; padding: 1rem;">
+                                <h4 style="color: #CD212A;">개발 도구</h4>
+                                <p>XRPL.js<br>Python SDK</p>
+                            </div>
+                            <div style="text-align: center; padding: 1rem;">
+                                <h4 style="color: #CD212A;">민팅 도구</h4>
+                                <p>XRPL Labs Tools<br>Xaman Wallet</p>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -529,41 +638,57 @@
             <div class="container">
                 <h2 class="section-title" style="color: white;">연락처 & 커뮤니티</h2>
                 
-                <div style="max-width: 800px; margin: 0 auto; text-align: center;">
-                    <div style="background: rgba(255, 255, 255, 0.1); padding: 3rem; border-radius: 20px; backdrop-filter: blur(10px); margin-bottom: 3rem;">
-                        <h3 style="color: #FFD700; margin-bottom: 2rem;">🏢 YesOkLab</h3>
-                        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 2rem; text-align: left;">
-                            <div>
-                                <strong style="color: #FFD700;">회사 정보</strong><br>
-                                사업자번호: 405-06-22481<br>
-                                업태: 정보통신업<br>
-                                종목: 포털 및 인터넷 매개 서비스업
+                <div style="max-width: 1000px; margin: 0 auto;">
+                    <div style="background: rgba(255, 255, 255, 0.1); padding: 3rem; border-radius: 20px; backdrop-filter: blur(10px); margin-bottom: 3rem; text-align: center;">
+                        <h3 style="color: #FFD700; margin-bottom: 2rem; font-size: 1.8rem;">🏢 YesOkLab</h3>
+                        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 3rem;">
+                            <div style="background: rgba(255, 255, 255, 0.1); padding: 2rem; border-radius: 15px;">
+                                <h4 style="color: #FFD700; margin-bottom: 1rem;">회사 정보</h4>
+                                <p style="line-height: 1.6; text-align: left;">
+                                    <strong>회사명:</strong> YesOkLab<br>
+                                    <strong>사업자번호:</strong> 405-06-22481<br>
+                                    <strong>업태:</strong> 정보통신업<br>
+                                    <strong>종목:</strong> 포털 및 인터넷 매개 서비스업
+                                </p>
                             </div>
-                            <div>
-                                <strong style="color: #FFD700;">연락처</strong><br>
-                                이메일: YesOkLab@gmail.com<br>
-                                웹사이트: www.ljmsider.com<br>
-                                주소: 전북 전주시 완산구 현무3길 9-70
+                            <div style="background: rgba(255, 255, 255, 0.1); padding: 2rem; border-radius: 15px;">
+                                <h4 style="color: #FFD700; margin-bottom: 1rem;">연락처</h4>
+                                <p style="line-height: 1.6; text-align: left;">
+                                    <strong>이메일:</strong> YesOkLab@gmail.com<br>
+                                    <strong>웹사이트:</strong> www.ljmsider.com<br>
+                                    <strong>주소:</strong> 전북 전주시 완산구<br>현무3길 9-70
+                                </p>
                             </div>
                         </div>
                     </div>
 
-                    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 2rem;">
-                        <div style="background: rgba(255, 255, 255, 0.1); padding: 2rem; border-radius: 15px;">
-                            <h4 style="color: #FFD700; margin-bottom: 1rem;">📧 이메일</h4>
+                    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 2rem;">
+                        <div style="background: rgba(255, 255, 255, 0.1); padding: 2rem; border-radius: 15px; text-align: center;">
+                            <div style="font-size: 2rem; margin-bottom: 1rem;">📧</div>
+                            <h4 style="color: #FFD700; margin-bottom: 1rem;">이메일 문의</h4>
                             <p>YesOkLab@gmail.com</p>
+                            <p style="font-size: 0.9rem; opacity: 0.8;">프로젝트 관련 모든 문의</p>
                         </div>
-                        <div style="background: rgba(255, 255, 255, 0.1); padding: 2rem; border-radius: 15px;">
-                            <h4 style="color: #FFD700; margin-bottom: 1rem;">🌐 웹사이트</h4>
-                            <p>www.ljmsider.com</p>
-                        </div>
-                        <div style="background: rgba(255, 255, 255, 0.1); padding: 2rem; border-radius: 15px;">
-                            <h4 style="color: #FFD700; margin-bottom: 1rem;">📱 텔레그램</h4>
-                            <p>t.me/YesOkLab_NFT</p>
-                        </div>
-                        <div style="background: rgba(255, 255, 255, 0.1); padding: 2rem; border-radius: 15px;">
-                            <h4 style="color: #FFD700; margin-bottom: 1rem;">🐦 트위터</h4>
+                        
+                        <div style="background: rgba(255, 255, 255, 0.1); padding: 2rem; border-radius: 15px; text-align: center;">
+                            <div style="font-size: 2rem; margin-bottom: 1rem;">🐦</div>
+                            <h4 style="color: #FFD700; margin-bottom: 1rem;">트위터</h4>
                             <p>@YesOkLab</p>
+                            <p style="font-size: 0.9rem; opacity: 0.8;">최신 소식 및 업데이트</p>
+                        </div>
+                        
+                        <div style="background: rgba(255, 255, 255, 0.1); padding: 2rem; border-radius: 15px; text-align: center;">
+                            <div style="font-size: 2rem; margin-bottom: 1rem;">📱</div>
+                            <h4 style="color: #FFD700; margin-bottom: 1rem;">텔레그램</h4>
+                            <p>t.me/YesOkLab_NFT</p>
+                            <p style="font-size: 0.9rem; opacity: 0.8;">커뮤니티 참여</p>
+                        </div>
+                        
+                        <div style="background: rgba(255, 255, 255, 0.1); padding: 2rem; border-radius: 15px; text-align: center;">
+                            <div style="font-size: 2rem; margin-bottom: 1rem;">📝</div>
+                            <h4 style="color: #FFD700; margin-bottom: 1rem;">네이버 블로그</h4>
+                            <p>naver.me/5TQSW1qE</p>
+                            <p style="font-size: 0.9rem; opacity: 0.8;">개발 일지 및 뉴스</p>
                         </div>
                     </div>
                 </div>
@@ -623,9 +748,9 @@
             <div class="footer-content">
                 <div class="footer-section">
                     <h3>YesOkLab 프로젝트</h3>
-                    <p>POH 토큰 (President One Hour)<br>
+                    <p>The LJM Clockwork NFT<br>
                     LOH 토큰 (Lee One Hour)<br>
-                    LJM Clockwork NFT</p>
+                    Digital Heritage Archiving</p>
                 </div>
                 <div class="footer-section">
                     <h3>블록체인 정보</h3>
@@ -648,5 +773,150 @@
             </div>
         </div>
     </footer>
+
+    <script>
+        // 백서 보기 기능
+        function showWhitepaper(type) {
+            if (type === 'ljm') {
+                const ljmContent = `
+                <h2>Project LJM Clockwork: 디지털 유산 아카이빙 화이트페이퍼</h2>
+                <p><strong>버전:</strong> 1.1 (업데이트)</p>
+                <p><strong>날짜:</strong> 2025년 7월 8일</p>
+                <p><strong>발행:</strong> YesOkLab</p>
+                
+                <h3>1. 서론: 디지털 시대의 유산 보존</h3>
+                <p>인류의 역사와 문화는 끊임없이 기록되고 전승되어 왔습니다. 'The LJM Clockwork'는 블록체인 기술을 활용해 사회적으로 가치 있는 기록과 유산을 디지털 자산(NFT)으로 영구히 보존하고, 이를 대중에게 확산시키는 것을 목표로 합니다.</p>
+                
+                <h3>2. 프로젝트 비전 및 목표</h3>
+                <p><strong>비전:</strong> 블록체인 기술을 통해 인류의 소중한 기록과 유산을 디지털 자산으로 영구히 보존하고, 이를 통해 새로운 형태의 문화적, 사회적 가치를 창출하는 디지털 레거시 생태계를 구축한다.</p>
+                
+                <h3>3. NFT 등급 및 배포 계획</h3>
+                <ul>
+                    <li><strong>총 발행량:</strong> 5,800개</li>
+                    <li><strong>LEGENDARY (1개):</strong> 프로젝트의 상징적인 유산</li>
+                    <li><strong>EPIC (99개):</strong> 희소성이 높은 유산</li>
+                    <li><strong>RARE (700개):</strong> 고유한 가치를 지닌 유산</li>
+                    <li><strong>COMMON (5,000개):</strong> 스마트워치 페이스로 제작</li>
+                </ul>
+                
+                <h3>4. LOH 토큰 경제학</h3>
+                <ul>
+                    <li><strong>토큰명:</strong> LOH (Lee One Hour)</li>
+                    <li><strong>총 발행량:</strong> 51,169,148개</li>
+                    <li><strong>의미:</strong> 이재명 대통령의 1시간이 대한민국 국민 51,169,148명과 같다는 상징적 의미</li>
+                </ul>
+                
+                <p><strong>연락처:</strong><br>
+                YesOkLab - YesOkLab@gmail.com<br>
+                웹사이트: www.ljmsider.com</p>
+                `;
+                showModal(ljmContent);
+            } else if (type === 'poh') {
+                const pohContent = `
+                <h2>POH (President One Hour) 토큰 백서</h2>
+                <p><strong>발행:</strong> YesOkLab</p>
+                <p><strong>날짜:</strong> 2025년</p>
+                
+                <h3>1. 프로젝트 개요</h3>
+                <p>POH(President One Hour)는 제21대 대통령 이재명님의 국정철학과 "대통령이 1시간은 대한민국 국민 51,169,148명의 시간입니다"를 상징하는 특별한 XRPL 기반 토큰입니다.</p>
+                
+                <h3>2. 토큰 정보</h3>
+                <ul>
+                    <li><strong>토큰명:</strong> President One Hour (POH)</li>
+                    <li><strong>블록체인:</strong> XRP Ledger (XRPL)</li>
+                    <li><strong>발행자:</strong> r95GJxcghgMyQXittPHjYZvGUMWfVwtzPs</li>
+                    <li><strong>운영지갑:</strong> rMg969ypN8n1TXJe4ipAkZrJj13a1ZZqwD</li>
+                </ul>
+                
+                <h3>3. 철학과 의미</h3>
+                <p>POH 토큰은 시간의 민주적 분배라는 혁신적 개념을 블록체인으로 구현한 프로젝트입니다. 대통령의 소중한 1시간이 온 국민의 시간과 같다는 깊은 철학적 의미를 담고 있습니다.</p>
+                
+                <h3>4. 기술 사양</h3>
+                <ul>
+                    <li><strong>블록체인:</strong> XRP Ledger</li>
+                    <li><strong>컨센서스:</strong> RPCA (Ripple Protocol Consensus)</li>
+                    <li><strong>거래 속도:</strong> 3-5초</li>
+                    <li><strong>수수료:</strong> 극저비용 (0.00001 XRP)</li>
+                </ul>
+                
+                <p><strong>연락처:</strong><br>
+                YesOkLab - YesOkLab@gmail.com<br>
+                웹사이트: www.ljmsider.com</p>
+                `;
+                showModal(pohContent);
+            }
+        }
+
+        function showModal(content) {
+            const modal = document.createElement('div');
+            modal.style.cssText = `
+                position: fixed;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                background: rgba(0, 0, 0, 0.8);
+                z-index: 10000;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                padding: 20px;
+                box-sizing: border-box;
+            `;
+
+            const modalContent = document.createElement('div');
+            modalContent.style.cssText = `
+                background: white;
+                border-radius: 15px;
+                padding: 30px;
+                max-width: 800px;
+                max-height: 80vh;
+                overflow-y: auto;
+                position: relative;
+                box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            `;
+
+            const closeButton = document.createElement('button');
+            closeButton.innerHTML = '✕';
+            closeButton.style.cssText = `
+                position: absolute;
+                top: 15px;
+                right: 20px;
+                background: none;
+                border: none;
+                font-size: 24px;
+                cursor: pointer;
+                color: #666;
+            `;
+
+            closeButton.onclick = () => document.body.removeChild(modal);
+            modal.onclick = (e) => {
+                if (e.target === modal) document.body.removeChild(modal);
+            };
+
+            modalContent.innerHTML = content;
+            modalContent.appendChild(closeButton);
+            modal.appendChild(modalContent);
+            document.body.appendChild(modal);
+        }
+
+        // 부드러운 스크롤 효과
+        document.addEventListener('DOMContentLoaded', function() {
+            const links = document.querySelectorAll('a[href^="#"]');
+            links.forEach(link => {
+                link.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    const targetId = this.getAttribute('href');
+                    const targetElement = document.querySelector(targetId);
+                    if (targetElement) {
+                        targetElement.scrollIntoView({
+                            behavior: 'smooth',
+                            block: 'start'
+                        });
+                    }
+                });
+            });
+        });
+    </script>
 </body>
 </html>
