@@ -1,0 +1,21 @@
+{
+  "name": "LOH Token Official List",
+  "version": {
+    "major": 1,
+    "minor": 0,
+    "patch": 0
+  },
+  "logoURI": "https://raw.githubusercontent.com/yesoklab/YesOkLab.github.io/main/loh_logo.svg",
+  "keywords": ["polygon", "loh", "clockwork", "defi", "nft", "lee-jae-myung"],
+  "tokens": [
+    {
+      "chainId": 137,
+      "address": "0x55f16708a0c7BcB40F2138f836e87733D0636C8e",
+      "name": "LOH Token - Project LJM Clockwork",
+      "symbol": "LOH",
+      "decimals": 18,
+      "logoURI": "https://raw.githubusercontent.com/yesoklab/YesOkLab.github.io/main/loh_logo.svg",
+      "tags": ["polygon", "verified", "mainnet", "clockwork", "lee-jae-myung"]
+    }
+  ]
+}
