@@ -1,0 +1,569 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LOH Token List | YesOkLab Foundation</title>
+    <meta name="description" content="LOH Token technical specifications and contract information for developers and integrators">
+    
+    <!-- Open Graph / Social Media -->
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="LOH Token List | YesOkLab Foundation">
+    <meta property="og:description" content="LOH Token technical specifications and contract information">
+    <meta property="og:image" content="https://raw.githubusercontent.com/yesoklab/YesOkLab.github.io/main/yesoklab-logo.png">
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="yesoklab-logo.png">
+    
+    <!-- Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            line-height: 1.6;
+            color: #2c3e50;
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            background: white;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.1);
+            border-radius: 0;
+            overflow: hidden;
+        }
+
+        /* Header */
+        .header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 3rem 0;
+            text-align: center;
+        }
+
+        .logo-section {
+            margin-bottom: 2rem;
+        }
+
+        .company-logo {
+            width: 80px;
+            height: 80px;
+            margin-bottom: 1rem;
+        }
+
+        .company-title {
+            font-size: 2rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+        }
+
+        .company-tagline {
+            font-size: 1rem;
+            opacity: 0.9;
+            margin-bottom: 2rem;
+        }
+
+        .project-logo {
+            width: 60px;
+            height: 60px;
+            margin-bottom: 1rem;
+        }
+
+        .page-title {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+        }
+
+        .page-subtitle {
+            font-size: 1.1rem;
+            opacity: 0.9;
+        }
+
+        /* Navigation */
+        .nav-back {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 1rem;
+            text-align: center;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .back-link {
+            color: white;
+            text-decoration: none;
+            font-weight: 500;
+            transition: opacity 0.3s ease;
+        }
+
+        .back-link:hover {
+            opacity: 0.8;
+        }
+
+        /* Content */
+        .content {
+            padding: 3rem;
+        }
+
+        .section {
+            margin-bottom: 3rem;
+        }
+
+        h2 {
+            font-size: 2rem;
+            color: #34495e;
+            margin: 2rem 0 1rem 0;
+            border-left: 4px solid #667eea;
+            padding-left: 1rem;
+        }
+
+        h3 {
+            font-size: 1.5rem;
+            color: #2c3e50;
+            margin: 1.5rem 0 1rem 0;
+        }
+
+        /* Token Overview Cards */
+        .token-overview {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+            margin: 2rem 0;
+        }
+
+        .overview-card {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 2rem;
+            border-radius: 15px;
+            text-align: center;
+        }
+
+        .overview-number {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+        }
+
+        .overview-label {
+            font-size: 1rem;
+            opacity: 0.9;
+        }
+
+        /* Contract Table */
+        .contract-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 2rem 0;
+            background: white;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+        }
+
+        .contract-table th,
+        .contract-table td {
+            padding: 1.5rem;
+            text-align: left;
+            border-bottom: 1px solid #e9ecef;
+        }
+
+        .contract-table th {
+            background: #667eea;
+            color: white;
+            font-weight: 600;
+            font-size: 1.1rem;
+        }
+
+        .contract-table tr:hover {
+            background: #f8f9fa;
+        }
+
+        .contract-address {
+            font-family: 'Courier New', monospace;
+            background: #f8f9fa;
+            padding: 0.5rem;
+            border-radius: 5px;
+            font-size: 0.9rem;
+            word-break: break-all;
+        }
+
+        .network-badge {
+            background: #27ae60;
+            color: white;
+            padding: 0.3rem 0.8rem;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 600;
+        }
+
+        .xrpl-badge {
+            background: #3498db;
+        }
+
+        /* JSON Download Section */
+        .download-section {
+            background: #f8f9fa;
+            padding: 2rem;
+            border-radius: 15px;
+            margin: 2rem 0;
+            text-align: center;
+        }
+
+        .download-btn {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 1rem 2rem;
+            border: none;
+            border-radius: 10px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            transition: transform 0.3s ease;
+            cursor: pointer;
+        }
+
+        .download-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 25px rgba(102, 126, 234, 0.3);
+        }
+
+        /* Technical Specs */
+        .spec-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1.5rem;
+            margin: 2rem 0;
+        }
+
+        .spec-card {
+            background: white;
+            border: 1px solid #e9ecef;
+            border-radius: 10px;
+            padding: 1.5rem;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+        }
+
+        .spec-title {
+            font-weight: 600;
+            color: #667eea;
+            margin-bottom: 1rem;
+            font-size: 1.1rem;
+        }
+
+        .spec-list {
+            list-style: none;
+        }
+
+        .spec-list li {
+            padding: 0.5rem 0;
+            border-bottom: 1px solid #f8f9fa;
+        }
+
+        .spec-list li:last-child {
+            border-bottom: none;
+        }
+
+        .spec-label {
+            font-weight: 500;
+            color: #2c3e50;
+        }
+
+        .spec-value {
+            color: #7f8c8d;
+            margin-left: 10px;
+        }
+
+        /* Integration Guide */
+        .integration-box {
+            background: #fff3cd;
+            border: 1px solid #ffeaa7;
+            padding: 2rem;
+            border-radius: 10px;
+            margin: 2rem 0;
+        }
+
+        .integration-box h3 {
+            color: #f39c12;
+            margin-top: 0;
+        }
+
+        .code-block {
+            background: #2c3e50;
+            color: #ecf0f1;
+            padding: 1rem;
+            border-radius: 8px;
+            font-family: 'Courier New', monospace;
+            font-size: 0.9rem;
+            margin: 1rem 0;
+            overflow-x: auto;
+        }
+
+        /* Footer */
+        .footer {
+            background: #2c3e50;
+            color: white;
+            text-align: center;
+            padding: 2rem;
+        }
+
+        .footer-links {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            margin-bottom: 1rem;
+            flex-wrap: wrap;
+        }
+
+        .footer-links a {
+            color: white;
+            text-decoration: none;
+            transition: opacity 0.3s ease;
+        }
+
+        .footer-links a:hover {
+            opacity: 0.8;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .content {
+                padding: 2rem 1.5rem;
+            }
+            
+            .page-title {
+                font-size: 2rem;
+            }
+            
+            .company-title {
+                font-size: 1.5rem;
+            }
+            
+            .token-overview {
+                grid-template-columns: 1fr;
+            }
+            
+            .contract-table th,
+            .contract-table td {
+                padding: 1rem;
+                font-size: 0.9rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Header -->
+        <header class="header">
+            <div class="nav-back">
+                <a href="/" class="back-link">
+                    <i class="fas fa-arrow-left"></i> Back to Homepage
+                </a>
+            </div>
+            
+            <div class="logo-section">
+                <img src="yesoklab-logo.png" alt="YesOkLab" class="company-logo">
+                <h1 class="company-title">YesOkLab Foundation</h1>
+                <p class="company-tagline">Innovation Through Blockchain Technology</p>
+                
+                <img src="https://raw.githubusercontent.com/yesoklab/YesOkLab.github.io/main/loh_logo.svg.svg" alt="LOH Token" class="project-logo">
+            </div>
+            
+            <h1 class="page-title">LOH TOKEN LIST</h1>
+            <p class="page-subtitle">Technical Specifications & Contract Information</p>
+        </header>
+
+        <!-- Content -->
+        <main class="content">
+            <!-- Token Overview -->
+            <section class="section">
+                <h2>Token Overview</h2>
+                <div class="token-overview">
+                    <div class="overview-card">
+                        <div class="overview-number">LOH</div>
+                        <div class="overview-label">Token Symbol</div>
+                    </div>
+                    <div class="overview-card">
+                        <div class="overview-number">51.1M</div>
+                        <div class="overview-label">Total Supply</div>
+                    </div>
+                    <div class="overview-card">
+                        <div class="overview-number">18</div>
+                        <div class="overview-label">Decimals</div>
+                    </div>
+                    <div class="overview-card">
+                        <div class="overview-number">Multi-Chain</div>
+                        <div class="overview-label">Deployment</div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Contract Information -->
+            <section class="section">
+                <h2>Smart Contract Addresses</h2>
+                <table class="contract-table">
+                    <thead>
+                        <tr>
+                            <th>Network</th>
+                            <th>Contract Type</th>
+                            <th>Address</th>
+                            <th>Chain ID</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><span class="network-badge">Polygon</span></td>
+                            <td>LOH Token</td>
+                            <td><div class="contract-address">0x55f16708a0c7BcB40F2138f836e87733D0636C8e</div></td>
+                            <td>137</td>
+                        </tr>
+                        <tr>
+                            <td><span class="network-badge">Polygon</span></td>
+                            <td>NFT Collection</td>
+                            <td><div class="contract-address">0xa71AdF7D1cE8Bee951F694eEd325c2B34B2794D8</div></td>
+                            <td>137</td>
+                        </tr>
+                        <tr>
+                            <td><span class="network-badge xrpl-badge">XRPL</span></td>
+                            <td>LOH Token</td>
+                            <td><div class="contract-address">rN7n7otQDd6FczFgLdSqtcsAUxDkw6fzRH</div></td>
+                            <td>1440002</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </section>
+
+            <!-- Technical Specifications -->
+            <section class="section">
+                <h2>Technical Specifications</h2>
+                <div class="spec-grid">
+                    <div class="spec-card">
+                        <div class="spec-title">Token Details</div>
+                        <ul class="spec-list">
+                            <li><span class="spec-label">Name:</span><span class="spec-value">Legacy of Hope</span></li>
+                            <li><span class="spec-label">Symbol:</span><span class="spec-value">LOH</span></li>
+                            <li><span class="spec-label">Total Supply:</span><span class="spec-value">51,169,148</span></li>
+                            <li><span class="spec-label">Decimals:</span><span class="spec-value">18</span></li>
+                            <li><span class="spec-label">Type:</span><span class="spec-value">Utility Token</span></li>
+                        </ul>
+                    </div>
+                    
+                    <div class="spec-card">
+                        <div class="spec-title">Polygon Network</div>
+                        <ul class="spec-list">
+                            <li><span class="spec-label">Standard:</span><span class="spec-value">ERC-20</span></li>
+                            <li><span class="spec-label">Chain ID:</span><span class="spec-value">137</span></li>
+                            <li><span class="spec-label">RPC URL:</span><span class="spec-value">https://polygon-rpc.com</span></li>
+                            <li><span class="spec-label">Explorer:</span><span class="spec-value">PolygonScan</span></li>
+                            <li><span class="spec-label">Currency:</span><span class="spec-value">MATIC</span></li>
+                        </ul>
+                    </div>
+                    
+                    <div class="spec-card">
+                        <div class="spec-title">XRPL Network</div>
+                        <ul class="spec-list">
+                            <li><span class="spec-label">Ledger:</span><span class="spec-value">XRP Ledger</span></li>
+                            <li><span class="spec-label">Network ID:</span><span class="spec-value">1440002</span></li>
+                            <li><span class="spec-label">Fee:</span><span class="spec-value">0.00001 XRP</span></li>
+                            <li><span class="spec-label">Explorer:</span><span class="spec-value">xrpscan.com</span></li>
+                            <li><span class="spec-label">Consensus:</span><span class="spec-value">Ripple Protocol</span></li>
+                        </ul>
+                    </div>
+                    
+                    <div class="spec-card">
+                        <div class="spec-title">Project Information</div>
+                        <ul class="spec-list">
+                            <li><span class="spec-label">Website:</span><span class="spec-value">yesoklab.github.io</span></li>
+                            <li><span class="spec-label">Email:</span><span class="spec-value">YesOkLab@gmail.com</span></li>
+                            <li><span class="spec-label">Twitter:</span><span class="spec-value">@YesOkLAB</span></li>
+                            <li><span class="spec-label">Telegram:</span><span class="spec-value">t.me/YesOkLab</span></li>
+                            <li><span class="spec-label">Version:</span><span class="spec-value">2.0</span></li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Developer Resources -->
+            <section class="section">
+                <h2>Developer Resources</h2>
+                
+                <div class="download-section">
+                    <h3>Download Token List JSON</h3>
+                    <p>Standard token list format for wallet and DEX integrations</p>
+                    <a href="token-list.json" download class="download-btn">
+                        <i class="fas fa-download"></i> Download JSON File
+                    </a>
+                </div>
+
+                <div class="integration-box">
+                    <h3><i class="fas fa-code"></i> Integration Example</h3>
+                    <p>Add LOH Token to your wallet or application:</p>
+                    <div class="code-block">
+{
+  "name": "Legacy of Hope",
+  "symbol": "LOH",
+  "decimals": 18,
+  "chainId": 137,
+  "address": "0x55f16708a0c7BcB40F2138f836e87733D0636C8e",
+  "logoURI": "https://raw.githubusercontent.com/yesoklab/YesOkLab.github.io/main/loh_logo.svg.svg"
+}
+                    </div>
+                </div>
+            </section>
+
+            <!-- External Links -->
+            <section class="section">
+                <h2>External Links & Verification</h2>
+                <div class="spec-grid">
+                    <div class="spec-card">
+                        <div class="spec-title">Polygon Network</div>
+                        <ul class="spec-list">
+                            <li><a href="https://polygonscan.com/address/0x55f16708a0c7BcB40F2138f836e87733D0636C8e" target="_blank">View on PolygonScan</a></li>
+                            <li><a href="https://polygonscan.com/address/0xa71AdF7D1cE8Bee951F694eEd325c2B34B2794D8" target="_blank">NFT Contract</a></li>
+                        </ul>
+                    </div>
+                    
+                    <div class="spec-card">
+                        <div class="spec-title">XRPL Network</div>
+                        <ul class="spec-list">
+                            <li><a href="https://xrpscan.com/account/rN7n7otQDd6FczFgLdSqtcsAUxDkw6fzRH" target="_blank">View on XRPScan</a></li>
+                        </ul>
+                    </div>
+                    
+                    <div class="spec-card">
+                        <div class="spec-title">Documentation</div>
+                        <ul class="spec-list">
+                            <li><a href="./whitepaper.html">Technical Whitepaper</a></li>
+                            <li><a href="https://github.com/yesoklab/YesOkLab.github.io" target="_blank">GitHub Repository</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+        </main>
+
+        <!-- Footer -->
+        <footer class="footer">
+            <div class="footer-links">
+                <a href="/">Homepage</a>
+                <a href="./whitepaper.html">Whitepaper</a>
+                <a href="https://github.com/yesoklab/YesOkLab.github.io" target="_blank">GitHub</a>
+                <a href="mailto:YesOkLab@gmail.com">Contact</a>
+            </div>
+            <p>&copy; 2025 YesOkLab Foundation. All rights reserved.</p>
+            <p>Last Updated: July 2024 | Version: 2.0</p>
+        </footer>
+    </div>
+</body>
+</html>
