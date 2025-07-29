@@ -1,9 +1,32 @@
 <!DOCTYPE html>
-<html lang="ko">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Digital Heritage Archiving Project - The LJM Clockwork | YesOkLab</title>
+    <title>LOH Token | YesOkLab - Enterprise-Grade DeFi Platform</title>
+    <meta name="description" content="LOH Token - Revolutionary DeFi platform on Polygon blockchain, built by enterprise experts from Samsung Electronics, Coupang, and major Korean corporations.">
+    <meta name="keywords" content="LOH Token, DeFi, Polygon, Blockchain, Cryptocurrency, YesOkLab">
+    
+    <!-- Open Graph / Social Media -->
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="LOH Token | YesOkLab">
+    <meta property="og:description" content="Enterprise-Grade DeFi Platform on Polygon">
+    <meta property="og:image" content="https://raw.githubusercontent.com/yesoklab/YesOkLab.github.io/main/loh_logo.svg.svg">
+    <meta property="og:url" content="https://yesoklab.github.io">
+    
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="LOH Token | YesOkLab">
+    <meta name="twitter:description" content="Enterprise-Grade DeFi Platform on Polygon">
+    <meta name="twitter:image" content="https://raw.githubusercontent.com/yesoklab/YesOkLab.github.io/main/loh_logo.svg.svg">
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/svg+xml" href="https://raw.githubusercontent.com/yesoklab/YesOkLab.github.io/main/loh_logo.svg.svg">
+    
+    <!-- Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    
     <style>
         * {
             margin: 0;
@@ -12,10 +35,10 @@
         }
 
         body {
-            font-family: 'Noto Sans KR', sans-serif;
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
             line-height: 1.6;
             color: #333;
-            background: linear-gradient(135deg, #003876 0%, #CD212A 100%);
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             min-height: 100vh;
         }
 
@@ -26,212 +49,315 @@
         }
 
         /* Header */
-        header {
+        .header {
             background: rgba(255, 255, 255, 0.95);
             backdrop-filter: blur(10px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.2);
             padding: 1rem 0;
-            position: fixed;
-            width: 100%;
+            position: sticky;
             top: 0;
-            z-index: 1000;
-            box-shadow: 0 2px 20px rgba(0, 0, 0, 0.1);
+            z-index: 100;
         }
 
-        nav {
+        .nav {
             display: flex;
             justify-content: space-between;
             align-items: center;
         }
 
-        .logo {
+        .logo-section {
             display: flex;
             align-items: center;
-            gap: 10px;
+            gap: 15px;
         }
 
-        .logo-icon {
-            width: 40px;
-            height: 40px;
-            background: linear-gradient(45deg, #003876, #CD212A);
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: white;
-            font-weight: bold;
-            font-size: 14px;
+        .logo-section img {
+            width: 50px;
+            height: 50px;
+        }
+
+        .logo-text {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: #2c3e50;
         }
 
         .nav-links {
             display: flex;
-            list-style: none;
             gap: 2rem;
+            list-style: none;
         }
 
         .nav-links a {
             text-decoration: none;
-            color: #333;
+            color: #2c3e50;
             font-weight: 500;
-            transition: color 0.3s;
+            transition: color 0.3s ease;
         }
 
         .nav-links a:hover {
-            color: #CD212A;
+            color: #667eea;
         }
 
         /* Hero Section */
         .hero {
-            margin-top: 80px;
-            padding: 4rem 0;
-            text-align: center;
             color: white;
+            padding: 100px 0;
+            text-align: center;
+        }
+
+        .hero-content {
+            max-width: 800px;
+            margin: 0 auto;
         }
 
         .hero h1 {
-            font-size: 3.5rem;
+            font-size: 4rem;
             font-weight: 700;
             margin-bottom: 1rem;
-            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+            background: linear-gradient(45deg, #fff, #f0f8ff);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
         }
 
-        .hero-subtitle {
+        .hero h2 {
             font-size: 1.5rem;
-            margin-bottom: 1rem;
+            margin-bottom: 2rem;
             opacity: 0.9;
+            font-weight: 400;
         }
 
         .hero-description {
             font-size: 1.2rem;
-            max-width: 800px;
-            margin: 0 auto 2rem;
+            margin-bottom: 3rem;
             opacity: 0.8;
             line-height: 1.8;
         }
 
-        .cta-button {
-            display: inline-block;
-            padding: 15px 40px;
-            background: rgba(255, 255, 255, 0.2);
-            color: white;
-            text-decoration: none;
-            border-radius: 50px;
-            font-weight: 600;
-            font-size: 1.1rem;
-            transition: all 0.3s;
-            border: 2px solid rgba(255, 255, 255, 0.3);
+        .hero-stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 2rem;
+            margin: 4rem 0;
+            padding: 2rem;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 20px;
             backdrop-filter: blur(10px);
         }
 
-        .cta-button:hover {
-            background: rgba(255, 255, 255, 0.3);
-            transform: translateY(-2px);
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
-        }
-
-        /* Features Section */
-        .features {
-            background: white;
-            padding: 5rem 0;
-        }
-
-        .section-title {
+        .stat-item {
             text-align: center;
+        }
+
+        .stat-number {
             font-size: 2.5rem;
-            margin-bottom: 3rem;
-            color: #003876;
-        }
-
-        .features-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 2rem;
-            margin-top: 3rem;
-        }
-
-        .feature-card {
-            background: #f8f9fa;
-            padding: 2rem;
-            border-radius: 15px;
-            text-align: center;
-            transition: transform 0.3s;
-            border: 1px solid #e9ecef;
-        }
-
-        .feature-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.1);
-        }
-
-        .feature-icon {
-            width: 60px;
-            height: 60px;
-            background: linear-gradient(45deg, #003876, #CD212A);
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin: 0 auto 1rem;
-            color: white;
-            font-size: 1.5rem;
-        }
-
-        /* Stats Section */
-        .stats {
-            background: linear-gradient(135deg, #003876 0%, #CD212A 100%);
-            padding: 4rem 0;
-            color: white;
-        }
-
-        .stats-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 2rem;
-            text-align: center;
-        }
-
-        .stat-item h3 {
-            font-size: 3rem;
             font-weight: 700;
             margin-bottom: 0.5rem;
         }
 
-        .stat-item p {
-            font-size: 1.1rem;
-            opacity: 0.9;
+        .stat-label {
+            font-size: 1rem;
+            opacity: 0.8;
         }
 
-        /* Token Info */
-        .token-info {
-            background: white;
-            padding: 5rem 0;
+        /* Contract Info */
+        .contract-section {
+            background: rgba(255, 255, 255, 0.95);
+            padding: 3rem 0;
+            margin: 4rem 0;
+            border-radius: 20px;
+            backdrop-filter: blur(10px);
         }
 
-        .info-grid {
+        .contract-info {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 3rem;
-            margin-top: 3rem;
+            gap: 2rem;
         }
 
-        .info-card {
-            background: #f8f9fa;
+        .contract-item {
+            background: white;
             padding: 2rem;
             border-radius: 15px;
-            border-left: 5px solid #CD212A;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            border: 1px solid #e1e8ed;
         }
 
-        .info-card h3 {
-            color: #003876;
+        .contract-label {
+            font-weight: 600;
+            color: #667eea;
             margin-bottom: 1rem;
+            font-size: 1.1rem;
+        }
+
+        .contract-address {
+            font-family: 'Courier New', monospace;
+            background: #f8f9fa;
+            padding: 1rem;
+            border-radius: 8px;
+            word-break: break-all;
+            font-size: 0.9rem;
+            border: 1px solid #e9ecef;
+        }
+
+        .contract-network {
+            color: #27ae60;
+            font-weight: 600;
+            font-size: 1.1rem;
+        }
+
+        /* Team Section */
+        .team-section {
+            background: rgba(255, 255, 255, 0.95);
+            padding: 4rem 0;
+            margin: 4rem 0;
+            border-radius: 20px;
+            backdrop-filter: blur(10px);
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 3rem;
+            font-weight: 700;
+            margin-bottom: 3rem;
+            color: #2c3e50;
+        }
+
+        .team-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+
+        .team-member {
+            background: white;
+            padding: 2rem;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            transition: transform 0.3s ease;
+        }
+
+        .team-member:hover {
+            transform: translateY(-10px);
+        }
+
+        .member-name {
             font-size: 1.3rem;
+            font-weight: 600;
+            color: #2c3e50;
+            margin-bottom: 0.5rem;
+        }
+
+        .member-role {
+            color: #667eea;
+            font-weight: 500;
+            margin-bottom: 0.5rem;
+        }
+
+        .member-background {
+            color: #7f8c8d;
+            font-size: 0.9rem;
+            line-height: 1.5;
+        }
+
+        /* Features Section */
+        .features-section {
+            background: rgba(255, 255, 255, 0.95);
+            padding: 4rem 0;
+            margin: 4rem 0;
+            border-radius: 20px;
+            backdrop-filter: blur(10px);
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
+        }
+
+        .feature-card {
+            background: white;
+            padding: 2.5rem;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            transition: transform 0.3s ease;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .feature-icon {
+            font-size: 3rem;
+            color: #667eea;
+            margin-bottom: 1.5rem;
+        }
+
+        .feature-title {
+            font-size: 1.3rem;
+            font-weight: 600;
+            color: #2c3e50;
+            margin-bottom: 1rem;
+        }
+
+        .feature-description {
+            color: #7f8c8d;
+            line-height: 1.6;
+        }
+
+        /* Links Section */
+        .links-section {
+            text-align: center;
+            padding: 3rem 0;
+        }
+
+        .link-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 1.5rem;
+            flex-wrap: wrap;
+            margin-top: 2rem;
+        }
+
+        .btn {
+            padding: 1rem 2rem;
+            border-radius: 10px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .btn-primary {
+            background: white;
+            color: #667eea;
+            border: 2px solid white;
+        }
+
+        .btn-secondary {
+            background: transparent;
+            color: white;
+            border: 2px solid white;
+        }
+
+        .btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
         }
 
         /* Footer */
-        footer {
-            background: #222;
+        .footer {
+            background: rgba(0, 0, 0, 0.3);
             color: white;
-            padding: 3rem 0 2rem;
             text-align: center;
+            padding: 2rem 0;
+            margin-top: 4rem;
+            backdrop-filter: blur(10px);
         }
 
         .footer-content {
@@ -241,682 +367,277 @@
             margin-bottom: 2rem;
         }
 
-        .footer-section h3 {
+        .footer-section h4 {
             margin-bottom: 1rem;
-            color: #CD212A;
+            color: #fff;
+        }
+
+        .footer-links {
+            list-style: none;
+        }
+
+        .footer-links a {
+            color: rgba(255, 255, 255, 0.8);
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .footer-links a:hover {
+            color: white;
         }
 
         .footer-bottom {
-            border-top: 1px solid #444;
+            border-top: 1px solid rgba(255, 255, 255, 0.2);
             padding-top: 2rem;
-            opacity: 0.8;
+            color: rgba(255, 255, 255, 0.6);
         }
 
-        /* 모바일 반응형 개선 */
+        /* Responsive Design */
         @media (max-width: 768px) {
             .hero h1 {
                 font-size: 2.5rem;
-            }
-            
-            .hero-subtitle {
-                font-size: 1.2rem;
             }
             
             .nav-links {
                 display: none;
             }
             
-            .stats-grid {
+            .hero-stats {
                 grid-template-columns: 1fr;
             }
-
-            .footer-bottom p {
-                font-size: 0.8rem;
-                line-height: 1.4;
-                word-break: keep-all;
-                overflow-wrap: break-word;
+            
+            .link-buttons {
+                flex-direction: column;
+                align-items: center;
             }
-
-            .footer-bottom {
-                padding-top: 1.5rem;
-            }
-        }
-
-        .highlight {
-            color: #CD212A;
-            font-weight: 600;
-        }
-
-        .badge {
-            display: inline-block;
-            background: #CD212A;
-            color: white;
-            padding: 5px 15px;
-            border-radius: 20px;
-            font-size: 0.9rem;
-            margin: 5px;
         }
     </style>
 </head>
 <body>
-    <header>
-        <nav class="container">
-            <div class="logo">
-                <div class="logo-icon">LJM</div>
-                <div>
-                    <div style="font-weight: 700; color: #003876;">The LJM Clockwork</div>
-                    <div style="font-size: 0.8rem; color: #666;">Digital Heritage Archiving Project</div>
+    <!-- Header -->
+    <header class="header">
+        <div class="container">
+            <nav class="nav">
+                <div class="logo-section">
+                    <img src="https://raw.githubusercontent.com/yesoklab/YesOkLab.github.io/main/loh_logo.svg.svg" alt="LOH Token Logo" />
+                    <div class="logo-text">YesOkLab</div>
                 </div>
-            </div>
-            <ul class="nav-links">
-                <li><a href="#about">소개</a></li>
-                <li><a href="#features">특징</a></li>
-                <li><a href="#tokenomics">NFT & 토큰</a></li>
-                <li><a href="#whitepaper">백서</a></li>
-                <li><a href="#archive">디지털 아카이빙</a></li>
-                <li><a href="#loh-token">LOH 토큰</a></li>
-                <li><a href="#technology">기술</a></li>
-                <li><a href="#contact">연락처</a></li>
-            </ul>
-        </nav>
+                <ul class="nav-links">
+                    <li><a href="#home">Home</a></li>
+                    <li><a href="#about">About</a></li>
+                    <li><a href="#team">Team</a></li>
+                    <li><a href="https://raw.githubusercontent.com/yesoklab/YesOkLab.github.io/main/WHITEPAPER.md" target="_blank">Whitepaper</a></li>
+                    <li><a href="https://raw.githubusercontent.com/yesoklab/YesOkLab.github.io/main/token-list.json" target="_blank">Token List</a></li>
+                </ul>
+            </nav>
+        </div>
     </header>
 
-    <main>
-        <section class="hero">
-            <div class="container">
-                <h1>The LJM Clockwork</h1>
-                <div class="hero-subtitle">Digital Heritage Archiving Project</div>
+    <!-- Hero Section -->
+    <section id="home" class="hero">
+        <div class="container">
+            <div class="hero-content">
+                <h1>LOH Token</h1>
+                <h2>Enterprise-Grade DeFi Platform</h2>
                 <p class="hero-description">
-                    강력한 지지자 그룹을 보유한 정치적 상징물<br>
-                    <span class="highlight">(이재명 대통령 친필메시지 및 관련 IP)</span>을<br>
-                    XRP Ledger 기반의 디지털 자산(NFT)으로 변환하여<br>
-                    새로운 디지털 레거시 시장을 개척하는 혁신적인 프로젝트입니다.
-                </p>
-                <a href="#about" class="cta-button">5,800개 한정판 NFT 컬렉션 보기</a>
-            </div>
-        </section>
-
-        <section id="about" class="features">
-            <div class="container">
-                <h2 class="section-title">The LJM Clockwork NFT 컬렉션</h2>
-                <p style="text-align: center; font-size: 1.2rem; max-width: 800px; margin: 0 auto; color: #666; line-height: 1.8;">
-                    이재명 대통령의 친필메시지와 관련 IP를 활용한 5,800개 한정판 계층형 NFT 컬렉션으로<br>
-                    '소유 가능한 디지털 자산' 시장의 새로운 혁신을 제시합니다.
+                    Revolutionary decentralized finance infrastructure on Polygon blockchain, 
+                    built by enterprise experts from Samsung Electronics, Coupang, and major Korean corporations.
                 </p>
                 
-                <div class="features-grid">
-                    <div class="feature-card">
-                        <div class="feature-icon">🏛️</div>
-                        <h3>디지털 레거시</h3>
-                        <p>이재명 대통령의 친필메시지와 정치적 상징물을 NFT로 영구 보존하여 역사적 가치 창출</p>
-                    </div>
-                    <div class="feature-card">
-                        <div class="feature-icon">💎</div>
-                        <h3>5,800개 한정판</h3>
-                        <p>계층형 희소성 구조로 설계된 컬렉션 - LEGENDARY, EPIC, RARE, COMMON 등급</p>
-                    </div>
-                    <div class="feature-card">
-                        <div class="feature-icon">🔗</div>
-                        <h3>XRPL 네이티브</h3>
-                        <p>XRP Ledger의 안정적이고 빠른 NFT 기술로 구현된 진정한 디지털 자산</p>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <section id="features" class="stats">
-            <div class="container">
-                <h2 class="section-title" style="color: white;">The LJM Clockwork 핵심 수치</h2>
-                <div class="stats-grid">
+                <div class="hero-stats">
                     <div class="stat-item">
-                        <h3>5,800개</h3>
-                        <p>한정판 NFT 컬렉션</p>
+                        <div class="stat-number">1B</div>
+                        <div class="stat-label">Total Supply</div>
                     </div>
                     <div class="stat-item">
-                        <h3>4단계</h3>
-                        <p>계층형 희소성 구조</p>
+                        <div class="stat-number">Polygon</div>
+                        <div class="stat-label">Blockchain</div>
                     </div>
                     <div class="stat-item">
-                        <h3>친필메시지</h3>
-                        <p>이재명 대통령 관련 IP</p>
+                        <div class="stat-number">ERC-20</div>
+                        <div class="stat-label">Token Standard</div>
                     </div>
                     <div class="stat-item">
-                        <h3>XRPL</h3>
-                        <p>네이티브 NFT 기술</p>
+                        <div class="stat-number">Live</div>
+                        <div class="stat-label">Status</div>
                     </div>
                 </div>
             </div>
-        </section>
+        </div>
+    </section>
 
-        <section id="whitepaper" class="features">
-            <div class="container">
-                <h2 class="section-title">프로젝트 백서</h2>
-                
-                <div style="max-width: 900px; margin: 0 auto;">
-                    <div class="info-card" style="margin-bottom: 2rem;">
-                        <h3>📄 프로젝트 비전</h3>
-                        <p style="margin-bottom: 1rem;">
-                            <strong>The LJM Clockwork</strong>는 이재명 대통령의 친필메시지와 관련 IP를 
-                            XRP Ledger 기반의 디지털 자산(NFT)으로 변환하여 새로운 디지털 레거시 시장을 개척하는 
-                            혁신적인 프로젝트입니다.
-                        </p>
-                        <p>
-                            강력한 지지자 그룹을 보유한 정치적 상징물을 '소유 가능한 디지털 자산'으로 
-                            구현하여 역사적 가치를 창출합니다.
-                        </p>
+    <!-- Contract Information -->
+    <section class="contract-section">
+        <div class="container">
+            <h2 class="section-title">Contract Information</h2>
+            <div class="contract-info">
+                <div class="contract-item">
+                    <div class="contract-label">📋 LOH Token Contract</div>
+                    <div class="contract-address">0x55f16708a0c7BcB40F2138f836e87733D0636C8e</div>
+                </div>
+                <div class="contract-item">
+                    <div class="contract-label">🎨 NFT Collection Contract</div>
+                    <div class="contract-address">0xa71AdF7D1cE8Bee951F694eEd325c2B34B2794D8</div>
+                </div>
+                <div class="contract-item">
+                    <div class="contract-label">🌐 Network</div>
+                    <div class="contract-network">Polygon (MATIC)</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section id="about" class="features-section">
+        <div class="container">
+            <h2 class="section-title">Why LOH Token?</h2>
+            <div class="features-grid">
+                <div class="feature-card">
+                    <div class="feature-icon">🛡️</div>
+                    <div class="feature-title">Enterprise Security</div>
+                    <div class="feature-description">
+                        Built by Samsung Electronics and Coupang alumni with enterprise-grade security standards and best practices.
                     </div>
-
-                    <div class="features-grid">
-                        <div class="feature-card">
-                            <div class="feature-icon">💎</div>
-                            <h3>NFT 컬렉션</h3>
-                            <ul style="text-align: left; margin-top: 1rem;">
-                                <li>총 5,800개 한정판</li>
-                                <li>LEGENDARY: 1개</li>
-                                <li>EPIC: 99개</li>
-                                <li>RARE: 700개</li>
-                                <li>COMMON: 5,000개</li>
-                            </ul>
-                        </div>
-                        
-                        <div class="feature-card">
-                            <div class="feature-icon">🪙</div>
-                            <h3>LOH 토큰</h3>
-                            <ul style="text-align: left; margin-top: 1rem;">
-                                <li>Lee One Hour (LOH)</li>
-                                <li>총 51,169,148개 발행</li>
-                                <li>네이티브 유틸리티 토큰</li>
-                                <li>생태계 거버넌스 기능</li>
-                            </ul>
-                        </div>
-                        
-                        <div class="feature-card">
-                            <div class="feature-icon">🔬</div>
-                            <h3>기술적 구현</h3>
-                            <ul style="text-align: left; margin-top: 1rem;">
-                                <li>XRP Ledger 네이티브 NFT</li>
-                                <li>IPFS 분산 저장</li>
-                                <li>3-5초 빠른 거래</li>
-                                <li>극저비용 수수료</li>
-                            </ul>
-                        </div>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">⚖️</div>
+                    <div class="feature-title">Legal Compliance</div>
+                    <div class="feature-description">
+                        Proactive regulatory compliance with dedicated legal counsel from Fortune 500 companies and government connections.
                     </div>
-
-                    <div style="text-align: center; margin-top: 2rem;">
-                        <button onclick="showWhitepaper('ljm')" class="cta-button" style="background: #CD212A; border: none; margin-right: 1rem;">
-                            📄 LJM Clockwork 백서 보기
-                        </button>
-                        <button onclick="showWhitepaper('poh')" class="cta-button" style="background: #003876; border: none;">
-                            📄 POH 토큰 백서 보기
-                        </button>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">👥</div>
+                    <div class="feature-title">Community Governance</div>
+                    <div class="feature-description">
+                        Democratic decision-making through transparent DAO governance mechanisms with token-weighted voting.
+                    </div>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">🚀</div>
+                    <div class="feature-title">Innovation</div>
+                    <div class="feature-description">
+                        Cutting-edge DeFi solutions with continuous technological advancement and enterprise integrations.
                     </div>
                 </div>
             </div>
-        </section>
+        </div>
+    </section>
 
-        <section id="archive" class="stats">
-            <div class="container">
-                <h2 class="section-title" style="color: white;">디지털 아카이빙 프로젝트</h2>
-                
-                <div style="max-width: 1000px; margin: 0 auto; text-align: center;">
-                    <p style="font-size: 1.3rem; margin-bottom: 3rem; opacity: 0.9; line-height: 1.8;">
-                        이재명 대통령의 디지털 레거시를 영구적으로 보존하는 혁신적인 아카이빙 프로젝트입니다.
-                    </p>
-                </div>
-
-                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 2rem; margin-top: 3rem;">
-                    <div style="background: rgba(255, 255, 255, 0.1); padding: 2rem; border-radius: 15px; backdrop-filter: blur(10px);">
-                        <h3 style="color: #FFD700; margin-bottom: 1rem; font-size: 1.5rem;">🏛️ 역사적 보존</h3>
-                        <ul style="text-align: left; line-height: 1.8;">
-                            <li>이재명 대통령의 국정철학 영구 보존</li>
-                            <li>블록체인 불변성으로 역사 왜곡 방지</li>
-                            <li>미래 세대를 위한 디지털 타임캡슐</li>
-                            <li>민주주의 가치의 디지털 기록</li>
-                        </ul>
-                    </div>
-
-                    <div style="background: rgba(255, 255, 255, 0.1); padding: 2rem; border-radius: 15px; backdrop-filter: blur(10px);">
-                        <h3 style="color: #FFD700; margin-bottom: 1rem; font-size: 1.5rem;">📚 아카이브 구성</h3>
-                        <ul style="text-align: left; line-height: 1.8;">
-                            <li>대통령 연설문 및 정책 자료</li>
-                            <li>국정 운영 철학과 비전</li>
-                            <li>국민과의 소통 기록</li>
-                            <li>친필메시지 디지털 보존</li>
-                        </ul>
-                    </div>
-
-                    <div style="background: rgba(255, 255, 255, 0.1); padding: 2rem; border-radius: 15px; backdrop-filter: blur(10px);">
-                        <h3 style="color: #FFD700; margin-bottom: 1rem; font-size: 1.5rem;">🔐 기술적 보안</h3>
-                        <ul style="text-align: left; line-height: 1.8;">
-                            <li>IPFS 분산 저장 시스템</li>
-                            <li>블록체인 해시 인증</li>
-                            <li>암호화된 데이터 무결성</li>
-                            <li>영구적 데이터 보존 보장</li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <section id="loh-token" class="features">
-            <div class="container">
-                <h2 class="section-title">LOH 토큰 - Lee One Hour</h2>
-                
-                <div style="text-align: center; margin-bottom: 3rem;">
-                    <div style="display: inline-block; padding: 2rem; background: linear-gradient(135deg, #FFD700, #FFA500); border-radius: 50%; margin-bottom: 2rem;">
-                        <div style="width: 100px; height: 100px; background: url('data:image/svg+xml,<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 200 200\"><circle cx=\"100\" cy=\"100\" r=\"95\" fill=\"%23FFD700\" stroke=\"%23B8860B\" stroke-width=\"5\"/><text x=\"100\" y=\"110\" text-anchor=\"middle\" font-size=\"60\" font-weight=\"bold\" fill=\"%23B8860B\">LOH</text></svg>') center/contain no-repeat;"></div>
-                    </div>
-                    <h3 style="font-size: 2rem; color: #003876; margin-bottom: 1rem;">LOH (Lee One Hour)</h3>
-                    <p style="font-size: 1.3rem; color: #666; max-width: 800px; margin: 0 auto;">
-                        <strong>L</strong>이재명 <strong>O</strong>원 <strong>H</strong>아워 - 
-                        대한민국 제21대 이재명 대통령의 1시간은 대한민국 국민 51,169,148명의 시간입니다.
-                    </p>
-                </div>
-
-                <div class="features-grid">
-                    <div class="feature-card">
-                        <div class="feature-icon" style="background: linear-gradient(45deg, #FFD700, #FFA500);">🏛️</div>
-                        <h3>토큰 기본 정보</h3>
-                        <ul style="text-align: left; margin-top: 1rem; line-height: 1.8;">
-                            <li><strong>토큰명:</strong> LOH (Lee One Hour)</li>
-                            <li><strong>블록체인:</strong> XRP Ledger (XRPL)</li>
-                            <li><strong>총 발행량:</strong> 51,169,148개</li>
-                            <li><strong>소수점:</strong> 6자리</li>
-                        </ul>
-                    </div>
-
-                    <div class="feature-card">
-                        <div class="feature-icon" style="background: linear-gradient(45deg, #FFD700, #FFA500);">⏰</div>
-                        <h3>의미와 철학</h3>
-                        <ul style="text-align: left; margin-top: 1rem; line-height: 1.8;">
-                            <li>이재명 대통령의 1시간 = 국민의 시간</li>
-                            <li>시간 민주주의의 디지털 구현</li>
-                            <li>국정철학의 블록체인 기록</li>
-                            <li>미래 세대를 위한 디지털 유산</li>
-                        </ul>
-                    </div>
-
-                    <div class="feature-card">
-                        <div class="feature-icon" style="background: linear-gradient(45deg, #FFD700, #FFA500);">🔗</div>
-                        <h3>유틸리티 기능</h3>
-                        <ul style="text-align: left; margin-top: 1rem; line-height: 1.8;">
-                            <li><strong>거버넌스:</strong> 프로젝트 의사결정 참여</li>
-                            <li><strong>스테이킹:</strong> 네트워크 안정화 기여</li>
-                            <li><strong>접근권한:</strong> 희소 NFT 및 콘텐츠 접근</li>
-                            <li><strong>수수료:</strong> 플랫폼 내 거래 수수료</li>
-                        </ul>
-                    </div>
-                </div>
-
-                <div style="background: linear-gradient(135deg, #003876, #CD212A); padding: 3rem; border-radius: 20px; color: white; text-align: center; margin-top: 3rem;">
-                    <h3 style="font-size: 1.8rem; margin-bottom: 2rem; color: #FFD700;">📊 LOH 토큰 발행 정보</h3>
-                    
-                    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 2rem; margin-bottom: 2rem;">
-                        <div style="background: rgba(255, 255, 255, 0.1); padding: 1.5rem; border-radius: 10px;">
-                            <div style="font-size: 2rem; font-weight: bold; color: #FFD700;">51,169,148</div>
-                            <div>LOH 토큰 발행량</div>
-                        </div>
-                        <div style="background: rgba(255, 255, 255, 0.1); padding: 1.5rem; border-radius: 10px;">
-                            <div style="font-size: 2rem; font-weight: bold; color: #FFD700;">51,169,148</div>
-                            <div>대한민국 국민 수</div>
-                        </div>
-                        <div style="background: rgba(255, 255, 255, 0.1); padding: 1.5rem; border-radius: 10px;">
-                            <div style="font-size: 2rem; font-weight: bold; color: #FFD700;">1:1</div>
-                            <div>국민 1명당 1개</div>
-                        </div>
-                        <div style="background: rgba(255, 255, 255, 0.1); padding: 1.5rem; border-radius: 10px;">
-                            <div style="font-size: 2rem; font-weight: bold; color: #FFD700;">1시간</div>
-                            <div>대통령의 시간</div>
-                        </div>
-                    </div>
-
-                    <p style="font-size: 1.2rem; opacity: 0.9; line-height: 1.8;">
-                        LOH 토큰은 이재명 대통령의 1시간이 대한민국 국민 51,169,148명과 같다는<br>
-                        상징적 의미를 바탕으로 설계된 네이티브 유틸리티 토큰입니다.
-                    </p>
-                </div>
-            </div>
-        </section>
-
-        <section id="technology" class="features">
-            <div class="container">
-                <h2 class="section-title">핵심 기술</h2>
-                
-                <div style="max-width: 1000px; margin: 0 auto;">
-                    <div style="text-align: center; margin-bottom: 3rem;">
-                        <p style="font-size: 1.2rem; color: #666; line-height: 1.8;">
-                            YesOkLab의 혁신적인 기술력으로 구현되는 세계 최고 수준의 디지털 헤리티지 시스템
-                        </p>
-                    </div>
-
-                    <div class="features-grid">
-                        <div class="feature-card">
-                            <div class="feature-icon">⚡</div>
-                            <h3>XRP Ledger 네이티브</h3>
-                            <p>스마트 컨트랙트 없이도 안전하고 효율적인 NFT 발행이 가능한 XRPL의 네이티브 NFT 기술을 활용합니다.</p>
-                        </div>
-                        
-                        <div class="feature-card">
-                            <div class="feature-icon">🔒</div>
-                            <h3>IPFS 분산 저장</h3>
-                            <p>이미지와 메타데이터를 IPFS에 저장하여 영구적이고 검열 저항적인 보존을 보장합니다.</p>
-                        </div>
-                        
-                        <div class="feature-card">
-                            <div class="feature-icon">🚀</div>
-                            <h3>고속 거래 처리</h3>
-                            <p>3-5초 내 거래 완료와 극저비용 수수료로 최적화된 사용자 경험을 제공합니다.</p>
-                        </div>
-                    </div>
-
-                    <div style="background: #f8f9fa; padding: 3rem; border-radius: 20px; margin-top: 3rem;">
-                        <h3 style="color: #003876; text-align: center; margin-bottom: 2rem;">🛠️ 기술 스택</h3>
-                        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 2rem;">
-                            <div style="text-align: center; padding: 1rem;">
-                                <h4 style="color: #CD212A;">블록체인</h4>
-                                <p>XRP Ledger<br>Consensus Protocol</p>
-                            </div>
-                            <div style="text-align: center; padding: 1rem;">
-                                <h4 style="color: #CD212A;">저장소</h4>
-                                <p>IPFS<br>Pinata Cloud</p>
-                            </div>
-                            <div style="text-align: center; padding: 1rem;">
-                                <h4 style="color: #CD212A;">개발 도구</h4>
-                                <p>XRPL.js<br>Python SDK</p>
-                            </div>
-                            <div style="text-align: center; padding: 1rem;">
-                                <h4 style="color: #CD212A;">민팅 도구</h4>
-                                <p>XRPL Labs Tools<br>Xaman Wallet</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <section id="contact" class="stats">
-            <div class="container">
-                <h2 class="section-title" style="color: white;">연락처 & 커뮤니티</h2>
-                
-                <div style="max-width: 1000px; margin: 0 auto;">
-                    <div style="background: rgba(255, 255, 255, 0.1); padding: 3rem; border-radius: 20px; backdrop-filter: blur(10px); margin-bottom: 3rem; text-align: center;">
-                        <h3 style="color: #FFD700; margin-bottom: 2rem; font-size: 1.8rem;">🏢 YesOkLab</h3>
-                        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 3rem;">
-                            <div style="background: rgba(255, 255, 255, 0.1); padding: 2rem; border-radius: 15px;">
-                                <h4 style="color: #FFD700; margin-bottom: 1rem;">회사 정보</h4>
-                                <p style="line-height: 1.6; text-align: left;">
-                                    <strong>회사명:</strong> YesOkLab<br>
-                                    <strong>사업자번호:</strong> 405-06-22481<br>
-                                    <strong>업태:</strong> 정보통신업<br>
-                                    <strong>종목:</strong> 포털 및 인터넷 매개 서비스업
-                                </p>
-                            </div>
-                            <div style="background: rgba(255, 255, 255, 0.1); padding: 2rem; border-radius: 15px;">
-                                <h4 style="color: #FFD700; margin-bottom: 1rem;">연락처</h4>
-                                <p style="line-height: 1.6; text-align: left;">
-                                    <strong>이메일:</strong> YesOkLab@gmail.com<br>
-                                    <strong>웹사이트:</strong> www.ljmsider.com<br>
-                                    <strong>주소:</strong> 전북 전주시 완산구<br>현무3길 9-70
-                                </p>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 2rem;">
-                        <div style="background: rgba(255, 255, 255, 0.1); padding: 2rem; border-radius: 15px; text-align: center;">
-                            <div style="font-size: 2rem; margin-bottom: 1rem;">📧</div>
-                            <h4 style="color: #FFD700; margin-bottom: 1rem;">이메일 문의</h4>
-                            <p>YesOkLab@gmail.com</p>
-                            <p style="font-size: 0.9rem; opacity: 0.8;">프로젝트 관련 모든 문의</p>
-                        </div>
-                        
-                        <div style="background: rgba(255, 255, 255, 0.1); padding: 2rem; border-radius: 15px; text-align: center;">
-                            <div style="font-size: 2rem; margin-bottom: 1rem;">🐦</div>
-                            <h4 style="color: #FFD700; margin-bottom: 1rem;">트위터</h4>
-                            <p>@YesOkLab</p>
-                            <p style="font-size: 0.9rem; opacity: 0.8;">최신 소식 및 업데이트</p>
-                        </div>
-                        
-                        <div style="background: rgba(255, 255, 255, 0.1); padding: 2rem; border-radius: 15px; text-align: center;">
-                            <div style="font-size: 2rem; margin-bottom: 1rem;">📱</div>
-                            <h4 style="color: #FFD700; margin-bottom: 1rem;">텔레그램</h4>
-                            <p>t.me/YesOkLab_NFT</p>
-                            <p style="font-size: 0.9rem; opacity: 0.8;">커뮤니티 참여</p>
-                        </div>
-                        
-                        <div style="background: rgba(255, 255, 255, 0.1); padding: 2rem; border-radius: 15px; text-align: center;">
-                            <div style="font-size: 2rem; margin-bottom: 1rem;">📝</div>
-                            <h4 style="color: #FFD700; margin-bottom: 1rem;">네이버 블로그</h4>
-                            <p>naver.me/5TQSW1qE</p>
-                            <p style="font-size: 0.9rem; opacity: 0.8;">개발 일지 및 뉴스</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <section id="tokenomics" class="token-info">
-            <div class="container">
-                <h2 class="section-title">NFT 컬렉션 & 토큰 정보</h2>
-                <div class="info-grid">
-                    <div class="info-card">
-                        <h3>📋 프로젝트 기본 정보</h3>
-                        <p><strong>프로젝트명:</strong> The LJM Clockwork</p>
-                        <p><strong>회사:</strong> YesOkLab (사업자: 405-06-22481)</p>
-                        <p><strong>업태:</strong> 정보통신업, 포털 및 인터넷 매개서비스</p>
-                        <p><strong>웹사이트:</strong> www.ljmsider.com</p>
-                    </div>
-                    
-                    <div class="info-card">
-                        <h3>💎 NFT 컬렉션 구성</h3>
-                        <p><strong>총 발행량:</strong> 5,800개 한정판</p>
-                        <p><strong>LEGENDARY:</strong> 1개 (최고 희소성)</p>
-                        <p><strong>EPIC:</strong> 99개 (높은 희소성)</p>
-                        <p><strong>RARE:</strong> 700개 (중간 희소성)</p>
-                        <p><strong>COMMON:</strong> 5,000개 (기본 등급)</p>
-                    </div>
-                    
-                    <div class="info-card">
-                        <h3>🪙 LOH 네이티브 토큰</h3>
-                        <p><strong>토큰명:</strong> LOH (Lee One Hour)</p>
-                        <p><strong>의미:</strong> L이재명 O원 H아워</p>
-                        <p><strong>총 발행량:</strong> 51,169,148개</p>
-                        <p><strong>역할:</strong> 생태계 유틸리티 토큰</p>
-                    </div>
-                    
-                    <div class="info-card">
-                        <h3>🎯 사업 목표</h3>
-                        <p><strong>단기:</strong> Clockwork NFT 발행 및 초기 판매 완료</p>
-                        <p><strong>중기:</strong> XRP DEX 및 주요 NFT 마켓플레이스 진출</p>
-                        <p><strong>장기:</strong> 디지털 레거시 시장 선도</p>
-                        <p><strong>비전:</strong> 소유 가능한 디지털 자산 생태계 구축</p>
-                    </div>
+    <!-- Team Section -->
+    <section id="team" class="team-section">
+        <div class="container">
+            <h2 class="section-title">Our Team</h2>
+            <div class="team-grid">
+                <div class="team-member">
+                    <div class="member-name">Kim Kyung-gu (Cocoon)</div>
+                    <div class="member-role">Founder / Project Leader</div>
+                    <div class="member-background">Strategic planning, project management, external relations</div>
                 </div>
                 
-                <div style="text-align: center; margin-top: 3rem;">
-                    <div class="badge">공식 인증</div>
-                    <div class="badge">정부 기념</div>
-                    <div class="badge">국민 참여</div>
-                    <div class="badge">블록체인 혁신</div>
+                <div class="team-member">
+                    <div class="member-name">Cho Dae-yeon</div>
+                    <div class="member-role">Legal Counsel</div>
+                    <div class="member-background">Former Samsung Electronics Legal Team<br>Legal risk management, regulatory compliance</div>
+                </div>
+                
+                <div class="team-member">
+                    <div class="member-name">Yang Chan-woo</div>
+                    <div class="member-role">Backend Developer</div>
+                    <div class="member-background">Former Coupang IT Manager<br>Python specialist, backend systems, API development</div>
+                </div>
+                
+                <div class="team-member">
+                    <div class="member-name">Kim Young-kwon (honuy)</div>
+                    <div class="member-role">Full-stack Developer</div>
+                    <div class="member-background">Former E-Mart IT Manager<br>Computer Engineering, Hannam University</div>
+                </div>
+                
+                <div class="team-member">
+                    <div class="member-name">Kim Ji-woo (pony)</div>
+                    <div class="member-role">Design Team Leader</div>
+                    <div class="member-background">International Design School<br>UI/UX design, branding, visual identity</div>
+                </div>
+                
+                <div class="team-member">
+                    <div class="member-name">Park Young-chan (solcahni)</div>
+                    <div class="member-role">Marketing Advisor</div>
+                    <div class="member-background">Hyundai Marine & Fire Insurance Marketing Team<br>Democratic Party of Korea Jeonbuk Provincial Committee</div>
+                </div>
+                
+                <div class="team-member">
+                    <div class="member-name">Choi Woo-jung</div>
+                    <div class="member-role">Policy Advisor</div>
+                    <div class="member-background">Ph.D. Psychology, Wonkwang University<br>Policy Director for Disability Rights Research</div>
                 </div>
             </div>
-        </section>
-    </main>
+        </div>
+    </section>
 
-    <footer>
+    <!-- Links Section -->
+    <section class="links-section">
+        <div class="container">
+            <h2 style="color: white; margin-bottom: 2rem;">📚 Resources & Documentation</h2>
+            <div class="link-buttons">
+                <a href="https://raw.githubusercontent.com/yesoklab/YesOkLab.github.io/main/WHITEPAPER.md" class="btn btn-primary" target="_blank">
+                    <i class="fas fa-file-alt"></i> Read Whitepaper
+                </a>
+                <a href="https://raw.githubusercontent.com/yesoklab/YesOkLab.github.io/main/token-list.json" class="btn btn-secondary" target="_blank">
+                    <i class="fas fa-list"></i> Token List JSON
+                </a>
+                <a href="https://polygonscan.com/address/0x55f16708a0c7BcB40F2138f836e87733D0636C8e" class="btn btn-primary" target="_blank">
+                    <i class="fas fa-external-link-alt"></i> View on PolygonScan
+                </a>
+                <a href="https://github.com/yesoklab/YesOkLab.github.io" class="btn btn-secondary" target="_blank">
+                    <i class="fab fa-github"></i> GitHub Repository
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
         <div class="container">
             <div class="footer-content">
                 <div class="footer-section">
-                    <h3>YesOkLab 프로젝트</h3>
-                    <p>The LJM Clockwork NFT<br>
-                    LOH 토큰 (Lee One Hour)<br>
-                    Digital Heritage Archiving</p>
+                    <h4>YesOkLab Foundation</h4>
+                    <p>Enterprise-Grade DeFi Platform</p>
+                    <p>Built on Polygon Blockchain</p>
                 </div>
+                
                 <div class="footer-section">
-                    <h3>블록체인 정보</h3>
-                    <p>XRP Ledger 기반<br>
-                    안전하고 빠른 거래<br>
-                    투명한 운영</p>
+                    <h4>Contract Info</h4>
+                    <ul class="footer-links">
+                        <li>LOH Token: 0x55f16...636C8e</li>
+                        <li>NFT Collection: 0xa71A...794D8</li>
+                        <li>Network: Polygon (MATIC)</li>
+                    </ul>
                 </div>
+                
                 <div class="footer-section">
-                    <h3>연락처</h3>
-                    <p>YesOkLab@gmail.com<br>
-                    www.ljmsider.com<br>
-                    전북 전주시 완산구 현무3길 9-70</p>
+                    <h4>Resources</h4>
+                    <ul class="footer-links">
+                        <li><a href="https://raw.githubusercontent.com/yesoklab/YesOkLab.github.io/main/WHITEPAPER.md" target="_blank">Whitepaper</a></li>
+                        <li><a href="https://raw.githubusercontent.com/yesoklab/YesOkLab.github.io/main/token-list.json" target="_blank">Token List</a></li>
+                        <li><a href="https://github.com/yesoklab/YesOkLab.github.io" target="_blank">GitHub</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-section">
+                    <h4>Community</h4>
+                    <ul class="footer-links">
+                        <li><a href="#" target="_blank">Twitter (Coming Soon)</a></li>
+                        <li><a href="#" target="_blank">Discord (Coming Soon)</a></li>
+                        <li><a href="#" target="_blank">Telegram (Coming Soon)</a></li>
+                    </ul>
                 </div>
             </div>
+            
             <div class="footer-bottom">
-                <p>&copy; 2025 The LJM Clockwork - Digital Heritage Archiving Project by YesOkLab.</p>
-                <p style="margin-top: 10px; font-size: 0.9rem;">
-                    "이재명 대통령의 디지털 레거시를 영원히 보존합니다"
-                </p>
+                <p>&copy; 2025 YesOkLab Foundation. All rights reserved.</p>
+                <p><strong>Disclaimer:</strong> This is not investment advice. Please do your own research.</p>
             </div>
         </div>
     </footer>
-
-    <script>
-        // 백서 보기 기능
-        function showWhitepaper(type) {
-            if (type === 'ljm') {
-                const ljmContent = `
-                <h2>Project LJM Clockwork: 디지털 유산 아카이빙 화이트페이퍼</h2>
-                <p><strong>버전:</strong> 1.1 (업데이트)</p>
-                <p><strong>날짜:</strong> 2025년 7월 8일</p>
-                <p><strong>발행:</strong> YesOkLab</p>
-                
-                <h3>1. 서론: 디지털 시대의 유산 보존</h3>
-                <p>인류의 역사와 문화는 끊임없이 기록되고 전승되어 왔습니다. 'The LJM Clockwork'는 블록체인 기술을 활용해 사회적으로 가치 있는 기록과 유산을 디지털 자산(NFT)으로 영구히 보존하고, 이를 대중에게 확산시키는 것을 목표로 합니다.</p>
-                
-                <h3>2. 프로젝트 비전 및 목표</h3>
-                <p><strong>비전:</strong> 블록체인 기술을 통해 인류의 소중한 기록과 유산을 디지털 자산으로 영구히 보존하고, 이를 통해 새로운 형태의 문화적, 사회적 가치를 창출하는 디지털 레거시 생태계를 구축한다.</p>
-                
-                <h3>3. NFT 등급 및 배포 계획</h3>
-                <ul>
-                    <li><strong>총 발행량:</strong> 5,800개</li>
-                    <li><strong>LEGENDARY (1개):</strong> 프로젝트의 상징적인 유산</li>
-                    <li><strong>EPIC (99개):</strong> 희소성이 높은 유산</li>
-                    <li><strong>RARE (700개):</strong> 고유한 가치를 지닌 유산</li>
-                    <li><strong>COMMON (5,000개):</strong> 스마트워치 페이스로 제작</li>
-                </ul>
-                
-                <h3>4. LOH 토큰 경제학</h3>
-                <ul>
-                    <li><strong>토큰명:</strong> LOH (Lee One Hour)</li>
-                    <li><strong>총 발행량:</strong> 51,169,148개</li>
-                    <li><strong>의미:</strong> 이재명 대통령의 1시간이 대한민국 국민 51,169,148명과 같다는 상징적 의미</li>
-                </ul>
-                
-                <p><strong>연락처:</strong><br>
-                YesOkLab - YesOkLab@gmail.com<br>
-                웹사이트: www.ljmsider.com</p>
-                `;
-                showModal(ljmContent);
-            } else if (type === 'poh') {
-                const pohContent = `
-                <h2>POH (President One Hour) 토큰 백서</h2>
-                <p><strong>발행:</strong> YesOkLab</p>
-                <p><strong>날짜:</strong> 2025년</p>
-                
-                <h3>1. 프로젝트 개요</h3>
-                <p>POH(President One Hour)는 제21대 대통령 이재명님의 국정철학과 "대통령이 1시간은 대한민국 국민 51,169,148명의 시간입니다"를 상징하는 특별한 XRPL 기반 토큰입니다.</p>
-                
-                <h3>2. 토큰 정보</h3>
-                <ul>
-                    <li><strong>토큰명:</strong> President One Hour (POH)</li>
-                    <li><strong>블록체인:</strong> XRP Ledger (XRPL)</li>
-                    <li><strong>발행자:</strong> r95GJxcghgMyQXittPHjYZvGUMWfVwtzPs</li>
-                    <li><strong>운영지갑:</strong> rMg969ypN8n1TXJe4ipAkZrJj13a1ZZqwD</li>
-                </ul>
-                
-                <h3>3. 철학과 의미</h3>
-                <p>POH 토큰은 시간의 민주적 분배라는 혁신적 개념을 블록체인으로 구현한 프로젝트입니다. 대통령의 소중한 1시간이 온 국민의 시간과 같다는 깊은 철학적 의미를 담고 있습니다.</p>
-                
-                <h3>4. 기술 사양</h3>
-                <ul>
-                    <li><strong>블록체인:</strong> XRP Ledger</li>
-                    <li><strong>컨센서스:</strong> RPCA (Ripple Protocol Consensus)</li>
-                    <li><strong>거래 속도:</strong> 3-5초</li>
-                    <li><strong>수수료:</strong> 극저비용 (0.00001 XRP)</li>
-                </ul>
-                
-                <p><strong>연락처:</strong><br>
-                YesOkLab - YesOkLab@gmail.com<br>
-                웹사이트: www.ljmsider.com</p>
-                `;
-                showModal(pohContent);
-            }
-        }
-
-        function showModal(content) {
-            const modal = document.createElement('div');
-            modal.style.cssText = `
-                position: fixed;
-                top: 0;
-                left: 0;
-                width: 100%;
-                height: 100%;
-                background: rgba(0, 0, 0, 0.8);
-                z-index: 10000;
-                display: flex;
-                align-items: center;
-                justify-content: center;
-                padding: 20px;
-                box-sizing: border-box;
-            `;
-
-            const modalContent = document.createElement('div');
-            modalContent.style.cssText = `
-                background: white;
-                border-radius: 15px;
-                padding: 30px;
-                max-width: 800px;
-                max-height: 80vh;
-                overflow-y: auto;
-                position: relative;
-                box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
-            `;
-
-            const closeButton = document.createElement('button');
-            closeButton.innerHTML = '✕';
-            closeButton.style.cssText = `
-                position: absolute;
-                top: 15px;
-                right: 20px;
-                background: none;
-                border: none;
-                font-size: 24px;
-                cursor: pointer;
-                color: #666;
-            `;
-
-            closeButton.onclick = () => document.body.removeChild(modal);
-            modal.onclick = (e) => {
-                if (e.target === modal) document.body.removeChild(modal);
-            };
-
-            modalContent.innerHTML = content;
-            modalContent.appendChild(closeButton);
-            modal.appendChild(modalContent);
-            document.body.appendChild(modal);
-        }
-
-        // 부드러운 스크롤 효과
-        document.addEventListener('DOMContentLoaded', function() {
-            const links = document.querySelectorAll('a[href^="#"]');
-            links.forEach(link => {
-                link.addEventListener('click', function(e) {
-                    e.preventDefault();
-                    const targetId = this.getAttribute('href');
-                    const targetElement = document.querySelector(targetId);
-                    if (targetElement) {
-                        targetElement.scrollIntoView({
-                            behavior: 'smooth',
-                            block: 'start'
-                        });
-                    }
-                });
-            });
-        });
-    </script>
 </body>
 </html>
