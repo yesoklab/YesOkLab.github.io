@@ -1,21 +1,53 @@
 {
-  "name": "LOH Token Official List",
+  "name": "YesOkLab Token List",
+  "logoURI": "https://raw.githubusercontent.com/yesoklab/YesOkLab.github.io/main/loh_logo.svg.svg",
+  "keywords": [
+    "LOH",
+    "YesOkLab",
+    "DeFi",
+    "Polygon",
+    "Enterprise"
+  ],
   "version": {
     "major": 1,
     "minor": 0,
     "patch": 0
   },
-  "logoURI": "https://raw.githubusercontent.com/yesoklab/YesOkLab.github.io/main/loh_logo.svg",
-  "keywords": ["polygon", "loh", "clockwork", "defi", "nft", "lee-jae-myung"],
+  "tags": {
+    "stablecoin": {
+      "name": "Stablecoin",
+      "description": "A token with value pegged to another asset"
+    },
+    "defi": {
+      "name": "DeFi",
+      "description": "Decentralized Finance token"
+    },
+    "governance": {
+      "name": "Governance",
+      "description": "Governance token for protocol decisions"
+    }
+  },
+  "timestamp": "2025-07-29T12:00:00.000Z",
   "tokens": [
     {
-      "chainId": 137,
       "address": "0x55f16708a0c7BcB40F2138f836e87733D0636C8e",
-      "name": "LOH Token - Project LJM Clockwork",
+      "chainId": 137,
+      "name": "LOH Token",
       "symbol": "LOH",
       "decimals": 18,
-      "logoURI": "https://raw.githubusercontent.com/yesoklab/YesOkLab.github.io/main/loh_logo.svg",
-      "tags": ["polygon", "verified", "mainnet", "clockwork", "lee-jae-myung"]
+      "logoURI": "https://raw.githubusercontent.com/yesoklab/YesOkLab.github.io/main/loh_logo.svg.svg",
+      "tags": [
+        "defi",
+        "governance"
+      ],
+      "extensions": {
+        "website": "https://yesoklab.github.io",
+        "description": "Enterprise-Grade DeFi Platform on Polygon blockchain, built by team with experience from Samsung Electronics, Coupang, and major Korean corporations.",
+        "explorer": "https://polygonscan.com/address/0x55f16708a0c7BcB40F2138f836e87733D0636C8e",
+        "twitter": "https://twitter.com/yesoklab",
+        "github": "https://github.com/yesoklab",
+        "whitepaper": "https://raw.githubusercontent.com/yesoklab/YesOkLab.github.io/main/WHITEPAPER.md"
+      }
     }
   ]
 }
