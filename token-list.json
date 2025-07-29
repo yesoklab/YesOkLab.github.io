@@ -1,65 +1,53 @@
-완벽합니다! 👍 이제 토큰 리스트 파일의 내용이 보이네요!
-
-## 🔍 **현재 파일에서 발견된 문제점들**
-
-화면을 보니 **몇 가지 수정이 필요**합니다:
-
-### ❌ **수정 필요한 부분들:**
-
-1. **라인 6 - 로고 URL 오류:**
-   ```
-   현재: "logoURI": "https://raw.githubusercontent.com/yesoklab/YesOkLab.github.io/main/loh_logo.svg"
-   수정: "loh_logo.svg.svg" (확장자 두 번 필요)
-   ```
-
-2. **라인 12 - 토큰 심볼 오류:**
-   ```
-   현재: "symbol": "LGH"
-   수정: "symbol": "LOH"
-   ```
-
-3. **라인 11 - 토큰 이름:**
-   ```
-   현재: "name": "LOH Token - Project LJH Clockwork"
-   수정: "name": "LOH Token"
-   ```
-
----
-
-## 🛠️ **파일 수정하러 가기**
-
-### **1단계: GitHub 편집 페이지로 이동**
-현재 `raw.githubusercontent.com`에서 보고 계시므로, 편집하려면 원래 GitHub 페이지로 돌아가야 합니다.
-
-**이렇게 해주세요:**
-1. **브라우저 주소창을 클릭**
-2. **다음 주소로 변경:**
-```
-https://github.com/yesoklab/YesOkLab.github.io/blob/main/token-list.json
-```
-3. **Enter키 누르기**
-
-### **2단계: 편집 버튼 찾기**
-GitHub 페이지가 열리면:
-1. **파일 내용 위 오른쪽에 연필 모양 아이콘(편집 버튼) 클릭**
-
-### **3단계: 내용 수정**
-편집 화면에서 다음 부분들을 수정:
-
-```json
 {
   "name": "YesOkLab Token List",
   "logoURI": "https://raw.githubusercontent.com/yesoklab/YesOkLab.github.io/main/loh_logo.svg.svg",
-  "keywords": ["polygon", "loh", "clockwork", "defi", "nft", "lee-jae-myung"],
+  "keywords": [
+    "LOH",
+    "YesOkLab",
+    "DeFi",
+    "Polygon",
+    "Enterprise"
+  ],
+  "version": {
+    "major": 1,
+    "minor": 0,
+    "patch": 0
+  },
+  "tags": {
+    "stablecoin": {
+      "name": "Stablecoin",
+      "description": "A token with value pegged to another asset"
+    },
+    "defi": {
+      "name": "DeFi",
+      "description": "Decentralized Finance token"
+    },
+    "governance": {
+      "name": "Governance",
+      "description": "Governance token for protocol decisions"
+    }
+  },
+  "timestamp": "2025-07-29T12:00:00.000Z",
   "tokens": [
     {
-      "chainId": 137,
       "address": "0x55f16708a0c7BcB40F2138f836e87733D0636C8e",
+      "chainId": 137,
       "name": "LOH Token",
       "symbol": "LOH",
       "decimals": 18,
       "logoURI": "https://raw.githubusercontent.com/yesoklab/YesOkLab.github.io/main/loh_logo.svg.svg",
-      "tags": ["polygon", "verified", "mainnet", "clockwork", "lee-jae-myung"]
+      "tags": [
+        "defi",
+        "governance"
+      ],
+      "extensions": {
+        "website": "https://yesoklab.github.io",
+        "description": "Enterprise-Grade DeFi Platform on Polygon blockchain, built by team with experience from Samsung Electronics, Coupang, and major Korean corporations.",
+        "explorer": "https://polygonscan.com/address/0x55f16708a0c7BcB40F2138f836e87733D0636C8e",
+        "twitter": "https://twitter.com/yesoklab",
+        "github": "https://github.com/yesoklab",
+        "whitepaper": "https://raw.githubusercontent.com/yesoklab/YesOkLab.github.io/main/WHITEPAPER.md"
+      }
     }
   ]
 }
