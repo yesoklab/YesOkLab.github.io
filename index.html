@@ -11,17 +11,18 @@
     <meta property="og:type" content="website">
     <meta property="og:title" content="LOH Token | YesOkLab">
     <meta property="og:description" content="Enterprise-Grade DeFi Platform on Polygon">
-    <meta property="og:image" content="https://raw.githubusercontent.com/yesoklab/YesOkLab.github.io/main/loh_logo.svg.svg">
+    <meta property="og:image" content="https://raw.githubusercontent.com/yesoklab/YesOkLab.github.io/main/yesoklab-logo.png">
     <meta property="og:url" content="https://yesoklab.github.io">
     
     <!-- Twitter Card -->
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:title" content="LOH Token | YesOkLab">
     <meta name="twitter:description" content="Enterprise-Grade DeFi Platform on Polygon">
-    <meta name="twitter:image" content="https://raw.githubusercontent.com/yesoklab/YesOkLab.github.io/main/loh_logo.svg.svg">
+    <meta name="twitter:image" content="https://raw.githubusercontent.com/yesoklab/YesOkLab.github.io/main/yesoklab-logo.png">
     
     <!-- Favicon -->
-    <link rel="icon" type="image/svg+xml" href="https://raw.githubusercontent.com/yesoklab/YesOkLab.github.io/main/loh_logo.svg.svg">
+    <link rel="icon" type="image/png" href="yesoklab-logo.png">
+    <link rel="apple-touch-icon" href="yesoklab-logo.png">
     
     <!-- Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
@@ -71,15 +72,28 @@
             gap: 15px;
         }
 
-        .logo-section img {
-            width: 50px;
-            height: 50px;
+        .company-logo {
+            width: 60px;
+            height: 60px;
+            object-fit: contain;
+        }
+
+        .project-logo {
+            width: 45px;
+            height: 45px;
+            object-fit: contain;
         }
 
         .logo-text {
             font-size: 1.5rem;
             font-weight: 700;
             color: #2c3e50;
+        }
+
+        .logo-divider {
+            font-size: 1.2rem;
+            color: #bdc3c7;
+            margin: 0 8px;
         }
 
         .nav-links {
@@ -410,6 +424,20 @@
                 flex-direction: column;
                 align-items: center;
             }
+
+            .logo-section {
+                gap: 10px;
+            }
+
+            .company-logo {
+                width: 50px;
+                height: 50px;
+            }
+
+            .project-logo {
+                width: 40px;
+                height: 40px;
+            }
         }
     </style>
 </head>
@@ -419,7 +447,9 @@
         <div class="container">
             <nav class="nav">
                 <div class="logo-section">
-                    <img src="https://raw.githubusercontent.com/yesoklab/YesOkLab.github.io/main/loh_logo.svg.svg" alt="LOH Token Logo" />
+                    <img src="yesoklab-logo.png" alt="YesOkLab" class="company-logo" />
+                    <span class="logo-divider">|</span>
+                    <img src="https://raw.githubusercontent.com/yesoklab/YesOkLab.github.io/main/loh_logo.svg.svg" alt="LOH Token" class="project-logo" />
                     <div class="logo-text">YesOkLab</div>
                 </div>
                 <ul class="nav-links">
