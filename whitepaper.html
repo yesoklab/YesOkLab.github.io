@@ -1,0 +1,657 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LOH Token Whitepaper | YesOkLab Foundation</title>
+    <meta name="description" content="LOH Token Whitepaper - Legacy of Hope: Digital Archive of President Lee Jae-myung">
+    
+    <!-- Open Graph / Social Media -->
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="LOH Token Whitepaper | YesOkLab Foundation">
+    <meta property="og:description" content="Legacy of Hope: Digital Archive of President Lee Jae-myung">
+    <meta property="og:image" content="https://raw.githubusercontent.com/yesoklab/YesOkLab.github.io/main/yesoklab-logo.png">
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="yesoklab-logo.png">
+    
+    <!-- Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            line-height: 1.8;
+            color: #2c3e50;
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            background: white;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.1);
+            border-radius: 0;
+            overflow: hidden;
+        }
+
+        /* Header */
+        .header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 3rem 0;
+            text-align: center;
+        }
+
+        .logo-section {
+            margin-bottom: 2rem;
+        }
+
+        .company-logo {
+            width: 100px;
+            height: 100px;
+            margin-bottom: 1rem;
+        }
+
+        .company-title {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+        }
+
+        .company-tagline {
+            font-size: 1.2rem;
+            opacity: 0.9;
+            margin-bottom: 2rem;
+        }
+
+        .project-logo {
+            width: 80px;
+            height: 80px;
+            margin-bottom: 1rem;
+        }
+
+        .whitepaper-title {
+            font-size: 3rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+        }
+
+        .whitepaper-subtitle {
+            font-size: 1.3rem;
+            opacity: 0.9;
+        }
+
+        /* Navigation */
+        .nav-back {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 1rem;
+            text-align: center;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .back-link {
+            color: white;
+            text-decoration: none;
+            font-weight: 500;
+            transition: opacity 0.3s ease;
+        }
+
+        .back-link:hover {
+            opacity: 0.8;
+        }
+
+        /* Content */
+        .content {
+            padding: 3rem;
+        }
+
+        .section {
+            margin-bottom: 3rem;
+        }
+
+        h1 {
+            font-size: 2.5rem;
+            color: #2c3e50;
+            margin-bottom: 1rem;
+            border-bottom: 3px solid #667eea;
+            padding-bottom: 0.5rem;
+        }
+
+        h2 {
+            font-size: 2rem;
+            color: #34495e;
+            margin: 2rem 0 1rem 0;
+            border-left: 4px solid #667eea;
+            padding-left: 1rem;
+        }
+
+        h3 {
+            font-size: 1.5rem;
+            color: #2c3e50;
+            margin: 1.5rem 0 1rem 0;
+        }
+
+        h4 {
+            font-size: 1.2rem;
+            color: #34495e;
+            margin: 1rem 0 0.5rem 0;
+            font-weight: 600;
+        }
+
+        p {
+            margin-bottom: 1rem;
+            text-align: justify;
+        }
+
+        .highlight-box {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 2rem;
+            border-radius: 10px;
+            margin: 2rem 0;
+        }
+
+        .highlight-box h3 {
+            color: white;
+            margin-top: 0;
+        }
+
+        .token-stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1.5rem;
+            margin: 2rem 0;
+        }
+
+        .stat-card {
+            background: #f8f9fa;
+            padding: 1.5rem;
+            border-radius: 10px;
+            text-align: center;
+            border: 1px solid #e9ecef;
+        }
+
+        .stat-number {
+            font-size: 2rem;
+            font-weight: 700;
+            color: #667eea;
+            margin-bottom: 0.5rem;
+        }
+
+        .stat-label {
+            color: #6c757d;
+            font-weight: 500;
+        }
+
+        .distribution-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 2rem 0;
+            background: white;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .distribution-table th,
+        .distribution-table td {
+            padding: 1rem;
+            text-align: left;
+            border-bottom: 1px solid #e9ecef;
+        }
+
+        .distribution-table th {
+            background: #667eea;
+            color: white;
+            font-weight: 600;
+        }
+
+        .distribution-table tr:hover {
+            background: #f8f9fa;
+        }
+
+        .team-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+            margin: 2rem 0;
+        }
+
+        .team-card {
+            background: #f8f9fa;
+            padding: 1.5rem;
+            border-radius: 10px;
+            border: 1px solid #e9ecef;
+        }
+
+        .team-name {
+            font-weight: 600;
+            color: #2c3e50;
+            margin-bottom: 0.5rem;
+        }
+
+        .team-role {
+            color: #667eea;
+            font-weight: 500;
+            margin-bottom: 0.5rem;
+        }
+
+        .team-background {
+            color: #6c757d;
+            font-size: 0.9rem;
+        }
+
+        .roadmap {
+            margin: 2rem 0;
+        }
+
+        .phase {
+            background: white;
+            border: 1px solid #e9ecef;
+            border-radius: 10px;
+            padding: 1.5rem;
+            margin-bottom: 1rem;
+            position: relative;
+        }
+
+        .phase.completed {
+            background: #d4edda;
+            border-color: #27ae60;
+        }
+
+        .phase.current {
+            background: #fff3cd;
+            border-color: #f39c12;
+        }
+
+        .phase-title {
+            font-weight: 600;
+            color: #2c3e50;
+            margin-bottom: 0.5rem;
+        }
+
+        .phase-status {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            font-size: 1.5rem;
+        }
+
+        .contact-section {
+            background: #f8f9fa;
+            padding: 2rem;
+            border-radius: 10px;
+            margin: 2rem 0;
+        }
+
+        .contact-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1rem;
+        }
+
+        .contact-item {
+            background: white;
+            padding: 1rem;
+            border-radius: 8px;
+            border: 1px solid #e9ecef;
+        }
+
+        .contact-label {
+            font-weight: 600;
+            color: #667eea;
+            margin-bottom: 0.5rem;
+        }
+
+        .contact-value {
+            color: #2c3e50;
+        }
+
+        .contact-value a {
+            color: #667eea;
+            text-decoration: none;
+        }
+
+        .contact-value a:hover {
+            text-decoration: underline;
+        }
+
+        .disclaimer {
+            background: #fff3cd;
+            border: 1px solid #ffeaa7;
+            padding: 2rem;
+            border-radius: 10px;
+            margin: 2rem 0;
+        }
+
+        .disclaimer h3 {
+            color: #f39c12;
+            margin-top: 0;
+        }
+
+        /* Footer */
+        .footer {
+            background: #2c3e50;
+            color: white;
+            text-align: center;
+            padding: 2rem;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .content {
+                padding: 2rem 1.5rem;
+            }
+            
+            .whitepaper-title {
+                font-size: 2rem;
+            }
+            
+            .company-title {
+                font-size: 2rem;
+            }
+            
+            .token-stats {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Header -->
+        <header class="header">
+            <div class="nav-back">
+                <a href="/" class="back-link">
+                    <i class="fas fa-arrow-left"></i> Back to Homepage
+                </a>
+            </div>
+            
+            <div class="logo-section">
+                <img src="yesoklab-logo.png" alt="YesOkLab" class="company-logo">
+                <h1 class="company-title">YesOkLab Foundation</h1>
+                <p class="company-tagline">Innovation Through Blockchain Technology</p>
+                
+                <img src="https://raw.githubusercontent.com/yesoklab/YesOkLab.github.io/main/loh_logo.svg.svg" alt="LOH Token" class="project-logo">
+            </div>
+            
+            <h1 class="whitepaper-title">LOH TOKEN WHITEPAPER</h1>
+            <p class="whitepaper-subtitle">Legacy of Hope: Digital Archive of President Lee Jae-myung</p>
+        </header>
+
+        <!-- Content -->
+        <main class="content">
+            <!-- Executive Summary -->
+            <section class="section">
+                <h2>Executive Summary</h2>
+                <p>LOH (Legacy of Hope) Token represents a revolutionary approach to preserving and commemorating political legacy through blockchain technology. This project creates a comprehensive digital archive of President Lee Jae-myung's public service, combining NFT collectibles with meaningful tokenomics that reflect democratic values.</p>
+                
+                <div class="highlight-box">
+                    <h3>Core Philosophy</h3>
+                    <p>The total supply of <strong>51,169,148 tokens</strong> represents "One hour of mine equals 51,169,148 hours of Korean citizens," symbolizing President Lee Jae-myung's dedication to serving every citizen of South Korea.</p>
+                </div>
+            </section>
+
+            <!-- Project Overview -->
+            <section class="section">
+                <h2>Project Overview</h2>
+                
+                <h3>Vision</h3>
+                <p>To create an immutable digital legacy that preserves important political history while fostering democratic engagement through blockchain technology.</p>
+                
+                <h3>Mission</h3>
+                <ul>
+                    <li>Preserve historical moments and achievements of President Lee Jae-myung</li>
+                    <li>Create educational resources about democratic leadership</li>
+                    <li>Build a community-driven platform for political engagement</li>
+                    <li>Establish a sustainable ecosystem for political memorabilia</li>
+                </ul>
+            </section>
+
+            <!-- Token Economics -->
+            <section class="section">
+                <h2>Token Economics</h2>
+                
+                <div class="token-stats">
+                    <div class="stat-card">
+                        <div class="stat-number">51.1M</div>
+                        <div class="stat-label">Total Supply</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-number">XRPL</div>
+                        <div class="stat-label">Blockchain</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-number">Utility</div>
+                        <div class="stat-label">Token Type</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-number">Live</div>
+                        <div class="stat-label">Status</div>
+                    </div>
+                </div>
+
+                <h3>LOH Token Details</h3>
+                <ul>
+                    <li><strong>Token Name:</strong> LOH (Legacy of Hope)</li>
+                    <li><strong>Total Supply:</strong> 51,169,148 LOH</li>
+                    <li><strong>Blockchain:</strong> XRPL (XRP Ledger)</li>
+                    <li><strong>Token Type:</strong> Utility Token</li>
+                    <li><strong>Contract Address:</strong> rN7n7otQDd6FczFgLdSqtcsAUxDkw6fzRH</li>
+                </ul>
+
+                <h3>Token Distribution</h3>
+                <table class="distribution-table">
+                    <thead>
+                        <tr>
+                            <th>Category</th>
+                            <th>Percentage</th>
+                            <th>Amount (LOH)</th>
+                            <th>Vesting</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Public Sale</td>
+                            <td>35%</td>
+                            <td>17,909,202</td>
+                            <td>20% at TGE, then 20% monthly for 4 months</td>
+                        </tr>
+                        <tr>
+                            <td>Team & Advisors</td>
+                            <td>20%</td>
+                            <td>10,233,830</td>
+                            <td>6-month cliff, then 18-month linear unlock</td>
+                        </tr>
+                        <tr>
+                            <td>Ecosystem Development</td>
+                            <td>15%</td>
+                            <td>7,675,372</td>
+                            <td>12-month linear unlock</td>
+                        </tr>
+                        <tr>
+                            <td>Marketing & Community</td>
+                            <td>10%</td>
+                            <td>5,116,915</td>
+                            <td>Released based on milestones</td>
+                        </tr>
+                        <tr>
+                            <td>Liquidity Pool</td>
+                            <td>10%</td>
+                            <td>5,116,915</td>
+                            <td>Locked for 12 months minimum</td>
+                        </tr>
+                        <tr>
+                            <td>Strategic Partnerships</td>
+                            <td>7%</td>
+                            <td>3,581,840</td>
+                            <td>6-month cliff, then 12-month linear unlock</td>
+                        </tr>
+                        <tr>
+                            <td>Reserve Fund</td>
+                            <td>3%</td>
+                            <td>1,535,074</td>
+                            <td>Multi-sig wallet, 24-month lock</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </section>
+
+            <!-- NFT Collection -->
+            <section class="section">
+                <h2>NFT Collection: LJM Clockwork</h2>
+                <p>The LJM Clockwork NFT collection consists of <strong>5,800 unique digital timepieces</strong>, each representing significant moments in President Lee Jae-myung's political career.</p>
+                
+                <h3>Rarity Distribution</h3>
+                <ul>
+                    <li><strong>LEGENDARY:</strong> 1 NFT (0.02%) - The ultimate commemorative piece</li>
+                    <li><strong>EPIC:</strong> 99 NFTs (1.71%) - Major political milestones</li>
+                    <li><strong>RARE:</strong> 700 NFTs (12.07%) - Important speeches and events</li>
+                    <li><strong>COMMON:</strong> 5,000 NFTs (86.21%) - Daily moments and achievements</li>
+                </ul>
+            </section>
+
+            <!-- Team -->
+            <section class="section">
+                <h2>Our Team</h2>
+                <div class="team-grid">
+                    <div class="team-card">
+                        <div class="team-name">Kim Kyung-gu (Cocoon)</div>
+                        <div class="team-role">Founder / Project Leader</div>
+                        <div class="team-background">Strategic planning, project management, external relations</div>
+                    </div>
+                    
+                    <div class="team-card">
+                        <div class="team-name">Cho Dae-yeon</div>
+                        <div class="team-role">Legal Counsel</div>
+                        <div class="team-background">Former Samsung Electronics Legal Team<br>Legal risk management, regulatory compliance</div>
+                    </div>
+                    
+                    <div class="team-card">
+                        <div class="team-name">Yang Chan-woo</div>
+                        <div class="team-role">Backend Developer</div>
+                        <div class="team-background">Former Coupang IT Manager<br>Python specialist, backend systems, API development</div>
+                    </div>
+                    
+                    <div class="team-card">
+                        <div class="team-name">Kim Young-kwon (honuy)</div>
+                        <div class="team-role">Full-stack Developer</div>
+                        <div class="team-background">Former E-Mart IT Manager<br>Computer Engineering, Hannam University</div>
+                    </div>
+                    
+                    <div class="team-card">
+                        <div class="team-name">Kim Ji-woo (pony)</div>
+                        <div class="team-role">Design Team Leader</div>
+                        <div class="team-background">International Design School<br>UI/UX design, branding, visual identity</div>
+                    </div>
+                    
+                    <div class="team-card">
+                        <div class="team-name">Park Young-chan (solcahni)</div>
+                        <div class="team-role">Marketing Advisor</div>
+                        <div class="team-background">Hyundai Marine & Fire Insurance Marketing Team<br>Democratic Party of Korea Jeonbuk Provincial Committee</div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Roadmap -->
+            <section class="section">
+                <h2>Roadmap</h2>
+                <div class="roadmap">
+                    <div class="phase completed">
+                        <div class="phase-status">✅</div>
+                        <div class="phase-title">Phase 1: Foundation (Q1 2024)</div>
+                        <ul>
+                            <li>Project conceptualization and planning</li>
+                            <li>Team assembly and advisory board formation</li>
+                            <li>Whitepaper development</li>
+                            <li>Initial community building</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="phase completed">
+                        <div class="phase-status">✅</div>
+                        <div class="phase-title">Phase 2: Development (Q2 2024)</div>
+                        <ul>
+                            <li>Smart contract development on XRPL</li>
+                            <li>NFT collection design and metadata creation</li>
+                            <li>Platform development and testing</li>
+                            <li>Security audits and compliance review</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="phase current">
+                        <div class="phase-status">🚀</div>
+                        <div class="phase-title">Phase 3: Launch (Q3 2024)</div>
+                        <ul>
+                            <li>Public token sale (TGE)</li>
+                            <li>NFT collection mint and release</li>
+                            <li>DEX listing and liquidity provision</li>
+                            <li>Marketing campaign launch</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="phase">
+                        <div class="phase-status">⏳</div>
+                        <div class="phase-title">Phase 4: Growth (Q4 2024)</div>
+                        <ul>
+                            <li>Community governance implementation</li>
+                            <li>Staking platform launch</li>
+                            <li>Partnership announcements</li>
+                            <li>Additional NFT collections</li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Contact Information -->
+            <section class="section">
+                <h2>Contact Information</h2>
+                <div class="contact-section">
+                    <div class="contact-grid">
+                        <div class="contact-item">
+                            <div class="contact-label">🌐 Official Website</div>
+                            <div class="contact-value"><a href="https://yesoklab.github.io" target="_blank">https://yesoklab.github.io</a></div>
+                        </div>
+                        
+                        <div class="contact-item">
+                            <div class="contact-label">📧 Email</div>
+                            <div class="contact-value"><a href="mailto:YesOkLab@gmail.com">YesOkLab@gmail.com</a></div>
+                        </div>
+                        
+                        <div class="contact-item">
+                            <div class="contact-label">🐦 Twitter</div>
+                            <div class="contact-value"><a href="https://twitter.com/YesOkLAB" target="_blank">@YesOkLAB</a></div>
+                        </div>
+                        
+                        <div class="contact-item">
+                            <div class="contact-label">❌ X.com</div>
+                            <div class="contact-value"><a href="https://x.com/YesOkLab" target="_blank">@YesOkLab</a></div>
+                        </div>
+                        
+                        <div class="contact-item">
+                            <div class="contact-label">📱 Telegram</div>
+                            <div class="contact-value"><a href="https://t.me/YesOkLab" target="_blank">t.me/YesOkLab</a></div>
+                        </div>
+                        
+                        <div class="contact-item">
+                            <div class="contact-label">💬 Discord</div>
+                            <div class="contact-value">cocoon5547</div>
+                        </div>
+                        
+                        <div class="contact-item">
+                            <div class="contact-label">🟢 Naver</div>
+                            <div class="contact-value"><a href="https://naver.me/5OtFJox1" target="_blank">naver.me/5OtFJox1</a></div>
+                        </div>
+                        
+                        <div class="contact-item">
+                            <div class="contact-label">💬 KakaoTalk</div>
+                            <div class="contact-value"><a href="https://open.kakao.com/o/ghJNRyvh" target="_blank
