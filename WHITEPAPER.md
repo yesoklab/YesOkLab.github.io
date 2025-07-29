@@ -263,7 +263,7 @@ Our commitment to transparency, community governance, and meaningful utility ens
 
 **Official Website**: https://yesoklab.github.io  
 **Company**: YesOkLab Foundation  
-**Email**: info@yesoklab.com  
+**Email**: YesOkLab@gmail.com  
 **Twitter**: @YesOkLab  
 **Telegram**: t.me/yesoklab  
 **Discord**: discord.gg/yesoklab
