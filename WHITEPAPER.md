@@ -265,8 +265,8 @@ Our commitment to transparency, community governance, and meaningful utility ens
 **Company**: YesOkLab Foundation  
 **Email**: YesOkLab@gmail.com  
 **Twitter**: @YesOkLab  
-**Telegram**: t.me/yesoklab  
-**Discord**: discord.gg/yesoklab
+**Telegram**: t.me/yesoklabS/9  
+**Discord**: discord.gg/COCOON5547
 
 ---
 
