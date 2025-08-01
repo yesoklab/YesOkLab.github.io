@@ -1,0 +1,23 @@
+{
+  "name": "이재명 디지털 아카이브 클럭워크 #466 - 타이포그라피",
+  "description": "LOH 토큰 프로젝트의 일환으로, 이재명 대통령의 '나의 한 시간은 대한민국 국민 51,169,148시간입니다' 철학을 타이포그라피로 표현한 디지털 아트워크입니다.",
+  "image": "ipfs://bafkreie4d47r7u6kfm3xry5sunaqhvda6cxw75ykjfw2yzpbga5n7lkm7a",
+  "external_url": "https://yesoklab.github.io",
+  "image_url": "ipfs://bafkreie4d47r7u6kfm3xry5sunaqhvda6cxw75ykjfw2yzpbga5n7lkm7a",
+  "image_original_url": "ipfs://bafkreie4d47r7u6kfm3xry5sunaqhvda6cxw75ykjfw2yzpbga5n7lkm7a",
+  "attributes": [
+    {"trait_type": "Type", "value": "Typography"},
+    {"trait_type": "Rarity", "value": "Rare"},
+    {"trait_type": "Theme", "value": "Democratization of Time"},
+    {"trait_type": "Series", "value": "LJM Clockwork"},
+    {"trait_type": "Collection", "value": "Genesis Edition"},
+    {"trait_type": "Token ID", "value": 466}
+  ],
+  "properties": {
+    "category": "Digital Art",
+    "creator": "YESOKLAB",
+    "blockchain": "Polygon",
+    "philosophy": "나의 한 시간은 대한민국 국민 51,169,148시간입니다"
+  },
+  "background_color": "ffffff"
+}
