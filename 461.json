@@ -1,41 +1,61 @@
 {
-  "name": "이재명 디지털 아카이브 클럭워크 #461",
-  "description": "LOH 토큰 프로젝트의 일환으로, 이재명 대통령의 '나의 한 시간은 대한민국 국민 51,169,148시간입니다' 철학을 시각화한 디지털 아트워크입니다.",
-  "image": "ipfs://bafkreibk4sgabbk5vvxcbgjdvuabahe54aroeet4wi6ingg4xj24gtrxdi",
+  "name": "EPIC_The_Companion_#461",
+  "description": "I'm not interested in saving money. I'm happiest when I get compliments. This is a message from Lee Jae-myung, who hopes to become a leader recognized only by the people.\n\n돈을 모우는데 관심 없습니다. 칭찬 받을 때 가장 행복합니다. 오직 국민에게 인정받는 대통령이 되겠습니다.",
+  "image": "https://yesoklab.github.io/EPIC_The_Companion.png",
   "external_url": "https://yesoklab.github.io",
-  "image_url": "ipfs://bafkreibk4sgabbk5vvxcbgjdvuabahe54aroeet4wi6ingg4xj24gtrxdi",
-  "image_original_url": "ipfs://bafkreibk4sgabbk5vvxcbgjdvuabahe54aroeet4wi6ingg4xj24gtrxdi",
+  "image_url": "https://yesoklab.github.io/EPIC_The_Companion.png",
+  "image_original_url": "https://yesoklab.github.io/EPIC_The_Companion.png",
   "attributes": [
     {
-      "trait_type": "Type",
-      "value": "Typography"
+      "trait_type": "Tier",
+      "value": "EPIC"
     },
     {
-      "trait_type": "Rarity",
-      "value": "Rare"
+      "trait_type": "Edition",
+      "value": "#461/810"
+    },
+    {
+      "trait_type": "Art Style",
+      "value": "Korean Calligraphy"
+    },
+    {
+      "trait_type": "Medium",
+      "value": "Digital Brush Art"
+    },
+    {
+      "trait_type": "Creator",
+      "value": "YesOkLab"
     },
     {
       "trait_type": "Theme",
-      "value": "Presidential Philosophy"
+      "value": "Leadership Philosophy"
     },
     {
-      "trait_type": "Series",
-      "value": "LJM Clockwork"
+      "trait_type": "Language",
+      "value": "Korean & English"
     },
     {
-      "trait_type": "Collection",
-      "value": "Genesis Edition"
+      "trait_type": "Year",
+      "value": "2025"
     },
     {
-      "trait_type": "Token ID",
-      "value": 461
+      "trait_type": "Background",
+      "value": "White"
+    },
+    {
+      "trait_type": "Authenticity",
+      "value": "Verified Original"
     }
   ],
   "properties": {
     "category": "Digital Art",
-    "creator": "YESOKLAB",
+    "creator": "YesOkLab",
     "blockchain": "Polygon",
-    "philosophy": "나의 한 시간은 대한민국 국민 51,169,148시간입니다"
+    "philosophy": "I'm happiest when I get compliments",
+    "heritage_value": 85,
+    "artistic_merit": 90,
+    "cultural_impact": 88,
+    "rarity_score": 92
   },
   "background_color": "ffffff"
 }
