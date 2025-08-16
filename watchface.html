@@ -1,0 +1,299 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LOH Watchface by YesOkLab - Download</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        header {
+            text-align: center;
+            color: white;
+            padding: 40px 0;
+        }
+        
+        h1 {
+            font-size: 2.5em;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.2);
+        }
+        
+        .subtitle {
+            font-size: 1.2em;
+            opacity: 0.95;
+            margin-bottom: 30px;
+        }
+        
+        .event-banner {
+            background: rgba(255,255,255,0.15);
+            backdrop-filter: blur(10px);
+            border-radius: 15px;
+            padding: 20px;
+            margin-bottom: 30px;
+            color: white;
+            text-align: center;
+        }
+        
+        .event-banner h3 {
+            margin-bottom: 10px;
+        }
+        
+        .watchface-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+            margin-bottom: 40px;
+        }
+        
+        .watchface-card {
+            background: white;
+            border-radius: 15px;
+            padding: 30px;
+            text-align: center;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+        
+        .watchface-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 40px rgba(0,0,0,0.15);
+        }
+        
+        .watchface-card h2 {
+            color: #333;
+            margin-bottom: 15px;
+        }
+        
+        .features {
+            list-style: none;
+            padding: 15px 0;
+            color: #666;
+            font-size: 0.95em;
+            line-height: 1.8;
+        }
+        
+        .features li:before {
+            content: "✓ ";
+            color: #00875A;
+            font-weight: bold;
+        }
+        
+        .download-btn {
+            display: inline-block;
+            background: #00875A;
+            color: white;
+            padding: 15px 40px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: bold;
+            font-size: 1.1em;
+            transition: all 0.3s;
+            margin-top: 10px;
+        }
+        
+        .download-btn:hover {
+            background: #006644;
+            transform: scale(1.05);
+        }
+        
+        .free-badge {
+            display: inline-block;
+            background: #ff4757;
+            color: white;
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-size: 0.85em;
+            margin-bottom: 15px;
+        }
+        
+        .installation-guide {
+            background: white;
+            border-radius: 15px;
+            padding: 30px;
+            margin-bottom: 30px;
+        }
+        
+        .installation-guide h2 {
+            color: #333;
+            margin-bottom: 20px;
+        }
+        
+        .steps {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin-top: 20px;
+        }
+        
+        .step {
+            padding: 15px;
+            background: #f8f9fa;
+            border-radius: 10px;
+            border-left: 4px solid #667eea;
+        }
+        
+        .step-number {
+            display: inline-block;
+            width: 30px;
+            height: 30px;
+            background: #667eea;
+            color: white;
+            border-radius: 50%;
+            text-align: center;
+            line-height: 30px;
+            margin-right: 10px;
+            font-weight: bold;
+        }
+        
+        footer {
+            text-align: center;
+            color: white;
+            padding: 30px 0;
+        }
+        
+        .back-link {
+            display: inline-block;
+            color: white;
+            text-decoration: none;
+            padding: 10px 20px;
+            border: 2px solid white;
+            border-radius: 25px;
+            transition: all 0.3s;
+        }
+        
+        .back-link:hover {
+            background: white;
+            color: #667eea;
+        }
+        
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 2em;
+            }
+            
+            .watchface-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>LOH Watchface Collection</h1>
+            <p class="subtitle">"나의 1시간은 국민의 시간" - YesOkLab</p>
+        </header>
+        
+        <div class="event-banner">
+            <h3>🎁 출시 기념 이벤트</h3>
+            <p>SNS 인증 이벤트 참여시 한정판 NFT 증정!</p>
+            <p>자세한 내용은 <a href="https://t.me/YesOkLab_NFT" style="color: white; text-decoration: underline;">공식 커뮤니티</a>에서 확인하세요</p>
+        </div>
+        
+        <div class="watchface-grid">
+            <!-- LOH 01 -->
+            <div class="watchface-card">
+                <span class="free-badge">무료</span>
+                <h2>LOH Watchface 01</h2>
+                <ul class="features">
+                    <li>실시간 날씨 정보</li>
+                    <li>심박수 모니터링</li>
+                    <li>걸음수 추적</li>
+                    <li>이동거리 측정</li>
+                    <li>배터리 잔량 표시</li>
+                    <li>2가지 컬러 테마</li>
+                </ul>
+                <a href="https://play.google.com/store/apps/details?id=com.LOH_A_01" 
+                   target="_blank" 
+                   class="download-btn">
+                    무료 설치하기
+                </a>
+            </div>
+            
+            <!-- LOH 03 -->
+            <div class="watchface-card">
+                <span class="free-badge">무료</span>
+                <h2>LOH Watchface 03</h2>
+                <ul class="features">
+                    <li>실시간 날씨 정보</li>
+                    <li>심박수 모니터링</li>
+                    <li>걸음수 추적</li>
+                    <li>이동거리 측정</li>
+                    <li>배터리 잔량 표시</li>
+                    <li>2가지 컬러 테마</li>
+                </ul>
+                <a href="https://play.google.com/store/apps/details?id=com.LOH_B_02" 
+                   target="_blank" 
+                   class="download-btn">
+                    무료 설치하기
+                </a>
+            </div>
+            
+            <!-- LOH 04 -->
+            <div class="watchface-card">
+                <span class="free-badge">무료</span>
+                <h2>LOH Watchface 04</h2>
+                <ul class="features">
+                    <li>실시간 날씨 정보</li>
+                    <li>심박수 모니터링</li>
+                    <li>걸음수 추적</li>
+                    <li>이동거리 측정</li>
+                    <li>배터리 잔량 표시</li>
+                    <li>2가지 컬러 테마</li>
+                </ul>
+                <a href="https://play.google.com/store/apps/details?id=com.LOH_B_03" 
+                   target="_blank" 
+                   class="download-btn">
+                    무료 설치하기
+                </a>
+            </div>
+        </div>
+        
+        <div class="installation-guide">
+            <h2>📱 설치 방법</h2>
+            <div class="steps">
+                <div class="step">
+                    <span class="step-number">1</span>
+                    <strong>다이렉트 설치</strong>
+                    <p>위 설치 버튼을 클릭하여 Play Store로 이동</p>
+                </div>
+                <div class="step">
+                    <span class="step-number">2</span>
+                    <strong>Play Store 검색</strong>
+                    <p>"YesOkLab" 또는 "LOH Watchface" 검색</p>
+                </div>
+                <div class="step">
+                    <span class="step-number">3</span>
+                    <strong>Wear OS 앱</strong>
+                    <p>Wear OS → 시계 모드 → YesOkLab 검색</p>
+                </div>
+            </div>
+        </div>
+        
+        <footer>
+            <a href="https://yesoklab.github.io" class="back-link">← 메인 페이지로 돌아가기</a>
+            <p style="margin-top: 20px; opacity: 0.8;">
+                © 2025 YesOkLab. All rights reserved.<br>
+                Contact: yesoklab@gmail.com
+            </p>
+        </footer>
+    </div>
+</body>
+</html>
