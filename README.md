@@ -82,11 +82,47 @@ contract LOHToken is ERC20, Ownable, Pausable {
 }
 ```
 
+
 ### 🎨 NFT Tiers
 - **LEGENDARY** (1): Ultimate rarity with exclusive privileges
 - **EPIC** (99): High-value heritage for contributors  
 - **RARE** (700): Limited edition unique assets
 - **COMMON** (5,000): Free smartwatch faces on Google Play
+
+---
+## 🎯 Quick Start
+
+### ⌚ Download LOH Watchfaces - Now Available on Google Play!
+
+Experience "My 1 hour is the people's time" on your wrist with our free LOH smartwatch faces.
+
+<div align="center">
+
+| Watchface | Features | Download |
+|-----------|----------|----------|
+| **LOH 01** | Weather, Heart Rate, Steps, Distance, Battery<br>2 Color Options | [📱 Install Free](https://play.google.com/store/apps/details?id=com.LOH_A_01) |
+| **LOH 03** | Weather, Heart Rate, Steps, Distance, Battery<br>2 Color Options | [📱 Install Free](https://play.google.com/store/apps/details?id=com.LOH_B_02) |
+| **LOH 04** | Weather, Heart Rate, Steps, Distance, Battery<br>2 Color Options | [📱 Install Free](https://play.google.com/store/apps/details?id=com.LOH_B_03) |
+
+</div>
+
+#### 📲 Installation Guide
+
+1. **Direct Install**: Click the download links above on your mobile device
+2. **Search on Play Store**: Search for "YesOkLab" or "LOH Watchface"
+3. **Wear OS App**: Open Wear OS → Watch faces → Search "YesOkLab"
+
+#### 🎁 Special Event
+
+- **Free NFT Giveaway**: Participate in our SNS authentication event to receive a limited edition commemorative NFT!
+- Join our [Telegram Community](https://t.me/YesOkLab_NFT) for event details
+
+#### ⚙️ Supported Devices
+
+- Wear OS based smartwatches
+- Galaxy Watch 4/5/6/7 series
+- Galaxy Watch Ultra
+- All Wear OS 3.0+ devices
 
 ---
 
