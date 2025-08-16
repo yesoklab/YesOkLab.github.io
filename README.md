@@ -87,8 +87,10 @@ contract LOHToken is ERC20, Ownable, Pausable {
 - **LEGENDARY** (1): Ultimate rarity with exclusive privileges
 - **EPIC** (99): High-value heritage for contributors  
 - **RARE** (700): Limited edition unique assets
-- **COMMON** (5,000): Free smartwatch faces on Google Play
-
+- **COMMON (5,000)**: Free smartwatch faces on Google Play
+  - [LOH Watchface 01](https://play.google.com/store/apps/details?id=com.LOH_A_01)
+  - [LOH Watchface 03](https://play.google.com/store/apps/details?id=com.LOH_B_02)  
+  - [LOH Watchface 04](https://play.google.com/store/apps/details?id=com.LOH_B_03)
 ---
 ## 🎯 Quick Start
 
