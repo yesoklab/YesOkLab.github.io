@@ -220,6 +220,10 @@
     </section>
 
     <!-- Links Section -->
+    <a href="#" class="btn btn-primary" onclick="addTokenToMetaMask()">
+     <i class="fas fa-wallet"></i> Add LOH to MetaMask
+    </a>
+
     <section class="links-section">
         <div class="container">
             <h2 style="color: white; margin-bottom: 2rem;">📚 Resources & Documentation</h2>
@@ -244,5 +248,33 @@
             <div class="footer-bottom"><p>&copy; 2025 YesOkLab Foundation. All rights reserved.</p><p><strong>Disclaimer:</strong> This is not investment advice. Please do your own research.</p></div>
         </div>
     </footer>
+    <script>
+async function addTokenToMetaMask() {
+  try {
+    const wasAdded = await window.ethereum.request({
+      method: 'wallet_watchAsset',
+      params: {
+        type: 'ERC20',
+        options: {
+          address: '0x55f16708a0c7BcB40F2138f836e87733D0636C8e', // LOH Token contract
+          symbol: 'LOH',
+          decimals: 18,
+          image: 'https://ipfs.io/ipfs/bafkreiaj6u34w63larcjtk2o66h5gmwf4jul6fxy7zdwpc5giql6faoppy',
+        },
+      },
+    });
+
+    if (wasAdded) {
+      alert('✅ LOH Token added to MetaMask!');
+    } else {
+      alert('ℹ️ Token add request was rejected.');
+    }
+  } catch (error) {
+    console.error(error);
+    alert('❌ MetaMask not detected or error occurred.');
+  }
+}
+</script>
+
 </body>
 </html>
