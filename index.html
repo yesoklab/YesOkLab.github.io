@@ -11,30 +11,25 @@
     <meta property="og:type" content="website">
     <meta property="og:title" content="LOH Token | YesOkLab">
     <meta property="og:description" content="Enterprise-Grade DeFi Platform on Polygon">
-    <meta property="og:image" content="https://raw.githubusercontent.com/yesoklab/YesOkLab.github.io/main/yesoklab-logo.png">
+    <meta property="og:image" content="https://ipfs.io/ipfs/bafkreiaj6u34w63larcjtk2o66h5gmwf4jul6fxy7zdwpc5giql6faoppy">
     <meta property="og:url" content="https://yesoklab.github.io">
     
     <!-- Twitter Card -->
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:title" content="LOH Token | YesOkLab">
     <meta name="twitter:description" content="Enterprise-Grade DeFi Platform on Polygon">
-    <meta name="twitter:image" content="https://raw.githubusercontent.com/yesoklab/YesOkLab.github.io/main/yesoklab-logo.png">
+    <meta name="twitter:image" content="https://ipfs.io/ipfs/bafkreiaj6u34w63larcjtk2o66h5gmwf4jul6fxy7zdwpc5giql6faoppy">
     
     <!-- Favicon -->
-    <link rel="icon" type="image/png" href="yesoklab-logo.png">
-    <link rel="apple-touch-icon" href="yesoklab-logo.png">
+    <link rel="icon" href="https://ipfs.io/ipfs/bafkreiaj6u34w63larcjtk2o66h5gmwf4jul6fxy7zdwpc5giql6faoppy">
+    <link rel="apple-touch-icon" href="https://ipfs.io/ipfs/bafkreiaj6u34w63larcjtk2o66h5gmwf4jul6fxy7zdwpc5giql6faoppy">
     
     <!-- Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
     
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
+        * { margin: 0; padding: 0; box-sizing: border-box; }
         body {
             font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
             line-height: 1.6;
@@ -42,402 +37,92 @@
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             min-height: 100vh;
         }
-
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 20px;
-        }
-
+        .container { max-width: 1200px; margin: 0 auto; padding: 0 20px; }
         /* Header */
         .header {
             background: rgba(255, 255, 255, 0.95);
             backdrop-filter: blur(10px);
             border-bottom: 1px solid rgba(255, 255, 255, 0.2);
-            padding: 1rem 0;
-            position: sticky;
-            top: 0;
-            z-index: 100;
+            padding: 1rem 0; position: sticky; top: 0; z-index: 100;
         }
-
-        .nav {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        .logo-section {
-            display: flex;
-            align-items: center;
-            gap: 15px;
-        }
-
-        .company-logo {
-            width: 60px;
-            height: 60px;
-            object-fit: contain;
-        }
-
-        .project-logo {
-            width: 45px;
-            height: 45px;
-            object-fit: contain;
-        }
-
-        .logo-text {
-            font-size: 1.5rem;
-            font-weight: 700;
-            color: #2c3e50;
-        }
-
-        .logo-divider {
-            font-size: 1.2rem;
-            color: #bdc3c7;
-            margin: 0 8px;
-        }
-
-        .nav-links {
-            display: flex;
-            gap: 2rem;
-            list-style: none;
-        }
-
-        .nav-links a {
-            text-decoration: none;
-            color: #2c3e50;
-            font-weight: 500;
-            transition: color 0.3s ease;
-        }
-
-        .nav-links a:hover {
-            color: #667eea;
-        }
-
+        .nav { display: flex; justify-content: space-between; align-items: center; }
+        .logo-section { display: flex; align-items: center; gap: 15px; }
+        .company-logo { width: 60px; height: 60px; object-fit: contain; }
+        .project-logo { width: 45px; height: 45px; object-fit: contain; }
+        .logo-text { font-size: 1.5rem; font-weight: 700; color: #2c3e50; }
+        .logo-divider { font-size: 1.2rem; color: #bdc3c7; margin: 0 8px; }
+        .nav-links { display: flex; gap: 2rem; list-style: none; }
+        .nav-links a { text-decoration: none; color: #2c3e50; font-weight: 500; transition: color 0.3s ease; }
+        .nav-links a:hover { color: #667eea; }
         /* Hero Section */
-        .hero {
-            color: white;
-            padding: 100px 0;
-            text-align: center;
-        }
-
-        .hero-content {
-            max-width: 800px;
-            margin: 0 auto;
-        }
-
-        .hero h1 {
-            font-size: 4rem;
-            font-weight: 700;
-            margin-bottom: 1rem;
+        .hero { color: white; padding: 100px 0; text-align: center; }
+        .hero-content { max-width: 800px; margin: 0 auto; }
+        .hero h1 { font-size: 4rem; font-weight: 700; margin-bottom: 1rem;
             background: linear-gradient(45deg, #fff, #f0f8ff);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-        }
-
-        .hero h2 {
-            font-size: 1.5rem;
-            margin-bottom: 2rem;
-            opacity: 0.9;
-            font-weight: 400;
-        }
-
-        .hero-description {
-            font-size: 1.2rem;
-            margin-bottom: 3rem;
-            opacity: 0.8;
-            line-height: 1.8;
-        }
-
-        .hero-stats {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 2rem;
-            margin: 4rem 0;
-            padding: 2rem;
-            background: rgba(255, 255, 255, 0.1);
-            border-radius: 20px;
-            backdrop-filter: blur(10px);
-        }
-
-        .stat-item {
-            text-align: center;
-        }
-
-        .stat-number {
-            font-size: 2.5rem;
-            font-weight: 700;
-            margin-bottom: 0.5rem;
-        }
-
-        .stat-label {
-            font-size: 1rem;
-            opacity: 0.8;
-        }
-
+            -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+        .hero h2 { font-size: 1.5rem; margin-bottom: 2rem; opacity: 0.9; font-weight: 400; }
+        .hero-description { font-size: 1.2rem; margin-bottom: 3rem; opacity: 0.8; line-height: 1.8; }
+        .hero-stats { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 2rem; margin: 4rem 0; padding: 2rem;
+            background: rgba(255, 255, 255, 0.1); border-radius: 20px; backdrop-filter: blur(10px); }
+        .stat-item { text-align: center; }
+        .stat-number { font-size: 2.5rem; font-weight: 700; margin-bottom: 0.5rem; }
+        .stat-label { font-size: 1rem; opacity: 0.8; }
         /* Contract Info */
-        .contract-section {
-            background: rgba(255, 255, 255, 0.95);
-            padding: 3rem 0;
-            margin: 4rem 0;
-            border-radius: 20px;
-            backdrop-filter: blur(10px);
-        }
-
-        .contract-info {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 2rem;
-        }
-
-        .contract-item {
-            background: white;
-            padding: 2rem;
-            border-radius: 15px;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
-            border: 1px solid #e1e8ed;
-        }
-
-        .contract-label {
-            font-weight: 600;
-            color: #667eea;
-            margin-bottom: 1rem;
-            font-size: 1.1rem;
-        }
-
-        .contract-address {
-            font-family: 'Courier New', monospace;
-            background: #f8f9fa;
-            padding: 1rem;
-            border-radius: 8px;
-            word-break: break-all;
-            font-size: 0.9rem;
-            border: 1px solid #e9ecef;
-        }
-
-        .contract-network {
-            color: #27ae60;
-            font-weight: 600;
-            font-size: 1.1rem;
-        }
-
+        .contract-section { background: rgba(255, 255, 255, 0.95); padding: 3rem 0; margin: 4rem 0;
+            border-radius: 20px; backdrop-filter: blur(10px); }
+        .contract-info { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 2rem; }
+        .contract-item { background: white; padding: 2rem; border-radius: 15px; box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            border: 1px solid #e1e8ed; }
+        .contract-label { font-weight: 600; color: #667eea; margin-bottom: 1rem; font-size: 1.1rem; }
+        .contract-address { font-family: 'Courier New', monospace; background: #f8f9fa;
+            padding: 1rem; border-radius: 8px; word-break: break-all; font-size: 0.9rem; border: 1px solid #e9ecef; }
+        .contract-network { color: #27ae60; font-weight: 600; font-size: 1.1rem; }
         /* Team Section */
-        .team-section {
-            background: rgba(255, 255, 255, 0.95);
-            padding: 4rem 0;
-            margin: 4rem 0;
-            border-radius: 20px;
-            backdrop-filter: blur(10px);
-        }
-
-        .section-title {
-            text-align: center;
-            font-size: 3rem;
-            font-weight: 700;
-            margin-bottom: 3rem;
-            color: #2c3e50;
-        }
-
-        .team-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 2rem;
-        }
-
-        .team-member {
-            background: white;
-            padding: 2rem;
-            border-radius: 15px;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
-            text-align: center;
-            transition: transform 0.3s ease;
-        }
-
-        .team-member:hover {
-            transform: translateY(-10px);
-        }
-
-        .member-name {
-            font-size: 1.3rem;
-            font-weight: 600;
-            color: #2c3e50;
-            margin-bottom: 0.5rem;
-        }
-
-        .member-role {
-            color: #667eea;
-            font-weight: 500;
-            margin-bottom: 0.5rem;
-        }
-
-        .member-background {
-            color: #7f8c8d;
-            font-size: 0.9rem;
-            line-height: 1.5;
-        }
-
+        .team-section { background: rgba(255, 255, 255, 0.95); padding: 4rem 0; margin: 4rem 0;
+            border-radius: 20px; backdrop-filter: blur(10px); }
+        .section-title { text-align: center; font-size: 3rem; font-weight: 700; margin-bottom: 3rem; color: #2c3e50; }
+        .team-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 2rem; }
+        .team-member { background: white; padding: 2rem; border-radius: 15px; box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            text-align: center; transition: transform 0.3s ease; }
+        .team-member:hover { transform: translateY(-10px); }
+        .member-name { font-size: 1.3rem; font-weight: 600; color: #2c3e50; margin-bottom: 0.5rem; }
+        .member-role { color: #667eea; font-weight: 500; margin-bottom: 0.5rem; }
+        .member-background { color: #7f8c8d; font-size: 0.9rem; line-height: 1.5; }
         /* Features Section */
-        .features-section {
-            background: rgba(255, 255, 255, 0.95);
-            padding: 4rem 0;
-            margin: 4rem 0;
-            border-radius: 20px;
-            backdrop-filter: blur(10px);
-        }
-
-        .features-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 2rem;
-        }
-
-        .feature-card {
-            background: white;
-            padding: 2.5rem;
-            border-radius: 15px;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
-            text-align: center;
-            transition: transform 0.3s ease;
-        }
-
-        .feature-card:hover {
-            transform: translateY(-5px);
-        }
-
-        .feature-icon {
-            font-size: 3rem;
-            color: #667eea;
-            margin-bottom: 1.5rem;
-        }
-
-        .feature-title {
-            font-size: 1.3rem;
-            font-weight: 600;
-            color: #2c3e50;
-            margin-bottom: 1rem;
-        }
-
-        .feature-description {
-            color: #7f8c8d;
-            line-height: 1.6;
-        }
-
+        .features-section { background: rgba(255, 255, 255, 0.95); padding: 4rem 0; margin: 4rem 0; border-radius: 20px; backdrop-filter: blur(10px); }
+        .features-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 2rem; }
+        .feature-card { background: white; padding: 2.5rem; border-radius: 15px; box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            text-align: center; transition: transform 0.3s ease; }
+        .feature-card:hover { transform: translateY(-5px); }
+        .feature-icon { font-size: 3rem; color: #667eea; margin-bottom: 1.5rem; }
+        .feature-title { font-size: 1.3rem; font-weight: 600; color: #2c3e50; margin-bottom: 1rem; }
+        .feature-description { color: #7f8c8d; line-height: 1.6; }
         /* Links Section */
-        .links-section {
-            text-align: center;
-            padding: 3rem 0;
-        }
-
-        .link-buttons {
-            display: flex;
-            justify-content: center;
-            gap: 1.5rem;
-            flex-wrap: wrap;
-            margin-top: 2rem;
-        }
-
-        .btn {
-            padding: 1rem 2rem;
-            border-radius: 10px;
-            text-decoration: none;
-            font-weight: 600;
-            transition: all 0.3s ease;
-            display: inline-flex;
-            align-items: center;
-            gap: 0.5rem;
-        }
-
-        .btn-primary {
-            background: white;
-            color: #667eea;
-            border: 2px solid white;
-        }
-
-        .btn-secondary {
-            background: transparent;
-            color: white;
-            border: 2px solid white;
-        }
-
-        .btn:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
-        }
-
+        .links-section { text-align: center; padding: 3rem 0; }
+        .link-buttons { display: flex; justify-content: center; gap: 1.5rem; flex-wrap: wrap; margin-top: 2rem; }
+        .btn { padding: 1rem 2rem; border-radius: 10px; text-decoration: none; font-weight: 600; transition: all 0.3s ease;
+            display: inline-flex; align-items: center; gap: 0.5rem; }
+        .btn-primary { background: white; color: #667eea; border: 2px solid white; }
+        .btn-secondary { background: transparent; color: white; border: 2px solid white; }
+        .btn:hover { transform: translateY(-3px); box-shadow: 0 10px 25px rgba(0,0,0,0.2); }
         /* Footer */
-        .footer {
-            background: rgba(0, 0, 0, 0.3);
-            color: white;
-            text-align: center;
-            padding: 2rem 0;
-            margin-top: 4rem;
-            backdrop-filter: blur(10px);
-        }
-
-        .footer-content {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 2rem;
-            margin-bottom: 2rem;
-        }
-
-        .footer-section h4 {
-            margin-bottom: 1rem;
-            color: #fff;
-        }
-
-        .footer-links {
-            list-style: none;
-        }
-
-        .footer-links a {
-            color: rgba(255, 255, 255, 0.8);
-            text-decoration: none;
-            transition: color 0.3s ease;
-        }
-
-        .footer-links a:hover {
-            color: white;
-        }
-
-        .footer-bottom {
-            border-top: 1px solid rgba(255, 255, 255, 0.2);
-            padding-top: 2rem;
-            color: rgba(255, 255, 255, 0.6);
-        }
-
-        /* Responsive Design */
+        .footer { background: rgba(0, 0, 0, 0.3); color: white; text-align: center; padding: 2rem 0;
+            margin-top: 4rem; backdrop-filter: blur(10px); }
+        .footer-content { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 2rem; margin-bottom: 2rem; }
+        .footer-section h4 { margin-bottom: 1rem; color: #fff; }
+        .footer-links { list-style: none; }
+        .footer-links a { color: rgba(255, 255, 255, 0.8); text-decoration: none; transition: color 0.3s ease; }
+        .footer-links a:hover { color: white; }
+        .footer-bottom { border-top: 1px solid rgba(255, 255, 255, 0.2); padding-top: 2rem; color: rgba(255, 255, 255, 0.6); }
         @media (max-width: 768px) {
-            .hero h1 {
-                font-size: 2.5rem;
-            }
-            
-            .nav-links {
-                display: none;
-            }
-            
-            .hero-stats {
-                grid-template-columns: 1fr;
-            }
-            
-            .link-buttons {
-                flex-direction: column;
-                align-items: center;
-            }
-
-            .logo-section {
-                gap: 10px;
-            }
-
-            .company-logo {
-                width: 50px;
-                height: 50px;
-            }
-
-            .project-logo {
-                width: 40px;
-                height: 40px;
-            }
+            .hero h1 { font-size: 2.5rem; }
+            .nav-links { display: none; }
+            .hero-stats { grid-template-columns: 1fr; }
+            .link-buttons { flex-direction: column; align-items: center; }
+            .logo-section { gap: 10px; }
+            .company-logo { width: 50px; height: 50px; }
+            .project-logo { width: 40px; height: 40px; }
         }
     </style>
 </head>
@@ -449,7 +134,7 @@
                 <div class="logo-section">
                     <img src="yesoklab-logo.png" alt="YesOkLab" class="company-logo" />
                     <span class="logo-divider">|</span>
-                    <img src="https://raw.githubusercontent.com/yesoklab/YesOkLab.github.io/main/loh_logo.svg.svg" alt="LOH Token" class="project-logo" />
+                    <img src="https://ipfs.io/ipfs/bafkreiaj6u34w63larcjtk2o66h5gmwf4jul6fxy7zdwpc5giql6faoppy" alt="LOH Token" class="project-logo" />
                     <div class="logo-text">YesOkLab</div>
                 </div>
                 <ul class="nav-links">
@@ -475,22 +160,10 @@
                 </p>
                 
                 <div class="hero-stats">
-                    <div class="stat-item">
-                        <div class="stat-number">51.1M</div>
-                        <div class="stat-label">Total Supply</div>
-                    </div>
-                    <div class="stat-item">
-                        <div class="stat-number">Polygon</div>
-                        <div class="stat-label">Blockchain</div>
-                    </div>
-                    <div class="stat-item">
-                        <div class="stat-number">ERC-20</div>
-                        <div class="stat-label">Token Standard</div>
-                    </div>
-                    <div class="stat-item">
-                        <div class="stat-number">Live</div>
-                        <div class="stat-label">Status</div>
-                    </div>
+                    <div class="stat-item"><div class="stat-number">51.1M</div><div class="stat-label">Total Supply</div></div>
+                    <div class="stat-item"><div class="stat-number">Polygon</div><div class="stat-label">Blockchain</div></div>
+                    <div class="stat-item"><div class="stat-number">ERC-20</div><div class="stat-label">Token Standard</div></div>
+                    <div class="stat-item"><div class="stat-number">Live</div><div class="stat-label">Status</div></div>
                 </div>
             </div>
         </div>
@@ -522,34 +195,10 @@
         <div class="container">
             <h2 class="section-title">Why LOH Token?</h2>
             <div class="features-grid">
-                <div class="feature-card">
-                    <div class="feature-icon">🛡️</div>
-                    <div class="feature-title">Enterprise Security</div>
-                    <div class="feature-description">
-                        Built by Samsung Electronics and Coupang alumni with enterprise-grade security standards and best practices.
-                    </div>
-                </div>
-                <div class="feature-card">
-                    <div class="feature-icon">⚖️</div>
-                    <div class="feature-title">Legal Compliance</div>
-                    <div class="feature-description">
-                        Proactive regulatory compliance with dedicated legal counsel from Fortune 500 companies and government connections.
-                    </div>
-                </div>
-                <div class="feature-card">
-                    <div class="feature-icon">👥</div>
-                    <div class="feature-title">Community Governance</div>
-                    <div class="feature-description">
-                        Democratic decision-making through transparent DAO governance mechanisms with token-weighted voting.
-                    </div>
-                </div>
-                <div class="feature-card">
-                    <div class="feature-icon">🚀</div>
-                    <div class="feature-title">Innovation</div>
-                    <div class="feature-description">
-                        Cutting-edge DeFi solutions with continuous technological advancement and enterprise integrations.
-                    </div>
-                </div>
+                <div class="feature-card"><div class="feature-icon">🛡️</div><div class="feature-title">Enterprise Security</div><div class="feature-description">Built by Samsung Electronics and Coupang alumni with enterprise-grade security standards and best practices.</div></div>
+                <div class="feature-card"><div class="feature-icon">⚖️</div><div class="feature-title">Legal Compliance</div><div class="feature-description">Proactive regulatory compliance with dedicated legal counsel from Fortune 500 companies and government connections.</div></div>
+                <div class="feature-card"><div class="feature-icon">👥</div><div class="feature-title">Community Governance</div><div class="feature-description">Democratic decision-making through transparent DAO governance mechanisms with token-weighted voting.</div></div>
+                <div class="feature-card"><div class="feature-icon">🚀</div><div class="feature-title">Innovation</div><div class="feature-description">Cutting-edge DeFi solutions with continuous technological advancement and enterprise integrations.</div></div>
             </div>
         </div>
     </section>
@@ -559,47 +208,13 @@
         <div class="container">
             <h2 class="section-title">Our Team</h2>
             <div class="team-grid">
-                <div class="team-member">
-                    <div class="member-name">Kim Kyung-gu (Cocoon)</div>
-                    <div class="member-role">Founder / Project Leader</div>
-                    <div class="member-background">Strategic planning, project management, external relations</div>
-                </div>
-                
-                <div class="team-member">
-                    <div class="member-name">Cho Dae-yeon</div>
-                    <div class="member-role">Legal Counsel</div>
-                    <div class="member-background">Former Samsung Electronics Legal Team<br>Legal risk management, regulatory compliance</div>
-                </div>
-                
-                <div class="team-member">
-                    <div class="member-name">Yang Chan-woo</div>
-                    <div class="member-role">Backend Developer</div>
-                    <div class="member-background">Former Coupang IT Manager<br>Python specialist, backend systems, API development</div>
-                </div>
-                
-                <div class="team-member">
-                    <div class="member-name">Kim Young-kwon (honuy)</div>
-                    <div class="member-role">Full-stack Developer</div>
-                    <div class="member-background">Former E-Mart IT Manager<br>Computer Engineering, Hannam University</div>
-                </div>
-                
-                <div class="team-member">
-                    <div class="member-name">Kim Ji-woo (pony)</div>
-                    <div class="member-role">Design Team Leader</div>
-                    <div class="member-background">International Design School<br>UI/UX design, branding, visual identity</div>
-                </div>
-                
-                <div class="team-member">
-                    <div class="member-name">Park Young-chan (solcahni)</div>
-                    <div class="member-role">Marketing Advisor</div>
-                    <div class="member-background">Hyundai Marine & Fire Insurance Marketing Team<br>Democratic Party of Korea Jeonbuk Provincial Committee</div>
-                </div>
-                
-                <div class="team-member">
-                    <div class="member-name">Choi Woo-jung</div>
-                    <div class="member-role">Policy Advisor</div>
-                    <div class="member-background">Ph.D. Psychology, Wonkwang University<br>Policy Director for Disability Rights Research</div>
-                </div>
+                <div class="team-member"><div class="member-name">Kim Kyung-gu (Cocoon)</div><div class="member-role">Founder / Project Leader</div><div class="member-background">Strategic planning, project management, external relations</div></div>
+                <div class="team-member"><div class="member-name">Cho Dae-yeon</div><div class="member-role">Legal Counsel</div><div class="member-background">Former Samsung Electronics Legal Team<br>Legal risk management, regulatory compliance</div></div>
+                <div class="team-member"><div class="member-name">Yang Chan-woo</div><div class="member-role">Backend Developer</div><div class="member-background">Former Coupang IT Manager<br>Python specialist, backend systems, API development</div></div>
+                <div class="team-member"><div class="member-name">Kim Young-kwon (honuy)</div><div class="member-role">Full-stack Developer</div><div class="member-background">Former E-Mart IT Manager<br>Computer Engineering, Hannam University</div></div>
+                <div class="team-member"><div class="member-name">Kim Ji-woo (pony)</div><div class="member-role">Design Team Leader</div><div class="member-background">International Design School<br>UI/UX design, branding, visual identity</div></div>
+                <div class="team-member"><div class="member-name">Park Young-chan (solcahni)</div><div class="member-role">Marketing Advisor</div><div class="member-background">Hyundai Marine & Fire Insurance Marketing Team<br>Democratic Party of Korea Jeonbuk Provincial Committee</div></div>
+                <div class="team-member"><div class="member-name">Choi Woo-jung</div><div class="member-role">Policy Advisor</div><div class="member-background">Ph.D. Psychology, Wonkwang University<br>Policy Director for Disability Rights Research</div></div>
             </div>
         </div>
     </section>
@@ -609,18 +224,10 @@
         <div class="container">
             <h2 style="color: white; margin-bottom: 2rem;">📚 Resources & Documentation</h2>
             <div class="link-buttons">
-                <a href="./whitepaper.html" class="btn btn-primary">
-                    <i class="fas fa-file-alt"></i> Read Whitepaper
-                </a>
-                <a href="./token-list.html" class="btn btn-secondary">
-                    <i class="fas fa-list"></i> Token Information
-                </a>
-                <a href="https://polygonscan.com/address/0x55f16708a0c7BcB40F2138f836e87733D0636C8e" class="btn btn-primary" target="_blank">
-                    <i class="fas fa-external-link-alt"></i> View on PolygonScan
-                </a>
-                <a href="https://github.com/yesoklab/YesOkLab.github.io" class="btn btn-secondary" target="_blank">
-                    <i class="fab fa-github"></i> GitHub Repository
-                </a>
+                <a href="./whitepaper.html" class="btn btn-primary"><i class="fas fa-file-alt"></i> Read Whitepaper</a>
+                <a href="./token-list.html" class="btn btn-secondary"><i class="fas fa-list"></i> Token Information</a>
+                <a href="https://polygonscan.com/address/0x55f16708a0c7BcB40F2138f836e87733D0636C8e" class="btn btn-primary" target="_blank"><i class="fas fa-external-link-alt"></i> View on PolygonScan</a>
+                <a href="https://github.com/yesoklab/YesOkLab.github.io" class="btn btn-secondary" target="_blank"><i class="fab fa-github"></i> GitHub Repository</a>
             </div>
         </div>
     </section>
@@ -629,46 +236,12 @@
     <footer class="footer">
         <div class="container">
             <div class="footer-content">
-                <div class="footer-section">
-                    <h4>YesOkLab Foundation</h4>
-                    <p>Enterprise-Grade DeFi Platform</p>
-                    <p>Built on Polygon Blockchain</p>
-                </div>
-                
-                <div class="footer-section">
-                    <h4>Contract Info</h4>
-                    <ul class="footer-links">
-                        <li>LOH Token: 0x55f16...636C8e</li>
-                        <li>NFT Collection: 0xa71A...794D8</li>
-                        <li>Network: Polygon (MATIC)</li>
-                    </ul>
-                </div>
-                
-                <div class="footer-section">
-                    <h4>Resources</h4>
-                    <ul class="footer-links">
-                        <li><a href="./whitepaper.html">Whitepaper</a></li>
-                        <li><a href="./token-list.html">Token Information</a></li>
-                        <li><a href="https://github.com/yesoklab/YesOkLab.github.io" target="_blank">GitHub</a></li>
-                    </ul>
-                </div>
-                
-                <div class="footer-section">
-                    <h4>Community</h4>
-                    <ul class="footer-links">
-                        <li><a href="https://twitter.com/YesOkLAB" target="_blank">Twitter</a></li>
-                        <li><a href="https://x.com/YesOkLab" target="_blank">X.com</a></li>
-                        <li><a href="https://t.me/YesOkLabs" target="_blank">Telegram</a></li>
-                        <li><a href="https://naver.me/5OtFJox1" target="_blank">Naver</a></li>
-                        <li><a href="https://open.kakao.com/o/ghJNRyvh" target="_blank">KakaoTalk</a></li>
-                    </ul>
-                </div>
+                <div class="footer-section"><h4>YesOkLab Foundation</h4><p>Enterprise-Grade DeFi Platform</p><p>Built on Polygon Blockchain</p></div>
+                <div class="footer-section"><h4>Contract Info</h4><ul class="footer-links"><li>LOH Token: 0x55f16...636C8e</li><li>NFT Collection: 0xa71A...794D8</li><li>Network: Polygon (MATIC)</li></ul></div>
+                <div class="footer-section"><h4>Resources</h4><ul class="footer-links"><li><a href="./whitepaper.html">Whitepaper</a></li><li><a href="./token-list.html">Token Information</a></li><li><a href="https://github.com/yesoklab/YesOkLab.github.io" target="_blank">GitHub</a></li></ul></div>
+                <div class="footer-section"><h4>Community</h4><ul class="footer-links"><li><a href="https://twitter.com/YesOkLAB" target="_blank">Twitter</a></li><li><a href="https://x.com/YesOkLab" target="_blank">X.com</a></li><li><a href="https://t.me/YesOkLabs" target="_blank">Telegram</a></li><li><a href="https://naver.me/5OtFJox1" target="_blank">Naver</a></li><li><a href="https://open.kakao.com/o/ghJNRyvh" target="_blank">KakaoTalk</a></li></ul></div>
             </div>
-            
-            <div class="footer-bottom">
-                <p>&copy; 2025 YesOkLab Foundation. All rights reserved.</p>
-                <p><strong>Disclaimer:</strong> This is not investment advice. Please do your own research.</p>
-            </div>
+            <div class="footer-bottom"><p>&copy; 2025 YesOkLab Foundation. All rights reserved.</p><p><strong>Disclaimer:</strong> This is not investment advice. Please do your own research.</p></div>
         </div>
     </footer>
 </body>
