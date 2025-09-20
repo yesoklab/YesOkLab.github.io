@@ -237,15 +237,17 @@ graph LR
 
 <div align="center">
 
-[![Website](https://img.shields.io/badge/🌐_Website-ljmsider.com-blue?style=for-the-badge)](https://www.ljmsider.com)
-[![Telegram](https://img.shields.io/badge/Telegram-2CA5E0?style=for-the-badge&logo=telegram&logoColor=white)](https://t.me/YesOkLab_NFT)
-[![Twitter](https://img.shields.io/badge/Twitter-1DA1F2?style=for-the-badge&logo=twitter&logoColor=white)](https://x.com/YesOkLab)
-[![Naver Blog](https://img.shields.io/badge/Naver_Blog-03C75A?style=for-the-badge&logo=naver&logoColor=white)](https://naver.me/5TQSW1qE)
+[![Website](https://img.shields.io/badge/🌐_Website-ljmsider.com-blue?style=for-the-badge)](https://www.ljmsider.com)  
+[![Telegram](https://img.shields.io/badge/Telegram-2CA5E0?style=for-the-badge&logo=telegram&logoColor=white)](https://t.me/YesOkLab_NFT)  
+[![Twitter Official](https://img.shields.io/badge/Twitter_YesOkLab-1DA1F2?style=for-the-badge&logo=twitter&logoColor=white)](https://x.com/YesOkLab)  
+[![Twitter Personal](https://img.shields.io/badge/Twitter_cocoon9611-888888?style=for-the-badge&logo=twitter&logoColor=white)](https://x.com/wakk5252)  
+[![Naver Blog](https://img.shields.io/badge/Naver_Blog-03C75A?style=for-the-badge&logo=naver&logoColor=white)](https://blog.naver.com/yesoklab/224013365592)  
 
-[![QuickSwap](https://img.shields.io/badge/Trade_on_QuickSwap-667DFF?style=for-the-badge&logo=quickswap&logoColor=white)](https://quickswap.exchange)
-[![Polygon](https://img.shields.io/badge/Built_on_Polygon-8247E5?style=for-the-badge&logo=polygon&logoColor=white)](https://polygon.technology)
+[![QuickSwap](https://img.shields.io/badge/Trade_on_QuickSwap-667DFF?style=for-the-badge&logo=quickswap&logoColor=white)](https://quickswap.exchange)  
+[![Polygon](https://img.shields.io/badge/Built_on_Polygon-8247E5?style=for-the-badge&logo=polygon&logoColor=white)](https://polygon.technology)  
 
 </div>
+
 
 ---
 
