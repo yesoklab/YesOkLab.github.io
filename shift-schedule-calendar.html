@@ -1,0 +1,996 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>근무표 - YesOkLab</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', 'Malgun Gothic', sans-serif;
+            background: linear-gradient(135deg, #e0f2fe 0%, #ddd6fe 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.15);
+            overflow: hidden;
+        }
+
+        /* 헤더 */
+        .header {
+            background: linear-gradient(135deg, #4f46e5 0%, #3b82f6 100%);
+            color: white;
+            padding: 30px 20px;
+        }
+
+        .header h1 {
+            text-align: center;
+            font-size: 2em;
+            margin-bottom: 20px;
+            font-weight: bold;
+        }
+
+        .month-nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 400px;
+            margin: 0 auto;
+        }
+
+        .month-nav button {
+            background: rgba(255, 255, 255, 0.2);
+            border: none;
+            color: white;
+            width: 40px;
+            height: 40px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 1.5em;
+            transition: background 0.2s;
+        }
+
+        .month-nav button:hover {
+            background: rgba(255, 255, 255, 0.3);
+        }
+
+        .month-nav h2 {
+            font-size: 1.5em;
+            font-weight: bold;
+        }
+
+        /* 설정 버튼 */
+        .settings-btn {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background: rgba(255, 255, 255, 0.2);
+            border: none;
+            color: white;
+            padding: 10px 20px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 1em;
+            transition: background 0.2s;
+            font-weight: 500;
+        }
+
+        .settings-btn:hover {
+            background: rgba(255, 255, 255, 0.3);
+        }
+
+        /* 모달 */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            z-index: 1000;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .modal.active {
+            display: flex;
+        }
+
+        .modal-content {
+            background: white;
+            padding: 30px;
+            border-radius: 15px;
+            max-width: 500px;
+            width: 90%;
+            max-height: 80vh;
+            overflow-y: auto;
+        }
+
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .modal-header h2 {
+            font-size: 1.5em;
+            color: #4f46e5;
+        }
+
+        .close-btn {
+            background: none;
+            border: none;
+            font-size: 1.5em;
+            cursor: pointer;
+            color: #6b7280;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: #374151;
+        }
+
+        .form-group input,
+        .form-group select {
+            width: 100%;
+            padding: 10px;
+            border: 2px solid #e5e7eb;
+            border-radius: 8px;
+            font-size: 1em;
+            transition: border-color 0.2s;
+        }
+
+        .form-group input:focus,
+        .form-group select:focus {
+            outline: none;
+            border-color: #4f46e5;
+        }
+
+        .radio-group {
+            display: flex;
+            gap: 20px;
+            margin-top: 10px;
+        }
+
+        .radio-label {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            cursor: pointer;
+        }
+
+        .radio-label input[type="radio"] {
+            width: auto;
+            cursor: pointer;
+        }
+
+        .save-btn {
+            width: 100%;
+            padding: 12px;
+            background: #4f46e5;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 1em;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+
+        .save-btn:hover {
+            background: #4338ca;
+        }
+
+        .current-setting {
+            background: #f0fdf4;
+            border: 2px solid #86efac;
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+        }
+
+        .current-setting h3 {
+            color: #16a34a;
+            margin-bottom: 10px;
+            font-size: 1.1em;
+        }
+
+        .current-setting p {
+            color: #166534;
+            margin: 5px 0;
+        }
+
+        /* 범례 */
+        .legend {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 20px;
+            padding: 20px;
+            background: #f9fafb;
+            border-bottom: 1px solid #e5e7eb;
+        }
+
+        .legend-item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .legend-icon {
+            width: 24px;
+            height: 24px;
+            border-radius: 4px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .legend-icon svg {
+            width: 14px;
+            height: 14px;
+        }
+
+        .legend-text {
+            font-size: 0.9em;
+            font-weight: 500;
+        }
+
+        .icon-day {
+            background: #f59e0b;
+        }
+
+        .icon-night {
+            background: #4f46e5;
+        }
+
+        .icon-off {
+            background: #9ca3af;
+        }
+
+        .icon-dayshift {
+            background: #10b981;
+        }
+
+        .icon-holiday {
+            background: #ef4444;
+        }
+
+        /* 요일 헤더 */
+        .weekday-header {
+            display: grid;
+            grid-template-columns: repeat(7, 1fr);
+            background: #f3f4f6;
+            border-bottom: 1px solid #e5e7eb;
+        }
+
+        .weekday {
+            text-align: center;
+            padding: 15px 0;
+            font-weight: bold;
+            font-size: 0.9em;
+        }
+
+        .weekday.sun {
+            color: #dc2626;
+        }
+
+        .weekday.sat {
+            color: #2563eb;
+        }
+
+        /* 달력 */
+        .calendar {
+            padding: 10px;
+        }
+
+        .calendar-grid {
+            display: grid;
+            grid-template-columns: repeat(7, 1fr);
+            gap: 0;
+        }
+
+        .day-cell {
+            aspect-ratio: 1;
+            padding: 4px;
+            border: 1px solid #e5e7eb;
+        }
+
+        .day-content {
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        .day-number {
+            text-align: right;
+            font-size: 0.75em;
+            font-weight: 600;
+            color: #374151;
+            padding: 2px;
+        }
+
+        .shift-badge {
+            flex-grow: 1;
+            margin-top: 4px;
+            border-radius: 8px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            padding: 4px;
+            transition: transform 0.2s;
+        }
+
+        .shift-badge:hover {
+            transform: scale(1.05);
+        }
+
+        .shift-badge svg {
+            width: 16px;
+            height: 16px;
+            margin-bottom: 4px;
+        }
+
+        .shift-label {
+            font-size: 0.75em;
+            font-weight: bold;
+        }
+
+        .shift-time {
+            font-size: 0.6em;
+            opacity: 0.9;
+            margin-top: 2px;
+        }
+
+        .shift-day {
+            background: #f59e0b;
+        }
+
+        .shift-night {
+            background: #4f46e5;
+        }
+
+        .shift-off {
+            background: #9ca3af;
+        }
+
+        .shift-dayshift {
+            background: #10b981;
+        }
+
+        .shift-holiday {
+            background: #ef4444;
+        }
+
+        .today {
+            box-shadow: 0 0 0 2px #3b82f6;
+        }
+
+        /* 푸터 */
+        .footer {
+            padding: 20px;
+            background: #f9fafb;
+            border-top: 1px solid #e5e7eb;
+            text-align: center;
+            color: #6b7280;
+            font-size: 0.9em;
+        }
+
+        .footer p {
+            margin: 5px 0;
+        }
+
+        .footer-brand {
+            color: #4f46e5;
+            font-weight: 600;
+            margin-top: 10px;
+        }
+
+        .info-box {
+            background: #eff6ff;
+            border-left: 4px solid #3b82f6;
+            padding: 12px;
+            margin-top: 15px;
+            border-radius: 4px;
+            font-size: 0.9em;
+            color: #1e40af;
+        }
+
+        /* 반응형 */
+        @media (max-width: 768px) {
+            body {
+                padding: 10px;
+            }
+
+            .header h1 {
+                font-size: 1.5em;
+            }
+
+            .month-nav h2 {
+                font-size: 1.2em;
+            }
+
+            .settings-btn {
+                position: static;
+                display: block;
+                margin: 0 auto 15px;
+                width: fit-content;
+            }
+
+            .legend {
+                gap: 10px;
+                padding: 15px;
+            }
+
+            .legend-text {
+                font-size: 0.8em;
+            }
+
+            .day-number {
+                font-size: 0.65em;
+            }
+
+            .shift-label {
+                font-size: 0.65em;
+            }
+
+            .shift-time {
+                font-size: 0.55em;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- 헤더 -->
+        <div class="header" style="position: relative;">
+            <button class="settings-btn" onclick="openSettings()">⚙️ 근무조 설정</button>
+            <h1>근무표</h1>
+            <div class="month-nav">
+                <button onclick="changeMonth(-1)">‹</button>
+                <h2 id="currentMonth"></h2>
+                <button onclick="changeMonth(1)">›</button>
+            </div>
+        </div>
+        
+        <!-- 범례 -->
+        <div class="legend" id="legend">
+            <div class="legend-item">
+                <div class="legend-icon icon-dayshift">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2">
+                        <circle cx="12" cy="12" r="5"></circle>
+                        <line x1="12" y1="1" x2="12" y2="3"></line>
+                        <line x1="12" y1="21" x2="12" y2="23"></line>
+                        <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+                        <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+                        <line x1="1" y1="12" x2="3" y2="12"></line>
+                        <line x1="21" y1="12" x2="23" y2="12"></line>
+                        <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+                        <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+                    </svg>
+                </div>
+                <span class="legend-text">주간근무 (08:00-17:00)</span>
+            </div>
+            <div class="legend-item">
+                <div class="legend-icon icon-holiday">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2">
+                        <path d="M18 8h1a4 4 0 0 1 0 8h-1"></path>
+                        <path d="M2 8h16v9a4 4 0 0 1-4 4H6a4 4 0 0 1-4-4V8z"></path>
+                        <line x1="6" y1="1" x2="6" y2="4"></line>
+                        <line x1="10" y1="1" x2="10" y2="4"></line>
+                        <line x1="14" y1="1" x2="14" y2="4"></line>
+                    </svg>
+                </div>
+                <span class="legend-text">주말/공휴일</span>
+            </div>
+        </div>
+        
+        <!-- 요일 헤더 -->
+        <div class="weekday-header">
+            <div class="weekday sun">일</div>
+            <div class="weekday">월</div>
+            <div class="weekday">화</div>
+            <div class="weekday">수</div>
+            <div class="weekday">목</div>
+            <div class="weekday">금</div>
+            <div class="weekday sat">토</div>
+        </div>
+        
+        <!-- 달력 -->
+        <div class="calendar">
+            <div id="calendar" class="calendar-grid"></div>
+        </div>
+        
+        <!-- 푸터 -->
+        <div class="footer">
+            <p><strong>근무 유형:</strong> <span id="patternInfo">근무조 설정을 해주세요</span></p>
+            <p style="font-size: 0.85em;" id="teamInfo">⚙️ 버튼을 클릭하여 근무조를 선택해주세요</p>
+            <p class="footer-brand">YesOkLab</p>
+        </div>
+    </div>
+
+    <!-- 설정 모달 -->
+    <div class="modal" id="settingsModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>⚙️ 근무조 설정</h2>
+                <button class="close-btn" onclick="closeSettings()">×</button>
+            </div>
+
+            <div class="current-setting" id="currentSetting" style="display: none;">
+                <h3>✓ 현재 설정</h3>
+                <p id="currentTeamDisplay"></p>
+            </div>
+
+            <form onsubmit="saveSettings(event)">
+                <div class="form-group">
+                    <label>근무조 선택</label>
+                    <select id="teamSelect" required>
+                        <option value="">선택해주세요</option>
+                        <option value="dayshift">주간조 (주5일 근무)</option>
+                        <option value="A">A조 (교대근무)</option>
+                        <option value="B">B조 (교대근무)</option>
+                        <option value="C">C조 (교대근무)</option>
+                        <option value="custom">직접 설정</option>
+                    </select>
+                </div>
+
+                <div id="customSettings" style="display: none;">
+                    <div class="form-group">
+                        <label>시작 날짜</label>
+                        <input type="date" id="startDate">
+                    </div>
+
+                    <div class="form-group">
+                        <label>시작 근무</label>
+                        <div class="radio-group">
+                            <label class="radio-label">
+                                <input type="radio" name="startShift" value="day">
+                                <span>주간</span>
+                            </label>
+                            <label class="radio-label">
+                                <input type="radio" name="startShift" value="night">
+                                <span>야간</span>
+                            </label>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="info-box">
+                    <strong>💡 안내:</strong><br>
+                    • <strong>주간조</strong>: 월~금 08:00-17:00, 토일 및 공휴일 휴무<br>
+                    • <strong>A/B/C조</strong>: 교대근무 (4일 근무 → 2일 휴무 → 반복)<br>
+                    • <strong>직접 설정</strong>: 원하는 날짜와 시작 근무 입력<br>
+                    • 설정은 브라우저에 저장되어 다음에도 유지됩니다
+                </div>
+
+                <button type="submit" class="save-btn">저장</button>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        let currentDate = new Date();
+        let startDate = new Date(2025, 10, 22); // 기본값: 2025년 11월 22일
+        let startShiftType = 'night'; // 기본값: 야간
+        let workType = 'rotating'; // 기본값: 교대근무
+        
+        const monthNames = ['1월', '2월', '3월', '4월', '5월', '6월', 
+                          '7월', '8월', '9월', '10월', '11월', '12월'];
+        
+        const icons = {
+            night: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg>',
+            day: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line></svg>',
+            off: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 8h1a4 4 0 0 1 0 8h-1"></path><path d="M2 8h16v9a4 4 0 0 1-4 4H6a4 4 0 0 1-4-4V8z"></path><line x1="6" y1="1" x2="6" y2="4"></line><line x1="10" y1="1" x2="10" y2="4"></line><line x1="14" y1="1" x2="14" y2="4"></line></svg>',
+            dayshift: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line></svg>',
+            holiday: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 8h1a4 4 0 0 1 0 8h-1"></path><path d="M2 8h16v9a4 4 0 0 1-4 4H6a4 4 0 0 1-4-4V8z"></path><line x1="6" y1="1" x2="6" y2="4"></line><line x1="10" y1="1" x2="10" y2="4"></line><line x1="14" y1="1" x2="14" y2="4"></line></svg>'
+        };
+
+        // 한국 공휴일 (2025년)
+        const holidays = [
+            '2025-01-01', '2025-01-28', '2025-01-29', '2025-01-30',
+            '2025-03-01', '2025-03-03', '2025-05-05', '2025-05-06',
+            '2025-06-06', '2025-08-15', '2025-10-03', 
+            '2025-10-06', '2025-10-07', '2025-10-08', '2025-10-09',
+            '2025-12-25'
+        ];
+
+        // 조별 기본 설정
+        const teamPresets = {
+            'dayshift': { type: 'dayshift' },
+            'A': { date: '2025-11-22', shift: 'night', type: 'rotating' },
+            'B': { date: '2025-11-26', shift: 'off', type: 'rotating' },
+            'C': { date: '2025-11-28', shift: 'day', type: 'rotating' }
+        };
+        
+        // 공휴일 체크
+        function isHoliday(date) {
+            const dateStr = date.toISOString().split('T')[0];
+            return holidays.includes(dateStr);
+        }
+
+        // 주간조 근무 타입 계산
+        function getDayshiftType(date) {
+            const dayOfWeek = date.getDay();
+            
+            if (isHoliday(date)) {
+                return 'holiday';
+            }
+            
+            if (dayOfWeek === 0 || dayOfWeek === 6) {
+                return 'holiday';
+            }
+            
+            return 'dayshift';
+        }
+
+        // 교대근무 타입 계산 (12일 사이클: 4근무-2휴무-4근무-2휴무)
+        function getRotatingShiftType(date) {
+            const diffTime = date - startDate;
+            const diffDays = Math.floor(diffTime / (1000 * 60 * 60 * 24));
+            const cycleDay = ((diffDays % 12) + 12) % 12; // 12일 사이클
+            
+            if (startShiftType === 'day') {
+                // 주간 시작: 주간4 → 휴무2 → 야간4 → 휴무2
+                if (cycleDay < 4) return 'day';      // 0-3: 주간
+                if (cycleDay < 6) return 'off';      // 4-5: 휴무
+                if (cycleDay < 10) return 'night';   // 6-9: 야간
+                return 'off';                        // 10-11: 휴무
+            } else if (startShiftType === 'night') {
+                // 야간 시작: 야간4 → 휴무2 → 주간4 → 휴무2
+                if (cycleDay < 4) return 'night';    // 0-3: 야간
+                if (cycleDay < 6) return 'off';      // 4-5: 휴무
+                if (cycleDay < 10) return 'day';     // 6-9: 주간
+                return 'off';                        // 10-11: 휴무
+            } else {
+                // 휴무 시작 (B조)
+                if (cycleDay < 2) return 'off';      // 0-1: 휴무
+                if (cycleDay < 6) return 'day';      // 2-5: 주간
+                if (cycleDay < 8) return 'off';      // 6-7: 휴무
+                return 'night';                      // 8-11: 야간
+            }
+        }
+        
+        // 근무 타입 계산 (통합)
+        function getShiftType(date) {
+            if (workType === 'dayshift') {
+                return getDayshiftType(date);
+            } else {
+                return getRotatingShiftType(date);
+            }
+        }
+        
+        // 근무 정보 가져오기
+        function getShiftInfo(type) {
+            switch(type) {
+                case 'night':
+                    return { label: '야간', className: 'shift-night', icon: icons.night, time: '20:00-08:00' };
+                case 'day':
+                    return { label: '주간', className: 'shift-day', icon: icons.day, time: '08:00-20:00' };
+                case 'off':
+                    return { label: '휴무', className: 'shift-off', icon: icons.off, time: '' };
+                case 'dayshift':
+                    return { label: '근무', className: 'shift-dayshift', icon: icons.dayshift, time: '08:00-17:00' };
+                case 'holiday':
+                    return { label: '휴무', className: 'shift-holiday', icon: icons.holiday, time: '' };
+                default:
+                    return null;
+            }
+        }
+
+        // 범례 업데이트
+        function updateLegend() {
+            const legendHTML = workType === 'dayshift' ? `
+                <div class="legend-item">
+                    <div class="legend-icon icon-dayshift">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2">
+                            <circle cx="12" cy="12" r="5"></circle>
+                            <line x1="12" y1="1" x2="12" y2="3"></line>
+                            <line x1="12" y1="21" x2="12" y2="23"></line>
+                            <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+                            <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+                            <line x1="1" y1="12" x2="3" y2="12"></line>
+                            <line x1="21" y1="12" x2="23" y2="12"></line>
+                            <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+                            <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+                        </svg>
+                    </div>
+                    <span class="legend-text">주간근무 (08:00-17:00)</span>
+                </div>
+                <div class="legend-item">
+                    <div class="legend-icon icon-holiday">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2">
+                            <path d="M18 8h1a4 4 0 0 1 0 8h-1"></path>
+                            <path d="M2 8h16v9a4 4 0 0 1-4 4H6a4 4 0 0 1-4-4V8z"></path>
+                            <line x1="6" y1="1" x2="6" y2="4"></line>
+                            <line x1="10" y1="1" x2="10" y2="4"></line>
+                            <line x1="14" y1="1" x2="14" y2="4"></line>
+                        </svg>
+                    </div>
+                    <span class="legend-text">주말/공휴일</span>
+                </div>
+            ` : `
+                <div class="legend-item">
+                    <div class="legend-icon icon-day">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2">
+                            <circle cx="12" cy="12" r="5"></circle>
+                            <line x1="12" y1="1" x2="12" y2="3"></line>
+                            <line x1="12" y1="21" x2="12" y2="23"></line>
+                            <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+                            <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+                            <line x1="1" y1="12" x2="3" y2="12"></line>
+                            <line x1="21" y1="12" x2="23" y2="12"></line>
+                            <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+                            <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+                        </svg>
+                    </div>
+                    <span class="legend-text">주간 (08:00-20:00)</span>
+                </div>
+                <div class="legend-item">
+                    <div class="legend-icon icon-night">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2">
+                            <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+                        </svg>
+                    </div>
+                    <span class="legend-text">야간 (20:00-08:00)</span>
+                </div>
+                <div class="legend-item">
+                    <div class="legend-icon icon-off">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2">
+                            <path d="M18 8h1a4 4 0 0 1 0 8h-1"></path>
+                            <path d="M2 8h16v9a4 4 0 0 1-4 4H6a4 4 0 0 1-4-4V8z"></path>
+                            <line x1="6" y1="1" x2="6" y2="4"></line>
+                            <line x1="10" y1="1" x2="10" y2="4"></line>
+                            <line x1="14" y1="1" x2="14" y2="4"></line>
+                        </svg>
+                    </div>
+                    <span class="legend-text">휴무</span>
+                </div>
+            `;
+            
+            document.getElementById('legend').innerHTML = legendHTML;
+        }
+        
+        // 달력 렌더링
+        function renderCalendar() {
+            const year = currentDate.getFullYear();
+            const month = currentDate.getMonth();
+            const firstDay = new Date(year, month, 1).getDay();
+            const daysInMonth = new Date(year, month + 1, 0).getDate();
+            const today = new Date();
+            
+            let html = '';
+            
+            // 빈 칸
+            for (let i = 0; i < firstDay; i++) {
+                html += '<div class="day-cell"></div>';
+            }
+            
+            // 날짜
+            for (let day = 1; day <= daysInMonth; day++) {
+                const date = new Date(year, month, day);
+                const shiftType = getShiftType(date);
+                const shiftInfo = getShiftInfo(shiftType);
+                const isToday = date.toDateString() === today.toDateString();
+                
+                html += `
+                    <div class="day-cell ${isToday ? 'today' : ''}">
+                        <div class="day-content">
+                            <div class="day-number">${day}</div>
+                            ${shiftInfo ? `
+                                <div class="shift-badge ${shiftInfo.className}">
+                                    ${shiftInfo.icon}
+                                    <div class="shift-label">${shiftInfo.label}</div>
+                                    ${shiftInfo.time ? `<div class="shift-time">${shiftInfo.time}</div>` : ''}
+                                </div>
+                            ` : ''}
+                        </div>
+                    </div>
+                `;
+            }
+            
+            document.getElementById('calendar').innerHTML = html;
+            document.getElementById('currentMonth').textContent = 
+                `${year}년 ${monthNames[month]}`;
+        }
+        
+        // 월 변경
+        function changeMonth(increment) {
+            currentDate = new Date(currentDate.getFullYear(), currentDate.getMonth() + increment, 1);
+            renderCalendar();
+        }
+
+        // 설정 모달 열기
+        function openSettings() {
+            document.getElementById('settingsModal').classList.add('active');
+            loadCurrentSettings();
+        }
+
+        // 설정 모달 닫기
+        function closeSettings() {
+            document.getElementById('settingsModal').classList.remove('active');
+        }
+
+        // 현재 설정 표시
+        function loadCurrentSettings() {
+            const saved = localStorage.getItem('shiftSettings');
+            if (saved) {
+                const settings = JSON.parse(saved);
+                const currentSetting = document.getElementById('currentSetting');
+                const currentTeamDisplay = document.getElementById('currentTeamDisplay');
+                
+                currentSetting.style.display = 'block';
+                
+                if (settings.team === 'dayshift') {
+                    currentTeamDisplay.innerHTML = `<strong>주간조</strong> (주5일 근무, 08:00-17:00)`;
+                } else if (settings.team && settings.team !== 'custom') {
+                    currentTeamDisplay.innerHTML = `
+                        <strong>${settings.team}조</strong> (교대근무)<br>
+                        시작일: ${settings.startDate}<br>
+                        시작 근무: ${settings.startShift === 'day' ? '주간' : settings.startShift === 'night' ? '야간' : '휴무'}
+                    `;
+                } else {
+                    currentTeamDisplay.innerHTML = `
+                        시작일: ${settings.startDate}<br>
+                        시작 근무: ${settings.startShift === 'day' ? '주간' : settings.startShift === 'night' ? '야간' : '휴무'}
+                    `;
+                }
+            }
+        }
+
+        // 조 선택 시 처리
+        document.getElementById('teamSelect').addEventListener('change', function(e) {
+            const customSettings = document.getElementById('customSettings');
+            const team = e.target.value;
+            
+            if (team === 'custom') {
+                customSettings.style.display = 'block';
+                document.getElementById('startDate').required = true;
+            } else if (team === 'dayshift') {
+                customSettings.style.display = 'none';
+                document.getElementById('startDate').required = false;
+            } else if (team && teamPresets[team]) {
+                customSettings.style.display = 'none';
+                document.getElementById('startDate').required = false;
+                
+                const preset = teamPresets[team];
+                if (preset.date) {
+                    document.getElementById('startDate').value = preset.date;
+                    document.querySelector(`input[name="startShift"][value="${preset.shift}"]`).checked = true;
+                }
+            } else {
+                customSettings.style.display = 'none';
+                document.getElementById('startDate').required = false;
+            }
+        });
+
+        // 설정 저장
+        function saveSettings(event) {
+            event.preventDefault();
+            
+            const team = document.getElementById('teamSelect').value;
+            let date, shift, type;
+            
+            if (team === 'dayshift') {
+                type = 'dayshift';
+            } else if (team === 'custom') {
+                date = document.getElementById('startDate').value;
+                shift = document.querySelector('input[name="startShift"]:checked').value;
+                type = 'rotating';
+            } else if (teamPresets[team]) {
+                const preset = teamPresets[team];
+                date = preset.date;
+                shift = preset.shift;
+                type = preset.type;
+            } else {
+                alert('근무조를 선택해주세요');
+                return;
+            }
+            
+            const settings = {
+                team: team,
+                startDate: date,
+                startShift: shift,
+                workType: type
+            };
+            
+            localStorage.setItem('shiftSettings', JSON.stringify(settings));
+            
+            // 설정 적용
+            workType = type;
+            if (type === 'rotating') {
+                const [year, month, day] = date.split('-');
+                startDate = new Date(parseInt(year), parseInt(month) - 1, parseInt(day));
+                startShiftType = shift;
+            }
+            
+            // 정보 업데이트
+            updateFooterInfo(settings);
+            updateLegend();
+            
+            // 달력 다시 렌더링
+            renderCalendar();
+            
+            closeSettings();
+            alert('설정이 저장되었습니다!');
+        }
+
+        // 푸터 정보 업데이트
+        function updateFooterInfo(settings) {
+            const teamInfo = document.getElementById('teamInfo');
+            const patternInfo = document.getElementById('patternInfo');
+            
+            if (settings.workType === 'dayshift') {
+                patternInfo.textContent = '주5일 근무 (월~금), 토일 및 공휴일 휴무';
+                teamInfo.innerHTML = `<strong>주간조</strong> | 근무시간: 08:00-17:00`;
+            } else {
+                patternInfo.textContent = '4일 근무 → 2일 휴무 → 반복 (12일 사이클)';
+                
+                const shiftText = settings.startShift === 'day' ? '주간' : 
+                                 settings.startShift === 'night' ? '야간' : '휴무';
+                
+                if (settings.team && settings.team !== 'custom') {
+                    teamInfo.innerHTML = `<strong>${settings.team}조</strong> | 시작일: ${settings.startDate} | 시작 근무: ${shiftText}`;
+                } else {
+                    teamInfo.innerHTML = `시작일: ${settings.startDate} | 시작 근무: ${shiftText}`;
+                }
+            }
+        }
+
+        // 초기화
+        function init() {
+            const saved = localStorage.getItem('shiftSettings');
+            if (saved) {
+                const settings = JSON.parse(saved);
+                workType = settings.workType;
+                
+                if (settings.workType === 'rotating') {
+                    const [year, month, day] = settings.startDate.split('-');
+                    startDate = new Date(parseInt(year), parseInt(month) - 1, parseInt(day));
+                    startShiftType = settings.startShift;
+                }
+                
+                updateFooterInfo(settings);
+                updateLegend();
+            } else {
+                // 기본값: A조 설정
+                const defaultSettings = {
+                    team: 'A',
+                    startDate: '2025-11-22',
+                    startShift: 'night',
+                    workType: 'rotating'
+                };
+                localStorage.setItem('shiftSettings', JSON.stringify(defaultSettings));
+                updateFooterInfo(defaultSettings);
+                updateLegend();
+            }
+            
+            renderCalendar();
+        }
+        
+        init();
+    </script>
+</body>
+</html>
