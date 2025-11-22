@@ -67,16 +67,24 @@
             max-width: 600px;
             width: 100%;
             height: auto;
-            margin: 30px auto;
+            min-height: 400px;
+            margin: 0 auto;
             border-radius: 15px;
             box-shadow: 0 20px 60px rgba(0,0,0,0.4);
             display: block;
-            transition: opacity 1s ease-in-out;
+            object-fit: cover;
+            background: rgba(255,255,255,0.1);
+            transition: opacity 0.5s ease-in-out;
+        }
+        
+        .hero-image:hover {
+            transform: scale(1.02);
         }
         
         .hero-slideshow {
             position: relative;
             max-width: 600px;
+            width: 100%;
             margin: 30px auto;
         }
         
@@ -105,6 +113,10 @@
             box-shadow: 0 0 10px rgba(255, 255, 255, 0.8);
         }
         
+        .hero-image.fade {
+            opacity: 0.4;
+        }
+        
         .artwork-info {
             text-align: center;
             margin-top: 15px;
@@ -115,10 +127,6 @@
             font-size: 1.2em;
             font-weight: 500;
             text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
-        }
-        
-        .hero-image.fade {
-            opacity: 0.4;
         }
         
         .section {
@@ -375,6 +383,7 @@
             
             .hero-image {
                 max-width: 100%;
+                min-height: 300px;
             }
             
             .artwork-info p {
@@ -401,17 +410,15 @@
             
             <!-- WRISTORY 작품 슬라이드쇼 -->
             <div class="hero-slideshow">
-                <img id="heroImage" src="https://assets.objkt.media/file/assets-003/bafkreiaohqebkvodjwrnwt3673zaijntc3uc2g5mxg6vfdydqpeaf77s4a/thumb400" alt="WRISTORY NFT Collection" class="hero-image">
+                <img id="heroImage" src="https://amaranth-legal-sole-30.mypinata.cloud/ipfs/bafkreigtmhstec3baqngrb3wuynfkfohxri7b7b62ecxluui3zwttf35xm" alt="WRISTORY NFT Collection" class="hero-image">
                 <div class="slideshow-dots">
                     <span class="dot active" onclick="changeSlide(0)"></span>
                     <span class="dot" onclick="changeSlide(1)"></span>
                     <span class="dot" onclick="changeSlide(2)"></span>
                     <span class="dot" onclick="changeSlide(3)"></span>
-                    <span class="dot" onclick="changeSlide(4)"></span>
-                    <span class="dot" onclick="changeSlide(5)"></span>
                 </div>
                 <div class="artwork-info">
-                    <p id="artworkName">WRISTORY Collection</p>
+                    <p id="artworkName">Baekbeom Kim Gu - "My Wish"</p>
                 </div>
             </div>
         </div>
@@ -423,12 +430,14 @@
             <h2>💎 About the Project</h2>
             <p style="font-size: 1.2em; line-height: 1.8;">
                 WRISTORY is a project that preserves and propagates Korean independence fighters and cultural heritage through NFTs. 
-                Each NFT is not just digital art, but <strong>digital heritage</strong> containing historical value and educational significance.
+                Our collection features four legendary heroes: <strong>Baekbeom Kim Gu</strong>, <strong>An Jung-geun</strong>, 
+                <strong>Dosan Ahn Chang-ho</strong>, and <strong>Yu Gwan-sun</strong>. Each NFT is not just digital art, 
+                but <strong>digital heritage</strong> containing historical value and educational significance.
             </p>
             <div class="stats">
                 <div class="stat-box">
-                    <h3>6</h3>
-                    <p>Genesis Collection</p>
+                    <h3>4</h3>
+                    <p>NFT Artworks</p>
                 </div>
                 <div class="stat-box">
                     <h3>100</h3>
@@ -444,12 +453,11 @@
         <!-- Live NFT Collection from objkt.com -->
         <div class="section">
             <h2>🎨 WRISTORY NFT Collection</h2>
-            <!-- B: 컬렉션 전체 내용 설명 추가 -->
             <p style="margin-bottom: 20px; font-size: 1.1em; line-height: 1.8;">
-                The WRISTORY collection is an NFT series that reinterprets the spirit and achievements of Korean independence fighters through digital art. 
-                Each piece combines the representative quotes of historical figures with traditional Korean calligraphy, creating 
-                meaningful digital heritage that connects past and present. Minted as eco-friendly Clean NFTs on the Tezos blockchain, 
-                realizing both cultural preservation and environmental protection simultaneously.
+                The WRISTORY collection features four Korean independence heroes, each combining their representative quotes 
+                with traditional Korean calligraphy and modern digital art. From <strong>Baekbeom Kim Gu's</strong> vision of cultural power 
+                to <strong>Yu Gwan-sun's</strong> cry for independence, these NFTs create meaningful digital heritage that connects 
+                past and present. Minted as eco-friendly Clean NFTs on the Tezos blockchain, limited to 100 editions each.
             </p>
             
             <div style="background: #f0f4ff; padding: 20px; border-radius: 10px; margin-bottom: 30px;">
@@ -472,7 +480,7 @@
         <div class="section">
             <h2>🏆 Freedom Fighters Collection</h2>
             <p style="margin-bottom: 20px; font-size: 1.1em;">
-                A series honoring the spirit of heroes who devoted themselves to independence during Japanese colonial rule
+                Honoring the spirit of heroes who devoted themselves to independence during Japanese colonial rule
             </p>
             
             <div class="collection-grid">
@@ -480,66 +488,67 @@
                     <div class="nft-card-content">
                         <h3>Baekbeom Kim Gu</h3>
                         <p><strong>"My Wish"</strong></p>
-                        <p style="color: #666; margin: 10px 0;">President of Provisional Government of the Republic of Korea</p>
+                        <p style="color: #666; margin: 10px 0;">President of Provisional Government</p>
                         <p style="font-size: 0.9em; line-height: 1.6; margin-top: 10px;">
-                            A leader of the nation who dreamed of a cultural powerhouse and devoted his life to the independence movement
+                            A visionary leader who dreamed of Korea as a cultural powerhouse and devoted his life to independence
                         </p>
-                        <span class="nft-status completed">Completed</span>
+                        <span class="nft-status completed">Genesis Edition</span>
+                        <div style="margin-top: 15px;">
+                            <a href="https://objkt.com/tokens/KT1A77WVak4yMFoHDNzpAf8PGA7YLmh5wMJ8/15" 
+                               style="display: inline-block; padding: 8px 16px; background: #667eea; color: white; text-decoration: none; border-radius: 5px; font-size: 0.9em;"
+                               target="_blank">View on objkt →</a>
+                        </div>
                     </div>
                 </div>
+                
                 <div class="nft-card">
                     <div class="nft-card-content">
                         <h3>An Jung-geun</h3>
                         <p><strong>"大韓國人 (Korean)"</strong></p>
                         <p style="color: #666; margin: 10px 0;">Independence Activist</p>
                         <p style="font-size: 0.9em; line-height: 1.6; margin-top: 10px;">
-                            Declared independence to the world by executing Ito Hirobumi in Harbin in 1909
+                            Declared Korea's independence by executing Ito Hirobumi in Harbin, 1909
                         </p>
                         <span class="nft-status completed">Completed</span>
+                        <div style="margin-top: 15px;">
+                            <a href="https://objkt.com/tokens/KT1A77WVak4yMFoHDNzpAf8PGA7YLmh5wMJ8/16" 
+                               style="display: inline-block; padding: 8px 16px; background: #667eea; color: white; text-decoration: none; border-radius: 5px; font-size: 0.9em;"
+                               target="_blank">View on objkt →</a>
+                        </div>
                     </div>
                 </div>
-                <div class="nft-card">
-                    <div class="nft-card-content">
-                        <h3>Yun Bong-gil</h3>
-                        <p><strong>"장부출가생불환 (A Man Never Returns Without Achievement)"</strong></p>
-                        <p style="color: #666; margin: 10px 0;">Independence Activist</p>
-                        <p style="font-size: 0.9em; line-height: 1.6; margin-top: 10px;">
-                            A patriotic martyr who alerted the Japanese Empire through the Hongkou Park incident in 1932
-                        </p>
-                        <span class="nft-status completed">Completed</span>
-                    </div>
-                </div>
-                <div class="nft-card">
-                    <div class="nft-card-content">
-                        <h3>Yu Gwan-sun</h3>
-                        <p><strong>"대한독립만세 (Long Live Korean Independence)"</strong></p>
-                        <p style="color: #666; margin: 10px 0;">Symbol of the March 1st Movement</p>
-                        <p style="font-size: 0.9em; line-height: 1.6; margin-top: 10px;">
-                            A young hero who led the independence movement and died at age 18
-                        </p>
-                        <span class="nft-status completed">Completed</span>
-                    </div>
-                </div>
+                
                 <div class="nft-card">
                     <div class="nft-card-content">
                         <h3>Dosan Ahn Chang-ho</h3>
                         <p><strong>"무실역행 (Sincere Action)"</strong></p>
-                        <p style="color: #666; margin: 10px 0;">Independence Activist & Educator</p>
+                        <p style="color: #666; margin: 10px 0;">Educator & Independence Leader</p>
                         <p style="font-size: 0.9em; line-height: 1.6; margin-top: 10px;">
-                            Founder of Heungsadan, who emphasized character education and national strength through truth and sincerity
+                            Founder of Heungsadan, emphasized character education and national strength through sincerity
                         </p>
                         <span class="nft-status completed">Completed</span>
+                        <div style="margin-top: 15px;">
+                            <a href="https://objkt.com/tokens/KT1A77WVak4yMFoHDNzpAf8PGA7YLmh5wMJ8/12" 
+                               style="display: inline-block; padding: 8px 16px; background: #667eea; color: white; text-decoration: none; border-radius: 5px; font-size: 0.9em;"
+                               target="_blank">View on objkt →</a>
+                        </div>
                     </div>
                 </div>
+                
                 <div class="nft-card">
                     <div class="nft-card-content">
-                        <h3>Kim Maria</h3>
-                        <p><strong>"여성독립운동 (Women's Independence)"</strong></p>
-                        <p style="color: #666; margin: 10px 0;">Women's Independence Movement Leader</p>
+                        <h3>Yu Gwan-sun</h3>
+                        <p><strong>"대한독립만세 (Independence Forever)"</strong></p>
+                        <p style="color: #666; margin: 10px 0;">Symbol of March 1st Movement</p>
                         <p style="font-size: 0.9em; line-height: 1.6; margin-top: 10px;">
-                            Founder of Korean Patriotic Women's Association, led women's independence movement and educated future generations
+                            A young hero who led the independence movement at age 18 and became a martyr for freedom
                         </p>
                         <span class="nft-status completed">Completed</span>
+                        <div style="margin-top: 15px;">
+                            <a href="https://objkt.com/tokens/KT1A77WVak4yMFoHDNzpAf8PGA7YLmh5wMJ8/7" 
+                               style="display: inline-block; padding: 8px 16px; background: #667eea; color: white; text-decoration: none; border-radius: 5px; font-size: 0.9em;"
+                               target="_blank">View on objkt →</a>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -566,30 +575,30 @@
                 <div class="roadmap-item">
                     <h3>Phase 1 - Foundation Building</h3>
                     <p>✓ Project rebranding completed<br>
-                    ✓ Genesis Collection artworks completed<br>
+                    ✓ 4 independence fighters collection launched<br>
                     ✓ objkt.com collection officially opened<br>
-                    ⏳ Community building</p>
+                    ✓ Community building initiated</p>
                 </div>
                 <div class="roadmap-item">
                     <h3>Phase 2 - Community Growth</h3>
-                    <p>500 free "Freedom Badge" NFT airdrop<br>
-                    Weekly history quiz events<br>
-                    Reach 500 holders<br>
+                    <p>Collection holder community events<br>
+                    Weekly Korean history quiz<br>
+                    Educational content creation<br>
                     Korean NFT community partnerships</p>
                 </div>
                 <div class="roadmap-item">
-                    <h3>Phase 3 - Series Completion</h3>
-                    <p>✓ 6 independence fighters released<br>
+                    <h3>Phase 3 - Series Expansion</h3>
+                    <p>Additional independence fighters series<br>
                     Watch face app beta launch<br>
-                    Offline exhibition<br>
-                    Next series planning</p>
+                    Offline exhibition planning<br>
+                    Next edition announcement</p>
                 </div>
                 <div class="roadmap-item">
-                    <h3>Phase 4 - Expansion</h3>
-                    <p>Digital Heritage series<br>
+                    <h3>Phase 4 - Long-term Vision</h3>
+                    <p>Complete Digital Heritage series<br>
                     Educational institution partnerships<br>
-                    Global marketing<br>
-                    Physical exhibitions</p>
+                    Global marketing initiatives<br>
+                    Museum collaborations</p>
                 </div>
             </div>
         </div>
@@ -626,70 +635,41 @@
     </footer>
 
     <script>
-        // WRISTORY 작품 정보 - objkt.com 토큰 ID 기반
+        // WRISTORY 작품 정보 - 4개 작품
         const CONTRACT_ADDRESS = "KT1A77WVak4yMFoHDNzpAf8PGA7YLmh5wMJ8";
         const WALLET_ADDRESS = "tz1eXLHqJXBnp4VFGwFDfMGWcLYVgBUYnA16";
         
-        const artworkTokens = [
-            { tokenId: 15, name: "Baekbeom Kim Gu - My Wish" },
-            { tokenId: 16, name: "An Jung-geun - Korean" },
-            { tokenId: 12, name: "Dosan Ahn Chang-ho - Sincere Action" },
-            { tokenId: 4, name: "Yun Bong-gil - A Man Never Returns" },
-            { tokenId: 7, name: "Yu Gwan-sun - Long Live Independence" },
-            { tokenId: 14, name: "Kim Maria - Women's Independence" }
+        const artworks = [
+            { 
+                tokenId: 15, 
+                name: "Baekbeom Kim Gu - My Wish",
+                image: "https://amaranth-legal-sole-30.mypinata.cloud/ipfs/bafkreigtmhstec3baqngrb3wuynfkfohxri7b7b62ecxluui3zwttf35xm",
+                objktUrl: "https://objkt.com/tokens/KT1A77WVak4yMFoHDNzpAf8PGA7YLmh5wMJ8/15"
+            },
+            { 
+                tokenId: 16, 
+                name: "An Jung-geun - Korean",
+                image: "https://amaranth-legal-sole-30.mypinata.cloud/ipfs/bafkreid2xqal5as5ncuowzpcxdkgsktspd4qw6yfi6hohuoyxhul4d43em",
+                objktUrl: "https://objkt.com/tokens/KT1A77WVak4yMFoHDNzpAf8PGA7YLmh5wMJ8/16"
+            },
+            { 
+                tokenId: 12, 
+                name: "Dosan Ahn Chang-ho - Sincere Action",
+                image: "https://amaranth-legal-sole-30.mypinata.cloud/ipfs/bafkreibvczfhdfl76kihctgs43n4qvbalp7mks3dreawbszpgwbgl6qiby",
+                objktUrl: "https://objkt.com/tokens/KT1A77WVak4yMFoHDNzpAf8PGA7YLmh5wMJ8/12"
+            },
+            { 
+                tokenId: 7, 
+                name: "Yu Gwan-sun - Long Live Independence",
+                image: "https://amaranth-legal-sole-30.mypinata.cloud/ipfs/bafkreifv2thpaq2t3dgve3tomhb6eccwitgy6fi3qa256jeeafqtcx3ihy",
+                objktUrl: "https://objkt.com/tokens/KT1A77WVak4yMFoHDNzpAf8PGA7YLmh5wMJ8/7"
+            }
         ];
 
-        let artworks = [];
         let currentSlide = 0;
         let slideInterval;
-        let artworksLoaded = false;
-
-        // objkt API로 작품 이미지 가져오기
-        async function loadArtworkImages() {
-            try {
-                const promises = artworkTokens.map(async (token) => {
-                    const response = await fetch(`https://data.objkt.com/v3/tokens/${CONTRACT_ADDRESS}/${token.tokenId}`);
-                    if (!response.ok) throw new Error('API Error');
-                    
-                    const data = await response.json();
-                    const token_data = data.token;
-                    
-                    let imageUrl = token_data.display_uri || token_data.thumbnail_uri || token_data.artifact_uri;
-                    imageUrl = processIPFS(imageUrl);
-                    
-                    return {
-                        name: token.name,
-                        image: imageUrl,
-                        objktUrl: `https://objkt.com/tokens/${CONTRACT_ADDRESS}/${token.tokenId}`
-                    };
-                });
-
-                artworks = await Promise.all(promises);
-                artworksLoaded = true;
-                
-                // 첫 번째 이미지로 초기화
-                if (artworks.length > 0) {
-                    const heroImage = document.getElementById('heroImage');
-                    const artworkName = document.getElementById('artworkName');
-                    heroImage.src = artworks[0].image;
-                    artworkName.textContent = artworks[0].name;
-                }
-                
-                startSlideshow();
-            } catch (error) {
-                console.error('작품 이미지 로딩 실패:', error);
-                // 기본 이미지 사용
-                artworks = [{
-                    name: "WRISTORY Collection",
-                    image: "https://assets.objkt.media/file/assets-003/bafkreiaohqebkvodjwrnwt3673zaijntc3uc2g5mxg6vfdydqpeaf77s4a/thumb400"
-                }];
-                artworksLoaded = true;
-            }
-        }
 
         function changeSlide(index) {
-            if (!artworksLoaded || artworks.length === 0) return;
-            
             const heroImage = document.getElementById('heroImage');
             const artworkName = document.getElementById('artworkName');
             const dots = document.querySelectorAll('.dot');
@@ -718,13 +698,11 @@
         }
 
         function nextSlide() {
-            if (!artworksLoaded || artworks.length === 0) return;
             let next = (currentSlide + 1) % artworks.length;
             changeSlide(next);
         }
 
         function startSlideshow() {
-            if (!artworksLoaded) return;
             slideInterval = setInterval(nextSlide, 5000); // 5초마다 변경
         }
 
@@ -732,17 +710,23 @@
             clearInterval(slideInterval);
             startSlideshow();
         }
-
+        
         // 페이지 로드 시 슬라이드쇼와 NFT 갤러리 시작
         window.addEventListener('load', () => {
-            loadArtworkImages(); // 슬라이드쇼 이미지 로드
-            loadNFTs(); // 하단 NFT 갤러리 로드
+            startSlideshow();
+            loadNFTs();
         });
 
         // objkt REST API로 NFT 데이터 가져오기
         async function loadNFTs() {
             try {
-                const response = await fetch(`https://data.objkt.com/v2/creators/${WALLET_ADDRESS}/tokens?limit=50`);
+                // CORS 문제 해결 시도
+                const response = await fetch(`https://data.objkt.com/v2/creators/${WALLET_ADDRESS}/tokens?limit=50`, {
+                    mode: 'cors',
+                    headers: {
+                        'Accept': 'application/json'
+                    }
+                });
                 
                 if (!response.ok) {
                     throw new Error('API 응답 오류');
@@ -753,14 +737,35 @@
                 if (data.tokens && data.tokens.length > 0) {
                     displayNFTs(data.tokens);
                 } else {
-                    // C: NFT 자동 로딩 실패 메시지 삭제 - 로딩 메시지만 유지
-                    document.getElementById('nftGallery').innerHTML = '<div class="loading">Loading NFT artworks</div>';
+                    showGalleryMessage('No NFTs found');
                 }
             } catch (error) {
                 console.error('NFT 로딩 실패:', error);
-                // C: 실패 메시지 삭제 - 로딩 메시지만 유지
-                document.getElementById('nftGallery').innerHTML = '<div class="loading">Loading NFT artworks</div>';
+                showGalleryMessage('Unable to load NFT gallery. Please visit our objkt.com collection directly.');
             }
+        }
+        
+        function showGalleryMessage(message) {
+            const gallery = document.getElementById('nftGallery');
+            gallery.innerHTML = `
+                <div style="grid-column: 1/-1; text-align: center; padding: 40px;">
+                    <p style="font-size: 1.1em; margin-bottom: 20px;">${message}</p>
+                    <a href="https://objkt.com/profile/${WALLET_ADDRESS}/created" 
+                       style="display: inline-block; padding: 12px 24px; background: #00d4aa; color: white; text-decoration: none; border-radius: 5px;"
+                       target="_blank">
+                        View on objkt.com
+                    </a>
+                </div>
+            `;
+        }
+
+        function processIPFS(url) {
+            if (!url) return 'https://via.placeholder.com/250x250/667eea/ffffff?text=WRISTORY';
+            
+            if (url.startsWith('ipfs://')) {
+                return url.replace('ipfs://', 'https://ipfs.io/ipfs/');
+            }
+            return url;
         }
 
         function displayNFTs(tokens) {
