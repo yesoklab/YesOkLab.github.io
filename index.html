@@ -4,8 +4,21 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>WRISTORY - Digital Heritage on Blockchain | YesOkLab</title>
-    <meta name="description" content="Preserving history through NFTs: Korean Independence Fighters & Bitcoin Pizza Day | Tezos Blockchain">
+    <meta name="description" content="Preserving legendary moments through NFTs. Collections: Korean Independence Fighters & Bitcoin Pizza Genesis. Minted on Tezos.">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700&family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
     <style>
+        :root {
+            --primary-color: #667eea;
+            --secondary-color: #764ba2;
+            --text-light: #f0f2f5;
+            --text-dark: #333;
+            --bg-light: #ffffff;
+            --bg-dark: #1a1a2e;
+            --accent-color: #00d4aa;
+            --bitcoin-primary: #f5576c;
+            --bitcoin-secondary: #f093fb;
+        }
+
         * {
             margin: 0;
             padding: 0;
@@ -13,10 +26,31 @@
         }
         
         body {
-            font-family: 'Noto Sans KR', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-            line-height: 1.6;
-            color: #333;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            font-family: 'Poppins', 'Noto Sans KR', sans-serif;
+            line-height: 1.7;
+            color: var(--text-dark);
+            background: #161623;
+            overflow-x: hidden;
+        }
+
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            clip-path: circle(30% at right 70%);
+            z-index: -2;
+        }
+
+        body::after {
+            content: '';
+            position: fixed;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            background: linear-gradient(217deg, var(--bitcoin-primary), var(--accent-color));
+            clip-path: circle(20% at 10% 10%);
+            z-index: -2;
         }
         
         .container {
@@ -27,380 +61,182 @@
         
         header {
             text-align: center;
-            padding: 60px 20px;
-            color: white;
+            padding: 80px 20px 40px;
+            color: var(--text-light);
         }
         
         .logo-container {
-            display: flex;
-            align-items: center;
-            justify-content: center;
+            display: flex; align-items: center; justify-content: center;
             gap: 20px;
             margin-bottom: 20px;
         }
         
         .logo-img {
-            height: 100px;
-            width: auto;
-            filter: drop-shadow(0 4px 8px rgba(0,0,0,0.3));
+            height: 80px; width: auto;
+            filter: drop-shadow(0 4px 12px rgba(0,0,0,0.4));
         }
         
         header h1 {
-            font-size: 3.5em;
-            margin: 0;
-            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+            font-size: 4em; font-weight: 700;
+            text-shadow: 2px 2px 8px rgba(0,0,0,0.5);
         }
         
         header p {
-            font-size: 1.5em;
-            opacity: 0.9;
+            font-size: 1.5em; opacity: 0.9;
             margin-top: 10px;
         }
         
         .tagline {
-            font-size: 1.2em;
-            margin-top: 10px;
-            font-style: italic;
-        }
-        
-        .hero-image {
-            max-width: 600px;
-            width: 100%;
-            height: auto;
-            min-height: 400px;
-            margin: 0 auto;
-            border-radius: 15px;
-            box-shadow: 0 20px 60px rgba(0,0,0,0.4);
-            display: block;
-            object-fit: cover;
-            background: rgba(255,255,255,0.1);
-            transition: opacity 0.5s ease-in-out;
-        }
-        
-        .hero-image:hover {
-            transform: scale(1.02);
+            font-size: 1.2em; margin-top: 15px; font-style: italic;
         }
         
         .hero-slideshow {
-            position: relative;
-            max-width: 600px;
-            width: 100%;
-            margin: 30px auto;
+            position: relative; max-width: 600px; width: 100%; margin: 40px auto;
         }
-        
+
+        .hero-image {
+            width: 100%;
+            height: auto; aspect-ratio: 1 / 1;
+            border-radius: 20px;
+            box-shadow: 0 25px 50px rgba(0,0,0,0.5);
+            display: block; object-fit: cover;
+            background: rgba(255,255,255,0.1);
+            border: 1px solid rgba(255,255,255,0.2);
+            transition: opacity 0.7s ease-in-out;
+        }
+
         .slideshow-dots {
-            text-align: center;
-            margin-top: 20px;
+            text-align: center; margin-top: 25px;
         }
         
         .dot {
-            height: 12px;
-            width: 12px;
-            margin: 0 5px;
-            background-color: rgba(255, 255, 255, 0.5);
-            border-radius: 50%;
-            display: inline-block;
-            cursor: pointer;
-            transition: background-color 0.3s;
+            height: 12px; width: 12px; margin: 0 6px;
+            background-color: rgba(255, 255, 255, 0.4);
+            border-radius: 50%; display: inline-block;
+            cursor: pointer; transition: all 0.3s ease;
         }
         
-        .dot:hover {
-            background-color: rgba(255, 255, 255, 0.8);
-        }
-        
-        .dot.active {
-            background-color: white;
-            box-shadow: 0 0 10px rgba(255, 255, 255, 0.8);
-        }
-        
-        .hero-image.fade {
-            opacity: 0.4;
-        }
+        .dot:hover { background-color: rgba(255, 255, 255, 0.7); }
+        .dot.active { background-color: white; transform: scale(1.2); box-shadow: 0 0 10px rgba(255, 255, 255, 0.8); }
+        .hero-image.fade { opacity: 0.2; }
         
         .artwork-info {
-            text-align: center;
-            margin-top: 15px;
-            color: white;
+            text-align: center; margin-top: 20px; color: var(--text-light);
         }
         
         .artwork-info p {
-            font-size: 1.2em;
-            font-weight: 500;
-            text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+            font-size: 1.3em; font-weight: 500;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.6);
         }
         
         .section {
-            background: white;
-            margin: 40px 0;
-            padding: 40px;
-            border-radius: 15px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            backdrop-filter: blur(15px);
+            margin: 50px 0; padding: 40px;
+            border-radius: 20px;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.2);
+            color: var(--text-light);
         }
-        
+
         .section h2 {
-            color: #667eea;
-            margin-bottom: 20px;
-            font-size: 2em;
-            border-bottom: 3px solid #667eea;
-            padding-bottom: 10px;
+            color: var(--text-light);
+            margin-bottom: 25px;
+            font-size: 2.2em; font-weight: 600;
+            border-bottom: 2px solid rgba(255, 255, 255, 0.3);
+            padding-bottom: 15px;
         }
         
         .collection-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 30px;
-            margin-top: 30px;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 30px; margin-top: 30px;
         }
         
         .nft-card {
-            border: 2px solid #e0e0e0;
-            border-radius: 10px;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            border-radius: 15px;
             overflow: hidden;
-            transition: transform 0.3s, box-shadow 0.3s;
-            background: white;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
             cursor: pointer;
         }
         
         .nft-card:hover {
-            transform: translateY(-10px);
-            box-shadow: 0 15px 40px rgba(102, 126, 234, 0.3);
-            border-color: #667eea;
+            transform: translateY(-10px) scale(1.02);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.4);
+            border-color: rgba(255, 255, 255, 0.3);
         }
 
         .nft-card-image {
-            width: 100%;
-            height: 250px;
-            object-fit: cover;
-            background: #f5f5f5;
+            width: 100%; height: 280px; object-fit: cover;
+            background: rgba(0,0,0,0.2);
         }
 
-        .nft-card-content {
-            padding: 20px;
-        }
-        
+        .nft-card-content { padding: 25px; }
         .nft-card h3 {
-            color: #333;
-            margin-bottom: 10px;
-            font-size: 1.3em;
+            color: var(--text-light); margin-bottom: 10px; font-size: 1.4em;
         }
-
         .nft-card-description {
-            color: #666;
-            font-size: 0.9em;
-            line-height: 1.5;
-            margin: 10px 0;
+            color: rgba(255, 255, 255, 0.7); font-size: 0.9em; line-height: 1.6;
         }
-
         .nft-edition {
-            display: inline-block;
-            padding: 5px 12px;
-            background: #667eea;
-            color: white;
-            border-radius: 15px;
-            font-size: 0.85em;
-            margin-top: 10px;
-        }
-        
-        .nft-status {
-            display: inline-block;
-            padding: 5px 15px;
-            border-radius: 20px;
-            font-size: 0.9em;
-            margin-top: 10px;
-        }
-        
-        .completed {
-            background: #4caf50;
-            color: white;
-        }
-        
-        .coming-soon {
-            background: #ff9800;
-            color: white;
+            display: inline-block; padding: 6px 14px;
+            background: var(--primary-color);
+            color: var(--text-light);
+            border-radius: 20px; font-size: 0.8em; margin-top: 15px; font-weight: 500;
         }
 
         .loading {
-            text-align: center;
-            padding: 40px;
-            color: #667eea;
-            font-size: 1.2em;
+            text-align: center; padding: 50px; font-size: 1.3em;
         }
-
         .loading::after {
-            content: '...';
+            content: ' ...';
             animation: dots 1.5s steps(4, end) infinite;
         }
-
         @keyframes dots {
-            0%, 20% { content: '.'; }
-            40% { content: '..'; }
-            60%, 100% { content: '...'; }
-        }
-        
-        .roadmap {
-            position: relative;
-            padding-left: 40px;
-        }
-        
-        .roadmap-item {
-            position: relative;
-            margin-bottom: 30px;
-            padding: 20px;
-            background: #f5f5f5;
-            border-radius: 10px;
-            border-left: 4px solid #667eea;
-        }
-        
-        .roadmap-item::before {
-            content: '';
-            position: absolute;
-            left: -46px;
-            top: 25px;
-            width: 12px;
-            height: 12px;
-            background: #667eea;
-            border-radius: 50%;
-            border: 3px solid white;
-            box-shadow: 0 0 0 2px #667eea;
-        }
-        
-        .roadmap-item h3 {
-            color: #667eea;
-            margin-bottom: 10px;
-        }
-        
-        .utility-list {
-            list-style: none;
-            padding: 0;
-        }
-        
-        .utility-list li {
-            padding: 15px;
-            margin: 10px 0;
-            background: linear-gradient(to right, #f0f4ff, #fff);
-            border-left: 4px solid #667eea;
-            border-radius: 5px;
-        }
-        
-        .utility-list li::before {
-            content: '✓';
-            color: #667eea;
-            font-weight: bold;
-            margin-right: 10px;
-        }
-        
-        .cta-button {
-            display: inline-block;
-            padding: 15px 40px;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            color: white;
-            text-decoration: none;
-            border-radius: 30px;
-            font-size: 1.2em;
-            margin: 20px 10px;
-            transition: transform 0.3s, box-shadow 0.3s;
-        }
-        
-        .cta-button:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 10px 25px rgba(102, 126, 234, 0.4);
-        }
-        
-        .stats {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 20px;
-            margin-top: 30px;
-        }
-        
-        .stat-box {
-            text-align: center;
-            padding: 30px;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            color: white;
-            border-radius: 10px;
-        }
-        
-        .stat-box h3 {
-            font-size: 2.5em;
-            margin-bottom: 10px;
-        }
-        
-        .stat-box p {
-            font-size: 1.1em;
-            opacity: 0.9;
+            0%, 20% { content: '.'; } 40% { content: '..'; } 60%, 100% { content: '...'; }
         }
         
         footer {
-            text-align: center;
-            padding: 40px;
-            color: white;
+            text-align: center; padding: 50px;
+            color: var(--text-light);
         }
-        
         .footer-logo {
-            height: 60px;
-            margin-bottom: 20px;
-            /* D: 이미지 위치 - 아래 이미지 src를 확인하세요 */
+            height: 70px; margin-bottom: 20px;
         }
-        
         .social-links a {
-            display: inline-block;
-            margin: 0 15px;
-            color: white;
-            text-decoration: none;
-            font-size: 1.5em;
-            transition: transform 0.3s;
+            display: inline-block; margin: 0 15px; color: var(--text-light);
+            text-decoration: none; font-size: 1.8em;
+            transition: transform 0.3s, color 0.3s;
         }
-        
         .social-links a:hover {
-            transform: scale(1.2);
+            transform: scale(1.2); color: var(--accent-color);
         }
         
+        /* Scroll Animation */
+        .reveal {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+        }
+        .reveal.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Responsive */
         @media (max-width: 768px) {
-            header h1 {
-                font-size: 2em;
-            }
-            
-            header p {
-                font-size: 1.2em;
-            }
-            
-            .logo-img {
-                height: 60px;
-            }
-            
-            .section {
-                padding: 20px;
-            }
-            
-            .collection-grid {
-                grid-template-columns: 1fr;
-            }
-            
-            .hero-slideshow {
-                max-width: 100%;
-            }
-            
-            .hero-image {
-                max-width: 100%;
-                min-height: 300px;
-            }
-            
-            .artwork-info p {
-                font-size: 1em;
-            }
-            
-            .dot {
-                height: 10px;
-                width: 10px;
-            }
+            header h1 { font-size: 2.5em; }
+            header p { font-size: 1.1em; }
+            .logo-img { height: 60px; }
+            .section { padding: 25px; }
         }
     </style>
 </head>
 <body>
     <header>
-        <div class="container">
-            <!-- A: 회사로고와 타이틀 -->
+        <div class="container reveal">
             <div class="logo-container">
                 <img src="https://amaranth-legal-sole-30.mypinata.cloud/ipfs/bafkreiaohqebkvodjwrnwt3673zaijntc3uc2g5mxg6vfdydqpeaf77s4a" alt="YesOkLab Logo" class="logo-img">
                 <h1>WRISTORY</h1>
@@ -408,330 +244,54 @@
             <p>History on Your Wrist</p>
             <p class="tagline">Preserving legendary moments through blockchain technology</p>
             
-            <!-- WRISTORY 작품 슬라이드쇼 -->
             <div class="hero-slideshow">
-                <img id="heroImage" src="https://amaranth-legal-sole-30.mypinata.cloud/ipfs/bafkreigtmhstec3baqngrb3wuynfkfohxri7b7b62ecxluui3zwttf35xm" alt="WRISTORY NFT Collection" class="hero-image">
-                <div class="slideshow-dots">
-                    <span class="dot active" onclick="changeSlide(0)"></span>
-                    <span class="dot" onclick="changeSlide(1)"></span>
-                    <span class="dot" onclick="changeSlide(2)"></span>
-                    <span class="dot" onclick="changeSlide(3)"></span>
-                </div>
+                <img id="heroImage" src="" alt="WRISTORY NFT Collection" class="hero-image">
+                <div class="slideshow-dots"></div>
                 <div class="artwork-info">
-                    <p id="artworkName">Baekbeom Kim Gu - "My Wish"</p>
+                    <p id="artworkName"></p>
                 </div>
             </div>
         </div>
     </header>
 
     <div class="container">
-        <!-- About Section -->
-        <div class="section">
-            <h2>💎 About the Project</h2>
-            <p style="font-size: 1.2em; line-height: 1.8;">
-                <strong>WRISTORY</strong> is YesOkLab's Digital Heritage project that preserves and propagates significant moments in history through NFTs. 
-                Our collections include:
+        <section class="section reveal">
+            <h2>💎 About WRISTORY</h2>
+            <p style="font-size: 1.1em; line-height: 1.8; color: rgba(255,255,255,0.8);">
+                <strong>WRISTORY</strong>는 YesOkLab의 디지털 헤리티지 프로젝트로, 인류 역사의 중요한 순간들을 NFT를 통해 보존하고 전파합니다. 저희는 과거의 유산이 현재와 미래 세대에게 영감을 줄 수 있도록, 기술과 예술을 결합하여 의미 있는 디지털 기록을 만들어갑니다.
             </p>
-            <div style="margin: 30px 0;">
-                <div style="background: #f8f9fa; padding: 20px; border-radius: 10px; margin-bottom: 15px; border-left: 5px solid #667eea;">
-                    <h3 style="color: #667eea; margin-bottom: 10px;">🇰🇷 Korean Independence Fighters</h3>
-                    <p style="line-height: 1.8;">
-                        Four legendary heroes: <strong>Baekbeom Kim Gu</strong>, <strong>An Jung-geun</strong>, 
-                        <strong>Dosan Ahn Chang-ho</strong>, and <strong>Yu Gwan-sun</strong>. Each NFT combines historical quotes 
-                        with traditional Korean calligraphy, creating digital heritage that connects past and present.
-                    </p>
-                </div>
-                <div style="background: #fff5f5; padding: 20px; border-radius: 10px; border-left: 5px solid #f5576c;">
-                    <h3 style="color: #f5576c; margin-bottom: 10px;">🍕 Bitcoin Pizza Genesis: 10K</h3>
-                    <p style="line-height: 1.8;">
-                        Commemorating <strong>May 22, 2010</strong> — the first real-world Bitcoin transaction when Laszlo Hanyecz 
-                        paid 10,000 BTC for two pizzas. A generative art collection preserving the moment when Bitcoin became REAL.
-                    </p>
-                </div>
-            </div>
-            <p style="font-size: 1.1em; line-height: 1.8; margin-top: 20px;">
-                Every NFT is not just digital art, but <strong>digital heritage</strong> containing historical value and educational significance.
-            </p>
-            <div class="stats">
-                <div class="stat-box">
-                    <h3>2</h3>
-                    <p>NFT Collections</p>
-                </div>
-                <div class="stat-box">
-                    <h3>37+</h3>
-                    <p>Total Artworks</p>
-                </div>
-                <div class="stat-box">
-                    <h3>Tezos</h3>
-                    <p>Eco-friendly Clean NFT</p>
-                </div>
-            </div>
-        </div>
+        </section>
 
-        <!-- Live NFT Collection from objkt.com -->
-        <div class="section">
-            <h2>🎨 WRISTORY NFT Collection</h2>
-            <p style="margin-bottom: 20px; font-size: 1.1em; line-height: 1.8;">
-                The WRISTORY collection features four Korean independence heroes, each combining their representative quotes 
-                with traditional Korean calligraphy and modern digital art. From <strong>Baekbeom Kim Gu's</strong> vision of cultural power 
-                to <strong>Yu Gwan-sun's</strong> cry for independence, these NFTs create meaningful digital heritage that connects 
-                past and present. Minted as eco-friendly Clean NFTs on the Tezos blockchain, limited to 100 editions each.
-            </p>
-            
-            <div style="background: #f0f4ff; padding: 20px; border-radius: 10px; margin-bottom: 30px;">
-                <h3 style="color: #667eea; margin-bottom: 15px;">🌐 objkt.com (Tezos)</h3>
-                <p style="line-height: 1.8;">
-                    WRISTORY collection created as eco-friendly Clean NFT.<br>
-                    Tezos blockchain uses PoS method with very low energy consumption.
-                </p>
-                <div style="margin-top: 15px;">
-                    <a href="https://objkt.com/profile/tz1eXLHqJXBnp4VFGwFDfMGWcLYVgBUYnA16/created" style="display: inline-block; padding: 10px 20px; background: #00d4aa; color: white; text-decoration: none; border-radius: 5px;" target="_blank">View Full Collection</a>
-                </div>
-            </div>
-            
+        <section class="section reveal">
+            <h2>🎨 Our Collections</h2>
             <div id="nftGallery" class="collection-grid">
-                <div class="loading">Loading NFT artworks</div>
+                <div class="loading">Loading NFT artworks from objkt.com</div>
             </div>
-        </div>
-
-        <!-- Freedom Fighters Collection -->
-        <div class="section">
-            <h2>🏆 Freedom Fighters Collection</h2>
-            <p style="margin-bottom: 20px; font-size: 1.1em;">
-                Honoring the spirit of heroes who devoted themselves to independence during Japanese colonial rule
-            </p>
-            
-            <div class="collection-grid">
-                <div class="nft-card">
-                    <div class="nft-card-content">
-                        <h3>Baekbeom Kim Gu</h3>
-                        <p><strong>"My Wish"</strong></p>
-                        <p style="color: #666; margin: 10px 0;">President of Provisional Government</p>
-                        <p style="font-size: 0.9em; line-height: 1.6; margin-top: 10px;">
-                            A visionary leader who dreamed of Korea as a cultural powerhouse and devoted his life to independence
-                        </p>
-                        <span class="nft-status completed">Genesis Edition</span>
-                        <div style="margin-top: 15px;">
-                            <a href="https://objkt.com/tokens/KT1A77WVak4yMFoHDNzpAf8PGA7YLmh5wMJ8/15" 
-                               style="display: inline-block; padding: 8px 16px; background: #667eea; color: white; text-decoration: none; border-radius: 5px; font-size: 0.9em;"
-                               target="_blank">View on objkt →</a>
-                        </div>
-                    </div>
-                </div>
-                
-                <div class="nft-card">
-                    <div class="nft-card-content">
-                        <h3>An Jung-geun</h3>
-                        <p><strong>"大韓國人 (Korean)"</strong></p>
-                        <p style="color: #666; margin: 10px 0;">Independence Activist</p>
-                        <p style="font-size: 0.9em; line-height: 1.6; margin-top: 10px;">
-                            Declared Korea's independence by executing Ito Hirobumi in Harbin, 1909
-                        </p>
-                        <span class="nft-status completed">Completed</span>
-                        <div style="margin-top: 15px;">
-                            <a href="https://objkt.com/tokens/KT1A77WVak4yMFoHDNzpAf8PGA7YLmh5wMJ8/16" 
-                               style="display: inline-block; padding: 8px 16px; background: #667eea; color: white; text-decoration: none; border-radius: 5px; font-size: 0.9em;"
-                               target="_blank">View on objkt →</a>
-                        </div>
-                    </div>
-                </div>
-                
-                <div class="nft-card">
-                    <div class="nft-card-content">
-                        <h3>Dosan Ahn Chang-ho</h3>
-                        <p><strong>"무실역행 (Sincere Action)"</strong></p>
-                        <p style="color: #666; margin: 10px 0;">Educator & Independence Leader</p>
-                        <p style="font-size: 0.9em; line-height: 1.6; margin-top: 10px;">
-                            Founder of Heungsadan, emphasized character education and national strength through sincerity
-                        </p>
-                        <span class="nft-status completed">Completed</span>
-                        <div style="margin-top: 15px;">
-                            <a href="https://objkt.com/tokens/KT1A77WVak4yMFoHDNzpAf8PGA7YLmh5wMJ8/12" 
-                               style="display: inline-block; padding: 8px 16px; background: #667eea; color: white; text-decoration: none; border-radius: 5px; font-size: 0.9em;"
-                               target="_blank">View on objkt →</a>
-                        </div>
-                    </div>
-                </div>
-                
-                <div class="nft-card">
-                    <div class="nft-card-content">
-                        <h3>Yu Gwan-sun</h3>
-                        <p><strong>"대한독립만세 (Independence Forever)"</strong></p>
-                        <p style="color: #666; margin: 10px 0;">Symbol of March 1st Movement</p>
-                        <p style="font-size: 0.9em; line-height: 1.6; margin-top: 10px;">
-                            A young hero who led the independence movement at age 18 and became a martyr for freedom
-                        </p>
-                        <span class="nft-status completed">Completed</span>
-                        <div style="margin-top: 15px;">
-                            <a href="https://objkt.com/tokens/KT1A77WVak4yMFoHDNzpAf8PGA7YLmh5wMJ8/7" 
-                               style="display: inline-block; padding: 8px 16px; background: #667eea; color: white; text-decoration: none; border-radius: 5px; font-size: 0.9em;"
-                               target="_blank">View on objkt →</a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <!-- Bitcoin Pizza Genesis: 10K Collection -->
-        <div class="section" style="background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%); color: white; border-radius: 20px;">
-            <h2 style="color: white; border-bottom: 3px solid white;">🍕 Bitcoin Pizza Genesis: 10K</h2>
-            <p style="font-size: 1.3em; line-height: 1.8; margin-bottom: 20px; text-shadow: 1px 1px 2px rgba(0,0,0,0.3);">
-                <strong>May 22, 2010</strong> — Laszlo Hanyecz made history by offering <strong>10,000 BTC</strong> for two pizzas, 
-                marking the first-ever real-world Bitcoin transaction. This generative art collection immortalizes that legendary moment.
-            </p>
-            
-            <div style="background: rgba(255,255,255,0.15); padding: 25px; border-radius: 15px; backdrop-filter: blur(10px); margin: 30px 0;">
-                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 20px; text-align: center;">
-                    <div>
-                        <div style="font-size: 3em; font-weight: 700;">33</div>
-                        <div style="font-size: 1.1em; opacity: 0.9;">Items Minted</div>
-                    </div>
-                    <div>
-                        <div style="font-size: 3em; font-weight: 700;">29</div>
-                        <div style="font-size: 1.1em; opacity: 0.9;">For Sale</div>
-                    </div>
-                    <div>
-                        <div style="font-size: 3em; font-weight: 700;">5<span style="font-size: 0.6em;">ꜩ</span></div>
-                        <div style="font-size: 1.1em; opacity: 0.9;">Floor Price</div>
-                    </div>
-                    <div>
-                        <div style="font-size: 3em; font-weight: 700;">10K</div>
-                        <div style="font-size: 1.1em; opacity: 0.9;">Total Supply</div>
-                    </div>
-                </div>
-            </div>
-            
-            <div style="background: rgba(0,0,0,0.2); padding: 20px; border-radius: 10px; margin: 20px 0;">
-                <h3 style="color: #FFD700; margin-bottom: 15px;">💎 Collection Tiers</h3>
-                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(120px, 1fr)); gap: 15px; font-size: 0.95em;">
-                    <div style="background: rgba(255,215,0,0.2); padding: 10px; border-radius: 8px; border: 2px solid #FFD700;">
-                        <strong>LEGENDARY</strong><br>50 ꜩ | 1%
-                    </div>
-                    <div style="background: rgba(155,89,182,0.2); padding: 10px; border-radius: 8px; border: 2px solid #9b59b6;">
-                        <strong>EPIC</strong><br>30 ꜩ | 4%
-                    </div>
-                    <div style="background: rgba(52,152,219,0.2); padding: 10px; border-radius: 8px; border: 2px solid #3498db;">
-                        <strong>RARE</strong><br>15 ꜩ | 15%
-                    </div>
-                    <div style="background: rgba(46,204,113,0.2); padding: 10px; border-radius: 8px; border: 2px solid #2ecc71;">
-                        <strong>UNCOMMON</strong><br>8 ꜩ | 30%
-                    </div>
-                    <div style="background: rgba(149,165,166,0.2); padding: 10px; border-radius: 8px; border: 2px solid #95a5a6;">
-                        <strong>COMMON</strong><br>5 ꜩ | 50%
-                    </div>
-                </div>
-            </div>
-            
-            <div style="margin: 30px 0; line-height: 1.8; font-size: 1.1em;">
-                <p style="margin-bottom: 15px;">
-                    🎨 <strong>Generative Art Collection</strong> — Each of the 10,000 editions represents one BTC from that historic transaction
-                </p>
-                <p style="margin-bottom: 15px;">
-                    🌱 <strong>Clean NFT on Tezos</strong> — Eco-friendly blockchain with minimal environmental impact
-                </p>
-                <p style="margin-bottom: 15px;">
-                    📜 <strong>Digital Heritage</strong> — Preserving crypto history for future generations of builders and dreamers
-                </p>
-                <p>
-                    🏆 <strong>Part of WRISTORY Project</strong> — YesOkLab's mission to immortalize historic moments on-chain
-                </p>
-            </div>
-            
-            <div style="text-align: center; margin-top: 30px;">
+        </section>
+        
+        <section class="section reveal">
+             <h2>🍕 Bitcoin Pizza Genesis: 10K</h2>
+             <p style="font-size: 1.1em; margin-bottom: 20px; color: rgba(255,255,255,0.8);">
+                2010년 5월 22일, Laszlo Hanyecz가 1만 BTC로 피자 두 판을 구매하며 역사상 최초의 비트코인 실물 거래를 성사시켰습니다. 이 제너레이티브 아트 컬렉션은 비트코인이 현실이 된 그 전설적인 순간을 영원히 기록합니다.
+             </p>
+             <div style="text-align: center; margin-top: 30px;">
                 <a href="https://objkt.com/collections/KT1JU866vUaq8ac5KkmuW8XKnEbNXiVHRqUy" 
-                   style="display: inline-block; padding: 15px 40px; background: white; color: #f5576c; text-decoration: none; border-radius: 50px; font-size: 1.2em; font-weight: 700; box-shadow: 0 10px 30px rgba(0,0,0,0.3); transition: transform 0.3s;"
                    target="_blank"
-                   onmouseover="this.style.transform='scale(1.05)'"
-                   onmouseout="this.style.transform='scale(1)'">
-                    🍕 View Collection on objkt.com →
+                   style="display: inline-block; padding: 15px 40px; background: linear-gradient(135deg, var(--bitcoin-primary), var(--bitcoin-secondary)); color: white; text-decoration: none; border-radius: 50px; font-size: 1.2em; font-weight: 700; box-shadow: 0 10px 30px rgba(0,0,0,0.3); transition: transform 0.3s;">
+                    View Bitcoin Collection →
                 </a>
             </div>
-            
-            <p style="margin-top: 20px; font-size: 0.95em; opacity: 0.8; text-align: center; font-style: italic;">
-                "The pizzas are gone. The Bitcoin moved on. But the legend lives forever — on the blockchain."
-            </p>
-        </div>
+        </section>
 
-        <!-- Utility Section -->
-        <div class="section">
-            <h2>🎁 NFT Holder Benefits</h2>
-            <ul class="utility-list">
-                <li><strong>Exclusive Smartwatch Face</strong> - Download exclusive designs</li>
-                <li><strong>High-Resolution Digital Art</strong> - Provided as unlockable content</li>
-                <li><strong>Holder-Only Discord</strong> - VIP access to community</li>
-                <li><strong>Whitelist Priority</strong> - Early purchase for next series</li>
-                <li><strong>Airdrop Eligibility</strong> - Special edition upon collection completion</li>
-                <li><strong>Physical Goods Discount</strong> - 30% off posters, postcards, etc.</li>
-                <li><strong>DAO Voting Rights</strong> - Vote on next series figures</li>
-            </ul>
-        </div>
+        <!-- Additional sections like Roadmap, Utility can be added here -->
 
-        <!-- Roadmap Section -->
-        <div class="section">
-            <h2>🗓️ Roadmap</h2>
-            <div class="roadmap">
-                <div class="roadmap-item">
-                    <h3>Phase 1 - Foundation Building</h3>
-                    <p>✓ Project rebranding completed<br>
-                    ✓ 4 independence fighters collection launched<br>
-                    ✓ Bitcoin Pizza Genesis: 10K initiated (33+ minted)<br>
-                    ✓ objkt.com collections officially opened<br>
-                    ✓ Community building initiated</p>
-                </div>
-                <div class="roadmap-item">
-                    <h3>Phase 2 - Community Growth</h3>
-                    <p>Bitcoin Pizza Genesis milestone (100 editions)<br>
-                    Collection holder community events<br>
-                    Weekly history quiz (Korean + Crypto)<br>
-                    Educational content creation<br>
-                    Korean & Global NFT community partnerships</p>
-                </div>
-                <div class="roadmap-item">
-                    <h3>Phase 3 - Series Expansion</h3>
-                    <p>Bitcoin Pizza Genesis Phase 2 (500+ editions)<br>
-                    Additional independence fighters series<br>
-                    Watch face app beta launch<br>
-                    Offline exhibition planning<br>
-                    Cross-collection holder benefits</p>
-                </div>
-                <div class="roadmap-item">
-                    <h3>Phase 4 - Long-term Vision</h3>
-                    <p>Complete Bitcoin Pizza 10K collection<br>
-                    Digital Heritage DAO formation<br>
-                    Educational institution partnerships<br>
-                    Global marketing initiatives<br>
-                    Museum & archive collaborations</p>
-                </div>
-            </div>
-        </div>
-
-        <!-- CTA Section -->
-        <!-- D-2: 버튼 수정 -->
-        <div class="section" style="text-align: center; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white;">
-            <h2 style="color: white; border-bottom: 3px solid white;">Get Started Now</h2>
-            <p style="font-size: 1.3em; margin: 20px 0;">
-                Join us in preserving history on the blockchain
-            </p>
-            <div style="display: flex; gap: 20px; justify-content: center; flex-wrap: wrap; margin-top: 30px;">
-                <a href="https://objkt.com/profile/tz1eXLHqJXBnp4VFGwFDfMGWcLYVgBUYnA16/created" 
-                   class="cta-button" 
-                   style="background: white; color: #667eea;" 
-                   target="_blank">🇰🇷 View WRISTORY Collection</a>
-                <a href="https://objkt.com/collections/KT1JU866vUaq8ac5KkmuW8XKnEbNXiVHRqUy" 
-                   class="cta-button" 
-                   style="background: #f5576c; color: white; border: 2px solid white;" 
-                   target="_blank">🍕 View Bitcoin Pizza Collection</a>
-            </div>
-        </div>
     </div>
 
     <footer>
-        <div class="container">
-            <!-- D: 푸터 로고 이미지 위치 - 아래 src 주소를 확인하세요 -->
+        <div class="container reveal">
             <img src="https://amaranth-legal-sole-30.mypinata.cloud/ipfs/bafkreiah4no6rta4tp4e6q6v2qsps53pu23kgumaz35cicjungsu7ptxp4" alt="YesOkLab" class="footer-logo">
             <h3>YesOkLab</h3>
             <p>Digital Heritage Project - Preserving History on Blockchain</p>
-            <p style="font-size: 0.9em; margin-top: 10px; opacity: 0.8;">Korean Independence Fighters | Bitcoin Pizza Day | Tezos NFTs</p>
             <div class="social-links" style="margin-top: 20px;">
                 <a href="https://twitter.com/YesOkLab" title="Twitter" target="_blank">🐦</a>
                 <a href="https://t.me/yesoklabS/9" title="Telegram" target="_blank">📱</a>
@@ -739,187 +299,169 @@
                 <a href="https://blog.naver.com/yesoklab/224013365592" title="Naver Blog" target="_blank">📝</a>
                 <a href="https://objkt.com/profile/tz1eXLHqJXBnp4VFGwFDfMGWcLYVgBUYnA16/created" title="objkt" target="_blank">🎨</a>
             </div>
-            <p style="margin-top: 30px; opacity: 0.7;">
-                © 2024 YesOkLab. All rights reserved.<br>
-                History is not what happened, but what is remembered.
-            </p>
+            <p style="margin-top: 30px; opacity: 0.7;">© 2024 YesOkLab. All rights reserved.</p>
         </div>
     </footer>
 
     <script>
-        // WRISTORY 작품 정보 - 4개 작품
-        const CONTRACT_ADDRESS = "KT1A77WVak4yMFoHDNzpAf8PGA7YLmh5wMJ8";
         const WALLET_ADDRESS = "tz1eXLHqJXBnp4VFGwFDfMGWcLYVgBUYnA16";
         
-        const artworks = [
-            { 
-                tokenId: 15, 
-                name: "Baekbeom Kim Gu - My Wish",
-                image: "https://amaranth-legal-sole-30.mypinata.cloud/ipfs/bafkreigtmhstec3baqngrb3wuynfkfohxri7b7b62ecxluui3zwttf35xm",
-                objktUrl: "https://objkt.com/tokens/KT1A77WVak4yMFoHDNzpAf8PGA7YLmh5wMJ8/15"
-            },
-            { 
-                tokenId: 16, 
-                name: "An Jung-geun - Korean",
-                image: "https://amaranth-legal-sole-30.mypinata.cloud/ipfs/bafkreid2xqal5as5ncuowzpcxdkgsktspd4qw6yfi6hohuoyxhul4d43em",
-                objktUrl: "https://objkt.com/tokens/KT1A77WVak4yMFoHDNzpAf8PGA7YLmh5wMJ8/16"
-            },
-            { 
-                tokenId: 12, 
-                name: "Dosan Ahn Chang-ho - Sincere Action",
-                image: "https://amaranth-legal-sole-30.mypinata.cloud/ipfs/bafkreibvczfhdfl76kihctgs43n4qvbalp7mks3dreawbszpgwbgl6qiby",
-                objktUrl: "https://objkt.com/tokens/KT1A77WVak4yMFoHDNzpAf8PGA7YLmh5wMJ8/12"
-            },
-            { 
-                tokenId: 7, 
-                name: "Yu Gwan-sun - Long Live Independence",
-                image: "https://amaranth-legal-sole-30.mypinata.cloud/ipfs/bafkreifv2thpaq2t3dgve3tomhb6eccwitgy6fi3qa256jeeafqtcx3ihy",
-                objktUrl: "https://objkt.com/tokens/KT1A77WVak4yMFoHDNzpAf8PGA7YLmh5wMJ8/7"
-            }
+        // --- Fallback Data (API 실패 시 표시될 데이터) ---
+        const fallbackArtworks = [
+            { tokenId: 15, name: "Baekbeom Kim Gu - My Wish", image: "https://amaranth-legal-sole-30.mypinata.cloud/ipfs/bafkreigtmhstec3baqngrb3wuynfkfohxri7b7b62ecxluui3zwttf35xm", objktUrl: "https://objkt.com/tokens/KT1A77WVak4yMFoHDNzpAf8PGA7YLmh5wMJ8/15" },
+            { tokenId: 16, name: "An Jung-geun - Korean", image: "https://amaranth-legal-sole-30.mypinata.cloud/ipfs/bafkreid2xqal5as5ncuowzpcxdkgsktspd4qw6yfi6hohuoyxhul4d43em", objktUrl: "https://objkt.com/tokens/KT1A77WVak4yMFoHDNzpAf8PGA7YLmh5wMJ8/16" },
+            { tokenId: 12, name: "Dosan Ahn Chang-ho - Sincere Action", image: "https://amaranth-legal-sole-30.mypinata.cloud/ipfs/bafkreibvczfhdfl76kihctgs43n4qvbalp7mks3dreawbszpgwbgl6qiby", objktUrl: "https://objkt.com/tokens/KT1A77WVak4yMFoHDNzpAf8PGA7YLmh5wMJ8/12" },
+            { tokenId: 7, name: "Yu Gwan-sun - Long Live Independence", image: "https://amaranth-legal-sole-30.mypinata.cloud/ipfs/bafkreifv2thpaq2t3dgve3tomhb6eccwitgy6fi3qa256jeeafqtcx3ihy", objktUrl: "https://objkt.com/tokens/KT1A77WVak4yMFoHDNzpAf8PGA7YLmh5wMJ8/7" }
         ];
 
         let currentSlide = 0;
         let slideInterval;
+        const heroImage = document.getElementById('heroImage');
+        const artworkName = document.getElementById('artworkName');
+        const dotsContainer = document.querySelector('.slideshow-dots');
 
-        function changeSlide(index) {
-            const heroImage = document.getElementById('heroImage');
-            const artworkName = document.getElementById('artworkName');
-            const dots = document.querySelectorAll('.dot');
-            
-            // 페이드 아웃
-            heroImage.classList.add('fade');
-            
-            setTimeout(() => {
-                // 이미지 및 텍스트 변경
-                currentSlide = index;
-                heroImage.src = artworks[currentSlide].image;
-                artworkName.textContent = artworks[currentSlide].name;
-                
-                // 도트 활성화 상태 변경
-                dots.forEach(dot => dot.classList.remove('active'));
-                if (dots[currentSlide]) {
-                    dots[currentSlide].classList.add('active');
-                }
-                
-                // 페이드 인
-                heroImage.classList.remove('fade');
-            }, 500);
-            
-            // 자동 재생 리셋
-            resetSlideInterval();
+        function setupSlideshow(artworks) {
+            if (!artworks || artworks.length === 0) return;
+            dotsContainer.innerHTML = '';
+            artworks.forEach((_, index) => {
+                const dot = document.createElement('span');
+                dot.className = 'dot';
+                dot.onclick = () => changeSlide(index, artworks);
+                dotsContainer.appendChild(dot);
+            });
+            changeSlide(0, artworks, true); // Initial slide
+            resetSlideInterval(artworks);
         }
 
-        function nextSlide() {
-            let next = (currentSlide + 1) % artworks.length;
-            changeSlide(next);
-        }
-
-        function startSlideshow() {
-            slideInterval = setInterval(nextSlide, 5000); // 5초마다 변경
-        }
-
-        function resetSlideInterval() {
-            clearInterval(slideInterval);
-            startSlideshow();
-        }
-        
-        // 페이지 로드 시 슬라이드쇼와 NFT 갤러리 시작
-        window.addEventListener('load', () => {
-            startSlideshow();
-            loadNFTs();
-        });
-
-        // objkt REST API로 NFT 데이터 가져오기
-        async function loadNFTs() {
-            try {
-                // CORS 문제 해결 시도
-                const response = await fetch(`https://data.objkt.com/v2/creators/${WALLET_ADDRESS}/tokens?limit=50`, {
-                    mode: 'cors',
-                    headers: {
-                        'Accept': 'application/json'
-                    }
-                });
-                
-                if (!response.ok) {
-                    throw new Error('API 응답 오류');
-                }
-
-                const data = await response.json();
-                
-                if (data.tokens && data.tokens.length > 0) {
-                    displayNFTs(data.tokens);
-                } else {
-                    showGalleryMessage('No NFTs found');
-                }
-            } catch (error) {
-                console.error('NFT 로딩 실패:', error);
-                showGalleryMessage('Unable to load NFT gallery. Please visit our objkt.com collection directly.');
+        function changeSlide(index, artworks, isInitial = false) {
+            const dots = dotsContainer.querySelectorAll('.dot');
+            if (isInitial) {
+                 heroImage.src = artworks[index].image;
+                 artworkName.textContent = artworks[index].name;
+                 dots[index].classList.add('active');
+            } else {
+                heroImage.classList.add('fade');
+                setTimeout(() => {
+                    heroImage.src = artworks[index].image;
+                    artworkName.textContent = artworks[index].name;
+                    heroImage.classList.remove('fade');
+                }, 500);
             }
+            currentSlide = index;
+            dots.forEach(dot => dot.classList.remove('active'));
+            if (dots[currentSlide]) dots[currentSlide].classList.add('active');
+            if (!isInitial) resetSlideInterval(artworks);
         }
-        
-        function showGalleryMessage(message) {
-            const gallery = document.getElementById('nftGallery');
-            gallery.innerHTML = `
-                <div style="grid-column: 1/-1; text-align: center; padding: 40px;">
-                    <p style="font-size: 1.1em; margin-bottom: 20px;">${message}</p>
-                    <a href="https://objkt.com/profile/${WALLET_ADDRESS}/created" 
-                       style="display: inline-block; padding: 12px 24px; background: #00d4aa; color: white; text-decoration: none; border-radius: 5px;"
-                       target="_blank">
-                        View on objkt.com
-                    </a>
-                </div>
-            `;
+
+        function nextSlide(artworks) {
+            let next = (currentSlide + 1) % artworks.length;
+            changeSlide(next, artworks);
+        }
+
+        function resetSlideInterval(artworks) {
+            clearInterval(slideInterval);
+            slideInterval = setInterval(() => nextSlide(artworks), 5000);
         }
 
         function processIPFS(url) {
-            if (!url) return 'https://via.placeholder.com/250x250/667eea/ffffff?text=WRISTORY';
-            
+            if (!url) return 'https://via.placeholder.com/300/161623/FFFFFF?text=WRISTORY';
             if (url.startsWith('ipfs://')) {
-                return url.replace('ipfs://', 'https://ipfs.io/ipfs/');
+                return `https://ipfs.io/ipfs/${url.substring(7)}`;
             }
             return url;
         }
 
-        function displayNFTs(tokens) {
+        function displayNFTs(tokens, isFallback = false) {
             const gallery = document.getElementById('nftGallery');
-            gallery.innerHTML = '';
+            gallery.innerHTML = ''; // Clear loading message
 
+            if (!isFallback) {
+                const header = document.createElement('h3');
+                header.textContent = "🇰🇷 Korean Independence Fighters";
+                header.style.color = 'var(--text-light)';
+                header.style.marginBottom = '20px';
+                header.style.width = '100%';
+                gallery.before(header);
+            }
+            
             tokens.forEach(token => {
                 const card = document.createElement('div');
                 card.className = 'nft-card';
-                
-                const objktUrl = `https://objkt.com/tokens/${token.fa_contract}/${token.token_id}`;
+                const objktUrl = token.objktUrl || `https://objkt.com/tokens/${token.fa_contract}/${token.token_id}`;
                 card.onclick = () => window.open(objktUrl, '_blank');
 
-                let imageUrl = token.display_uri || token.thumbnail_uri || token.artifact_uri;
-                imageUrl = processIPFS(imageUrl);
-
-                const name = token.name || token.metadata?.name || 'Untitled';
-                const description = token.description || token.metadata?.description || '';
+                const imageUrl = isFallback ? token.image : processIPFS(token.display_uri);
+                const name = token.name || 'Untitled';
                 const supply = token.supply || 'N/A';
+                const description = token.description || '';
 
                 card.innerHTML = `
-                    <img src="${imageUrl}" alt="${name}" class="nft-card-image" 
-                         onerror="this.onerror=null; this.src='https://via.placeholder.com/250x250/667eea/ffffff?text=${encodeURIComponent(name)}';">
+                    <img src="${imageUrl}" alt="${name}" class="nft-card-image" onerror="this.src='https://via.placeholder.com/300/161623/FFFFFF?text=No+Image'">
                     <div class="nft-card-content">
                         <h3>${name}</h3>
-                        ${description ? `<p class="nft-card-description">${description.substring(0, 100)}${description.length > 100 ? '...' : ''}</p>` : ''}
-                        <span class="nft-edition">Edition: ${supply}</span>
+                        <p class="nft-card-description">${description.substring(0, 80)}${description.length > 80 ? '...' : ''}</p>
+                        <span class="nft-edition">Editions: ${supply}</span>
                     </div>
                 `;
-
                 gallery.appendChild(card);
             });
         }
+        
+        async function loadNFTs() {
+            try {
+                // 특정 컬렉션(독립운동가)만 가져오기 위한 API 엔드포인트
+                const collection_id = "KT1A77WVak4yMFoHDNzpAf8PGA7YLmh5wMJ8";
+                const response = await fetch(`https://data.objkt.com/v3/graphql`, {
+                    method: 'POST',
+                    headers: {'Content-Type': 'application/json'},
+                    body: JSON.stringify({
+                        query: `
+                            query MyQuery {
+                                token(where: {fa_contract: {_eq: "${collection_id}"}}, order_by: {token_id: desc}, limit: 4) {
+                                    name
+                                    description
+                                    display_uri
+                                    supply
+                                    token_id
+                                    fa_contract
+                                }
+                            }
+                        `
+                    })
+                });
 
-        function processIPFS(url) {
-            if (!url) return 'https://via.placeholder.com/250x250/667eea/ffffff?text=WRISTORY';
-            
-            if (url.startsWith('ipfs://')) {
-                return url.replace('ipfs://', 'https://ipfs.io/ipfs/');
+                if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
+                
+                const jsonResponse = await response.json();
+                const tokens = jsonResponse.data.token;
+                
+                if (tokens && tokens.length > 0) {
+                    console.log("Successfully fetched from objkt.com API.");
+                    setupSlideshow(fallbackArtworks); // 슬라이드쇼는 고정된 4개 작품으로 설정
+                    displayNFTs(tokens);
+                } else {
+                    throw new Error("No tokens found from API.");
+                }
+            } catch (error) {
+                console.warn('objkt.com API failed, loading fallback data.', error);
+                setupSlideshow(fallbackArtworks);
+                displayNFTs(fallbackArtworks, true);
             }
-            return url;
         }
+        
+        // --- Scroll Animations ---
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, { threshold: 0.1 });
+
+        document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+        
+        // --- Initial Load ---
+        window.addEventListener('load', loadNFTs);
     </script>
 </body>
 </html>
