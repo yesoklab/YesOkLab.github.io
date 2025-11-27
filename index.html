@@ -359,6 +359,13 @@
                 image: "https://amaranth-legal-sole-30.mypinata.cloud/ipfs/bafkreigza7i6mn2jkwbdcy64f5scwji4g6g2fsranp6w4fujn3bf7g3wca", 
                 objktUrl: "https://objkt.com/tokens/KT1A77WVak4yMFoHDNzpAf8PGA7YLmh5wMJ8/14",
                 editions: 100
+            },
+            { 
+                name: "Yun Bong-gil - Hongkew Park Realism", 
+                description: "Carried out the historic bombing at Hongkew Park in Shanghai on April 29, 1932, striking key Japanese officials and reigniting the global flame for Korea's independence.",
+                image: "https://amaranth-legal-sole-30.mypinata.cloud/ipfs/bafkreiea4bpcjwlic74qpfwsvy2opgwz7mvuwdtlrmaikffed2fnjsgqfe", 
+                objktUrl: "https://objkt.com/tokens/KT1A77WVak4yMFoHDNzpAf8PGA7YLmh5wMJ8/17",
+                editions: 100
             }
         ];
 
@@ -413,9 +420,11 @@
             slideInterval = setInterval(() => nextSlide(artworks), 5000);
         }
 
+
+
         function displayNFTs(tokens) {
             const gallery = document.getElementById('nftGallery');
-            gallery.innerHTML = ''; // Clear loading message
+            gallery.innerHTML = '';
             
             tokens.forEach(token => {
                 const card = document.createElement('div');
@@ -434,7 +443,6 @@
             });
         }
         
-        // --- Scroll Animations ---
         const observer = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
                 if (entry.isIntersecting) {
@@ -445,9 +453,7 @@
 
         document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
         
-        // --- Initial Load ---
         window.addEventListener('load', () => {
-            // Directly use the curated mainArtworks array for stability
             setupSlideshow(mainArtworks);
             displayNFTs(mainArtworks);
         });
