@@ -26,7 +26,7 @@
             padding: 0;
             box-sizing: border-box;
         }
-        
+
         body {
             font-family: 'Poppins', 'Noto Sans KR', sans-serif;
             line-height: 1.7;
@@ -54,44 +54,44 @@
             clip-path: circle(20% at 10% 10%);
             z-index: -2;
         }
-        
+
         .container {
             max-width: 1200px;
             margin: 0 auto;
             padding: 20px;
         }
-        
+
         header {
             text-align: center;
             padding: 80px 20px 40px;
             color: var(--text-light);
         }
-        
+
         .logo-container {
             display: flex; align-items: center; justify-content: center;
             gap: 20px;
             margin-bottom: 20px;
         }
-        
+
         .logo-img {
             height: 80px; width: auto;
             filter: drop-shadow(0 4px 12px rgba(0,0,0,0.4));
         }
-        
+
         header h1 {
             font-size: 4em; font-weight: 700;
             text-shadow: 2px 2px 8px rgba(0,0,0,0.5);
         }
-        
+
         header p {
             font-size: 1.5em; opacity: 0.9;
             margin-top: 10px;
         }
-        
+
         .tagline {
             font-size: 1.2em; margin-top: 15px; font-style: italic;
         }
-        
+
         .hero-slideshow {
             position: relative; max-width: 600px; width: 100%; margin: 40px auto;
         }
@@ -110,27 +110,27 @@
         .slideshow-dots {
             text-align: center; margin-top: 25px;
         }
-        
+
         .dot {
             height: 12px; width: 12px; margin: 0 6px;
             background-color: rgba(255, 255, 255, 0.4);
             border-radius: 50%; display: inline-block;
             cursor: pointer; transition: all 0.3s ease;
         }
-        
+
         .dot:hover { background-color: rgba(255, 255, 255, 0.7); }
         .dot.active { background-color: white; transform: scale(1.2); box-shadow: 0 0 10px rgba(255, 255, 255, 0.8); }
         .hero-image.fade { opacity: 0.2; }
-        
+
         .artwork-info {
             text-align: center; margin-top: 20px; color: var(--text-light);
         }
-        
+
         .artwork-info p {
             font-size: 1.3em; font-weight: 500;
             text-shadow: 2px 2px 4px rgba(0,0,0,0.6);
         }
-        
+
         .section {
             background: rgba(255, 255, 255, 0.1);
             border: 1px solid rgba(255, 255, 255, 0.2);
@@ -148,13 +148,13 @@
             border-bottom: 2px solid rgba(255, 255, 255, 0.3);
             padding-bottom: 15px;
         }
-        
+
         .collection-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
             gap: 30px; margin-top: 30px;
         }
-        
+
         .nft-card {
             background: rgba(255, 255, 255, 0.05);
             border: 1px solid rgba(255, 255, 255, 0.15);
@@ -165,7 +165,7 @@
             display: flex;
             flex-direction: column;
         }
-        
+
         .nft-card:hover {
             transform: translateY(-10px) scale(1.02);
             box-shadow: 0 20px 40px rgba(0,0,0,0.4);
@@ -177,8 +177,8 @@
             background: rgba(0,0,0,0.2);
         }
 
-        .nft-card-content { 
-            padding: 25px; 
+        .nft-card-content {
+            padding: 25px;
             flex-grow: 1;
             display: flex;
             flex-direction: column;
@@ -197,7 +197,7 @@
             border-radius: 20px; font-size: 0.8em; margin-top: 15px; font-weight: 500;
             align-self: flex-start;
         }
-        
+
         footer {
             text-align: center; padding: 50px;
             color: var(--text-light);
@@ -213,7 +213,7 @@
         .social-links a:hover {
             transform: scale(1.2); color: var(--accent-color);
         }
-        
+
         /* Scroll Animation */
         .reveal {
             opacity: 0;
@@ -323,7 +323,7 @@
     </footer>
 
     <script>
-        // --- Single Source of Truth for Main Artworks ---
+        // --- Main Artworks Data ---
         const mainArtworks = [
             { 
                 name: "Baekbeom Kim Gu - My Wish", 
@@ -356,7 +356,7 @@
             { 
                 name: "Kim Maria - Unwavering Will", 
                 description: "A leading female independence activist who organized the Korean Patriotic Women's Association, never yielding despite brutal torture.",
-                image: "https://objkt.com/tokens/KT1A77WVak4yMFoHDNzpAf8PGA7YLmh5wMJ8/14",
+                image: "https://gateway.pinata.cloud/ipfs/bafybeieszq3bfdszr4qrib2fbxpmahpsbx67xkavq5lq4za77r67m2w6b4", 
                 objktUrl: "https://objkt.com/tokens/KT1A77WVak4yMFoHDNzpAf8PGA7YLmh5wMJ8/14",
                 editions: 100
             },
@@ -366,6 +366,16 @@
                 image: "https://amaranth-legal-sole-30.mypinata.cloud/ipfs/bafybeif7vtxugnqqgdhs62xpzy4hcopnrop2mwld4kxbdl3kahxffa3pnm", 
                 objktUrl: "https://objkt.com/tokens/KT1A77WVak4yMFoHDNzpAf8PGA7YLmh5wMJ8/17",
                 editions: 100
+            },
+            {
+                // Vintage edition honoring British journalist Ernest Thomas Bethell with generative art inspired by his legacy.
+                name: "Bethell – The Flow of Truth (Vintage Edition)",
+                description: "This piece honors Ernest Thomas Bethell (1872–1909), the British journalist who founded the Daehan Maeil Shinbo and fearlessly exposed Japanese colonial abuses. He dedicated his life to Korea’s independence, passing at 37, and left a legacy encapsulated in his plea: 'Even if I die, let the newspaper live forever to rescue the Korean people.'",
+                // Use the generative artwork file that abstractly represents Bethell's contributions.
+                image: "bethell_flow.png",
+                // Link to the generative NFT token on objkt.
+                objktUrl: "https://objkt.com/tokens/KT1A77WVak4yMFoHDNzpAf8PGA7YLmh5wMJ8/6",
+                editions: 10
             }
         ];
 
@@ -396,12 +406,12 @@
                  heroImage.src = artworks[currentSlide].image;
                  artworkName.textContent = artworks[currentSlide].name;
             } else {
-                heroImage.classList.add('fade');
-                setTimeout(() => {
-                    heroImage.src = artworks[currentSlide].image;
-                    artworkName.textContent = artworks[currentSlide].name;
-                    heroImage.classList.remove('fade');
-                }, 500);
+                 heroImage.classList.add('fade');
+                 setTimeout(() => {
+                     heroImage.src = artworks[currentSlide].image;
+                     artworkName.textContent = artworks[currentSlide].name;
+                     heroImage.classList.remove('fade');
+                 }, 500);
             }
             
             dots.forEach(dot => dot.classList.remove('active'));
@@ -420,8 +430,6 @@
             slideInterval = setInterval(() => nextSlide(artworks), 5000);
         }
 
-
-
         function displayNFTs(tokens) {
             const gallery = document.getElementById('nftGallery');
             gallery.innerHTML = '';
@@ -429,7 +437,7 @@
             tokens.forEach(token => {
                 const card = document.createElement('div');
                 card.className = 'nft-card';
-                card.onclick = () => window.open(token.objktUrl, '_blank');
+                card.onclick = () => { if (token.objktUrl && token.objktUrl !== '#') window.open(token.objktUrl, '_blank'); };
 
                 card.innerHTML = `
                     <img src="${token.image}" alt="${token.name}" class="nft-card-image" onerror="this.src='https://via.placeholder.com/300/161623/FFFFFF?text=No+Image'">
@@ -442,7 +450,7 @@
                 gallery.appendChild(card);
             });
         }
-        
+
         const observer = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
                 if (entry.isIntersecting) {
@@ -452,7 +460,7 @@
         }, { threshold: 0.1 });
 
         document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
-        
+
         window.addEventListener('load', () => {
             setupSlideshow(mainArtworks);
             displayNFTs(mainArtworks);
