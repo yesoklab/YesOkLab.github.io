@@ -1,462 +1,353 @@
 <!DOCTYPE html>
 <html lang="ko">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>WRISTORY - Digital Heritage on Blockchain | YesOkLab</title>
-    <meta name="description" content="Preserving legendary moments through NFTs. Collections: Korean Independence Fighters, Bitcoin Pizza Genesis, Bitcoin Whitepaper. Minted on Tezos.">
-    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700&family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
-    <style>
-        :root {
-            --primary-color: #667eea;
-            --secondary-color: #764ba2;
-            --text-light: #f0f2f5;
-            --text-dark: #333;
-            --bg-light: #ffffff;
-            --bg-dark: #1a1a2e;
-            --accent-color: #00d4aa;
-            --bitcoin-primary: #f5576c;
-            --bitcoin-secondary: #f093fb;
-            --whitepaper-primary: #f39c12;
-            --whitepaper-secondary: #2980b9;
-        }
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    
+    <!-- 메타 태그 (SNS 공유 시 보여질 내용) -->
+    <title>WRISTORY | Digital Heritage</title>
+    <meta name="description" content="블록체인 기술로 역사를 보존합니다. WRISTORY NFT 에어드랍 및 컬렉션 공식 페이지.">
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="WRISTORY - 에어드랍 등록 및 컬렉션">
+    <meta property="og:description" content="안중근, 김구 등 한국의 위인들을 담은 디지털 헤리티지 NFT. 지금 지갑을 등록하고 에어드랍에 참여하세요.">
+    <meta property="og:image" content="https://amaranth-legal-sole-30.mypinata.cloud/ipfs/bafkreiaohqebkvodjwrnwt3673zaijntc3uc2g5mxg6vfdydqpeaf77s4a">
 
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
+    <!-- 스타일 및 라이브러리 로드 -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/react@18/umd/react.production.min.js" crossorigin></script>
+    <script src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js" crossorigin></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+    
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Noto+Sans+KR:wght@300;400;500;700&family=Inter:wght@300;400;600&display=swap');
         
         body {
-            font-family: 'Poppins', 'Noto Sans KR', sans-serif;
-            line-height: 1.7;
-            color: var(--text-dark);
-            background: #161623;
-            overflow-x: hidden;
+            font-family: 'Inter', 'Noto Sans KR', sans-serif;
+            background-color: #0F111A;
+            color: #E2E8F0;
         }
-
-        body::before {
-            content: '';
-            position: fixed;
-            top: 0; left: 0;
-            width: 100%; height: 100%;
-            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
-            clip-path: circle(30% at right 70%);
-            z-index: -2;
+        h1, h2, h3, .serif {
+            font-family: 'Playfair Display', serif;
         }
-
-        body::after {
-            content: '';
-            position: fixed;
-            top: 0; left: 0;
-            width: 100%; height: 100%;
-            background: linear-gradient(217deg, var(--bitcoin-primary), var(--accent-color));
-            clip-path: circle(20% at 10% 10%);
-            z-index: -2;
+        .text-shadow {
+            text-shadow: 0 2px 4px rgba(0,0,0,0.5);
         }
+        /* 스크롤바 커스텀 */
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-track { background: #1e293b; }
+        ::-webkit-scrollbar-thumb { background: #475569; border-radius: 4px; }
         
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 20px;
-        }
-        
-        header {
-            text-align: center;
-            padding: 80px 20px 40px;
-            color: var(--text-light);
-        }
-        
-        .logo-container {
-            display: flex; align-items: center; justify-content: center;
-            gap: 20px;
-            margin-bottom: 20px;
-        }
-        
-        .logo-img {
-            height: 80px; width: auto;
-            filter: drop-shadow(0 4px 12px rgba(0,0,0,0.4));
-        }
-        
-        header h1 {
-            font-size: 4em; font-weight: 700;
-            text-shadow: 2px 2px 8px rgba(0,0,0,0.5);
-        }
-        
-        header p {
-            font-size: 1.5em; opacity: 0.9;
-            margin-top: 10px;
-        }
-        
-        .tagline {
-            font-size: 1.2em; margin-top: 15px; font-style: italic;
-        }
-        
-        .hero-slideshow {
-            position: relative; max-width: 600px; width: 100%; margin: 40px auto;
-        }
-
-        .hero-image {
-            width: 100%;
-            height: auto; aspect-ratio: 1 / 1;
-            border-radius: 20px;
-            box-shadow: 0 25px 50px rgba(0,0,0,0.5);
-            display: block; object-fit: cover;
-            background: rgba(255,255,255,0.1);
-            border: 1px solid rgba(255,255,255,0.2);
-            transition: opacity 0.7s ease-in-out;
-        }
-
-        .slideshow-dots {
-            text-align: center; margin-top: 25px;
-        }
-        
-        .dot {
-            height: 12px; width: 12px; margin: 0 6px;
-            background-color: rgba(255, 255, 255, 0.4);
-            border-radius: 50%; display: inline-block;
-            cursor: pointer; transition: all 0.3s ease;
-        }
-        
-        .dot:hover { background-color: rgba(255, 255, 255, 0.7); }
-        .dot.active { background-color: white; transform: scale(1.2); box-shadow: 0 0 10px rgba(255, 255, 255, 0.8); }
-        .hero-image.fade { opacity: 0.2; }
-        
-        .artwork-info {
-            text-align: center; margin-top: 20px; color: var(--text-light);
-        }
-        
-        .artwork-info p {
-            font-size: 1.3em; font-weight: 500;
-            text-shadow: 2px 2px 4px rgba(0,0,0,0.6);
-        }
-        
-        .section {
-            background: rgba(255, 255, 255, 0.1);
-            border: 1px solid rgba(255, 255, 255, 0.2);
-            backdrop-filter: blur(15px);
-            margin: 50px 0; padding: 40px;
-            border-radius: 20px;
-            box-shadow: 0 15px 35px rgba(0,0,0,0.2);
-            color: var(--text-light);
-        }
-
-        .section h2 {
-            color: var(--text-light);
-            margin-bottom: 25px;
-            font-size: 2.2em; font-weight: 600;
-            border-bottom: 2px solid rgba(255, 255, 255, 0.3);
-            padding-bottom: 15px;
-        }
-        
-        .collection-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 30px; margin-top: 30px;
-        }
-        
-        .nft-card {
-            background: rgba(255, 255, 255, 0.05);
-            border: 1px solid rgba(255, 255, 255, 0.15);
-            border-radius: 15px;
-            overflow: hidden;
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
-            cursor: pointer;
-            display: flex;
-            flex-direction: column;
-        }
-        
-        .nft-card:hover {
-            transform: translateY(-10px) scale(1.02);
-            box-shadow: 0 20px 40px rgba(0,0,0,0.4);
-            border-color: rgba(255, 255, 255, 0.3);
-        }
-
-        .nft-card-image {
-            width: 100%; height: 280px; object-fit: cover;
-            background: rgba(0,0,0,0.2);
-        }
-
-        .nft-card-content { 
-            padding: 25px; 
-            flex-grow: 1;
-            display: flex;
-            flex-direction: column;
-        }
-        .nft-card h3 {
-            color: var(--text-light); margin-bottom: 10px; font-size: 1.4em;
-        }
-        .nft-card-description {
-            color: rgba(255, 255, 255, 0.7); font-size: 0.9em; line-height: 1.6;
-            flex-grow: 1;
-        }
-        .nft-edition {
-            display: inline-block; padding: 6px 14px;
-            background: var(--primary-color);
-            color: var(--text-light);
-            border-radius: 20px; font-size: 0.8em; margin-top: 15px; font-weight: 500;
-            align-self: flex-start;
-        }
-        
-        footer {
-            text-align: center; padding: 50px;
-            color: var(--text-light);
-        }
-        .footer-logo {
-            height: 70px; margin-bottom: 20px;
-        }
-        .social-links a {
-            display: inline-block; margin: 0 15px; color: var(--text-light);
-            text-decoration: none; font-size: 1.8em;
-            transition: transform 0.3s, color 0.3s;
-        }
-        .social-links a:hover {
-            transform: scale(1.2); color: var(--accent-color);
-        }
-        
-        /* Scroll Animation */
-        .reveal {
-            opacity: 0;
-            transform: translateY(30px);
-            transition: opacity 0.8s ease-out, transform 0.8s ease-out;
-        }
-        .reveal.visible {
-            opacity: 1;
-            transform: translateY(0);
-        }
-
-        /* Responsive */
-        @media (max-width: 768px) {
-            header h1 { font-size: 2.5em; }
-            header p { font-size: 1.1em; }
-            .logo-img { height: 60px; }
-            .section { padding: 25px; }
-        }
+        /* 슬라이드쇼 애니메이션 */
+        .fade-enter { opacity: 0; }
+        .fade-enter-active { opacity: 1; transition: opacity 500ms ease-in; }
+        .fade-exit { opacity: 1; }
+        .fade-exit-active { opacity: 0; transition: opacity 500ms ease-in; }
     </style>
 </head>
 <body>
-    <header>
-        <div class="container reveal">
-            <div class="logo-container">
-                <img src="https://amaranth-legal-sole-30.mypinata.cloud/ipfs/bafkreiaohqebkvodjwrnwt3673zaijntc3uc2g5mxg6vfdydqpeaf77s4a" alt="YesOkLab Logo" class="logo-img">
-                <h1>WRISTORY</h1>
-            </div>
-            <p>History on Your Wrist</p>
-            <p class="tagline">Preserving legendary moments through blockchain technology</p>
-            
-            <div class="hero-slideshow">
-                <img id="heroImage" src="" alt="WRISTORY NFT Collection" class="hero-image">
-                <div class="slideshow-dots"></div>
-                <div class="artwork-info">
-                    <p id="artworkName"></p>
-                </div>
-            </div>
-        </div>
-    </header>
+    <div id="root"></div>
 
-    <div class="container">
-        <section class="section reveal">
-            <h2>💎 About WRISTORY</h2>
-            <p style="font-size: 1.1em; line-height: 1.8; color: rgba(255,255,255,0.8);">
-                <strong>WRISTORY</strong>는 YesOkLab의 디지털 헤리티지 프로젝트로, 인류 역사의 중요한 순간들을 NFT를 통해 보존하고 전파합니다. 저희는 과거의 유산이 현재와 미래 세대에게 영감을 줄 수 있도록, 기술과 예술을 결합하여 의미 있는 디지털 기록을 만들어갑니다.
-            </p>
-        </section>
+    <script type="text/babel">
+        const { useState, useEffect, useRef } = React;
 
-        <section class="section reveal">
-            <h2>🎨 Our Collections: Korean Independence Fighters</h2>
-            <div id="nftGallery" class="collection-grid">
-                <!-- NFTs will be loaded here by JavaScript -->
-            </div>
-        </section>
+        // ---------------------------------------------------------
+        // 1. 설정 및 데이터 (Translations & Data)
+        // ---------------------------------------------------------
         
-        <section class="section reveal" style="background: linear-gradient(135deg, var(--bitcoin-primary), var(--bitcoin-secondary));">
-             <h2 style="border-color: rgba(255,255,255,0.5);">🍕 Bitcoin Pizza Genesis: 10K</h2>
-             <p style="font-size: 1.1em; margin-bottom: 20px; color: rgba(255,255,255,0.9);">
-                2010년 5월 22일, Laszlo Hanyecz가 1만 BTC로 피자 두 판을 구매하며 역사상 최초의 비트코인 실물 거래를 성사시켰습니다. 이 제너레이티브 아트 컬렉션은 비트코인이 현실이 된 그 전설적인 순간을 영원히 기록합니다.
-             </p>
-             <div style="text-align: center; margin-top: 30px;">
-                <a href="https://objkt.com/collections/KT1JU866vUaq8ac5KkmuW8XKnEbNXiVHRqUy" 
-                   target="_blank"
-                   style="display: inline-block; padding: 15px 40px; background: white; color: var(--bitcoin-primary); text-decoration: none; border-radius: 50px; font-size: 1.2em; font-weight: 700; box-shadow: 0 10px 30px rgba(0,0,0,0.3); transition: transform 0.3s;">
-                    View Pizza Collection →
-                </a>
-            </div>
-        </section>
+        // *** 중요: 여기에 본인의 Gemini API 키를 입력하세요 ***
+        const GEMINI_API_KEY = ""; // AIzaSyD1v_KU4GiUE0QFWvFwda_KmRfoKWnBsD8"
 
-        <section class="section reveal" style="background: linear-gradient(135deg, var(--whitepaper-primary), var(--whitepaper-secondary));">
-             <h2 style="border-color: rgba(255,255,255,0.5);">📜 Bitcoin Whitepaper Collection</h2>
-             <p style="font-size: 1.1em; margin-bottom: 20px; color: rgba(255,255,255,0.9);">
-                "A Peer-to-Peer Electronic Cash System." 2008년 10월 31일, 사토시 나카모토가 공개한 9페이지의 논문은 암호화폐 혁명의 시작이었습니다. 이 컬렉션은 인터랙티브 HTML 기술로 백서의 각 페이지를 재현하여, 블록체인에 역사의 원문을 영원히 보존합니다.
-             </p>
-             <ul style="list-style: none; margin: 20px 0; padding-left: 10px; font-size: 1.1em;">
-                <li style="margin-bottom: 10px;">✓ 9개의 인터랙티브 HTML NFT</li>
-                <li style="margin-bottom: 10px;">✓ 다크/라이트 테마, 용어 툴팁, 주석 기능 포함</li>
-                <li style="margin-bottom: 10px;">✓ 총 900 에디션 (페이지당 100개)</li>
-             </ul>
-             <p style="font-size: 1.1em; font-style: italic; color: rgba(255,255,255,0.8);">
-                WRISTORY Digital Heritage: Preserving history on the blockchain.
-             </p>
-             <div style="text-align: center; margin-top: 30px;">
-                <a href="https://objkt.com/collections/KT1BywQidkDZoSaS38cv1xGWRgXBkx9qFeVe" 
-                   target="_blank"
-                   style="display: inline-block; padding: 15px 40px; background: white; color: var(--whitepaper-secondary); text-decoration: none; border-radius: 50px; font-size: 1.2em; font-weight: 700; box-shadow: 0 10px 30px rgba(0,0,0,0.3); transition: transform 0.3s;">
-                    View Whitepaper Collection →
-                </a>
-            </div>
-        </section>
-    </div>
-
-    <footer>
-        <div class="container reveal">
-            <img src="https://amaranth-legal-sole-30.mypinata.cloud/ipfs/bafkreiah4no6rta4tp4e6q6v2qsps53pu23kgumaz35cicjungsu7ptxp4" alt="YesOkLab" class="footer-logo">
-            <h3>YesOkLab</h3>
-            <p>Digital Heritage Project - Preserving History on Blockchain</p>
-            <div class="social-links" style="margin-top: 20px;">
-                <a href="https://twitter.com/YesOkLab" title="Twitter" target="_blank">🐦</a>
-                <a href="https://t.me/yesoklabS/9" title="Telegram" target="_blank">📱</a>
-                <a href="https://www.instagram.com/YesOkLab" title="Instagram" target="_blank">📷</a>
-                <a href="https://blog.naver.com/yesoklab/224013365592" title="Naver Blog" target="_blank">📝</a>
-                <a href="https://objkt.com/profile/tz1eXLHqJXBnp4VFGwFDfMGWcLYVgBUYnA16/created" title="objkt" target="_blank">🎨</a>
-            </div>
-            <p style="margin-top: 30px; opacity: 0.7;">© 2024 YesOkLab. All rights reserved.</p>
-        </div>
-    </footer>
-
-    <script>
-        // --- Single Source of Truth for Main Artworks ---
-        const mainArtworks = [
-            { 
-                name: "Baekbeom Kim Gu - My Wish", 
-                description: "President of the Provisional Government of the Republic of Korea, a visionary leader who dreamed of a culturally powerful nation.",
-                image: "https://amaranth-legal-sole-30.mypinata.cloud/ipfs/bafkreigtmhstec3baqngrb3wuynfkfohxri7b7b62ecxluui3zwttf35xm", 
-                objktUrl: "https://objkt.com/tokens/KT1A77WVak4yMFoHDNzpAf8PGA7YLmh5wMJ8/15",
-                editions: 100
+        const TRANSLATIONS = {
+            en: {
+                nav: { collections: 'Collections', register: 'Register Airdrop', guide: 'How to Airdrop', ai: '✨ Ask AI', join: 'Join Drop' },
+                hero: { title: 'History on Your Wrist', subtitle: 'Preserving legendary moments through blockchain technology. WRISTORY captures the wisdom of Korea\'s great leaders on the Tezos network.', joinBtn: 'Join Airdrop Whitelist', viewBtn: 'View on Objkt.com' },
+                home: { featuredTitle: 'Featured Collections', itemsFound: 'Collections Found', chain: 'Tezos Chain', items: 'Items' },
+                form: { title: 'Join the Legacy', subtitle: 'Enter your Tezos wallet address to participate in the upcoming WRISTORY collection airdrop.', label: 'Tezos Wallet Address', placeholder: 'tz1...', submit: 'Register for Airdrop', verifying: 'Verifying...', disclaimer: 'By registering, you agree to receive tokens on the Tezos blockchain.', successTitle: 'Registration Complete!', successMsg: 'Address has been added to the whitelist.', registerAnother: 'Register another address', error: 'Please enter a valid Tezos address (starts with tz1, tz2, etc.)' },
+                guide: { title: 'Airdrop Execution Procedure', helpText: 'Need technical help? Ask our AI Assistant.', steps: [{ title: 'Registration', desc: 'Collect wallet addresses (`tz1...`) from community members.' }, { title: 'Preparation', desc: 'Ensure your 10 collections on Objkt.com are minted.' }, { title: 'Distribution', desc: 'Send NFTs to the collected addresses manually or via script.' }, { title: 'Announcement', desc: 'Announce the successful drop on SNS.' }] },
+                ai: { title: 'WRISTORY Assistant', subtitle: 'Ask about history or the airdrop.', placeholder: 'Ask about Ahn Jung-geun...', send: 'Send', initialMsg: 'Greetings. I am the WRISTORY Curator AI. How may I assist you?', error: 'Connection failed. Please check your API Key.', typing: 'Thinking...' },
+                footer: { rights: '© 2025 YesOkLab | WRISTORY Project. All Rights Reserved.' }
             },
-            { 
-                name: "An Jung-geun - Korean", 
-                description: "An independence activist who asserted Korea's sovereignty by assassinating Ito Hirobumi in Harbin in 1909.",
-                image: "https://amaranth-legal-sole-30.mypinata.cloud/ipfs/bafkreid2xqal5as5ncuowzpcxdkgsktspd4qw6yfi6hohuoyxhul4d43em", 
-                objktUrl: "https://objkt.com/tokens/KT1A77WVak4yMFoHDNzpAf8PGA7YLmh5wMJ8/16",
-                editions: 100
-            },
-            { 
-                name: "Dosan Ahn Chang-ho - Sincere Action", 
-                description: "An educator and independence leader who founded the Heungsadan, emphasizing national strength through character and sincerity.",
-                image: "https://amaranth-legal-sole-30.mypinata.cloud/ipfs/bafkreibvczfhdfl76kihctgs43n4qvbalp7mks3dreawbszpgwbgl6qiby", 
-                objktUrl: "https://objkt.com/tokens/KT1A77WVak4yMFoHDNzpAf8PGA7YLmh5wMJ8/12",
-                editions: 100
-            },
-            { 
-                name: "Yu Gwan-sun - Long Live Independence", 
-                description: "A symbol of the March 1st Movement, a young hero who led the cry for independence and became a martyr for freedom.",
-                image: "https://amaranth-legal-sole-30.mypinata.cloud/ipfs/bafkreifv2thpaq2t3dgve3tomhb6eccwitgy6fi3qa256jeeafqtcx3ihy", 
-                objktUrl: "https://objkt.com/tokens/KT1A77WVak4yMFoHDNzpAf8PGA7YLmh5wMJ8/7",
-                editions: 100
-            },
-            { 
-                name: "Kim Maria - Unwavering Will", 
-                description: "A leading female independence activist who organized the Korean Patriotic Women's Association, never yielding despite brutal torture.",
-                image: "https://amaranth-legal-sole-30.mypinata.cloud/ipfs/bafkreigza7i6mn2jkwbdcy64f5scwji4g6g2fsranp6w4fujn3bf7g3wca", 
-                objktUrl: "https://objkt.com/tokens/KT1A77WVak4yMFoHDNzpAf8PGA7YLmh5wMJ8/14",
-                editions: 100
-            },
-            { 
-                name: "Yun Bong-gil - Hongkew Park Realism", 
-                description: "Carried out the historic bombing at Hongkew Park in Shanghai on April 29, 1932, striking key Japanese officials and reigniting the global flame for Korea's independence.",
-                image: "https://amaranth-legal-sole-30.mypinata.cloud/ipfs/bafkreiea4bpcjwlic74qpfwsvy2opgwz7mvuwdtlrmaikffed2fnjsgqfe", 
-                objktUrl: "https://objkt.com/tokens/KT1A77WVak4yMFoHDNzpAf8PGA7YLmh5wMJ8/17",
-                editions: 100
+            ko: {
+                nav: { collections: '컬렉션', register: '에어드랍 등록', guide: '에어드랍 가이드', ai: '✨ AI 질문하기', join: '참여하기' },
+                hero: { title: '손목 위의 역사', subtitle: '블록체인 기술을 통해 전설적인 순간들을 보존합니다. WRISTORY는 테조스 네트워크 위에서 한국 위인들의 지혜를 담아냅니다.', joinBtn: '화이트리스트 등록하기', viewBtn: 'Objkt.com에서 보기' },
+                home: { featuredTitle: '주요 컬렉션', itemsFound: '개의 컬렉션', chain: '테조스 체인', items: '아이템' },
+                form: { title: '유산에 동참하세요', subtitle: 'WRISTORY 컬렉션 에어드랍에 참여하려면 테조스 지갑 주소를 입력하세요. 초기 후원자를 위한 자리입니다.', label: '테조스 지갑 주소', placeholder: 'tz1...', submit: '에어드랍 등록하기', verifying: '확인 중...', disclaimer: '등록 시 테조스 블록체인에서 토큰을 수령하는 것에 동의하는 것으로 간주됩니다.', successTitle: '등록 완료!', successMsg: '주소가 화이트리스트에 추가되었습니다.', registerAnother: '다른 주소 등록하기', error: '유효한 테조스 주소를 입력해주세요 (tz1 등으로 시작).' },
+                guide: { title: '에어드랍 진행 절차', helpText: '기술적인 도움이 필요하신가요? AI 비서에게 물어보세요.', steps: [{ title: '주소 수집', desc: '이 웹사이트를 통해 초기 멤버들의 지갑 주소(tz1...)를 수집합니다.' }, { title: '자산 준비', desc: 'Objkt.com에 10개의 컬렉션이 정상적으로 민팅되었는지 확인합니다.' }, { title: '일괄 전송', desc: '수집된 주소로 NFT를 전송합니다. 소량은 수동으로, 대량은 스크립트를 사용합니다.' }, { title: '공지', desc: '전송 완료 후 트위터/디스코드에 공지하여 확인을 유도합니다.' }] },
+                ai: { title: 'WRISTORY AI 비서', subtitle: '역사적 배경이나 참여 방법을 물어보세요.', placeholder: '안중근 의사에 대해 묻거나 방법을 물어보세요...', send: '전송', initialMsg: '안녕하세요. WRISTORY 큐레이터 AI입니다. 안중근 의사, 이순신 장군 등 역사적 인물이나 에어드랍에 대해 무엇이든 물어보세요.', error: '죄송합니다. 서버 연결에 실패했거나 API 키가 설정되지 않았습니다.', typing: '생각 중...' },
+                footer: { rights: '© 2025 YesOkLab | WRISTORY Project. All Rights Reserved.' }
             }
+        };
+
+        const COLLECTIONS = [
+            { id: '1', title: { en: 'Baekbeom Kim Gu', ko: '백범 김구 - 나의 소원' }, description: { en: 'President of the Provisional Government.', ko: '임시정부의 주석이자 문화강국을 꿈꾸었던 지도자.' }, imageUrl: 'https://amaranth-legal-sole-30.mypinata.cloud/ipfs/bafkreigtmhstec3baqngrb3wuynfkfohxri7b7b62ecxluui3zwttf35xm', itemsCount: 100, link: 'https://objkt.com/tokens/KT1A77WVak4yMFoHDNzpAf8PGA7YLmh5wMJ8/15' },
+            { id: '2', title: { en: 'An Jung-geun', ko: '안중근 - 대한국인' }, description: { en: 'Independence activist, hero of Harbin.', ko: '1909년 하얼빈 의거, 동양평화론의 저자.' }, imageUrl: 'https://amaranth-legal-sole-30.mypinata.cloud/ipfs/bafkreid2xqal5as5ncuowzpcxdkgsktspd4qw6yfi6hohuoyxhul4d43em', itemsCount: 100, link: 'https://objkt.com/tokens/KT1A77WVak4yMFoHDNzpAf8PGA7YLmh5wMJ8/16' },
+            { id: '3', title: { en: 'Dosan Ahn Chang-ho', ko: '도산 안창호 - 무실역행' }, description: { en: 'Educator and independence leader.', ko: '흥사단 창립, 인격과 성실을 강조한 겨레의 스승.' }, imageUrl: 'https://amaranth-legal-sole-30.mypinata.cloud/ipfs/bafkreibvczfhdfl76kihctgs43n4qvbalp7mks3dreawbszpgwbgl6qiby', itemsCount: 100, link: 'https://objkt.com/tokens/KT1A77WVak4yMFoHDNzpAf8PGA7YLmh5wMJ8/12' },
+            { id: '4', title: { en: 'Yu Gwan-sun', ko: '유관순 - 대한독립만세' }, description: { en: 'Symbol of March 1st Movement.', ko: '3.1 운동의 상징, 영원한 자유의 불꽃.' }, imageUrl: 'https://amaranth-legal-sole-30.mypinata.cloud/ipfs/bafkreifv2thpaq2t3dgve3tomhb6eccwitgy6fi3qa256jeeafqtcx3ihy', itemsCount: 100, link: 'https://objkt.com/tokens/KT1A77WVak4yMFoHDNzpAf8PGA7YLmh5wMJ8/7' },
+            { id: '5', title: { en: 'Kim Maria', ko: '김마리아 - 꺾이지 않는 의지' }, description: { en: 'Leading female activist.', ko: '대한민국 애국부인회 조직, 여성 독립운동의 대모.' }, imageUrl: 'https://gateway.pinata.cloud/ipfs/bafybeieszq3bfdszr4qrib2fbxpmahpsbx67xkavq5lq4za77r67m2w6b4', itemsCount: 100, link: 'https://objkt.com/tokens/KT1A77WVak4yMFoHDNzpAf8PGA7YLmh5wMJ8/14' },
+            { id: '6', title: { en: 'Yun Bong-gil', ko: '윤봉길 - 홍커우 의거' }, description: { en: 'Hero of Hongkew Park bombing.', ko: '상하이 홍커우 공원 의거의 영웅.' }, imageUrl: 'https://amaranth-legal-sole-30.mypinata.cloud/ipfs/bafybeif7vtxugnqqgdhs62xpzy4hcopnrop2mwld4kxbdl3kahxffa3pnm', itemsCount: 100, link: 'https://objkt.com/tokens/KT1A77WVak4yMFoHDNzpAf8PGA7YLmh5wMJ8/17' },
+            { id: '7', title: { en: 'Bethell (Vintage)', ko: '베델 - 진실의 흐름' }, description: { en: 'British journalist supporting Korea.', ko: '대한매일신보 창간, 한국의 독립을 도운 영국인.' }, imageUrl: 'https://amaranth-legal-sole-30.mypinata.cloud/ipfs/bafkreid76iq2ohfz3hc3wxq3vs3vbyr46f2vblfx4ztea2kwgnfv7elyaq', itemsCount: 10, link: 'https://objkt.com/tokens/KT1A77WVak4yMFoHDNzpAf8PGA7YLmh5wMJ8/18' },
+            { id: '8', title: { en: 'Bitcoin Pizza', ko: '비트코인 피자' }, description: { en: 'Celebrating 10,000 BTC pizza.', ko: '1만 비트코인 피자 데이 기념 컬렉션.' }, imageUrl: 'https://picsum.photos/seed/pizza/400/300', itemsCount: 10000, link: 'https://objkt.com/collections/KT1JU866vUaq8ac5KkmuW8XKnEbNXiVHRqUy' },
+            { id: '9', title: { en: 'Bitcoin Whitepaper', ko: '비트코인 백서' }, description: { en: 'Satoshi Nakamoto\'s whitepaper.', ko: '사토시 나카모토의 백서 온체인 기록.' }, imageUrl: 'https://picsum.photos/seed/bitcoin/400/300', itemsCount: 900, link: 'https://objkt.com/collections/KT1BywQidkDZoSaS38cv1xGWRgXBkx9qFeVe' },
+            { id: '10', title: { en: 'WRISTORY Official', ko: 'WRISTORY 공식' }, description: { en: 'Core collection.', ko: 'YesOkLab의 WRISTORY 프로젝트 메인 컬렉션.' }, imageUrl: 'https://amaranth-legal-sole-30.mypinata.cloud/ipfs/bafkreiaohqebkvodjwrnwt3673zaijntc3uc2g5mxg6vfdydqpeaf77s4a', itemsCount: 20, link: 'https://objkt.com/profile/tz1eXLHqJXBnp4VFGwFDfMGWcLYVgBUYnA16/created' },
         ];
 
-        let currentSlide = 0;
-        let slideInterval;
-        const heroImage = document.getElementById('heroImage');
-        const artworkName = document.getElementById('artworkName');
-        const dotsContainer = document.querySelector('.slideshow-dots');
+        // ---------------------------------------------------------
+        // 2. 컴포넌트 (Components)
+        // ---------------------------------------------------------
 
-        function setupSlideshow(artworks) {
-            if (!artworks || artworks.length === 0) return;
-            dotsContainer.innerHTML = '';
-            artworks.forEach((_, index) => {
-                const dot = document.createElement('span');
-                dot.className = 'dot';
-                dot.onclick = () => changeSlide(index, artworks);
-                dotsContainer.appendChild(dot);
-            });
-            changeSlide(0, artworks, true);
-            resetSlideInterval(artworks);
-        }
+        const HeroSlideshow = ({ artworks }) => {
+            const [index, setIndex] = useState(0);
+            const [isPaused, setIsPaused] = useState(false);
 
-        function changeSlide(index, artworks, isInitial = false) {
-            const dots = dotsContainer.querySelectorAll('.dot');
-            currentSlide = index;
-            
-            if (isInitial) {
-                 heroImage.src = artworks[currentSlide].image;
-                 artworkName.textContent = artworks[currentSlide].name;
-            } else {
-                heroImage.classList.add('fade');
-                setTimeout(() => {
-                    heroImage.src = artworks[currentSlide].image;
-                    artworkName.textContent = artworks[currentSlide].name;
-                    heroImage.classList.remove('fade');
-                }, 500);
-            }
-            
-            dots.forEach(dot => dot.classList.remove('active'));
-            if (dots[currentSlide]) dots[currentSlide].classList.add('active');
-            
-            if (!isInitial) resetSlideInterval(artworks);
-        }
+            useEffect(() => {
+                if (isPaused) return;
+                const timer = setInterval(() => {
+                    setIndex((prev) => (prev + 1) % artworks.length);
+                }, 4000);
+                return () => clearInterval(timer);
+            }, [isPaused, artworks.length]);
 
-        function nextSlide(artworks) {
-            let next = (currentSlide + 1) % artworks.length;
-            changeSlide(next, artworks);
-        }
+            const currentArt = artworks[index];
 
-        function resetSlideInterval(artworks) {
-            clearInterval(slideInterval);
-            slideInterval = setInterval(() => nextSlide(artworks), 5000);
-        }
-
-
-
-        function displayNFTs(tokens) {
-            const gallery = document.getElementById('nftGallery');
-            gallery.innerHTML = '';
-            
-            tokens.forEach(token => {
-                const card = document.createElement('div');
-                card.className = 'nft-card';
-                card.onclick = () => window.open(token.objktUrl, '_blank');
-
-                card.innerHTML = `
-                    <img src="${token.image}" alt="${token.name}" class="nft-card-image" onerror="this.src='https://via.placeholder.com/300/161623/FFFFFF?text=No+Image'">
-                    <div class="nft-card-content">
-                        <h3>${token.name}</h3>
-                        <p class="nft-card-description">${token.description}</p>
-                        <span class="nft-edition">Editions: ${token.editions}</span>
+            return (
+                <div 
+                    className="relative max-w-lg mx-auto aspect-square mb-10 group"
+                    onMouseEnter={() => setIsPaused(true)}
+                    onMouseLeave={() => setIsPaused(false)}
+                >
+                    <div className="w-full h-full rounded-2xl overflow-hidden shadow-2xl border border-white/20 relative bg-slate-800">
+                        <img 
+                            src={currentArt.imageUrl} 
+                            alt="Slide" 
+                            className="w-full h-full object-cover transition-all duration-700"
+                            key={index} 
+                        />
+                        <div className="absolute bottom-0 left-0 right-0 bg-black/60 backdrop-blur-sm p-4 text-white text-center transform translate-y-full group-hover:translate-y-0 transition-transform duration-300">
+                             <p className="font-bold font-serif">{currentArt.title.ko}</p>
+                        </div>
                     </div>
-                `;
-                gallery.appendChild(card);
-            });
-        }
-        
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.classList.add('visible');
-                }
-            });
-        }, { threshold: 0.1 });
+                    <div className="flex justify-center gap-2 mt-6">
+                        {artworks.slice(0, 5).map((_, idx) => (
+                            <button
+                                key={idx}
+                                onClick={() => setIndex(idx)}
+                                className={`w-3 h-3 rounded-full transition-all ${index === idx ? 'bg-white scale-125' : 'bg-white/30 hover:bg-white/50'}`}
+                            />
+                        ))}
+                    </div>
+                </div>
+            );
+        };
 
-        document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
-        
-        window.addEventListener('load', () => {
-            setupSlideshow(mainArtworks);
-            displayNFTs(mainArtworks);
-        });
+        const CollectionCard = ({ collection, language }) => {
+            const t = TRANSLATIONS[language];
+            const Container = collection.link ? 'a' : 'div';
+            const props = collection.link 
+                ? { href: collection.link, target: "_blank", rel: "noopener noreferrer", className: "block bg-slate-800/50 border border-slate-700 rounded-xl overflow-hidden hover:border-purple-500 transition-all duration-300 group cursor-pointer hover:shadow-xl hover:shadow-purple-900/20" } 
+                : { className: "bg-slate-800/50 border border-slate-700 rounded-xl overflow-hidden hover:border-purple-500 transition-all duration-300 group" };
+
+            return (
+                <Container {...props}>
+                    <div className="h-64 overflow-hidden relative">
+                        <img src={collection.imageUrl} alt={collection.title[language]} className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"/>
+                        <div className="absolute inset-0 bg-black/20 group-hover:bg-black/0 transition-all"></div>
+                        <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300 bg-black/30 backdrop-blur-[1px]">
+                            <span className="bg-white/20 p-2 rounded-full border border-white/30 text-white">↗</span>
+                        </div>
+                    </div>
+                    <div className="p-5">
+                        <h3 className="text-xl font-bold serif text-slate-100 mb-2 group-hover:text-purple-300">{collection.title[language]}</h3>
+                        <p className="text-slate-400 text-sm mb-4 line-clamp-2 h-10">{collection.description[language]}</p>
+                        <div className="flex justify-between items-center text-xs font-medium text-slate-300 border-t border-slate-700/50 pt-4">
+                            <span className="bg-slate-700/50 px-2 py-1 rounded">{collection.itemsCount > 0 ? `${collection.itemsCount} Items` : 'Limited'}</span>
+                            <span className="text-purple-400">Tezos Chain</span>
+                        </div>
+                    </div>
+                </Container>
+            );
+        };
+
+        const AirdropForm = ({ language }) => {
+            const t = TRANSLATIONS[language];
+            const [address, setAddress] = useState('');
+            const [status, setStatus] = useState({ submitted: false, address: '' });
+            const [error, setError] = useState('');
+            const [loading, setLoading] = useState(false);
+
+            const handleSubmit = (e) => {
+                e.preventDefault();
+                if (!/^(tz1|tz2|tz3|KT1)[1-9A-HJ-NP-Za-km-z]{33}$/.test(address)) {
+                    setError(t.form.error); return;
+                }
+                setLoading(true);
+                // 여기에 구글 시트 전송 로직 등 추가 가능
+                setTimeout(() => {
+                    setStatus({ submitted: true, address });
+                    setLoading(false);
+                }, 1000);
+            };
+
+            if (status.submitted) {
+                return (
+                    <div className="max-w-md mx-auto mt-10 p-8 bg-slate-800/50 rounded-2xl border border-green-500/30 text-center">
+                        <h3 className="text-2xl font-bold text-white mb-2">{t.form.successTitle}</h3>
+                        <p className="text-slate-300 mb-6">{t.form.successMsg}</p>
+                        <button onClick={() => { setStatus({ submitted: false, address: '' }); setAddress(''); }} className="text-slate-400 hover:text-white underline text-sm">{t.form.registerAnother}</button>
+                    </div>
+                );
+            }
+
+            return (
+                <div className="max-w-2xl mx-auto mt-10 bg-slate-800/80 p-8 rounded-3xl border border-slate-700 shadow-2xl">
+                    <div className="text-center mb-8">
+                        <h2 className="text-3xl font-bold serif text-white mb-3">{t.form.title}</h2>
+                        <p className="text-slate-400">{t.form.subtitle}</p>
+                    </div>
+                    <form onSubmit={handleSubmit} className="space-y-6">
+                        <div>
+                            <label className="block text-sm font-medium text-slate-300 mb-2">{t.form.label}</label>
+                            <input type="text" value={address} onChange={(e) => setAddress(e.target.value)} placeholder={t.form.placeholder} className="w-full px-5 py-4 bg-slate-900/50 border border-slate-600 rounded-xl text-white outline-none focus:border-purple-500 transition-all font-mono"/>
+                            {error && <p className="mt-2 text-red-400 text-sm">{error}</p>}
+                        </div>
+                        <button type="submit" disabled={loading} className="w-full py-4 rounded-xl font-bold text-lg bg-gradient-to-r from-purple-600 to-indigo-600 hover:from-purple-500 hover:to-indigo-500 text-white shadow-lg transition-all">{loading ? t.form.verifying : t.form.submit}</button>
+                    </form>
+                </div>
+            );
+        };
+
+        const AiAssistant = ({ language }) => {
+            const t = TRANSLATIONS[language];
+            const [messages, setMessages] = useState([]);
+            const [input, setInput] = useState('');
+            const [isTyping, setIsTyping] = useState(false);
+            const scrollRef = useRef(null);
+
+            useEffect(() => { setMessages([{ role: 'model', text: t.ai.initialMsg }]); }, [language]);
+            useEffect(() => { scrollRef.current?.scrollIntoView({ behavior: "smooth" }); }, [messages, isTyping]);
+
+            const handleSend = async (e) => {
+                e.preventDefault();
+                if (!input.trim() || isTyping) return;
+                const userMsg = input;
+                setInput('');
+                setMessages(prev => [...prev, { role: 'user', text: userMsg }]);
+                setIsTyping(true);
+
+                // Simple API Call to Gemini (No SDK required for simple HTML file)
+                try {
+                    if(!GEMINI_API_KEY) throw new Error("API Key Missing");
+                    
+                    const response = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key=${GEMINI_API_KEY}`, {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({
+                            contents: [{ parts: [{ text: userMsg }] }],
+                            systemInstruction: { parts: [{ text: "You are the AI for WRISTORY NFT project. Explain Korean history (Ahn Jung-geun, Kim Gu) and Airdrop process. Speak Korean if asked in Korean." }] }
+                        })
+                    });
+                    const data = await response.json();
+                    const reply = data.candidates?.[0]?.content?.parts?.[0]?.text || "Error processing request.";
+                    setMessages(prev => [...prev, { role: 'model', text: reply }]);
+                } catch (err) {
+                    console.error(err);
+                    setMessages(prev => [...prev, { role: 'model', text: t.ai.error }]);
+                } finally {
+                    setIsTyping(false);
+                }
+            };
+
+            return (
+                <div className="max-w-4xl mx-auto h-[600px] bg-slate-800/50 rounded-2xl border border-slate-700 flex flex-col">
+                    <div className="bg-slate-900/80 p-4 border-b border-slate-700 font-bold text-slate-200">{t.ai.title}</div>
+                    <div className="flex-1 overflow-y-auto p-6 space-y-4">
+                        {messages.map((msg, i) => (
+                            <div key={i} className={`flex ${msg.role === 'user' ? 'justify-end' : 'justify-start'}`}>
+                                <div className={`max-w-[80%] p-4 rounded-2xl ${msg.role === 'user' ? 'bg-purple-600 text-white' : 'bg-slate-700 text-slate-200'}`}>{msg.text}</div>
+                            </div>
+                        ))}
+                        {isTyping && <div className="text-slate-400 text-sm ml-4">{t.ai.typing}</div>}
+                        <div ref={scrollRef} />
+                    </div>
+                    <form onSubmit={handleSend} className="p-4 bg-slate-900/80 border-t border-slate-700 flex gap-4">
+                        <input type="text" value={input} onChange={e => setInput(e.target.value)} placeholder={t.ai.placeholder} className="flex-1 bg-slate-800 border border-slate-600 rounded-xl px-4 py-3 text-white focus:outline-none focus:border-purple-500" />
+                        <button type="submit" className="bg-purple-600 text-white px-6 py-3 rounded-xl font-bold">{t.ai.send}</button>
+                    </form>
+                </div>
+            );
+        };
+
+        const Guide = ({ language }) => {
+            const t = TRANSLATIONS[language];
+            return (
+                <div className="max-w-4xl mx-auto py-12 px-4">
+                    <h2 className="text-3xl font-bold serif text-center mb-12 text-amber-200">{t.guide.title}</h2>
+                    <div className="space-y-6">
+                        {t.guide.steps.map((step, i) => (
+                            <div key={i} className="flex gap-6 bg-slate-800/40 p-6 rounded-2xl border border-slate-700">
+                                <div className="w-10 h-10 rounded-full bg-purple-600 flex items-center justify-center font-bold flex-shrink-0">{i+1}</div>
+                                <div><h3 className="text-xl font-bold text-white mb-2">{step.title}</h3><p className="text-slate-300">{step.desc}</p></div>
+                            </div>
+                        ))}
+                    </div>
+                </div>
+            );
+        };
+
+        // ---------------------------------------------------------
+        // 3. 메인 앱 (Main App)
+        // ---------------------------------------------------------
+
+        const App = () => {
+            const [view, setView] = useState('HOME');
+            const [lang, setLang] = useState('ko');
+            const t = TRANSLATIONS[lang];
+
+            return (
+                <div className="min-h-screen pb-20">
+                    {/* 네비게이션 */}
+                    <nav className="sticky top-0 z-50 bg-[#0F111A]/90 backdrop-blur-md border-b border-slate-800">
+                        <div className="max-w-7xl mx-auto px-6 h-20 flex justify-between items-center">
+                            <div className="flex items-center gap-3 cursor-pointer" onClick={() => setView('HOME')}>
+                                <img src="https://amaranth-legal-sole-30.mypinata.cloud/ipfs/bafkreiaohqebkvodjwrnwt3673zaijntc3uc2g5mxg6vfdydqpeaf77s4a" className="w-10 h-10 rounded-lg" />
+                                <span className="text-2xl font-bold serif text-white">WRISTORY</span>
+                            </div>
+                            <div className="flex items-center gap-6 text-sm font-medium">
+                                <button onClick={() => setView('HOME')} className={view === 'HOME' ? 'text-white' : 'text-slate-400'}>{t.nav.collections}</button>
+                                <button onClick={() => setView('AIRDROP')} className={view === 'AIRDROP' ? 'text-white' : 'text-slate-400'}>{t.nav.register}</button>
+                                <button onClick={() => setView('GUIDE')} className={view === 'GUIDE' ? 'text-white' : 'text-slate-400'}>{t.nav.guide}</button>
+                                <button onClick={() => setView('AI')} className="bg-slate-800 text-purple-300 px-3 py-1 rounded-full border border-slate-600">{t.nav.ai}</button>
+                                <button onClick={() => setLang(l => l === 'en' ? 'ko' : 'en')} className="w-8 h-8 rounded-full bg-slate-700 text-xs">{lang === 'en' ? 'KO' : 'EN'}</button>
+                            </div>
+                        </div>
+                    </nav>
+
+                    {/* 컨텐츠 영역 */}
+                    <main className="relative z-10">
+                        {view === 'HOME' && (
+                            <div>
+                                <div className="py-20 px-6 text-center bg-gradient-to-b from-[#0F111A] to-slate-900">
+                                    <h1 className="text-5xl md:text-7xl font-bold serif text-white mb-6 text-shadow">{t.hero.title}</h1>
+                                    <p className="text-xl text-slate-400 max-w-2xl mx-auto mb-10">{t.hero.subtitle}</p>
+                                    <HeroSlideshow artworks={COLLECTIONS} />
+                                    <div className="flex justify-center gap-4">
+                                        <button onClick={() => setView('AIRDROP')} className="px-8 py-4 bg-white text-black font-bold rounded-full hover:bg-slate-200">{t.hero.joinBtn}</button>
+                                    </div>
+                                </div>
+                                <div className="max-w-7xl mx-auto px-6 mt-10 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+                                    {COLLECTIONS.map(col => <CollectionCard key={col.id} collection={col} language={lang} />)}
+                                </div>
+                            </div>
+                        )}
+                        {view === 'AIRDROP' && <div className="py-12 px-6"><AirdropForm language={lang} /></div>}
+                        {view === 'GUIDE' && <div className="py-12 px-6"><Guide language={lang} /></div>}
+                        {view === 'AI' && <div className="py-12 px-6"><AiAssistant language={lang} /></div>}
+                    </main>
+                </div>
+            );
+        };
+
+        const root = ReactDOM.createRoot(document.getElementById('root'));
+        root.render(<App />);
     </script>
 </body>
 </html>
