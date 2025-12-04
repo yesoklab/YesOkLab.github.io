@@ -38,6 +38,16 @@
         ::-webkit-scrollbar-track { background: #1e293b; }
         ::-webkit-scrollbar-thumb { background: #475569; border-radius: 4px; }
     </style>
+<script type="importmap">
+{
+  "imports": {
+    "react": "https://aistudiocdn.com/react@^19.2.1",
+    "react-dom/": "https://aistudiocdn.com/react-dom@^19.2.1/",
+    "react/": "https://aistudiocdn.com/react@^19.2.1/",
+    "@google/genai": "https://aistudiocdn.com/@google/genai@^1.31.0"
+  }
+}
+</script>
 </head>
 <body>
     <div id="root"></div>
@@ -52,8 +62,9 @@
         // *** 중요: 여기에 본인의 Gemini API 키를 입력하세요 ***
         const GEMINI_API_KEY = "AIzaSyD1v_KU4GiUE0QFWvFwda_KmRfoKWnBsD8";
         
-        // *** 중요: 여기에 직접 만드신 Google 설문지 링크를 입력하세요 ***
-        const GOOGLE_FORM_URL = "https://forms.gle/4Y4dSMy4wAh9Pzx47";
+        // *** 중요: 각 언어에 맞는 Google 설문지 링크를 입력하세요 ***
+        const GOOGLE_FORM_URL_EN = "https://forms.gle/4Y4dSMy4wAh9Pzx47"; // English Form
+        const GOOGLE_FORM_URL_KO = "https://docs.google.com/forms/d/e/1FAIpQLSdagQ6wk6fVVbl0Q4gc5htaCAnnBlJt0fW_aivdx7BrLKCN9g/viewform"; // Korean Form (여기에 한국어 설문지 링크를 붙여넣으세요)
 
         const TRANSLATIONS = {
           en: {
@@ -151,6 +162,8 @@
         
         const AirdropForm = ({ language }) => {
             const t = TRANSLATIONS[language];
+            const formUrl = language === 'ko' ? GOOGLE_FORM_URL_KO : GOOGLE_FORM_URL_EN;
+
             return (
                 <div className="max-w-2xl mx-auto mt-10 text-center">
                     <div className="bg-slate-800/80 backdrop-blur-md p-8 rounded-3xl border border-slate-700 shadow-2xl">
@@ -163,7 +176,7 @@
                           <a href="https://t.me/YesOkLab_WRISTORY_NFT" target="_blank" rel="noopener noreferrer" className="block w-full max-w-sm mx-auto py-4 rounded-xl font-bold text-lg bg-[#2AABEE] text-white hover:bg-[#2598D1] transition-colors">
                             {t.form.telegramBtn}
                           </a>
-                          <a href={GOOGLE_FORM_URL} target="_blank" rel="noopener noreferrer" className="block w-full max-w-sm mx-auto py-4 rounded-xl font-bold text-lg bg-gradient-to-r from-purple-600 to-indigo-600 hover:from-purple-500 hover:to-indigo-500 text-white shadow-lg transition-all mt-4">
+                          <a href={formUrl} target="_blank" rel="noopener noreferrer" className="block w-full max-w-sm mx-auto py-4 rounded-xl font-bold text-lg bg-gradient-to-r from-purple-600 to-indigo-600 hover:from-purple-500 hover:to-indigo-500 text-white shadow-lg transition-all mt-4">
                             {t.form.directBtn}
                           </a>
                         </div>
