@@ -3,8 +3,6 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    
-    <!-- 메타 태그 (SNS 공유 시 보여질 내용) -->
     <title>WRISTORY | Digital Heritage by YesOkLab</title>
     <meta name="description" content="블록체인 기술로 역사를 보존합니다. WRISTORY NFT 에어드랍 및 컬렉션 공식 페이지.">
     <meta property="og:type" content="website">
@@ -12,28 +10,15 @@
     <meta property="og:description" content="안중근, 김구 등 한국의 위인들과 비트코인 역사를 담은 디지털 헤리티지 NFT. 지금 에어드랍에 참여하세요.">
     <meta property="og:image" content="https://amaranth-legal-sole-30.mypinata.cloud/ipfs/bafkreiaohqebkvodjwrnwt3673zaijntc3uc2g5mxg6vfdydqpeaf77s4a">
     <meta property="twitter:card" content="summary_large_image">
-
-    <!-- 스타일 및 라이브러리 로드 -->
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://unpkg.com/react@18/umd/react.production.min.js" crossorigin></script>
     <script src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js" crossorigin></script>
     <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
-    
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Noto+Sans+KR:wght@300;400;500;700&family=Inter:wght@300;400;600&display=swap');
-        
-        body {
-            font-family: 'Inter', 'Noto Sans KR', sans-serif;
-            background-color: #0F111A;
-            color: #E2E8F0;
-        }
-        h1, h2, h3, .serif {
-            font-family: 'Playfair Display', serif;
-        }
-        .text-shadow {
-            text-shadow: 0 2px 4px rgba(0,0,0,0.5);
-        }
-        /* 스크롤바 커스텀 */
+        body { font-family: 'Inter', 'Noto Sans KR', sans-serif; background-color: #0F111A; color: #E2E8F0; }
+        h1, h2, h3, .serif { font-family: 'Playfair Display', serif; }
+        .text-shadow { text-shadow: 0 2px 4px rgba(0,0,0,0.5); }
         ::-webkit-scrollbar { width: 8px; }
         ::-webkit-scrollbar-track { background: #1e293b; }
         ::-webkit-scrollbar-thumb { background: #475569; border-radius: 4px; }
@@ -41,18 +26,11 @@
 </head>
 <body>
     <div id="root"></div>
-
     <script type="text/babel">
         const { useState, useEffect, useRef } = React;
-
-        // ---------------------------------------------------------
-        // 1. 설정 및 데이터 (Translations & Data)
-        // ---------------------------------------------------------
-        
-        const GEMINI_API_KEY = "AIzaSyAL1uj6Ft2t5WLLBecdGO5lHILxHuP0RNI";
         
         const GOOGLE_FORM_URL_EN = "https://forms.gle/4Y4dSMy4wAh9Pzx47";
-        const GOOGLE_FORM_URL_KO = "https://docs.google.com/forms/d/e/1FAIpQLSdagQ6wk6fVVbl0Q4gc5htaCAnnBlJt0fW_aivdx7BrLKCN9g/viewform"; // 여기에 한국어 설문지 링크를 붙여넣으세요
+        const GOOGLE_FORM_URL_KO = "https://docs.google.com/forms/d/e/1FAIpQLSdagQ6wk6fVVbl0Q4gc5htaCAnnBlJt0fW_aivdx7BrLKCN9g/viewform";
 
         const TRANSLATIONS = {
           en: {
@@ -60,13 +38,8 @@
             hero: { title: 'History on Your Wrist', subtitle: 'Preserving legendary moments through blockchain technology. WRISTORY captures historical wisdom on the Tezos network.', joinBtn: 'Register for Airdrop', viewBtn: 'View on Objkt.com' },
             home: { featuredTitle: 'Korean Independence Fighters Series', specialEditions: 'Special & Partner Collections' },
             form: { title: 'How to Join the Airdrop', subtitle: 'Follow the instructions on our official channels to participate. Submissions are collected via Google Forms for security and transparency.', naverBtn: 'Read Announcement on Naver', telegramBtn: 'Join via Telegram Channel', directBtn: 'Register Directly (Google Form)' },
-            guide: { title: 'Airdrop Execution Procedure', steps: [
-                { title: '1. Check Announcement', desc: 'Visit our official Naver Blog or Telegram channel to read the detailed airdrop announcement and eligibility requirements.' }, 
-                { title: '2. Register via Google Form', desc: 'Click the link in the announcement to access the official Google Form. Submit your Tezos (tz1...) wallet address there.' }, 
-                { title: '3. Manage Submissions', desc: 'We will collect all addresses through a secure Google Sheet. This allows us to easily manage the whitelist for distribution.' }, 
-                { title: '4. Receive NFT & Announcement', desc: 'Once the registration period ends, we will distribute the NFTs. A completion announcement will be made on all our channels.' }] 
-            },
-            ai: { title: 'WRISTORY Assistant', subtitle: 'Ask about history or our project.', placeholder: 'Ask about Kim Gu...', send: 'Send', initialMsg: 'Hello. I am the WRISTORY Curator AI. Ask me anything about our historical figures or the airdrop process.', error: 'Connection failed. Please check your API key and try again.', typing: 'Thinking...' },
+            guide: { title: 'Airdrop Execution Procedure', steps: [ { title: '1. Check Announcement', desc: 'Visit our official Naver Blog or Telegram channel to read the detailed airdrop announcement and eligibility requirements.' }, { title: '2. Register via Google Form', desc: 'Click the link in the announcement to access the official Google Form. Submit your Tezos (tz1...) wallet address there.' }, { title: '3. Manage Submissions', desc: 'We will collect all addresses through a secure Google Sheet. This allows us to easily manage the whitelist for distribution.' }, { title: '4. Receive NFT & Announcement', desc: 'Once the registration period ends, we will distribute the NFTs. A completion announcement will be made on all our channels.' }] },
+            ai: { title: 'WRISTORY Assistant', subtitle: 'Ask about history or our project.', placeholder: 'Ask about Kim Gu...', send: 'Send', initialMsg: 'Hello. I am the WRISTORY Curator AI. Ask me anything about our historical figures or the airdrop process.', error: 'Connection failed. Please try again later.', typing: 'Thinking...' },
             footer: { rights: '© 2025 YesOkLab | WRISTORY Project. All Rights Reserved.' }
           },
           ko: {
@@ -74,13 +47,8 @@
             hero: { title: '손목 위의 역사', subtitle: '블록체인 기술을 통해 전설적인 순간들을 보존합니다. WRISTORY는 테조스 네트워크 위에서 역사적 지혜를 담아냅니다.', joinBtn: '에어드랍 등록하기', viewBtn: 'Objkt.com에서 보기' },
             home: { featuredTitle: '대한민국 독립운동가 시리즈', specialEditions: '스페셜 & 파트너 컬렉션' },
             form: { title: '에어드랍 참여 방법', subtitle: '가장 정확한 정보는 공식 채널의 공지를 통해 확인하실 수 있습니다. 주소 수집은 안전한 Google 설문지를 통해 진행됩니다.', naverBtn: '네이버 블로그에서 공지 확인', telegramBtn: '텔레그램 채널에서 참여', directBtn: '바로 등록하기 (Google Form)' },
-            guide: { title: '에어드랍 진행 절차', steps: [
-                { title: '1. 공식 채널 공지 확인', desc: '네이버 블로그 또는 텔레그램 채널을 방문하여 에어드랍 상세 공지 및 참여 자격 조건을 확인합니다.' }, 
-                { title: '2. Google Form으로 주소 제출', desc: '공지 내에 포함된 링크를 통해 공식 Google 설문지로 이동하여 본인의 테조스(tz1...) 지갑 주소를 제출합니다.' }, 
-                { title: '3. 제출 명단 관리', desc: '제출된 모든 주소는 안전한 Google 스프레드시트를 통해 수집됩니다. 이를 통해 화이트리스트를 관리하고 NFT를 분배합니다.' }, 
-                { title: '4. NFT 수령 및 완료 공지', desc: '등록 기간이 종료된 후, NFT를 일괄 전송합니다. 완료 공지는 모든 공식 채널을 통해 알려드립니다.' }] 
-            },
-            ai: { title: 'WRISTORY AI 비서', subtitle: '역사적 배경이나 프로젝트에 대해 물어보세요.', placeholder: '김구 선생에 대해 물어보세요...', send: '전송', initialMsg: '안녕하세요. WRISTORY 큐레이터 AI입니다. 역사적 인물이나 에어드랍 절차에 대해 무엇이든 물어보세요.', error: '연결에 실패했습니다. API 키를 확인하시거나 잠시 후 다시 시도해주세요.', typing: '생각 중...' },
+            guide: { title: '에어드랍 진행 절차', steps: [ { title: '1. 공식 채널 공지 확인', desc: '네이버 블로그 또는 텔레그램 채널을 방문하여 에어드랍 상세 공지 및 참여 자격 조건을 확인합니다.' }, { title: '2. Google Form으로 주소 제출', desc: '공지 내에 포함된 링크를 통해 공식 Google 설문지로 이동하여 본인의 테조스(tz1...) 지갑 주소를 제출합니다.' }, { title: '3. 제출 명단 관리', desc: '제출된 모든 주소는 안전한 Google 스프레드시트를 통해 수집됩니다. 이를 통해 화이트리스트를 관리하고 NFT를 분배합니다.' }, { title: '4. NFT 수령 및 완료 공지', desc: '등록 기간이 종료된 후, NFT를 일괄 전송합니다. 완료 공지는 모든 공식 채널을 통해 알려드립니다.' }] },
+            ai: { title: 'WRISTORY AI 비서', subtitle: '역사적 배경이나 프로젝트에 대해 물어보세요.', placeholder: '김구 선생에 대해 물어보세요...', send: '전송', initialMsg: '안녕하세요. WRISTORY 큐레이터 AI입니다. 역사적 인물이나 에어드랍 절차에 대해 무엇이든 물어보세요.', error: '연결에 실패했습니다. 잠시 후 다시 시도해주세요.', typing: '생각 중...' },
             footer: { rights: '© 2025 YesOkLab | WRISTORY Project. All Rights Reserved.' }
           }
         };
@@ -90,8 +58,8 @@
           { id: '2', title: { en: 'An Jung-geun', ko: '안중근 - 대한국인' }, description: { en: 'Independence activist, hero of Harbin.', ko: '1909년 하얼빈 의거, 동양평화론의 저자.' }, imageUrl: 'https://amaranth-legal-sole-30.mypinata.cloud/ipfs/bafkreid2xqal5as5ncuowzpcxdkgsktspd4qw6yfi6hohuoyxhul4d43em', link: 'https://objkt.com/tokens/KT1A77WVak4yMFoHDNzpAf8PGA7YLmh5wMJ8/16' },
           { id: '3', title: { en: 'Dosan Ahn Chang-ho', ko: '도산 안창호 - 무실역행' }, description: { en: 'Educator and independence leader.', ko: '흥사단 창립, 인격과 성실을 강조한 겨레의 스승.' }, imageUrl: 'https://amaranth-legal-sole-30.mypinata.cloud/ipfs/bafkreibvczfhdfl76kihctgs43n4qvbalp7mks3dreawbszpgwbgl6qiby', link: 'https://objkt.com/tokens/KT1A77WVak4yMFoHDNzpAf8PGA7YLmh5wMJ8/12' },
           { id: '4', title: { en: 'Yu Gwan-sun', ko: '유관순 - 대한독립만세' }, description: { en: 'Symbol of March 1st Movement.', ko: '3.1 운동의 상징, 영원한 자유의 불꽃.' }, imageUrl: 'https://amaranth-legal-sole-30.mypinata.cloud/ipfs/bafkreifv2thpaq2t3dgve3tomhb6eccwitgy6fi3qa256jeeafqtcx3ihy', link: 'https://objkt.com/tokens/KT1A77WVak4yMFoHDNzpAf8PGA7YLmh5wMJ8/7' },
-          { id: '5', title: { en: 'Kim Maria', ko: '김마리아 - 꺾이지 않는 의지' }, description: { en: 'Leading female activist.', ko: '대한민국 애국부인회 조직, 여성 독립운동의 대모.' }, imageUrl: 'https://gateway.pinata.cloud/ipfs/bafybeieszq3bfdszr4qrib2fbxpmahpsbx67xkavq5lq4za77r67m2w6b4', link: 'https://objkt.com/tokens/KT1A77WVak4yMFoHDNzpAf8PGA7YLmh5wMJ8/14' },
-          { id: '6', title: { en: 'Yun Bong-gil', ko: '윤봉길 - 홍커우 의거' }, description: { en: 'Hero of Hongkew Park bombing.', ko: '상하이 홍커우 공원 의거의 영웅.' }, imageUrl: 'https://amaranth-legal-sole-30.mypinata.cloud/ipfs/bafybeif7vtxugnqqgdhs62xpzy4hcopnrop2mwld4kxbdl3kahxffa3pnm', link: 'https://objkt.com/tokens/KT1A77WVak4yMFoHDNzpAf8PGA7YLmh5wMJ8/17' },
+          { id: '5', title: { en: 'Kim Maria', ko: '김마리아 - 꺾이지 않는 의지' }, description: { en: 'Leading female activist.', ko: '대한민국 애국부인회 조직, 여성 독립운동의 대모.' }, imageUrl: 'https://amaranth-legal-sole-30.mypinata.cloud/ipfs/bafkreigza7i6mn2jkwbdcy64f5scwji4g6g2fsranp6w4fujn3bf7g3wca', link: 'https://objkt.com/tokens/KT1A77WVak4yMFoHDNzpAf8PGA7YLmh5wMJ8/14' },
+          { id: '6', title: { en: 'Yun Bong-gil', ko: '윤봉길 - 홍커우 의거' }, description: { en: 'Hero of Hongkew Park bombing.', ko: '상하이 홍커우 공원 의거의 영웅.' }, imageUrl: 'https://amaranth-legal-sole-30.mypinata.cloud/ipfs/bafkreiea4bpcjwlic74qpfwsvy2opgwz7mvuwdtlrmaikffed2fnjsgqfe', link: 'https://objkt.com/tokens/KT1A77WVak4yMFoHDNzpAf8PGA7YLmh5wMJ8/17' },
           { id: '7', title: { en: 'Bethell (Vintage)', ko: '베델 - 진실의 흐름' }, description: { en: 'British journalist supporting Korea.', ko: '대한매일신보 창간, 한국의 독립을 도운 영국인.' }, imageUrl: 'https://amaranth-legal-sole-30.mypinata.cloud/ipfs/bafkreid76iq2ohfz3hc3wxq3vs3vbyr46f2vblfx4ztea2kwgnfv7elyaq', link: 'https://objkt.com/tokens/KT1A77WVak4yMFoHDNzpAf8PGA7YLmh5wMJ8/18' },
         ];
 
@@ -103,26 +71,20 @@
           { id: '12', title: { en: 'Decentralized Dreams', ko: 'Decentralized Dreams' }, description: { en: 'Exploring the future of decentralization.', ko: '탈중앙화의 미래를 탐험합니다.' }, imageUrl: 'https://amaranth-legal-sole-30.mypinata.cloud/ipfs/bafybeiaup54vj4pk4ycugriitcizd4u2xxur4hrmtsieoww6ynbrtw554i', link: 'https://objkt.com/collections/KT1FofiGvwphNMfyzF181k3b5MbJZqXDsNd2', color: 'from-indigo-500 to-purple-600' }
         ];
 
-        // ---------------------------------------------------------
-        // 2. 컴포넌트 (Components)
-        // ---------------------------------------------------------
-
-        const CollectionCard = ({ collection, language }) => {
-            return (
-                <a href={collection.link} target="_blank" rel="noopener noreferrer" className="block bg-slate-800/50 border border-slate-700 rounded-xl overflow-hidden hover:border-purple-500 transition-all duration-300 group cursor-pointer hover:shadow-xl hover:shadow-purple-900/20">
-                    <div className="h-64 overflow-hidden relative">
-                        <img src={collection.imageUrl} alt={collection.title[language]} className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"/>
-                        <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300 bg-black/30 backdrop-blur-[2px]">
-                          <span className="bg-white/20 p-3 rounded-full border border-white/30 text-white">↗</span>
-                        </div>
+        const CollectionCard = ({ collection, language }) => (
+            <a href={collection.link} target="_blank" rel="noopener noreferrer" className="block bg-slate-800/50 border border-slate-700 rounded-xl overflow-hidden hover:border-purple-500 transition-all duration-300 group cursor-pointer hover:shadow-xl hover:shadow-purple-900/20">
+                <div className="h-64 overflow-hidden relative">
+                    <img src={collection.imageUrl} alt={collection.title[language]} className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"/>
+                    <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300 bg-black/30 backdrop-blur-[2px]">
+                      <span className="bg-white/20 p-3 rounded-full border border-white/30 text-white">↗</span>
                     </div>
-                    <div className="p-5">
-                        <h3 className="text-xl font-bold serif text-slate-100 mb-2 group-hover:text-purple-300">{collection.title[language]}</h3>
-                        <p className="text-slate-400 text-sm mb-4 line-clamp-2 h-10">{collection.description[language]}</p>
-                    </div>
-                </a>
-            );
-        };
+                </div>
+                <div className="p-5">
+                    <h3 className="text-xl font-bold serif text-slate-100 mb-2 group-hover:text-purple-300">{collection.title[language]}</h3>
+                    <p className="text-slate-400 text-sm mb-4 line-clamp-2 h-10">{collection.description[language]}</p>
+                </div>
+            </a>
+        );
 
         const SpecialCollectionSection = ({ collection, language, index }) => {
             const t = TRANSLATIONS[language];
@@ -151,22 +113,15 @@
         const AirdropForm = ({ language }) => {
             const t = TRANSLATIONS[language];
             const formUrl = language === 'ko' ? GOOGLE_FORM_URL_KO : GOOGLE_FORM_URL_EN;
-            
             return (
                 <div className="max-w-2xl mx-auto mt-10 text-center">
                     <div className="bg-slate-800/80 backdrop-blur-md p-6 md:p-8 rounded-3xl border border-slate-700 shadow-2xl">
                         <h2 className="text-2xl md:text-3xl font-bold serif text-white mb-4">{t.form.title}</h2>
                         <p className="text-slate-400 mb-8 px-2">{t.form.subtitle}</p>
                         <div className="space-y-4">
-                          <a href="https://blog.naver.com/yesoklab/224093507134" target="_blank" rel="noopener noreferrer" className="block w-full max-w-sm mx-auto py-3 md:py-4 rounded-xl font-bold text-base md:text-lg bg-[#03C75A] text-white hover:bg-[#03A34A] transition-colors">
-                            {t.form.naverBtn}
-                          </a>
-                          <a href="https://t.me/YesOkLab_WRISTORY_NFT" target="_blank" rel="noopener noreferrer" className="block w-full max-w-sm mx-auto py-3 md:py-4 rounded-xl font-bold text-base md:text-lg bg-[#2AABEE] text-white hover:bg-[#2598D1] transition-colors">
-                            {t.form.telegramBtn}
-                          </a>
-                          <a href={formUrl} target="_blank" rel="noopener noreferrer" className="block w-full max-w-sm mx-auto py-3 md:py-4 rounded-xl font-bold text-base md:text-lg bg-gradient-to-r from-purple-600 to-indigo-600 hover:from-purple-500 hover:to-indigo-500 text-white shadow-lg transition-all mt-4">
-                            {t.form.directBtn}
-                          </a>
+                          <a href="https://blog.naver.com/yesoklab/224093507134" target="_blank" rel="noopener noreferrer" className="block w-full max-w-sm mx-auto py-3 md:py-4 rounded-xl font-bold text-base md:text-lg bg-[#03C75A] text-white hover:bg-[#03A34A] transition-colors"> {t.form.naverBtn} </a>
+                          <a href="https://t.me/YesOkLab_WRISTORY_NFT" target="_blank" rel="noopener noreferrer" className="block w-full max-w-sm mx-auto py-3 md:py-4 rounded-xl font-bold text-base md:text-lg bg-[#2AABEE] text-white hover:bg-[#2598D1] transition-colors"> {t.form.telegramBtn} </a>
+                          <a href={formUrl} target="_blank" rel="noopener noreferrer" className="block w-full max-w-sm mx-auto py-3 md:py-4 rounded-xl font-bold text-base md:text-lg bg-gradient-to-r from-purple-600 to-indigo-600 hover:from-purple-500 hover:to-indigo-500 text-white shadow-lg transition-all mt-4"> {t.form.directBtn} </a>
                         </div>
                     </div>
                 </div>
@@ -211,18 +166,14 @@
                 setMessages(newMessages); setIsTyping(true);
 
                 try {
-                    if(!GEMINI_API_KEY || GEMINI_API_KEY === "YOUR_API_KEY_HERE") throw new Error("API Key Missing");
-                    const response = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key=${GEMINI_API_KEY}`, {
-                        method: 'POST', headers: { 'Content-Type': 'application/json' },
-                        body: JSON.stringify({
-                            contents: [{ parts: [{ text: userMsg }] }],
-                            systemInstruction: { parts: [{ text: "You are the AI for WRISTORY NFT project. Explain Korean history (Ahn Jung-geun, Kim Gu) and Airdrop process. Speak Korean if asked in Korean." }] }
-                        })
+                    const response = await fetch(`/.netlify/functions/ask-ai`, {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({ userMessage: userMsg })
                     });
-                    if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
+                    if (!response.ok) throw new Error(`Server error! status: ${response.status}`);
                     const data = await response.json();
-                    const reply = data.candidates?.[0]?.content?.parts?.[0]?.text || "No response text found.";
-                    setMessages(prev => [...prev, { role: 'model', text: reply }]);
+                    setMessages(prev => [...prev, { role: 'model', text: data.reply }]);
                 } catch (err) {
                     console.error(err);
                     setMessages(prev => [...prev, { role: 'model', text: t.ai.error }]);
@@ -248,21 +199,13 @@
                 </div>
             );
         };
-
-        // ---------------------------------------------------------
-        // 3. 메인 앱 (Main App)
-        // ---------------------------------------------------------
-
+        
         const App = () => {
             const [view, setView] = useState('HOME');
             const [lang, setLang] = useState('ko');
             const [isMenuOpen, setIsMenuOpen] = useState(false);
             const t = TRANSLATIONS[lang];
-
-            const handleNavClick = (newView) => {
-              setView(newView);
-              setIsMenuOpen(false);
-            };
+            const handleNavClick = (newView) => { setView(newView); setIsMenuOpen(false); };
             
             return (
                 <div className="min-h-screen">
@@ -272,28 +215,20 @@
                                 <img src="https://amaranth-legal-sole-30.mypinata.cloud/ipfs/bafkreiaohqebkvodjwrnwt3673zaijntc3uc2g5mxg6vfdydqpeaf77s4a" className="w-10 h-10 rounded-lg" />
                                 <span className="text-xl md:text-2xl font-bold serif text-white">WRISTORY</span>
                             </div>
-                            
-                            {/* Desktop Nav */}
                             <div className="hidden md:flex items-center gap-6 text-sm font-medium">
                                 <button onClick={() => handleNavClick('HOME')} className={view === 'HOME' ? 'text-white' : 'text-slate-400 hover:text-white'}>{t.nav.collections}</button>
                                 <button onClick={() => handleNavClick('AIRDROP')} className={view === 'AIRDROP' ? 'text-white' : 'text-slate-400 hover:text-white'}>{t.nav.register}</button>
                                 <button onClick={() => handleNavClick('GUIDE')} className={view === 'GUIDE' ? 'text-white' : 'text-slate-400 hover:text-white'}>{t.nav.guide}</button>
                                 <button onClick={() => handleNavClick('AI')} className="bg-slate-800 text-purple-300 px-3 py-1 rounded-full border border-slate-600">{t.nav.ai}</button>
+
                                 <button onClick={() => setLang(l => l === 'en' ? 'ko' : 'en')} className="w-10 h-10 rounded-full bg-slate-800 border border-slate-600 text-xs">{lang === 'en' ? 'KO' : 'EN'}</button>
                             </div>
-
-                            {/* Mobile Hamburger Button */}
                             <div className="md:hidden">
                                 <button onClick={() => setIsMenuOpen(!isMenuOpen)} className="text-white p-2">
-                                    {isMenuOpen ? 
-                                      <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" /></svg> :
-                                      <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16m-7 6h7" /></svg>
-                                    }
+                                    {isMenuOpen ? <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" /></svg> : <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16m-7 6h7" /></svg> }
                                 </button>
                             </div>
                         </div>
-
-                        {/* Mobile Menu */}
                         {isMenuOpen && (
                           <div className="md:hidden absolute top-20 left-0 w-full bg-[#0F111A] border-b border-slate-800 p-6 flex flex-col items-center gap-6 text-lg">
                               <button onClick={() => handleNavClick('HOME')} className="text-slate-200">{t.nav.collections}</button>
@@ -304,7 +239,6 @@
                           </div>
                         )}
                     </nav>
-
                     <main className="relative z-10">
                         {view === 'HOME' && (
                             <div className="pb-20">
@@ -312,19 +246,15 @@
                                     <h1 className="text-4xl sm:text-5xl md:text-7xl font-bold serif text-white mb-6 text-shadow">{t.hero.title}</h1>
                                     <p className="text-lg md:text-xl text-slate-400 max-w-2xl mx-auto mb-10">{t.hero.subtitle}</p>
                                 </div>
-                                
                                 <div className="max-w-7xl mx-auto px-6 mb-20">
                                     <h2 className="text-2xl md:text-3xl font-bold text-white serif mb-8">{t.home.featuredTitle}</h2>
                                     <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
                                         {MAIN_COLLECTIONS.map(col => <CollectionCard key={col.id} collection={col} language={lang} />)}
                                     </div>
                                 </div>
-
                                 <div className="space-y-10">
                                     <h2 className="text-3xl md:text-4xl font-bold text-white serif text-center">{t.home.specialEditions}</h2>
-                                    {SPECIAL_COLLECTIONS.map((col, index) => (
-                                        <SpecialCollectionSection key={col.id} collection={col} language={lang} index={index} />
-                                    ))}
+                                    {SPECIAL_COLLECTIONS.map((col, index) => ( <SpecialCollectionSection key={col.id} collection={col} language={lang} index={index} /> ))}
                                 </div>
                             </div>
                         )}
@@ -332,7 +262,6 @@
                         {view === 'GUIDE' && <div className="py-12 px-6"><Guide language={lang} /></div>}
                         {view === 'AI' && <div className="py-12 px-6"><AiAssistant language={lang} /></div>}
                     </main>
-
                      <footer className="border-t border-slate-800 bg-[#0F111A] py-12 text-center text-slate-500 text-sm">
                         <img src="https://amaranth-legal-sole-30.mypinata.cloud/ipfs/bafkreidus7uzr5rrxhhr47dhqqtx7nxfjzjbsomvb7edicoti6wz3oohli" alt="YesOkLab Logo" className="w-24 h-24 mx-auto mb-4" />
                         <p>{t.footer.rights}</p>
@@ -347,7 +276,6 @@
                 </div>
             );
         };
-
         const root = ReactDOM.createRoot(document.getElementById('root'));
         root.render(<App />);
     </script>
