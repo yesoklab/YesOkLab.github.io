@@ -28,7 +28,7 @@
     <div id="root"></div>
     <script type="text/babel">
         const { useState, useEffect, useRef } = React;
-
+        
         const GOOGLE_FORM_URL_EN = "https://forms.gle/4Y4dSMy4wAh9Pzx47";
         const GOOGLE_FORM_URL_KO = "https://docs.google.com/forms/d/e/1FAIpQLSdagQ6wk6fVVbl0Q4gc5htaCAnnBlJt0fW_aivdx7BrLKCN9g/viewform";
 
@@ -70,6 +70,8 @@
           { id: '11', title: { en: 'Free Creation Lab', ko: '프리 크리에이션 랩' }, description: { en: 'An experimental space for digital art.', ko: '디지털 아트를 위한 실험적인 공간.' }, imageUrl: 'https://amaranth-legal-sole-30.mypinata.cloud/ipfs/bafkreihmtnnmlq4u3tanpax6zqo7oqzwkolmqsqn2gfeyko57s2ydmqo5e', link: 'https://objkt.com/collections/KT1AQkX48gLHaKSv1NPyrrJFFvZTFsUu9GP8', color: 'from-slate-600 to-gray-700' },
           { id: '12', title: { en: 'Decentralized Dreams', ko: 'Decentralized Dreams' }, description: { en: 'Exploring the future of decentralization.', ko: '탈중앙화의 미래를 탐험합니다.' }, imageUrl: 'https://amaranth-legal-sole-30.mypinata.cloud/ipfs/bafybeiaup54vj4pk4ycugriitcizd4u2xxur4hrmtsieoww6ynbrtw554i', link: 'https://objkt.com/collections/KT1FofiGvwphNMfyzF181k3b5MbJZqXDsNd2', color: 'from-indigo-500 to-purple-600' }
         ];
+
+        // ... (이하 모든 컴포넌트 코드는 이전과 동일)
 
         const CollectionCard = ({ collection, language }) => ( <a href={collection.link} target="_blank" rel="noopener noreferrer" className="block bg-slate-800/50 border border-slate-700 rounded-xl overflow-hidden hover:border-purple-500 transition-all duration-300 group cursor-pointer hover:shadow-xl hover:shadow-purple-900/20"><div className="h-64 overflow-hidden relative"><img src={collection.imageUrl} alt={collection.title[language]} className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"/><div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300 bg-black/30 backdrop-blur-[2px]"><span className="bg-white/20 p-3 rounded-full border border-white/30 text-white">↗</span></div></div><div className="p-5"><h3 className="text-xl font-bold serif text-slate-100 mb-2 group-hover:text-purple-300">{collection.title[language]}</h3><p className="text-slate-400 text-sm mb-4 line-clamp-2 h-10">{collection.description[language]}</p></div></a> );
         
