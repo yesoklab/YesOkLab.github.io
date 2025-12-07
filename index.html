@@ -28,7 +28,7 @@
     <div id="root"></div>
     <script type="text/babel">
         const { useState, useEffect, useRef } = React;
-        
+
         const GOOGLE_FORM_URL_EN = "https://forms.gle/4Y4dSMy4wAh9Pzx47";
         const GOOGLE_FORM_URL_KO = "https://docs.google.com/forms/d/e/1FAIpQLSdagQ6wk6fVVbl0Q4gc5htaCAnnBlJt0fW_aivdx7BrLKCN9g/viewform";
 
@@ -64,31 +64,24 @@
         ];
 
         const SPECIAL_COLLECTIONS = [
-          { id: '8', title: { en: 'Bitcoin Pizza Genesis: 10K', ko: '비트코인 피자 제네시스 10k' }, description: { en: 'Celebrating the first real-world Bitcoin transaction.', ko: '최초의 비트코인 실물 거래를 기념하며.' }, imageUrl: 'https://amaranth-legal-sole-30.mypinata.cloud/ipfs/bafkreidh4ahkgq4ot4s5gnpfufy4tkboeb7pfi5rbxm75bq3biwi2dwiby', link: 'https://objkt.com/collections/KT1JU866vUaq8ac5KkmuW8XKnEbNXiVHRqUy', color: 'from-pink-600 to-orange-500' },
+          { id: '8', title: { en: 'Bitcoin Pizza Genesis: 10K', ko: '비트코인 피자 제네시스 10k' }, description: { en: 'Celebrating the first real-world Bitcoin transaction.', ko: '최초의 비트코인 실물 거래를 기념하며.' }, videoUrl: 'bitcoin_promo.mp4', link: 'https://objkt.com/collections/KT1JU866vUaq8ac5KkmuW8XKnEbNXiVHRqUy', color: 'from-pink-600 to-orange-500' },
           { id: '9', title: { en: 'BITCOIN Whitepaper Collection', ko: '비트코인 백서 컬렉션' }, description: { en: 'Preserving Satoshi Nakamoto\'s revolutionary paper.', ko: '사토시 나카모토의 혁명적인 논문을 보존합니다.' }, imageUrl: 'https://amaranth-legal-sole-30.mypinata.cloud/ipfs/bafkreifvrgo5jj3tfkf6yeuvodplfdg46pfx6mgfzilrwewxb333xu6sru', link: 'https://objkt.com/collections/KT1BywQidkDZoSaS38cv1xGWRgXBkx9qFeVe', color: 'from-amber-500 to-blue-700' },
           { id: '10', title: { en: 'FORK PROJECT', ko: '포크 프로젝트' }, description: { en: 'A generative art project exploring divergence.', ko: '분기를 탐구하는 제너레이티브 아트 프로젝트.' }, imageUrl: 'https://amaranth-legal-sole-30.mypinata.cloud/ipfs/bafybeibs6petkvozp4qfxdd4mvtcnxvfpmuxuxixkvxoa7wr24mhu7fpku', link: 'https://objkt.com/collections/KT1XMCJGLo9vnHRAf5LQdw9z3BF9yGVfffnm', color: 'from-teal-500 to-cyan-600' },
           { id: '11', title: { en: 'Free Creation Lab', ko: '프리 크리에이션 랩' }, description: { en: 'An experimental space for digital art.', ko: '디지털 아트를 위한 실험적인 공간.' }, imageUrl: 'https://amaranth-legal-sole-30.mypinata.cloud/ipfs/bafkreihmtnnmlq4u3tanpax6zqo7oqzwkolmqsqn2gfeyko57s2ydmqo5e', link: 'https://objkt.com/collections/KT1AQkX48gLHaKSv1NPyrrJFFvZTFsUu9GP8', color: 'from-slate-600 to-gray-700' },
           { id: '12', title: { en: 'Decentralized Dreams', ko: 'Decentralized Dreams' }, description: { en: 'Exploring the future of decentralization.', ko: '탈중앙화의 미래를 탐험합니다.' }, imageUrl: 'https://amaranth-legal-sole-30.mypinata.cloud/ipfs/bafybeiaup54vj4pk4ycugriitcizd4u2xxur4hrmtsieoww6ynbrtw554i', link: 'https://objkt.com/collections/KT1FofiGvwphNMfyzF181k3b5MbJZqXDsNd2', color: 'from-indigo-500 to-purple-600' }
         ];
 
-        const CollectionCard = ({ collection, language }) => (
-            <a href={collection.link} target="_blank" rel="noopener noreferrer" className="block bg-slate-800/50 border border-slate-700 rounded-xl overflow-hidden hover:border-purple-500 transition-all duration-300 group cursor-pointer hover:shadow-xl hover:shadow-purple-900/20">
-                <div className="h-64 overflow-hidden relative">
-                    <img src={collection.imageUrl} alt={collection.title[language]} className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"/>
-                    <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300 bg-black/30 backdrop-blur-[2px]">
-                      <span className="bg-white/20 p-3 rounded-full border border-white/30 text-white">↗</span>
-                    </div>
-                </div>
-                <div className="p-5">
-                    <h3 className="text-xl font-bold serif text-slate-100 mb-2 group-hover:text-purple-300">{collection.title[language]}</h3>
-                    <p className="text-slate-400 text-sm mb-4 line-clamp-2 h-10">{collection.description[language]}</p>
-                </div>
-            </a>
-        );
-
+        const CollectionCard = ({ collection, language }) => ( <a href={collection.link} target="_blank" rel="noopener noreferrer" className="block bg-slate-800/50 border border-slate-700 rounded-xl overflow-hidden hover:border-purple-500 transition-all duration-300 group cursor-pointer hover:shadow-xl hover:shadow-purple-900/20"><div className="h-64 overflow-hidden relative"><img src={collection.imageUrl} alt={collection.title[language]} className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"/><div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300 bg-black/30 backdrop-blur-[2px]"><span className="bg-white/20 p-3 rounded-full border border-white/30 text-white">↗</span></div></div><div className="p-5"><h3 className="text-xl font-bold serif text-slate-100 mb-2 group-hover:text-purple-300">{collection.title[language]}</h3><p className="text-slate-400 text-sm mb-4 line-clamp-2 h-10">{collection.description[language]}</p></div></a> );
+        
         const SpecialCollectionSection = ({ collection, language, index }) => {
             const t = TRANSLATIONS[language];
             const isReversed = index % 2 === 1;
+            const MediaComponent = collection.videoUrl ? (
+                <video src={collection.videoUrl} autoPlay loop muted playsInline className="w-full h-full object-cover rounded-2xl shadow-2xl" />
+            ) : (
+                <img src={collection.imageUrl} alt={collection.title[language]} className="w-full h-full object-cover rounded-2xl shadow-2xl" />
+            );
+
             return (
                 <section className="w-full py-16 md:py-20 relative overflow-hidden">
                     <div className={`absolute inset-0 bg-gradient-to-br ${collection.color} opacity-90`}></div>
@@ -96,13 +89,11 @@
                        <div className="flex-1 text-center md:text-left text-white">
                           <h2 className="text-3xl md:text-5xl font-bold serif mb-4 md:mb-6">{collection.title[language]}</h2>
                           <p className="text-base md:text-xl text-white/90 mb-8 leading-relaxed">{collection.description[language]}</p>
-                          <a href={collection.link} target="_blank" rel="noreferrer" className="inline-flex items-center gap-2 px-6 py-3 md:px-8 md:py-4 bg-white text-gray-800 font-bold rounded-full hover:bg-gray-200 transition-colors shadow-lg">
-                            {t.hero.viewBtn} ↗
-                          </a>
+                          <a href={collection.link} target="_blank" rel="noreferrer" className="inline-flex items-center gap-2 px-6 py-3 md:px-8 md:py-4 bg-white text-gray-800 font-bold rounded-full hover:bg-gray-200 transition-colors shadow-lg"> {t.hero.viewBtn} ↗ </a>
                        </div>
                        <div className="flex-1 w-full max-w-sm md:max-w-md">
                           <div className={`aspect-square bg-white/10 rounded-3xl p-4 backdrop-blur-sm border border-white/20 ${isReversed ? '-rotate-2' : 'rotate-2'} hover:rotate-0 transition-transform duration-500`}>
-                             <img src={collection.imageUrl} alt={collection.title[language]} className="w-full h-full object-cover rounded-2xl shadow-2xl" />
+                            {MediaComponent}
                           </div>
                        </div>
                     </div>
@@ -113,39 +104,12 @@
         const AirdropForm = ({ language }) => {
             const t = TRANSLATIONS[language];
             const formUrl = language === 'ko' ? GOOGLE_FORM_URL_KO : GOOGLE_FORM_URL_EN;
-            return (
-                <div className="max-w-2xl mx-auto mt-10 text-center">
-                    <div className="bg-slate-800/80 backdrop-blur-md p-6 md:p-8 rounded-3xl border border-slate-700 shadow-2xl">
-                        <h2 className="text-2xl md:text-3xl font-bold serif text-white mb-4">{t.form.title}</h2>
-                        <p className="text-slate-400 mb-8 px-2">{t.form.subtitle}</p>
-                        <div className="space-y-4">
-                          <a href="https://blog.naver.com/yesoklab/224093507134" target="_blank" rel="noopener noreferrer" className="block w-full max-w-sm mx-auto py-3 md:py-4 rounded-xl font-bold text-base md:text-lg bg-[#03C75A] text-white hover:bg-[#03A34A] transition-colors"> {t.form.naverBtn} </a>
-                          <a href="https://t.me/YesOkLab_WRISTORY_NFT" target="_blank" rel="noopener noreferrer" className="block w-full max-w-sm mx-auto py-3 md:py-4 rounded-xl font-bold text-base md:text-lg bg-[#2AABEE] text-white hover:bg-[#2598D1] transition-colors"> {t.form.telegramBtn} </a>
-                          <a href={formUrl} target="_blank" rel="noopener noreferrer" className="block w-full max-w-sm mx-auto py-3 md:py-4 rounded-xl font-bold text-base md:text-lg bg-gradient-to-r from-purple-600 to-indigo-600 hover:from-purple-500 hover:to-indigo-500 text-white shadow-lg transition-all mt-4"> {t.form.directBtn} </a>
-                        </div>
-                    </div>
-                </div>
-            );
+            return ( <div className="max-w-2xl mx-auto mt-10 text-center"><div className="bg-slate-800/80 backdrop-blur-md p-6 md:p-8 rounded-3xl border border-slate-700 shadow-2xl"><h2 className="text-2xl md:text-3xl font-bold serif text-white mb-4">{t.form.title}</h2><p className="text-slate-400 mb-8 px-2">{t.form.subtitle}</p><div className="space-y-4"><a href="https://blog.naver.com/yesoklab/224093507134" target="_blank" rel="noopener noreferrer" className="block w-full max-w-sm mx-auto py-3 md:py-4 rounded-xl font-bold text-base md:text-lg bg-[#03C75A] text-white hover:bg-[#03A34A] transition-colors"> {t.form.naverBtn} </a><a href="https://t.me/YesOkLab_WRISTORY_NFT" target="_blank" rel="noopener noreferrer" className="block w-full max-w-sm mx-auto py-3 md:py-4 rounded-xl font-bold text-base md:text-lg bg-[#2AABEE] text-white hover:bg-[#2598D1] transition-colors"> {t.form.telegramBtn} </a><a href={formUrl} target="_blank" rel="noopener noreferrer" className="block w-full max-w-sm mx-auto py-3 md:py-4 rounded-xl font-bold text-base md:text-lg bg-gradient-to-r from-purple-600 to-indigo-600 hover:from-purple-500 hover:to-indigo-500 text-white shadow-lg transition-all mt-4"> {t.form.directBtn} </a></div></div></div> );
         };
 
         const Guide = ({ language }) => {
             const t = TRANSLATIONS[language];
-            return (
-                <div className="max-w-4xl mx-auto py-12 px-4">
-                    <h2 className="text-3xl md:text-4xl font-bold serif text-center mb-12 text-amber-200">{t.guide.title}</h2>
-                    <div className="space-y-8">
-                        {t.guide.steps.map((step, index) => (
-                          <div key={index} className="flex flex-col sm:flex-row gap-6 bg-slate-800/40 p-6 rounded-2xl border border-slate-700">
-                            <div className="flex-shrink-0 flex items-center justify-center w-12 h-12 rounded-full bg-purple-600 text-white font-bold text-xl mx-auto sm:mx-0">{index + 1}</div>
-                            <div className="text-center sm:text-left">
-                              <h3 className="text-xl font-bold text-white mb-2">{step.title}</h3>
-                              <p className="text-slate-300 leading-relaxed">{step.desc}</p>
-                            </div>
-                          </div>
-                        ))}
-                    </div>
-                </div>
-            );
+            return ( <div className="max-w-4xl mx-auto py-12 px-4"><h2 className="text-3xl md:text-4xl font-bold serif text-center mb-12 text-amber-200">{t.guide.title}</h2><div className="space-y-8">{t.guide.steps.map((step, index) => ( <div key={index} className="flex flex-col sm:flex-row gap-6 bg-slate-800/40 p-6 rounded-2xl border border-slate-700"><div className="flex-shrink-0 flex items-center justify-center w-12 h-12 rounded-full bg-purple-600 text-white font-bold text-xl mx-auto sm:mx-0">{index + 1}</div><div className="text-center sm:text-left"><h3 className="text-xl font-bold text-white mb-2">{step.title}</h3><p className="text-slate-300 leading-relaxed">{step.desc}</p></div></div> ))}</div></div> );
         };
 
         const AiAssistant = ({ language }) => {
@@ -220,7 +184,6 @@
                                 <button onClick={() => handleNavClick('AIRDROP')} className={view === 'AIRDROP' ? 'text-white' : 'text-slate-400 hover:text-white'}>{t.nav.register}</button>
                                 <button onClick={() => handleNavClick('GUIDE')} className={view === 'GUIDE' ? 'text-white' : 'text-slate-400 hover:text-white'}>{t.nav.guide}</button>
                                 <button onClick={() => handleNavClick('AI')} className="bg-slate-800 text-purple-300 px-3 py-1 rounded-full border border-slate-600">{t.nav.ai}</button>
-
                                 <button onClick={() => setLang(l => l === 'en' ? 'ko' : 'en')} className="w-10 h-10 rounded-full bg-slate-800 border border-slate-600 text-xs">{lang === 'en' ? 'KO' : 'EN'}</button>
                             </div>
                             <div className="md:hidden">
@@ -229,33 +192,14 @@
                                 </button>
                             </div>
                         </div>
-                        {isMenuOpen && (
-                          <div className="md:hidden absolute top-20 left-0 w-full bg-[#0F111A] border-b border-slate-800 p-6 flex flex-col items-center gap-6 text-lg">
-                              <button onClick={() => handleNavClick('HOME')} className="text-slate-200">{t.nav.collections}</button>
-                              <button onClick={() => handleNavClick('AIRDROP')} className="text-slate-200">{t.nav.register}</button>
-                              <button onClick={() => handleNavClick('GUIDE')} className="text-slate-200">{t.nav.guide}</button>
-                              <button onClick={() => handleNavClick('AI')} className="text-slate-200">{t.nav.ai}</button>
-                              <button onClick={() => { setLang(l => l === 'en' ? 'ko' : 'en'); setIsMenuOpen(false); }} className="w-12 h-12 mt-4 rounded-full bg-slate-800 border border-slate-600 text-xs">{lang === 'en' ? 'KO' : 'EN'}</button>
-                          </div>
-                        )}
+                        {isMenuOpen && ( <div className="md:hidden absolute top-20 left-0 w-full bg-[#0F111A] border-b border-slate-800 p-6 flex flex-col items-center gap-6 text-lg"><button onClick={() => handleNavClick('HOME')} className="text-slate-200">{t.nav.collections}</button><button onClick={() => handleNavClick('AIRDROP')} className="text-slate-200">{t.nav.register}</button><button onClick={() => handleNavClick('GUIDE')} className="text-slate-200">{t.nav.guide}</button><button onClick={() => handleNavClick('AI')} className="text-slate-200">{t.nav.ai}</button><button onClick={() => { setLang(l => l === 'en' ? 'ko' : 'en'); setIsMenuOpen(false); }} className="w-12 h-12 mt-4 rounded-full bg-slate-800 border border-slate-600 text-xs">{lang === 'en' ? 'KO' : 'EN'}</button></div> )}
                     </nav>
                     <main className="relative z-10">
                         {view === 'HOME' && (
                             <div className="pb-20">
-                                <div className="py-16 sm:py-20 md:py-24 px-6 text-center">
-                                    <h1 className="text-4xl sm:text-5xl md:text-7xl font-bold serif text-white mb-6 text-shadow">{t.hero.title}</h1>
-                                    <p className="text-lg md:text-xl text-slate-400 max-w-2xl mx-auto mb-10">{t.hero.subtitle}</p>
-                                </div>
-                                <div className="max-w-7xl mx-auto px-6 mb-20">
-                                    <h2 className="text-2xl md:text-3xl font-bold text-white serif mb-8">{t.home.featuredTitle}</h2>
-                                    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-                                        {MAIN_COLLECTIONS.map(col => <CollectionCard key={col.id} collection={col} language={lang} />)}
-                                    </div>
-                                </div>
-                                <div className="space-y-10">
-                                    <h2 className="text-3xl md:text-4xl font-bold text-white serif text-center">{t.home.specialEditions}</h2>
-                                    {SPECIAL_COLLECTIONS.map((col, index) => ( <SpecialCollectionSection key={col.id} collection={col} language={lang} index={index} /> ))}
-                                </div>
+                                <div className="py-16 sm:py-20 md:py-24 px-6 text-center"><h1 className="text-4xl sm:text-5xl md:text-7xl font-bold serif text-white mb-6 text-shadow">{t.hero.title}</h1><p className="text-lg md:text-xl text-slate-400 max-w-2xl mx-auto mb-10">{t.hero.subtitle}</p></div>
+                                <div className="max-w-7xl mx-auto px-6 mb-20"><h2 className="text-2xl md:text-3xl font-bold text-white serif mb-8">{t.home.featuredTitle}</h2><div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">{MAIN_COLLECTIONS.map(col => <CollectionCard key={col.id} collection={col} language={lang} />)}</div></div>
+                                <div className="space-y-10"><h2 className="text-3xl md:text-4xl font-bold text-white serif text-center">{t.home.specialEditions}</h2>{SPECIAL_COLLECTIONS.map((col, index) => ( <SpecialCollectionSection key={col.id} collection={col} language={lang} index={index} /> ))}</div>
                             </div>
                         )}
                         {view === 'AIRDROP' && <div className="py-12 px-6"><AirdropForm language={lang} /></div>}
