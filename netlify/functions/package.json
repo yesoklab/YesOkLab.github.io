@@ -1,8 +1,0 @@
-{
-  "name": "wristory-site",
-  "version": "1.0.0",
-  "scripts": {
-    "netlify:install": "cd netlify/functions && npm install"
-  },
-  "dependencies": {}
-}
