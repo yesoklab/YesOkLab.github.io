@@ -1,23 +1,17 @@
-const fetch = require('node-fetch');
-
 exports.handler = async function(event, context) {
-    // 보안: POST 요청만 허용
     if (event.httpMethod !== 'POST') {
         return { statusCode: 405, body: 'Method Not Allowed' };
     }
 
     try {
         const { userMessage } = JSON.parse(event.body);
-        
-        // 보안: 사용자 메시지가 없으면 에러 처리
         if (!userMessage) {
             return { statusCode: 400, body: 'Bad Request: userMessage is required.' };
         }
 
         const GEMINI_API_KEY = process.env.WRISTORY_GEMINI_KEY;
-        const API_URL = `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${GEMINI_API_KEY}`;
-
-        const response = await fetch(API_URL, {
+        // 이제 'require' 없이 전역 'fetch'를 사용합니다.
+        const response = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${GEMINI_API_KEY}`, {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({
@@ -27,23 +21,17 @@ exports.handler = async function(event, context) {
         });
 
         if (!response.ok) {
-            console.error('Gemini API Error:', await response.text());
+            const errorText = await response.text();
+            console.error('Gemini API Error:', errorText);
             throw new Error(`HTTP error! status: ${response.status}`);
         }
 
         const data = await response.json();
         const reply = data.candidates?.[0]?.content?.parts?.[0]?.text || "I apologize, but I couldn't generate a response at this moment.";
 
-        return {
-            statusCode: 200,
-            body: JSON.stringify({ reply })
-        };
-
+        return { statusCode: 200, body: JSON.stringify({ reply }) };
     } catch (error) {
         console.error('Server-side error:', error);
-        return {
-            statusCode: 500,
-            body: JSON.stringify({ error: "An internal server error occurred." })
-        };
+        return { statusCode: 500, body: JSON.stringify({ error: "An internal server error occurred." }) };
     }
 };
