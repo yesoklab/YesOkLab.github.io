@@ -1,6 +1,2 @@
-[build]
-  command = "npm run netlify:install"
-  functions = "netlify/functions"
-
 [functions]
-  included_files = ["node_modules/**"]
+  directory = "netlify/functions"
