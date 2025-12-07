@@ -1,4 +1,4 @@
-/ '통신 장비'를 사용하겠다고 선언
+// '통신 장비'를 사용하겠다고 선언
 const fetch = require('node-fetch');
 
 exports.handler = async function(event, context) {
