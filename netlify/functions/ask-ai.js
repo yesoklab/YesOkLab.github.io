@@ -1,34 +1,47 @@
-/ '통신 장비'를 사용하겠다고 선언
 const fetch = require('node-fetch');
 
-exports.handler = async function(event, context) {
-    if (event.httpMethod !== 'POST') {
-        return { statusCode: 405, body: 'Method Not Allowed' };
-    }
-    try {
-        const { userMessage } = JSON.parse(event.body);
-        if (!userMessage) {
-            return { statusCode: 400, body: 'Bad Request: userMessage is required.' };
-        }
-        const GEMINI_API_KEY = process.env.WRISTORY_GEMINI_KEY;
-        const response = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${GEMINI_API_KEY}`, {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({
-                contents: [{ parts: [{ text: userMessage }] }],
-                systemInstruction: { parts: [{ text: "You are the AI for the WRISTORY NFT project. Your name is 'WRISTORY Curator AI'. You must provide informative and respectful answers about Korean historical figures (like Ahn Jung-geun, Kim Gu), the Bitcoin Pizza Day event, and the airdrop process. If asked in Korean, you must reply in Korean. Keep your answers concise and helpful." }] }
-            })
-        });
-        if (!response.ok) {
-            const errorText = await response.text();
-            console.error('Gemini API Error:', errorText);
-            throw new Error(`HTTP error! status: ${response.status}`);
-        }
-        const data = await response.json();
-        const reply = data.candidates?.[0]?.content?.parts?.[0]?.text || "I apologize, but I couldn't generate a response at this moment.";
-        return { statusCode: 200, body: JSON.stringify({ reply }) };
-    } catch (error) {
-        console.error('Server-side error:', error);
-        return { statusCode: 500, body: JSON.stringify({ error: "An internal server error occurred." }) };
-    }
+exports.handler = async (event) => {
+  // 브라우저 보안(CORS) 처리
+  if (event.httpMethod === 'OPTIONS') {
+    return { 
+      statusCode: 200, 
+      headers: { 
+        "Access-Control-Allow-Origin": "*", 
+        "Access-Control-Allow-Headers": "Content-Type" 
+      } 
+    };
+  }
+
+  try {
+    const { userMessage } = JSON.parse(event.body);
+    const API_KEY = process.env.GEMINI_API_KEY; // Netlify 환경변수 사용
+
+    // 모델명을 gemini-1.5-flash로 정확히 기입
+    const url = `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${API_KEY}`;
+
+    const response = await fetch(url, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        contents: [{ parts: [{ text: userMessage }] }],
+        systemInstruction: { parts: [{ text: "당신은 WRISTORY NFT 프로젝트의 전문 큐레이터 AI입니다. 안중근, 김구 등 한국 독립운동가의 역사적 배경과 에어드랍 절차에 대해 친절하게 설명해주세요. 답변은 반드시 한국어로 하세요." }] }
+      })
+    });
+
+    const data = await response.json();
+    const reply = data.candidates?.[0]?.content?.parts?.[0]?.text || "답변을 가져오지 못했습니다.";
+
+    return {
+      statusCode: 200,
+      headers: { "Access-Control-Allow-Origin": "*" },
+      body: JSON.stringify({ reply })
+    };
+  } catch (error) {
+    console.error("Error:", error);
+    return { 
+      statusCode: 500, 
+      headers: { "Access-Control-Allow-Origin": "*" },
+      body: JSON.stringify({ error: "AI 연결 실패", details: error.message }) 
+    };
+  }
 };
