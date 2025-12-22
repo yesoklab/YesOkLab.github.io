@@ -4,7 +4,6 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>WRISTORY | Digital Heritage by YesOkLab</title>
-    <meta name="description" content="블록체인 기술로 역사를 보존합니다. WRISTORY NFT 에어드랍 및 컬렉션 공식 페이지.">
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://unpkg.com/react@18/umd/react.production.min.js" crossorigin></script>
     <script src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js" crossorigin></script>
@@ -30,36 +29,34 @@
         const TRANSLATIONS = {
           en: { 
             nav: { collections: 'Collections', register: 'Airdrop', guide: 'Guide', ai: '✨ AI Chat' }, 
-            hero: { title: 'History on Your Wrist', subtitle: 'Preserving legendary moments through blockchain technology.', joinBtn: 'Join Airdrop', viewBtn: 'View on Objkt.com' },
-            home: { featuredTitle: 'Korean Independence Fighters Series', specialEditions: 'Special Collections' },
-            form: { title: 'Airdrop Registration', subtitle: 'Register your Tezos address via Google Form.', naverBtn: 'Notice', telegramBtn: 'Telegram', directBtn: 'Google Form' },
-            ai: { title: 'WRISTORY AI Assistant', subtitle: 'Ask about history.', placeholder: 'Ask anything...', send: 'Send', initialMsg: 'Hello. I am the WRISTORY AI. Ask me anything about history!', error: 'Connection failed. Please check your API key.', typing: 'Thinking...' },
+            hero: { title: 'History on Your Wrist', subtitle: 'Preserving legendary moments through blockchain technology.', joinBtn: 'Register', viewBtn: 'View ↗' },
+            home: { featuredTitle: 'Independence Fighters', specialEditions: 'Special Collections' },
+            form: { title: 'Airdrop', naverBtn: 'Naver', telegramBtn: 'Telegram', directBtn: 'Register' },
+            ai: { title: 'WRISTORY AI Assistant', subtitle: 'Ask about history.', placeholder: 'Ask anything...', send: 'Send', initialMsg: 'Hello. I am the WRISTORY AI. Ask me anything!', error: 'Connection failed. Please try again.', typing: 'Thinking...' },
             footer: { rights: '© 2025 YesOkLab | WRISTORY Project. All Rights Reserved.' }
           },
           ko: { 
             nav: { collections: '컬렉션', register: '에어드랍', guide: '가이드', ai: '✨ AI 질문' },
             hero: { title: '손목 위의 역사', subtitle: '블록체인 기술을 통해 전설적인 순간들을 보존합니다.', joinBtn: '에어드랍 등록하기', viewBtn: 'Objkt.com에서 보기' },
             home: { featuredTitle: '대한민국 독립운동가 시리즈', specialEditions: '스페셜 컬렉션' },
-            form: { title: '에어드랍 참여 방법', subtitle: '아래 버튼을 눌러 공식 채널 공지 확인 및 등록을 진행하세요.', naverBtn: '네이버 블로그', telegramBtn: '텔레그램', directBtn: '구글 폼 등록하기' },
-            ai: { title: 'WRISTORY AI 비서', subtitle: '역사적 배경이나 프로젝트에 대해 물어보세요.', placeholder: '무엇이든 물어보세요...', send: '전송', initialMsg: '안녕하세요. WRISTORY AI입니다. 독립운동가나 에어드랍에 대해 물어보세요!', error: '연결 실패. 잠시 후 다시 시도해주세요.', typing: '생각 중...' },
+            form: { title: '에어드랍 참여 방법', naverBtn: '네이버 블로그', telegramBtn: '텔레그램 참여', directBtn: '구글 폼 등록' },
+            ai: { title: 'WRISTORY AI 비서', subtitle: '역사적 배경이나 프로젝트에 대해 물어보세요.', placeholder: '무엇이든 물어보세요...', send: '전송', initialMsg: '안녕하세요. WRISTORY AI입니다. 무엇이든 물어보세요!', error: '연결에 실패했습니다. 잠시 후 다시 시도해주세요.', typing: '생각 중...' },
             footer: { rights: '© 2025 YesOkLab | WRISTORY Project. All Rights Reserved.' }
           }
         };
 
         const MAIN_COLLECTIONS = [
-          { id: '1', title: { ko: '백범 김구' }, description: { ko: '임시정부 주석.' }, imageUrl: 'https://cloudflare-ipfs.com/ipfs/bafkreigtmhstec3baqngrb3wuynfkfohxri7b7b62ecxluui3zwttf35xm', link: 'https://objkt.com/tokens/KT1A77WVak4yMFoHDNzpAf8PGA7YLmh5wMJ8/15' },
-          { id: '2', title: { ko: '안중근' }, description: { ko: '하얼빈 의거 영웅.' }, imageUrl: 'https://cloudflare-ipfs.com/ipfs/bafkreid2xqal5as5ncuowzpcxdkgsktspd4qw6yfi6hohuoyxhul4d43em', link: 'https://objkt.com/tokens/KT1A77WVak4yMFoHDNzpAf8PGA7YLmh5wMJ8/16' },
-          { id: '3', title: { ko: '도산 안창호' }, description: { ko: '겨레의 스승.' }, imageUrl: 'https://cloudflare-ipfs.com/ipfs/bafkreibvczfhdfl76kihctgs43n4qvbalp7mks3dreawbszpgwbgl6qiby', link: 'https://objkt.com/tokens/KT1A77WVak4yMFoHDNzpAf8PGA7YLmh5wMJ8/12' },
-          { id: '4', title: { ko: '유관순' }, description: { ko: '3.1 운동의 상징.' }, imageUrl: 'https://cloudflare-ipfs.com/ipfs/bafkreifv2thpaq2t3dgve3tomhb6eccwitgy6fi3qa256jeeafqtcx3ihy', link: 'https://objkt.com/tokens/KT1A77WVak4yMFoHDNzpAf8PGA7YLmh5wMJ8/7' },
-          { id: '5', title: { ko: '김마리아' }, description: { ko: '여성 독립운동의 대모.' }, imageUrl: 'https://cloudflare-ipfs.com/ipfs/bafkreigza7i6mn2jkwbdcy64f5scwji4g6g2fsranp6w4fujn3bf7g3wca', link: 'https://objkt.com/tokens/KT1A77WVak4yMFoHDNzpAf8PGA7YLmh5wMJ8/14' },
-          { id: '6', title: { ko: '윤봉길' }, description: { ko: '홍커우 의거의 영웅.' }, imageUrl: 'https://cloudflare-ipfs.com/ipfs/bafkreiea4bpcjwlic74qpfwsvy2opgwz7mvuwdtlrmaikffed2fnjsgqfe', link: 'https://objkt.com/tokens/KT1A77WVak4yMFoHDNzpAf8PGA7YLmh5wMJ8/17' },
-          { id: '7', title: { ko: '베델' }, description: { ko: '한국의 독립을 도운 영국인.' }, imageUrl: 'https://cloudflare-ipfs.com/ipfs/bafkreid76iq2ohfz3hc3wxq3vs3vbyr46f2vblfx4ztea2kwgnfv7elyaq', link: 'https://objkt.com/tokens/KT1A77WVak4yMFoHDNzpAf8PGA7YLmh5wMJ8/18' },
+          { id: '1', title: { ko: '백범 김구' }, description: { ko: '임시정부 주석.' }, imageUrl: 'https://gateway.pinata.cloud/ipfs/bafkreigtmhstec3baqngrb3wuynfkfohxri7b7b62ecxluui3zwttf35xm', link: 'https://objkt.com/tokens/KT1A77WVak4yMFoHDNzpAf8PGA7YLmh5wMJ8/15' },
+          { id: '2', title: { ko: '안중근' }, description: { ko: '하얼빈 의거 영웅.' }, imageUrl: 'https://gateway.pinata.cloud/ipfs/bafkreid2xqal5as5ncuowzpcxdkgsktspd4qw6yfi6hohuoyxhul4d43em', link: 'https://objkt.com/tokens/KT1A77WVak4yMFoHDNzpAf8PGA7YLmh5wMJ8/16' },
+          { id: '3', title: { ko: '도산 안창호' }, description: { ko: '겨레의 스승.' }, imageUrl: 'https://gateway.pinata.cloud/ipfs/bafkreibvczfhdfl76kihctgs43n4qvbalp7mks3dreawbszpgwbgl6qiby', link: 'https://objkt.com/tokens/KT1A77WVak4yMFoHDNzpAf8PGA7YLmh5wMJ8/12' },
+          { id: '4', title: { ko: '유관순' }, description: { ko: '3.1 운동의 상징.' }, imageUrl: 'https://gateway.pinata.cloud/ipfs/bafkreifv2thpaq2t3dgve3tomhb6eccwitgy6fi3qa256jeeafqtcx3ihy', link: 'https://objkt.com/tokens/KT1A77WVak4yMFoHDNzpAf8PGA7YLmh5wMJ8/7' },
+          { id: '5', title: { ko: '김마리아' }, description: { ko: '여성 독립운동의 대모.' }, imageUrl: 'https://gateway.pinata.cloud/ipfs/bafkreigza7i6mn2jkwbdcy64f5scwji4g6g2fsranp6w4fujn3bf7g3wca', link: 'https://objkt.com/tokens/KT1A77WVak4yMFoHDNzpAf8PGA7YLmh5wMJ8/14' },
+          { id: '6', title: { ko: '윤봉길' }, description: { ko: '홍커우 의거의 영웅.' }, imageUrl: 'https://gateway.pinata.cloud/ipfs/bafkreiea4bpcjwlic74qpfwsvy2opgwz7mvuwdtlrmaikffed2fnjsgqfe', link: 'https://objkt.com/tokens/KT1A77WVak4yMFoHDNzpAf8PGA7YLmh5wMJ8/17' },
+          { id: '7', title: { ko: '베델' }, description: { ko: '한국 독립을 도운 영국인.' }, imageUrl: 'https://gateway.pinata.cloud/ipfs/bafkreid76iq2ohfz3hc3wxq3vs3vbyr46f2vblfx4ztea2kwgnfv7elyaq', link: 'https://objkt.com/tokens/KT1A77WVak4yMFoHDNzpAf8PGA7YLmh5wMJ8/18' },
         ];
 
         const SPECIAL_COLLECTIONS = [
-          { id: '8', title: { ko: '비트코인 피자 제네시스 10k' }, description: { ko: '최초의 비트코인 실물 거래 기념.' }, imageUrl: 'https://cloudflare-ipfs.com/ipfs/bafkreidh4ahkgq4ot4s5gnpfufy4tkboeb7pfi5rbxm75bq3biwi2dwiby', link: 'https://objkt.com/collections/KT1JU866vUaq8ac5KkmuW8XKnEbNXiVHRqUy', color: 'from-pink-600 to-orange-500' },
-          { id: '9', title: { ko: '비트코인 백서 컬렉션' }, description: { ko: '사토시 나카모토의 논문 보존.' }, imageUrl: 'https://cloudflare-ipfs.com/ipfs/bafkreifvrgo5jj3tfkf6yeuvodplfdg46pfx6mgfzilrwewxb333xu6sru', link: 'https://objkt.com/collections/KT1BywQidkDZoSaS38cv1xGWRgXBkx9qFeVe', color: 'from-amber-500 to-blue-700' },
-          { id: '10', title: { ko: '포크 프로젝트' }, description: { ko: '분기를 탐구하는 제너레이티브 아트.' }, imageUrl: 'https://cloudflare-ipfs.com/ipfs/bafybeibs6petkvozp4qfxdd4mvtcnxvfpmuxuxixkvxoa7wr24mhu7fpku', link: 'https://objkt.com/collections/KT1XMCJGLo9vnHRAf5LQdw9z3BF9yGVfffnm', color: 'from-teal-500 to-cyan-600' }
+          { id: '8', title: { ko: '비트코인 피자 제네시스 10k' }, description: { ko: '최초의 비트코인 실물 거래 기념.' }, imageUrl: 'https://gateway.pinata.cloud/ipfs/bafkreidh4ahkgq4ot4s5gnpfufy4tkboeb7pfi5rbxm75bq3biwi2dwiby', link: 'https://objkt.com/collections/KT1JU866vUaq8ac5KkmuW8XKnEbNXiVHRqUy', color: 'from-pink-600 to-orange-500' }
         ];
 
         const CollectionCard = ({ collection, language }) => (
@@ -71,8 +68,8 @@
               </div>
             </div>
             <div className="p-5">
-              <h3 className="text-xl font-bold serif text-slate-100 mb-2">{collection.title[language] || collection.title.ko}</h3>
-              <p className="text-slate-400 text-sm">{collection.description[language] || collection.description.ko}</p>
+              <h3 className="text-xl font-bold serif text-slate-100 mb-2 group-hover:text-purple-300">{collection.title[language] || collection.title.ko}</h3>
+              <p className="text-slate-400 text-sm line-clamp-2">{collection.description[language] || collection.description.ko}</p>
             </div>
           </a>
         );
@@ -109,17 +106,17 @@
           return (
             <div className="max-w-4xl mx-auto h-[70vh] bg-slate-800/50 rounded-2xl border border-slate-700 flex flex-col overflow-hidden">
               <div className="bg-slate-900/80 p-4 border-b border-slate-700 font-bold text-slate-200">{t.ai.title}</div>
-              <div className="flex-1 overflow-y-auto p-6 space-y-4 text-white">
+              <div className="flex-1 overflow-y-auto p-4 md:p-6 space-y-4">
                 {messages.map((msg, i) => (
                   <div key={i} className={`flex ${msg.role === 'user' ? 'justify-end' : 'justify-start'}`}>
-                    <div className={`max-w-[85%] p-4 rounded-2xl ${msg.role === 'user' ? 'bg-purple-600' : 'bg-slate-700'}`}>{msg.text}</div>
+                    <div className={`max-w-[85%] p-3 md:p-4 rounded-2xl ${msg.role === 'user' ? 'bg-purple-600' : 'bg-slate-700'}`}>{msg.text}</div>
                   </div>
                 ))}
-                {isTyping && <div className="text-slate-400 text-sm">{t.ai.typing}</div>}
+                {isTyping && <div className="text-slate-400 text-sm ml-4">{t.ai.typing}</div>}
                 <div ref={scrollRef} />
               </div>
-              <form onSubmit={handleSend} className="p-4 bg-slate-900 border-t border-slate-700 flex gap-2">
-                <input type="text" value={input} onChange={e => setInput(e.target.value)} placeholder={t.ai.placeholder} className="flex-1 bg-slate-800 border-slate-600 rounded-xl px-4 py-3 text-white outline-none focus:border-purple-500" />
+              <form onSubmit={handleSend} className="p-4 bg-slate-900/80 border-t border-slate-700 flex gap-2">
+                <input type="text" value={input} onChange={e => setInput(e.target.value)} placeholder={t.ai.placeholder} className="flex-1 bg-slate-800 border-slate-600 rounded-xl px-4 py-3 text-white focus:outline-none focus:border-purple-500" />
                 <button type="submit" className="bg-purple-600 px-6 py-3 rounded-xl font-bold text-white"> {t.ai.send} </button>
               </form>
             </div>
@@ -131,16 +128,15 @@
           const [lang, setLang] = useState('ko');
           const t = TRANSLATIONS[lang];
           return (
-            <div className="min-h-screen">
-              <nav className="sticky top-0 z-50 bg-[#0F111A]/80 backdrop-blur-md border-b border-slate-800 h-20 flex items-center px-6 justify-between">
+            <div className="min-h-screen pb-10">
+              <nav className="sticky top-0 z-50 bg-[#0F111A]/90 backdrop-blur-md border-b border-slate-800 h-20 flex items-center px-6 justify-between">
                 <div className="flex items-center gap-3 cursor-pointer" onClick={() => setView('HOME')}>
-                  <img src="https://cloudflare-ipfs.com/ipfs/bafkreiaohqebkvodjwrnwt3673zaijntc3uc2g5mxg6vfdydqpeaf77s4a" className="w-10 h-10 rounded-lg" />
+                  <img src="https://gateway.pinata.cloud/ipfs/bafkreiaohqebkvodjwrnwt3673zaijntc3uc2g5mxg6vfdydqpeaf77s4a" className="w-10 h-10 rounded-lg" />
                   <span className="text-2xl font-bold serif text-white">WRISTORY</span>
                 </div>
-                <div className="flex items-center gap-6 text-sm">
+                <div className="flex items-center gap-4 text-sm font-medium">
                   <button onClick={() => setView('HOME')} className={view === 'HOME' ? 'text-white' : 'text-slate-400'}>{t.nav.collections}</button>
-                  <button onClick={() => setView('AIRDROP')} className={view === 'AIRDROP' ? 'text-white' : 'text-slate-400'}>{t.nav.register}</button>
-                  <button onClick={() => setView('AI')} className="bg-slate-800 text-purple-300 px-3 py-1 rounded-full">{t.nav.ai}</button>
+                  <button onClick={() => setView('AI')} className="bg-slate-800 text-purple-300 px-3 py-1 rounded-full border border-slate-600">{t.nav.ai}</button>
                   <button onClick={() => setLang(l => l === 'en' ? 'ko' : 'en')} className="w-8 h-8 rounded-full bg-slate-700 text-[10px]">{lang.toUpperCase()}</button>
                 </div>
               </nav>
@@ -149,32 +145,30 @@
                   <div>
                     <div className="text-center mb-16">
                       <h1 className="text-5xl md:text-7xl font-bold serif text-white mb-6">{t.hero.title}</h1>
-                      <p className="text-slate-400 max-w-2xl mx-auto">{t.hero.subtitle}</p>
+                      <p className="text-xl text-slate-400 max-w-2xl mx-auto mb-10">{t.hero.subtitle}</p>
+                      <button onClick={() => setView('AIRDROP')} className="px-8 py-4 bg-white text-black font-bold rounded-full hover:bg-slate-200">{t.hero.joinBtn}</button>
                     </div>
-                    <div className="max-w-7xl mx-auto grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 mb-20">
+                    <div className="max-w-7xl mx-auto grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
                       {MAIN_COLLECTIONS.map(col => <CollectionCard key={col.id} collection={col} language={lang} />)}
                     </div>
                   </div>
                 )}
                 {view === 'AIRDROP' && (
-                  <div className="max-w-md mx-auto text-center py-20">
-                    <h2 className="text-3xl font-bold serif mb-10">{t.form.title}</h2>
-                    <div className="flex flex-col gap-4">
-                      <a href="https://blog.naver.com/yesoklab" target="_blank" className="bg-[#03C75A] py-4 rounded-xl font-bold text-white">{t.form.naverBtn}</a>
-                      <a href="https://t.me/YesOkLab_WRISTORY_NFT" target="_blank" className="bg-[#2AABEE] py-4 rounded-xl font-bold text-white">{t.form.telegramBtn}</a>
-                      <a href={lang === 'ko' ? GOOGLE_FORM_URL_KO : GOOGLE_FORM_URL_EN} target="_blank" className="bg-purple-600 py-4 rounded-xl font-bold text-white">{t.form.directBtn}</a>
-                    </div>
-                  </div>
+                   <div className="max-w-md mx-auto text-center py-10">
+                     <h2 className="text-3xl font-bold serif mb-10 text-white">{t.form.title}</h2>
+                     <div className="flex flex-col gap-4">
+                       <a href="https://blog.naver.com/yesoklab" target="_blank" className="bg-[#03C75A] py-4 rounded-xl font-bold text-white">{t.form.naverBtn}</a>
+                       <a href="https://t.me/YesOkLab_WRISTORY_NFT" target="_blank" className="bg-[#2AABEE] py-4 rounded-xl font-bold text-white">{t.form.telegramBtn}</a>
+                       <a href={lang === 'ko' ? GOOGLE_FORM_URL_KO : GOOGLE_FORM_URL_EN} target="_blank" className="bg-purple-600 py-4 rounded-xl font-bold text-white">{t.form.directBtn}</a>
+                     </div>
+                   </div>
                 )}
                 {view === 'AI' && <AiAssistant language={lang} />}
               </main>
-              <footer className="py-12 text-center text-slate-500 text-xs border-t border-slate-800">
-                <p>{t.footer.rights}</p>
-              </footer>
+              <footer className="text-center text-slate-500 text-[10px] mt-10">© 2025 YesOkLab | WRISTORY Project</footer>
             </div>
           );
         };
-
         const root = ReactDOM.createRoot(document.getElementById('root'));
         root.render(<App />);
     </script>
