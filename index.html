@@ -54,15 +54,19 @@
         };
 
         const MAIN_COLLECTIONS = [
-          { id: '1', title: { en: 'Kim Gu', ko: '백범 김구' }, description: { ko: '임시정부 주석.' }, imageUrl: 'https://amaranth-legal-sole-30.mypinata.cloud/ipfs/bafkreigtmhstec3baqngrb3wuynfkfohxri7b7b62ecxluui3zwttf35xm', link: 'https://objkt.com/tokens/KT1A77WVak4yMFoHDNzpAf8PGA7YLmh5wMJ8/15' },
-          { id: '2', title: { en: 'An Jung-geun', ko: '안중근' }, description: { ko: '하얼빈 의거 영웅.' }, imageUrl: 'https://amaranth-legal-sole-30.mypinata.cloud/ipfs/bafkreid2xqal5as5ncuowzpcxdkgsktspd4qw6yfi6hohuoyxhul4d43em', link: 'https://objkt.com/tokens/KT1A77WVak4yMFoHDNzpAf8PGA7YLmh5wMJ8/16' },
-          { id: '3', title: { en: 'Ahn Chang-ho', ko: '도산 안창호' }, description: { ko: '겨레의 스승.' }, imageUrl: 'https://amaranth-legal-sole-30.mypinata.cloud/ipfs/bafkreibvczfhdfl76kihctgs43n4qvbalp7mks3dreawbszpgwbgl6qiby', link: 'https://objkt.com/tokens/KT1A77WVak4yMFoHDNzpAf8PGA7YLmh5wMJ8/12' },
-          { id: '4', title: { en: 'Yu Gwan-sun', ko: '유관순' }, description: { ko: '3.1 운동의 상징.' }, imageUrl: 'https://amaranth-legal-sole-30.mypinata.cloud/ipfs/bafkreifv2thpaq2t3dgve3tomhb6eccwitgy6fi3qa256jeeafqtcx3ihy', link: 'https://objkt.com/tokens/KT1A77WVak4yMFoHDNzpAf8PGA7YLmh5wMJ8/7' },
-          // 이미지 주소 통합 수정 완료 (Kim Maria, Yun Bong-gil)
-          { id: '5', title: { en: 'Kim Maria', ko: '김마리아' }, description: { ko: '여성 독립운동의 대모.' }, imageUrl: 'https://amaranth-legal-sole-30.mypinata.cloud/ipfs/bafkreigza7i6mn2jkwbdcy64f5scwji4g6g2fsranp6w4fujn3bf7g3wca', link: 'https://objkt.com/tokens/KT1A77WVak4yMFoHDNzpAf8PGA7YLmh5wMJ8/14' },
-          { id: '6', title: { en: 'Yun Bong-gil', ko: '윤봉길' }, description: { ko: '홍커우 의거의 영웅.' }, imageUrl: 'https://amaranth-legal-sole-30.mypinata.cloud/ipfs/bafkreiea4bpcjwlic74qpfwsvy2opgwz7mvuwdtlrmaikffed2fnjsgqfe', link: 'https://objkt.com/tokens/KT1A77WVak4yMFoHDNzpAf8PGA7YLmh5wMJ8/17' },
-          { id: '7', title: { en: 'Bethell', ko: '베델' }, description: { ko: '한국의 독립을 도운 영국인.' }, imageUrl: 'https://amaranth-legal-sole-30.mypinata.cloud/ipfs/bafkreid76iq2ohfz3hc3wxq3vs3vbyr46f2vblfx4ztea2kwgnfv7elyaq', link: 'https://objkt.com/tokens/KT1A77WVak4yMFoHDNzpAf8PGA7YLmh5wMJ8/18' },
-        ];
+          <!-- MAIN_COLLECTIONS 부분만 발췌 (이 부분으로 교체하세요) -->
+const MAIN_COLLECTIONS = [
+  { id: '1', title: { ko: '백범 김구' }, description: { ko: '임시정부 주석.' }, imageUrl: 'https://cloudflare-ipfs.com/ipfs/bafkreigtmhstec3baqngrb3wuynfkfohxri7b7b62ecxluui3zwttf35xm', link: 'https://objkt.com/tokens/KT1A77WVak4yMFoHDNzpAf8PGA7YLmh5wMJ8/15' },
+  { id: '2', title: { ko: '안중근' }, description: { ko: '하얼빈 의거 영웅.' }, imageUrl: 'https://cloudflare-ipfs.com/ipfs/bafkreid2xqal5as5ncuowzpcxdkgsktspd4qw6yfi6hohuoyxhul4d43em', link: 'https://objkt.com/tokens/KT1A77WVak4yMFoHDNzpAf8PGA7YLmh5wMJ8/16' },
+  { id: '3', title: { ko: '도산 안창호' }, description: { ko: '겨레의 스승.' }, imageUrl: 'https://cloudflare-ipfs.com/ipfs/bafkreibvczfhdfl76kihctgs43n4qvbalp7mks3dreawbszpgwbgl6qiby', link: 'https://objkt.com/tokens/KT1A77WVak4yMFoHDNzpAf8PGA7YLmh5wMJ8/12' },
+  { id: '4', title: { ko: '유관순' }, description: { ko: '3.1 운동의 상징.' }, imageUrl: 'https://cloudflare-ipfs.com/ipfs/bafkreifv2thpaq2t3dgve3tomhb6eccwitgy6fi3qa256jeeafqtcx3ihy', link: 'https://objkt.com/tokens/KT1A77WVak4yMFoHDNzpAf8PGA7YLmh5wMJ8/7' },
+  // 김마리아, 윤봉길 이미지 경로를 안정적인 클라우드플레어 IPFS로 변경
+  { id: '5', title: { ko: '김마리아' }, description: { ko: '여성 독립운동의 대모.' }, imageUrl: 'https://cloudflare-ipfs.com/ipfs/bafkreigza7i6mn2jkwbdcy64f5scwji4g6g2fsranp6w4fujn3bf7g3wca', link: 'https://objkt.com/tokens/KT1A77WVak4yMFoHDNzpAf8PGA7YLmh5wMJ8/14' },
+  { id: '6', title: { ko: '윤봉길' }, description: { ko: '홍커우 의거의 영웅.' }, imageUrl: 'https://cloudflare-ipfs.com/ipfs/bafkreiea4bpcjwlic74qpfwsvy2opgwz7mvuwdtlrmaikffed2fnjsgqfe', link: 'https://objkt.com/tokens/KT1A77WVak4yMFoHDNzpAf8PGA7YLmh5wMJ8/17' },
+  { id: '7', title: { ko: '베델' }, description: { ko: '한국 독립을 도운 영국인.' }, imageUrl: 'https://cloudflare-ipfs.com/ipfs/bafkreid76iq2ohfz3hc3wxq3vs3vbyr46f2vblfx4ztea2kwgnfv7elyaq', link: 'https://objkt.com/tokens/KT1A77WVak4yMFoHDNzpAf8PGA7YLmh5wMJ8/18' },
+];
+
+
 
         const SPECIAL_COLLECTIONS = [
           { id: '8', title: { ko: '비트코인 피자 제네시스 10k' }, description: { ko: '최초의 비트코인 실물 거래 기념.' }, imageUrl: 'https://amaranth-legal-sole-30.mypinata.cloud/ipfs/bafkreidh4ahkgq4ot4s5gnpfufy4tkboeb7pfi5rbxm75bq3biwi2dwiby', link: 'https://objkt.com/collections/KT1JU866vUaq8ac5KkmuW8XKnEbNXiVHRqUy', color: 'from-pink-600 to-orange-500' },
