@@ -1,5 +1,3 @@
-const fetch = require('node-fetch');
-
 exports.handler = async (event) => {
   // 브라우저 보안(CORS) 처리
   if (event.httpMethod === 'OPTIONS') {
@@ -14,11 +12,12 @@ exports.handler = async (event) => {
 
   try {
     const { userMessage } = JSON.parse(event.body);
-    const API_KEY = process.env.GEMINI_API_KEY; // Netlify 환경변수 사용
+    const API_KEY = process.env.GEMINI_API_KEY;
 
-    // 모델명을 gemini-1.5-flash로 정확히 기입
+    // 모델명 1.5-flash로 정확히 기입
     const url = `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${API_KEY}`;
 
+    // 최신 환경에서는 require('node-fetch') 없이 바로 fetch를 사용합니다.
     const response = await fetch(url, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
