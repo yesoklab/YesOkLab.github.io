@@ -1,5 +1,5 @@
 exports.handler = async (event) => {
-  // CORS 처리
+  // 브라우저 보안(CORS) 처리
   if (event.httpMethod === 'OPTIONS') {
     return { 
       statusCode: 200, 
@@ -12,33 +12,33 @@ exports.handler = async (event) => {
 
   try {
     const { userMessage } = JSON.parse(event.body);
+    // 사용자님이 지정하신 환경 변수 이름으로 변경 완료
     const API_KEY = process.env.WRISTORY_GEMINI_KEY;
 
-    // 안정적인 v1 API와 gemini-1.5-flash 모델 사용
-    const url = `https://generativelanguage.googleapis.com/v1/models/gemini-1.5-flash:generateContent?key=${API_KEY}`;
+    // v1beta 주소여야 시스템 지침(AI 역할 설정)이 작동합니다.
+    const url = `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${API_KEY}`;
 
     const response = await fetch(url, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
         contents: [{ parts: [{ text: userMessage }] }],
-        systemInstruction: { parts: [{ text: "당신은 한국의 독립운동가 시계를 NFT로 보존하는 WRISTORY 프로젝트의 AI 도슨트입니다. 사용자에게 한국어로 친절하게 역사를 설명해주세요." }] }
+        // 구글 REST API 표준인 system_instruction(언더바) 사용
+        system_instruction: { parts: [{ text: "당신은 WRISTORY 프로젝트의 AI 도슨트입니다. 한국 독립운동가에 대해 한국어로 친절하게 답변하세요." }] }
       })
     });
 
     const data = await response.json();
 
-    // 에러 발생 시 처리
     if (data.error) {
-      console.error("Google API Error:", data.error.message);
       return { 
         statusCode: 200, 
         headers: { "Access-Control-Allow-Origin": "*" },
-        body: JSON.stringify({ reply: "죄송합니다. AI 엔진 설정에 문제가 발생했습니다: " + data.error.message }) 
+        body: JSON.stringify({ reply: "AI 설정 오류: " + data.error.message }) 
       };
     }
 
-    const reply = data.candidates?.[0]?.content?.parts?.[0]?.text || "죄송합니다. 답변을 생성하지 못했습니다.";
+    const reply = data.candidates?.[0]?.content?.parts?.[0]?.text || "답변을 가져오지 못했습니다.";
 
     return {
       statusCode: 200,
@@ -49,7 +49,7 @@ exports.handler = async (event) => {
     return { 
       statusCode: 500, 
       headers: { "Access-Control-Allow-Origin": "*" },
-      body: JSON.stringify({ error: "Internal Server Error", message: error.message }) 
+      body: JSON.stringify({ error: "연결 오류", details: error.message }) 
     };
   }
 };
