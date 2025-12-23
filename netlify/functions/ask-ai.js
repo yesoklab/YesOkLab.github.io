@@ -12,7 +12,7 @@ exports.handler = async (event) => {
 
   try {
     const { userMessage } = JSON.parse(event.body);
-    const API_KEY = process.env.GEMINI_API_KEY;
+    const API_KEY = process.env.WRISTORY_GEMINI_KEY;
 
     // 안정적인 v1 API와 gemini-1.5-flash 모델 사용
     const url = `https://generativelanguage.googleapis.com/v1/models/gemini-1.5-flash:generateContent?key=${API_KEY}`;
