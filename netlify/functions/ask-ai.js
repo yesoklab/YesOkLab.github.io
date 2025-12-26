@@ -1,3 +1,5 @@
+// netlify/functions/ask-ai.js
+
 exports.handler = async (event) => {
   // CORS preflight
   if (event.httpMethod === "OPTIONS") {
@@ -13,9 +15,9 @@ exports.handler = async (event) => {
   }
 
   try {
-    const { userMessage } = JSON.parse(event.body || "{}");
+    const { userMessage, lang } = JSON.parse(event.body || "{}");
 
-    const API_KEY = process.env.WRISTORY_GEMINI_KEY; // Netlify 환경변수 이름과 일치해야 함
+    const API_KEY = process.env.WRISTORY_GEMINI_KEY;
     if (!API_KEY) {
       return {
         statusCode: 200,
@@ -24,27 +26,38 @@ exports.handler = async (event) => {
       };
     }
 
-    // ✅ v1beta + 지원 모델로 변경 (문서 예시)
-    const model = "gemini-2.5-flash";
+    // ✅ 언어 고정 (B 방식): 프론트 KO/EN 토글 값으로 강제
+    const fixedLang = (lang === "en" || lang === "ko") ? lang : "ko";
+    const langInstruction =
+      fixedLang === "en"
+        ? "Answer in English only."
+        : "한국어로만 답변하세요.";
+
+    // ✅ 안정적으로 동작하는 모델(당신 환경에서 이미 성공한 v1beta + 1.5 flash 유지)
+    const model = "gemini-1.5-flash";
     const url = `https://generativelanguage.googleapis.com/v1beta/models/${model}:generateContent`;
+
+    const prompt = `
+You are the official guide for the WRISTORY project (Digital Heritage NFT on Tezos).
+${langInstruction}
+
+Rules:
+- Keep answers clear and helpful.
+- If user asks about a historical figure, give a concise summary + key facts + why WRISTORY features them.
+- If user asks about airdrop/how-to, answer with step-by-step instructions.
+
+User question:
+${userMessage || ""}
+`.trim();
 
     const response = await fetch(url, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
-        // ✅ 권장: 쿼리스트링 key= 말고 헤더로 전달
-        "x-goog-api-key": API_KEY,
+        "x-goog-api-key": API_KEY, // ✅ 헤더 방식
       },
       body: JSON.stringify({
-        contents: [
-          {
-            parts: [
-              {
-                text: `당신은 독립운동가 시계 NFT 프로젝트 'WRISTORY'의 전문 가이드입니다. 한국어로 답변하세요.\n\n질문: ${userMessage || ""}`,
-              },
-            ],
-          },
-        ],
+        contents: [{ parts: [{ text: prompt }] }],
       }),
     });
 
@@ -58,8 +71,7 @@ exports.handler = async (event) => {
       };
     }
 
-    const reply =
-      data?.candidates?.[0]?.content?.parts?.[0]?.text || "답변을 생성하지 못했습니다.";
+    const reply = data?.candidates?.[0]?.content?.parts?.[0]?.text || "답변을 생성하지 못했습니다.";
 
     return {
       statusCode: 200,
