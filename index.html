@@ -61,26 +61,25 @@
       }
     };
 
-    // 이미지 주소들을 더 안정적인 cloudflare-ipfs로 통합했습니다.
+    // 이미지 주소를 가장 안정적인 공용 게이트웨이(ipfs.io)로 변경했습니다.
     const INDEPENDENCE_FIGHTERS_COLLECTIONS = [
-      { id: '1', title: { ko: '백범 김구' }, imageUrl: 'https://cloudflare-ipfs.com/ipfs/bafkreie4kz6obq6hjvwtrn5hi33yptemfch6kkjmwj5h22b7imipxjxd6u', link: 'https://objkt.com/tokens/KT1A77WVak4yMFoHDNzpAf8PGA7YLmh5wMJ8/32' },
-      { id: '2', title: { ko: '안중근' }, imageUrl: 'https://cloudflare-ipfs.com/ipfs/bafkreic4bp2ylmmamglszxxnnbipbqlz535qfrhtlm5sgc72lpssvsi3x4', link: 'https://objkt.com/tokens/KT1A77WVak4yMFoHDNzpAf8PGA7YLmh5wMJ8/30' },
-      { id: '3', title: { ko: '도산 안창호' }, imageUrl: 'https://cloudflare-ipfs.com/ipfs/bafkreig2qpetwuern2nyndlzn4u2z3j752su7pmx7jxrdmwr7man7dfdg4', link: 'https://objkt.com/tokens/KT1A77WVak4yMFoHDNzpAf8PGA7YLmh5wMJ8/31' },
-      { id: '4', title: { ko: '윤봉길' }, imageUrl: 'https://cloudflare-ipfs.com/ipfs/bafkreiaayojxjidmtyu6rnqtfwmabestd7qf7aai4klqpjfflqk4pzytde', link: 'https://objkt.com/tokens/KT1A77WVak4yMFoHDNzpAf8PGA7YLmh5wMJ8/33' },
-      { id: '5', title: { ko: '김마리아' }, imageUrl: 'https://cloudflare-ipfs.com/ipfs/bafkreigza7i6mn2jkwbdcy64f5scwji4g6g2fsranp6w4fujn3bf7g3wca', link: 'https://objkt.com/tokens/KT1A77WVak4yMFoHDNzpAf8PGA7YLmh5wMJ8/14' },
-      { id: '6', title: { ko: '유관순' }, imageUrl: 'https://cloudflare-ipfs.com/ipfs/bafkreifv2thpaq2t3dgve3tomhb6eccwitgy6fi3qa256jeeafqtcx3ihy', link: 'https://objkt.com/tokens/KT1A77WVak4yMFoHDNzpAf8PGA7YLmh5wMJ8/7' },
+      { id: '1', title: { ko: '백범 김구' }, imageUrl: 'https://ipfs.io/ipfs/bafkreie4kz6obq6hjvwtrn5hi33yptemfch6kkjmwj5h22b7imipxjxd6u', link: 'https://objkt.com/tokens/KT1A77WVak4yMFoHDNzpAf8PGA7YLmh5wMJ8/32' },
+      { id: '2', title: { ko: '안중근' }, imageUrl: 'https://ipfs.io/ipfs/bafkreic4bp2ylmmamglszxxnnbipbqlz535qfrhtlm5sgc72lpssvsi3x4', link: 'https://objkt.com/tokens/KT1A77WVak4yMFoHDNzpAf8PGA7YLmh5wMJ8/30' },
+      { id: '3', title: { ko: '도산 안창호' }, imageUrl: 'https://ipfs.io/ipfs/bafkreig2qpetwuern2nyndlzn4u2z3j752su7pmx7jxrdmwr7man7dfdg4', link: 'https://objkt.com/tokens/KT1A77WVak4yMFoHDNzpAf8PGA7YLmh5wMJ8/31' },
+      { id: '4', title: { ko: '윤봉길' }, imageUrl: 'https://ipfs.io/ipfs/bafkreiaayojxjidmtyu6rnqtfwmabestd7qf7aai4klqpjfflqk4pzytde', link: 'https://objkt.com/tokens/KT1A77WVak4yMFoHDNzpAf8PGA7YLmh5wMJ8/33' },
+      { id: '5', title: { ko: '김마리아' }, imageUrl: 'https://ipfs.io/ipfs/bafkreigza7i6mn2jkwbdcy64f5scwji4g6g2fsranp6w4fujn3bf7g3wca', link: 'https://objkt.com/tokens/KT1A77WVak4yMFoHDNzpAf8PGA7YLmh5wMJ8/14' },
+      { id: '6', title: { ko: '유관순' }, imageUrl: 'https://ipfs.io/ipfs/bafkreifv2thpaq2t3dgve3tomhb6eccwitgy6fi3qa256jeeafqtcx3ihy', link: 'https://objkt.com/tokens/KT1A77WVak4yMFoHDNzpAf8PGA7YLmh5wMJ8/7' },
     ];
 
     const BITCOIN_CHRONICLES_COLLECTIONS = [
-      { id: '11', title: { ko: '비트코인 피자' }, imageUrl: 'https://cloudflare-ipfs.com/ipfs/bafkreidh4ahkgq4ot4s5gnpfufy4tkboeb7pfi5rbxm75bq3biwi2dwiby', link: 'https://objkt.com/collections/KT1JU866vUaq8ac5KkmuW8XKnEbNXiVHRqUy', color: 'from-pink-600 to-orange-500' },
-      { id: '12', title: { ko: '비트코인 백서' }, imageUrl: 'https://cloudflare-ipfs.com/ipfs/bafkreifvrgo5jj3tfkf6yeuvodplfdg46pfx6mgfzilrwewxb333xu6sru', link: 'https://objkt.com/collections/KT1BywQidkDZoSaS38cv1xGWRgXBkx9qFeVe', color: 'from-amber-500 to-blue-700' },
+      { id: '11', title: { ko: '비트코인 피자' }, imageUrl: 'https://ipfs.io/ipfs/bafkreidh4ahkgq4ot4s5gnpfufy4tkboeb7pfi5rbxm75bq3biwi2dwiby', link: 'https://objkt.com/collections/KT1JU866vUaq8ac5KkmuW8XKnEbNXiVHRqUy', color: 'from-pink-600 to-orange-500' },
+      { id: '12', title: { ko: '비트코인 백서' }, imageUrl: 'https://ipfs.io/ipfs/bafkreifvrgo5jj3tfkf6yeuvodplfdg46pfx6mgfzilrwewxb333xu6sru', link: 'https://objkt.com/collections/KT1BywQidkDZoSaS38cv1xGWRgXBkx9qFeVe', color: 'from-amber-500 to-blue-700' },
     ];
     
     const FREE_MINTING_COLLECTIONS = [
-      { id: '13', title: { ko: '포크 프로젝트' }, imageUrl: 'https://cloudflare-ipfs.com/ipfs/bafybeibs6petkvozp4qfxdd4mvtcnxvfpmuxuxixkvxoa7wr24mhu7fpku', link: 'https://objkt.com/collections/KT1XMCJGLo9vnHRAf5LQdw9z3BF9yGVfffnm', color: 'from-teal-500 to-cyan-600' },
-      { id: '14', title: { ko: '프리 크리에이션' }, imageUrl: 'https://cloudflare-ipfs.com/ipfs/bafkreihmtnnmlq4u3tanpax6zqo7oqzwkolmqsqn2gfeyko57s2ydmqo5e', link: 'https://objkt.com/collections/KT1AQkX48gLHaKSv1NPyrrJFFvZTFsUu9GP8', color: 'from-slate-600 to-gray-700' },
+      { id: '13', title: { ko: '포크 프로젝트' }, imageUrl: 'https://ipfs.io/ipfs/bafybeibs6petkvozp4qfxdd4mvtcnxvfpmuxuxixkvxoa7wr24mhu7fpku', link: 'https://objkt.com/collections/KT1XMCJGLo9vnHRAf5LQdw9z3BF9yGVfffnm', color: 'from-teal-500 to-cyan-600' },
+      { id: '14', title: { ko: '프리 크리에이션' }, imageUrl: 'https://ipfs.io/ipfs/bafkreihmtnnmlq4u3tanpax6zqo7oqzwkolmqsqn2gfeyko57s2ydmqo5e', link: 'https://objkt.com/collections/KT1AQkX48gLHaKSv1NPyrrJFFvZTFsUu9GP8', color: 'from-slate-600 to-gray-700' },
     ];
-
     const CollectionCard = ({ collection, language }) => (
       <a href={collection.link} target="_blank" className="block bg-slate-800/50 border border-slate-700 rounded-xl overflow-hidden hover:border-purple-500 transition-all duration-300 group">
         <div className="h-64 overflow-hidden relative">
