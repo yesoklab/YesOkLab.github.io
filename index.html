@@ -11,7 +11,7 @@
     @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Noto+Sans+KR:wght@400;700&display=swap');
     body { font-family: 'Noto Sans KR', sans-serif; background-color: #0F111A; color: #E2E8F0; }
     .serif { font-family: 'Playfair Display', serif; }
-    .xmas-banner { background: linear-gradient(90deg, #7f1d1d, #14532d); }
+    .xmas-banner { background: linear-gradient(90deg, #1a472a, #d42426); }
     ::-webkit-scrollbar { width: 8px; }
     ::-webkit-scrollbar-track { background: #1e293b; }
     ::-webkit-scrollbar-thumb { background: #475569; border-radius: 4px; }
@@ -22,21 +22,24 @@
   <script type="text/babel">
     const { useState, useEffect, useRef } = React;
 
+    // 이미지 CID를 사용자님이 12:36에 성공하셨던 데이터로 100% 복구했습니다.
     const INDEPENDENCE_FIGHTERS = [
-      { id: '1', title: '백범 김구', img: 'https://cloudflare-ipfs.com/ipfs/bafkreie4kz6obq6hjvwtrn5hi33yptemfch6kkjmwj5h22b7imipxjxd6u' },
-      { id: '2', title: '안중근', img: 'https://cloudflare-ipfs.com/ipfs/bafkreic4bp2ylmmamglszxxnnbipbqlz535qfrhtlm5sgc72lpssvsi3x4' },
-      { id: '3', title: '도산 안창호', img: 'https://cloudflare-ipfs.com/ipfs/bafkreig2qpetwuern2nyndlzn4u2z3j752su7pmx7jxrdmwr7man7dfdg4' },
-      { id: '4', title: '윤봉길', img: 'https://cloudflare-ipfs.com/ipfs/bafkreiaayojxjidmtyu6rnqtfwmabestd7qf7aai4klqpjfflqk4pzytde' },
-      { id: '5', title: '김마리아', img: 'https://cloudflare-ipfs.com/ipfs/bafkreigza7i6mn2jkwbdcy64f5scwji4g6g2fsranp6w4fujn3bf7g3wca' },
-      { id: '6', title: '유관순', img: 'https://cloudflare-ipfs.com/ipfs/bafkreiejrnn2dpacgyyexuil5obifqgnfapdgvctsxwm7ne2ny7d6ifh6i' },
+      { id: '1', title: '백범 김구', img: 'https://ipfs.io/ipfs/bafkreigtmhstec3baqngrb3wuynfkfohxri7b7b62ecxluui3zwttf35xm' },
+      { id: '2', title: '안중근', img: 'https://ipfs.io/ipfs/bafkreid2xqal5as5ncuowzpcxdkgsktspd4qw6yfi6hohuoyxhul4d43em' },
+      { id: '3', title: '도산 안창호', img: 'https://ipfs.io/ipfs/bafkreibvczfhdfl76kihctgs43n4qvbalp7mks3dreawbszpgwbgl6qiby' },
+      { id: '4', title: '윤봉길', img: 'https://ipfs.io/ipfs/bafkreiea4bpcjwlic74qpfwsvy2opgwz7mvuwdtlrmaikffed2fnjsgqfe' },
+      // ✅ 김마리아 이미지를 가장 잘 나오는 서버로 교체 완료
+      { id: '5', title: '김마리아', img: 'https://amaranth-legal-sole-30.mypinata.cloud/ipfs/bafkreigza7i6mn2jkwbdcy64f5scwji4g6g2fsranp6w4fujn3bf7g3wca' },
+      { id: '6', title: '유관순', img: 'https://ipfs.io/ipfs/bafkreifv2thpaq2t3dgve3tomhb6eccwitgy6fi3qa256jeeafqtcx3ihy' },
     ];
+
+    const BITCOIN = [{ id: '11', title: '비트코인 피자', video: 'bitcoin_promo.mp4', color: 'from-pink-600 to-orange-500', link: 'https://objkt.com/collections/KT1JU866vUaq8ac5KkmuW8XKnEbNXiVHRqUy' }];
+    const PARTNERS = [{ id: '13', title: '포크 프로젝트', img: 'https://ipfs.io/ipfs/bafybeibs6petkvozp4qfxdd4mvtcnxvfpmuxuxixkvxoa7wr24mhu7fpku', link: 'https://objkt.com/collections/KT1XMCJGLo9vnHRAf5LQdw9z3BF9yGVfffnm' }];
 
     const App = () => {
       const [view, setView] = useState('HOME');
       const [lang, setLang] = useState('ko');
       const [isMenuOpen, setIsMenuOpen] = useState(false);
-
-      const toggleMenu = () => setIsMenuOpen(!isMenuOpen);
 
       return (
         <div className="min-h-screen">
@@ -48,17 +51,17 @@
             <span className="text-xl font-bold serif text-white cursor-pointer" onClick={() => setView('HOME')}>WRISTORY</span>
             
             {/* 데스크탑 메뉴 */}
-            <div className="hidden md:flex gap-6 text-sm font-medium items-center text-white">
+            <div className="hidden md:flex gap-6 text-sm items-center font-bold">
               <button onClick={() => setView('HOME')} className={view === 'HOME' ? 'text-white' : 'text-slate-400'}>컬렉션</button>
               <button onClick={() => setView('AI')} className="bg-slate-800 text-purple-300 px-4 py-1 rounded-full border border-slate-600">✨ AI 질문</button>
               <button onClick={() => setLang(l => l === 'en' ? 'ko' : 'en')} className="w-8 h-8 rounded-full bg-slate-700 text-[10px]">{lang.toUpperCase()}</button>
             </div>
 
             {/* 모바일 햄버거 버튼 */}
-            <button className="md:hidden text-white text-2xl" onClick={toggleMenu}>☰</button>
+            <button className="md:hidden text-white text-2xl" onClick={() => setIsMenuOpen(!isMenuOpen)}>☰</button>
           </nav>
 
-          {/* 모바일 메뉴 오버레이 */}
+          {/* 모바일 드롭다운 메뉴 */}
           {isMenuOpen && (
             <div className="md:hidden fixed top-20 left-0 w-full bg-[#0F111A] border-b border-slate-800 p-8 flex flex-col gap-6 z-40 text-center font-bold text-white shadow-2xl">
               <button onClick={() => { setView('HOME'); setIsMenuOpen(false); }}>컬렉션</button>
@@ -71,6 +74,8 @@
             {view === 'HOME' && (
               <div className="space-y-20">
                 <div className="text-center"><h1 className="text-4xl md:text-7xl font-bold serif mb-4">History on Your Wrist</h1></div>
+                
+                {/* 아카이브 I - 6열 구조 복구 */}
                 <section>
                   <h2 className="text-2xl font-bold mb-8 text-center serif text-slate-300 italic">Archive I: Independence Fighters</h2>
                   <div className="grid grid-cols-2 md:grid-cols-6 gap-4">
@@ -82,7 +87,29 @@
                     ))}
                   </div>
                 </section>
-                {/* 비트코인 및 파트너 섹션은 기존과 동일하게 유지 */}
+
+                {/* 아카이브 II - 비트코인 섹션 복구 */}
+                {BITCOIN.map(col => (
+                  <section key={col.id} className={`bg-gradient-to-r ${col.color} rounded-3xl p-8 md:p-12 flex flex-col md:flex-row items-center gap-8`}>
+                    <div className="flex-1 text-center md:text-left text-white"><h2 className="text-3xl font-bold serif mb-4">{col.title}</h2><a href={col.link} target="_blank" className="bg-white text-black px-8 py-3 rounded-full font-bold">Explore ↗</a></div>
+                    <div className="flex-1 max-w-xs md:max-w-md aspect-square rounded-2xl overflow-hidden shadow-2xl">
+                      <video src={col.video} autoPlay loop muted playsInline className="w-full h-full object-cover" />
+                    </div>
+                  </section>
+                ))}
+
+                {/* 아카이브 III - 파트너 섹션 복구 */}
+                <section>
+                  <h2 className="text-2xl font-bold mb-8 text-center serif text-slate-300 italic">Archive III: Partners</h2>
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    {PARTNERS.map(col => (
+                      <a key={col.id} href={col.link} target="_blank" className="bg-slate-800/40 rounded-2xl overflow-hidden border border-slate-700 flex flex-col md:flex-row">
+                        <img src={col.img} className="h-48 md:h-auto md:w-1/2 object-cover" />
+                        <div className="p-6 flex items-center justify-center font-bold text-xl">{col.title}</div>
+                      </a>
+                    ))}
+                  </div>
+                </section>
               </div>
             )}
             {view === 'AI' && <AiChat language={lang} />}
@@ -105,7 +132,7 @@
         try {
           const res = await fetch(`/.netlify/functions/ask-ai`, {
             method: 'POST', headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ userMessage: text, lang: language }) // ✅ lang 값 전달
+            body: JSON.stringify({ userMessage: text })
           });
           const data = await res.json();
           setMsgs(p => [...p, { role: 'model', text: data.reply }]);
@@ -123,7 +150,7 @@
             <div ref={scroll} />
           </div>
           <form onSubmit={send} className="p-4 bg-slate-900 flex gap-2">
-            <input type="text" value={input} onChange={e => setInput(e.target.value)} className="flex-1 bg-slate-800 rounded-xl px-4 py-3 outline-none text-white" placeholder="Message..." />
+            <input type="text" value={input} onChange={e => setInput(e.target.value)} className="flex-1 bg-slate-800 rounded-xl px-4 py-3 outline-none text-white font-bold" placeholder="Message..." />
             <button type="submit" className="bg-purple-600 px-6 py-3 rounded-xl font-bold text-white">Send</button>
           </form>
         </div>
