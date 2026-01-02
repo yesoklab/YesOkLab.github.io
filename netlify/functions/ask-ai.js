@@ -11,50 +11,35 @@ exports.handler = async (event) => {
     };
   }
 
-  const baseHeaders = {
-    "Access-Control-Allow-Origin": "*",
-    "Content-Type": "application/json; charset=utf-8",
-  };
-
   try {
-    const { userMessage, lang } = JSON.parse(event.body || "{}");
+    const { userMessage } = JSON.parse(event.body || "{}");
     const API_KEY = process.env.WRISTORY_GEMINI_KEY;
 
-    if (!API_KEY) {
-      return { statusCode: 200, headers: baseHeaders, body: JSON.stringify({ reply: "서버 설정 오류: API Key가 없습니다." }) };
-    }
+    // 가장 호환성이 좋은 v1beta 주소 사용
+    const url = `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${API_KEY}`;
 
-    // 언어 설정 고정
-    const fixedLang = (lang === "en" || lang === "ko") ? lang : "ko";
-    const langInstruction = fixedLang === "en" 
-      ? "Respond in English only. Do not use Korean." 
-      : "반드시 한국어로만 답변하세요. 영어를 섞지 마세요.";
+    const response = await fetch(url, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        contents: [{
+          parts: [{
+            // 지침: 언어 자동 감지 및 동일 언어 답변 명시
+            text: `Instruction: You are the professional AI guide for WRISTORY. Detect the user's language (English or Korean) and respond ONLY in that same language. Explain Korean history and Bitcoin context clearly.\n\nUser Question: ${userMessage}`
+          }]
+        }]
+      })
+    });
 
-    const prompt = `당신은 WRISTORY 프로젝트의 공식 가이드입니다. ${langInstruction}\n사용자 질문: ${userMessage}`;
+    const data = await response.json();
+    const reply = data?.candidates?.[0]?.content?.parts?.[0]?.text || "Response error.";
 
-    // ✅ 모델 후보군 수정 (존재하는 모델로 변경)
-    const modelCandidates = ["gemini-1.5-flash", "gemini-1.5-pro", "gemini-2.0-flash-exp"];
-    let lastError = null;
-
-    for (const model of modelCandidates) {
-      const url = `https://generativelanguage.googleapis.com/v1beta/models/${model}:generateContent?key=${API_KEY}`;
-      try {
-        const response = await fetch(url, {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ contents: [{ parts: [{ text: prompt }] }] }),
-        });
-
-        const data = await response.json();
-        const text = data?.candidates?.[0]?.content?.parts?.[0]?.text;
-        if (text) return { statusCode: 200, headers: baseHeaders, body: JSON.stringify({ reply: text }) };
-        if (data?.error) lastError = data.error.message;
-      } catch (e) { lastError = e.message; }
-    }
-
-    return { statusCode: 200, headers: baseHeaders, body: JSON.stringify({ reply: `AI 연결 실패: ${lastError}` }) };
+    return {
+      statusCode: 200,
+      headers: { "Access-Control-Allow-Origin": "*" },
+      body: JSON.stringify({ reply }),
+    };
   } catch (error) {
-    return { statusCode: 500, headers: baseHeaders, body: JSON.stringify({ reply: "서버 내부 오류" }) };
+    return { statusCode: 500, body: JSON.stringify({ reply: "Server error." }) };
   }
 };
-
