@@ -1,235 +1,194 @@
 <!DOCTYPE html>
 <html lang="ko">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>WRISTORY | Digital Heritage by YesOkLab</title>
-  <meta name="description" content="블록체인 기술로 역사를 보존합니다. WRISTORY NFT 에어드랍 및 컬렉션 공식 페이지.">
-  <meta property="og:type" content="website">
-  <meta property="og:title" content="WRISTORY - 에어드랍 등록 및 컬렉션">
-  <meta property="og:description" content="안중근, 김구 등 한국의 위인들과 비트코인 역사를 담은 디지털 헤리티지 NFT.">
-  <meta property="og:image" content="https://amaranth-legal-sole-30.mypinata.cloud/ipfs/bafkreiaohqebkvodjwrnwt3673zaijntc3uc2g5mxg6vfdydqpeaf77s4a">
-  <meta property="twitter:card" content="summary_large_image">
-
-  <script src="https://cdn.tailwindcss.com"></script>
-  <script src="https://unpkg.com/react@18/umd/react.production.min.js" crossorigin></script>
-  <script src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js" crossorigin></script>
-  <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
-
-  <style>
-    @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Noto+Sans+KR:wght@300;400;500;700&family=Inter:wght@300;400;600&display=swap');
-    body { font-family: 'Inter', 'Noto Sans KR', sans-serif; background-color: #0F111A; color: #E2E8F0; }
-    h1, h2, h3, .serif { font-family: 'Playfair Display', serif; }
-    .text-shadow { text-shadow: 0 2px 4px rgba(0,0,0,0.5); }
-    ::-webkit-scrollbar { width: 8px; }
-    ::-webkit-scrollbar-track { background: #1e293b; }
-    ::-webkit-scrollbar-thumb { background: #475569; border-radius: 4px; }
-    
-    /* 성탄 배너 애니메이션 */
-    .xmas-banner { background: linear-gradient(90deg, #7f1d1d, #14532d, #7f1d1d); background-size: 200% auto; animation: shine 5s linear infinite; }
-    @keyframes shine { to { background-position: 200% center; } }
-    
-    body.modal-open { overflow: hidden; }
-  </style>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>WRISTORY | Digital Heritage by YesOkLab</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/react@18/umd/react.production.min.js" crossorigin></script>
+    <script src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js" crossorigin></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Noto+Sans+KR:wght@300;400;500;700&family=Inter:wght@300;400;600&display=swap');
+        body { font-family: 'Inter', 'Noto Sans KR', sans-serif; background-color: #0F111A; color: #E2E8F0; }
+        h1, h2, h3, .serif { font-family: 'Playfair Display', serif; }
+        .text-shadow { text-shadow: 0 2px 4px rgba(0,0,0,0.5); }
+        .xmas-banner { background: linear-gradient(90deg, #7f1d1d, #14532d, #7f1d1d); background-size: 200% auto; animation: shine 5s linear infinite; }
+        @keyframes shine { to { background-position: 200% center; } }
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-track { background: #1e293b; }
+        ::-webkit-scrollbar-thumb { background: #475569; border-radius: 4px; }
+    </style>
 </head>
-
 <body>
-  <div id="root"></div>
+    <div id="root"></div>
+    <script type="text/babel">
+        const { useState, useEffect, useRef } = React;
+        
+        const XMAS_NFT_LINK = "https://objkt.com/tokens/KT1AQkX48gLHaKSv1NPyrrJFFvZTFsUu9GP8/7?ref=tz1eXLHqJXBnp4VFGwFDfMGWcLYVgBUYnA16";
+        const GOOGLE_FORM_URL_KO = "https://docs.google.com/forms/d/e/1FAIpQLSdagQ6wk6fVVbl0Q4gc5htaCAnnBlJt0fW_aivdx7BrLKCN9g/viewform";
 
-  <script type="text/babel">
-    const { useState, useEffect, useRef } = React;
+        const TRANSLATIONS = {
+          en: { 
+            xmas: "🎄 Merry Christmas! Celebrate with us.", xmasLink: "View Special NFT ↗",
+            nav: { collections: 'Collections', register: 'Airdrop', ai: '✨ Ask AI' },
+            hero: { title: 'History on Your Wrist', subtitle: 'Preserving legendary moments through blockchain technology.' },
+            home: { fightersTitle: 'Archive I: Korean Independence Fighters', bitcoinTitle: 'Archive II: The Bitcoin Chronicles', freeMintTitle: 'Archive III: Free Creation & Partner Labs' },
+            ai: { title: 'WRISTORY Assistant', placeholder: 'Ask anything...', send: 'Send', initialMsg: 'Hello! I am WRISTORY AI. Ask me anything!', error: 'Connection failed.' }
+          },
+          ko: { 
+            xmas: "🎄 기쁜 성탄과 희망찬 새해를 맞이하여 축복이 가득하시길 기원합니다.", xmasLink: "특별 성탄 NFT 보기 ↗",
+            nav: { collections: '컬렉션', register: '에어드랍', ai: '✨ AI 질문' },
+            hero: { title: '손목 위의 역사', subtitle: '블록체인 기술을 통해 전설적인 순간들을 보존합니다.' },
+            home: { fightersTitle: '아카이브 I: 대한민국 독립운동가', bitcoinTitle: '아카이브 II: 비트코인 연대기', freeMintTitle: '아카이브 III: 자유 창작 및 파트너 랩' },
+            ai: { title: 'WRISTORY AI 비서', placeholder: '궁금한 점을 입력하세요...', send: '전송', initialMsg: '안녕하세요. WRISTORY AI입니다. 무엇이든 물어보세요!', error: '연결 실패. 다시 시도해주세요.' }
+          }
+        };
 
-    // ✅ 성탄 설정
-    const XMAS_NFT_LINK = "https://objkt.com/tokens/KT1AQkX48gLHaKSv1NPyrrJFFvZTFsUu9GP8/7?ref=tz1eXLHqJXBnp4VFGwFDfMGWcLYVgBUYnA16";
-    
-    const TRANSLATIONS = {
-      en: {
-        xmas: { banner: "🎄 Merry Christmas! Celebrate with us.", link: "View Special NFT ↗" },
-        nav: { collections: 'Collections', register: 'Airdrop', guide: 'Guide', ai: '✨ Ask AI' },
-        hero: { title: 'History on Your Wrist', subtitle: 'Preserving legendary moments through blockchain technology.' },
-        home: { fightersTitle: 'Archive I: Korean Independence Fighters', bitcoinTitle: 'Archive II: The Bitcoin Chronicles', freeMintTitle: 'Archive III: Free Creation & Partner Labs' },
-        ai: { title: 'WRISTORY AI Assistant', subtitle: 'Ask about history.', placeholder: 'Ask anything...', send: 'Send', initialMsg: 'Hello! I am WRISTORY AI. Happy Holidays!', error: 'Connection failed.', typing: 'Thinking...' },
-        footer: { rights: '© 2025 YesOkLab | WRISTORY Project. All Rights Reserved.' }
-      },
-      ko: {
-        xmas: { banner: "🎄 기쁜 성탄과 희망찬 새해를 맞이하여 축복이 가득하시길 기원합니다.", link: "특별 성탄 NFT 보기 ↗" },
-        nav: { collections: '컬렉션', register: '에어드랍', guide: '가이드', ai: '✨ AI 질문' },
-        hero: { title: '손목 위의 역사', subtitle: '블록체인 기술을 통해 전설적인 순간들을 보존합니다.' },
-        home: { fightersTitle: '아카이브 I: 대한민국 독립운동가', bitcoinTitle: '아카이브 II: 비트코인 연대기', freeMintTitle: '아카이브 III: 자유 창작 및 파트너 랩' },
-        ai: { title: 'WRISTORY AI 비서', subtitle: '역사적 배경이나 프로젝트에 대해 물어보세요.', placeholder: '궁금한 점을 입력하세요...', send: '전송', initialMsg: '안녕하세요. WRISTORY AI입니다. 즐거운 성탄 되세요!', error: '연결에 실패했습니다.', typing: '생각 중...' },
-        footer: { rights: '© 2025 YesOkLab | WRISTORY Project. All Rights Reserved.' }
-      }
-    };
+        const INDEPENDENCE_FIGHTERS_COLLECTIONS = [
+          { id: '1', title: '백범 김구', imageUrl: 'https://cloudflare-ipfs.com/ipfs/bafkreie4kz6obq6hjvwtrn5hi33yptemfch6kkjmwj5h22b7imipxjxd6u', link: 'https://objkt.com/tokens/KT1A77WVak4yMFoHDNzpAf8PGA7YLmh5wMJ8/32' },
+          { id: '2', title: '안중근', imageUrl: 'https://cloudflare-ipfs.com/ipfs/bafkreic4bp2ylmmamglszxxnnbipbqlz535qfrhtlm5sgc72lpssvsi3x4', link: 'https://objkt.com/tokens/KT1A77WVak4yMFoHDNzpAf8PGA7YLmh5wMJ8/30' },
+          { id: '3', title: '도산 안창호', imageUrl: 'https://cloudflare-ipfs.com/ipfs/bafkreig2qpetwuern2nyndlzn4u2z3j752su7pmx7jxrdmwr7man7dfdg4', link: 'https://objkt.com/tokens/KT1A77WVak4yMFoHDNzpAf8PGA7YLmh5wMJ8/31' },
+          { id: '4', title: '윤봉길', imageUrl: 'https://cloudflare-ipfs.com/ipfs/bafkreiaayojxjidmtyu6rnqtfwmabestd7qf7aai4klqpjfflqk4pzytde', link: 'https://objkt.com/tokens/KT1A77WVak4yMFoHDNzpAf8PGA7YLmh5wMJ8/33' },
+          // ✅ 김마리아 이미지 서버 경로 수정 완료
+          { id: '7', title: '김마리아', imageUrl: 'https://amaranth-legal-sole-30.mypinata.cloud/ipfs/bafkreigza7i6mn2jkwbdcy64f5scwji4g6g2fsranp6w4fujn3bf7g3wca', link: 'https://objkt.com/tokens/KT1A77WVak4yMFoHDNzpAf8PGA7YLmh5wMJ8/14' },
+          { id: '8', title: '유관순', imageUrl: 'https://cloudflare-ipfs.com/ipfs/bafkreiejrnn2dpacgyyexuil5obifqgnfapdgvctsxwm7ne2ny7d6ifh6i', link: 'https://objkt.com/tokens/KT1A77WVak4yMFoHDNzpAf8PGA7YLmh5wMJ8/27' },
+        ];
 
-    // 이미지 주소를 가장 안정적인 공용 게이트웨이(ipfs.io)로 변경했습니다.
-    const INDEPENDENCE_FIGHTERS_COLLECTIONS = [
-      { id: '1', title: { ko: '백범 김구' }, imageUrl: 'https://ipfs.io/ipfs/bafkreie4kz6obq6hjvwtrn5hi33yptemfch6kkjmwj5h22b7imipxjxd6u', link: 'https://objkt.com/tokens/KT1A77WVak4yMFoHDNzpAf8PGA7YLmh5wMJ8/32' },
-      { id: '2', title: { ko: '안중근' }, imageUrl: 'https://ipfs.io/ipfs/bafkreic4bp2ylmmamglszxxnnbipbqlz535qfrhtlm5sgc72lpssvsi3x4', link: 'https://objkt.com/tokens/KT1A77WVak4yMFoHDNzpAf8PGA7YLmh5wMJ8/30' },
-      { id: '3', title: { ko: '도산 안창호' }, imageUrl: 'https://ipfs.io/ipfs/bafkreig2qpetwuern2nyndlzn4u2z3j752su7pmx7jxrdmwr7man7dfdg4', link: 'https://objkt.com/tokens/KT1A77WVak4yMFoHDNzpAf8PGA7YLmh5wMJ8/31' },
-      { id: '4', title: { ko: '윤봉길' }, imageUrl: 'https://ipfs.io/ipfs/bafkreiaayojxjidmtyu6rnqtfwmabestd7qf7aai4klqpjfflqk4pzytde', link: 'https://objkt.com/tokens/KT1A77WVak4yMFoHDNzpAf8PGA7YLmh5wMJ8/33' },
-      { id: '5', title: { ko: '김마리아' }, imageUrl: 'https://ipfs.io/ipfs/bafkreigza7i6mn2jkwbdcy64f5scwji4g6g2fsranp6w4fujn3bf7g3wca', link: 'https://objkt.com/tokens/KT1A77WVak4yMFoHDNzpAf8PGA7YLmh5wMJ8/14' },
-      { id: '6', title: { ko: '유관순' }, imageUrl: 'https://ipfs.io/ipfs/bafkreifv2thpaq2t3dgve3tomhb6eccwitgy6fi3qa256jeeafqtcx3ihy', link: 'https://objkt.com/tokens/KT1A77WVak4yMFoHDNzpAf8PGA7YLmh5wMJ8/7' },
-    ];
+        const BITCOIN_CHRONICLES_COLLECTIONS = [
+          { id: '11', title: { ko: '비트코인 피자' }, description: { ko: '최초의 실물 거래 기념.' }, imageUrl: 'https://cloudflare-ipfs.com/ipfs/bafkreidh4ahkgq4ot4s5gnpfufy4tkboeb7pfi5rbxm75bq3biwi2dwiby', videoUrl: 'bitcoin_promo.mp4', link: 'https://objkt.com/collections/KT1JU866vUaq8ac5KkmuW8XKnEbNXiVHRqUy', color: 'from-pink-600 to-orange-500' },
+          { id: '12', title: { ko: '비트코인 백서' }, description: { ko: '사토시 논문 보존.' }, imageUrl: 'https://cloudflare-ipfs.com/ipfs/bafkreifvrgo5jj3tfkf6yeuvodplfdg46pfx6mgfzilrwewxb333xu6sru', link: 'https://objkt.com/collections/KT1BywQidkDZoSaS38cv1xGWRgXBkx9qFeVe', color: 'from-amber-500 to-blue-700' },
+        ];
+        
+        const FREE_MINTING_COLLECTIONS = [
+          { id: '13', title: { ko: '포크 프로젝트' }, imageUrl: 'https://cloudflare-ipfs.com/ipfs/bafybeibs6petkvozp4qfxdd4mvtcnxvfpmuxuxixkvxoa7wr24mhu7fpku', link: 'https://objkt.com/collections/KT1XMCJGLo9vnHRAf5LQdw9z3BF9yGVfffnm', color: 'from-teal-500 to-cyan-600' },
+          { id: '14', title: { ko: '프리 크리에이션' }, imageUrl: 'https://cloudflare-ipfs.com/ipfs/bafkreihmtnnmlq4u3tanpax6zqo7oqzwkolmqsqn2gfeyko57s2ydmqo5e', link: 'https://objkt.com/collections/KT1AQkX48gLHaKSv1NPyrrJFFvZTFsUu9GP8', color: 'from-slate-600 to-gray-700' },
+        ];
 
-    const BITCOIN_CHRONICLES_COLLECTIONS = [
-      { id: '11', title: { ko: '비트코인 피자' }, imageUrl: 'https://ipfs.io/ipfs/bafkreidh4ahkgq4ot4s5gnpfufy4tkboeb7pfi5rbxm75bq3biwi2dwiby', link: 'https://objkt.com/collections/KT1JU866vUaq8ac5KkmuW8XKnEbNXiVHRqUy', color: 'from-pink-600 to-orange-500' },
-      { id: '12', title: { ko: '비트코인 백서' }, imageUrl: 'https://ipfs.io/ipfs/bafkreifvrgo5jj3tfkf6yeuvodplfdg46pfx6mgfzilrwewxb333xu6sru', link: 'https://objkt.com/collections/KT1BywQidkDZoSaS38cv1xGWRgXBkx9qFeVe', color: 'from-amber-500 to-blue-700' },
-    ];
-    
-    const FREE_MINTING_COLLECTIONS = [
-      { id: '13', title: { ko: '포크 프로젝트' }, imageUrl: 'https://ipfs.io/ipfs/bafybeibs6petkvozp4qfxdd4mvtcnxvfpmuxuxixkvxoa7wr24mhu7fpku', link: 'https://objkt.com/collections/KT1XMCJGLo9vnHRAf5LQdw9z3BF9yGVfffnm', color: 'from-teal-500 to-cyan-600' },
-      { id: '14', title: { ko: '프리 크리에이션' }, imageUrl: 'https://ipfs.io/ipfs/bafkreihmtnnmlq4u3tanpax6zqo7oqzwkolmqsqn2gfeyko57s2ydmqo5e', link: 'https://objkt.com/collections/KT1AQkX48gLHaKSv1NPyrrJFFvZTFsUu9GP8', color: 'from-slate-600 to-gray-700' },
-    ];
-    const CollectionCard = ({ collection, language }) => (
-      <a href={collection.link} target="_blank" className="block bg-slate-800/50 border border-slate-700 rounded-xl overflow-hidden hover:border-purple-500 transition-all duration-300 group">
-        <div className="h-64 overflow-hidden relative">
-          <img src={collection.imageUrl} className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"/>
-          <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity bg-black/30 backdrop-blur-[2px]">
-            <span className="bg-white/20 p-3 rounded-full border border-white/30 text-white">↗</span>
-          </div>
-        </div>
-        <div className="p-5 text-center font-bold text-slate-100">{collection.title.ko}</div>
-      </a>
-    );
-
-    const SpecialCollectionSection = ({ collection, language, index }) => {
-      const isReversed = index % 2 === 1;
-      return (
-        <section className="w-full py-16 md:py-20 relative overflow-hidden">
-          <div className={`absolute inset-0 bg-gradient-to-br ${collection.color} opacity-90`}></div>
-          <div className={`relative z-10 max-w-6xl mx-auto px-6 flex flex-col ${isReversed ? 'md:flex-row-reverse' : 'md:flex-row'} items-center gap-12`}>
-            <div className="flex-1 text-center md:text-left text-white">
-              <h2 className="text-4xl font-bold serif mb-6">{collection.title.ko}</h2>
-              <a href={collection.link} target="_blank" className="inline-flex px-8 py-4 bg-white text-gray-800 font-bold rounded-full shadow-lg">둘러보기 ↗</a>
+        const CollectionCard = ({ col }) => (
+          <a href={col.link} target="_blank" className="block bg-slate-800/50 border border-slate-700 rounded-xl overflow-hidden hover:border-purple-500 transition-all group">
+            <div className="h-64 overflow-hidden relative">
+              <img src={col.imageUrl} className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"/>
+              <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 bg-black/30 transition-opacity"><span className="bg-white/20 p-3 rounded-full text-white">↗</span></div>
             </div>
-            <div className="flex-1 max-w-md">
-              <div className="aspect-square bg-white/10 rounded-3xl p-4 backdrop-blur-sm border border-white/20">
-                <img src={collection.imageUrl} className="w-full h-full object-cover rounded-2xl shadow-2xl" />
+            <div className="p-5 text-center font-bold text-slate-100">{col.title.ko || col.title}</div>
+          </a>
+        );
+
+        const SpecialSection = ({ col, index }) => {
+          const isReversed = index % 2 === 1;
+          const Media = col.videoUrl ? (
+            <video src={col.videoUrl} autoPlay loop muted playsInline className="w-full h-full object-cover rounded-2xl shadow-2xl" />
+          ) : (
+            <img src={col.imageUrl} className="w-full h-full object-cover rounded-2xl shadow-2xl" />
+          );
+          return (
+            <section className="w-full py-20 relative overflow-hidden">
+              <div className={`absolute inset-0 bg-gradient-to-br ${col.color} opacity-90`}></div>
+              <div className={`relative z-10 max-w-6xl mx-auto px-6 flex flex-col ${isReversed ? 'md:flex-row-reverse' : 'md:flex-row'} items-center gap-12 text-white`}>
+                <div className="flex-1 text-center md:text-left"><h2 className="text-4xl font-bold serif mb-6">{col.title.ko}</h2><a href={col.link} target="_blank" className="px-8 py-4 bg-white text-gray-800 font-bold rounded-full">둘러보기 ↗</a></div>
+                <div className="flex-1 max-w-md"><div className="aspect-square bg-white/10 rounded-3xl p-4 backdrop-blur-sm border border-white/20">{Media}</div></div>
               </div>
-            </div>
-          </div>
-        </section>
-      );
-    };
+            </section>
+          );
+        };
 
-    const AiAssistant = ({ language }) => {
-      const t = TRANSLATIONS[language];
-      const [messages, setMessages] = useState([{ role: 'model', text: t.ai.initialMsg }]);
-      const [input, setInput] = useState('');
-      const [isTyping, setIsTyping] = useState(false);
-      const scrollRef = useRef(null);
+        const AiAssistant = ({ language }) => {
+          const t = TRANSLATIONS[language];
+          const [msgs, setMsgs] = useState([{ role: 'model', text: t.ai.initialMsg }]);
+          const [input, setInput] = useState('');
+          const [loading, setLoading] = useState(false);
+          const scroll = useRef(null);
+          useEffect(() => { scroll.current?.scrollIntoView({ behavior: "smooth" }); }, [msgs]);
 
-      useEffect(() => { scrollRef.current?.scrollIntoView({ behavior: "smooth" }); }, [messages]);
-
-      const handleSend = async (e) => {
-        e.preventDefault();
-        if (!input.trim() || isTyping) return;
-        const text = input; setInput('');
-        setMessages(prev => [...prev, { role: 'user', text }]);
-        setIsTyping(true);
-        try {
-          const response = await fetch(`/.netlify/functions/ask-ai`, {
-            method: 'POST', headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ userMessage: text })
-          });
-          const data = await response.json();
-          setMessages(prev => [...prev, { role: 'model', text: data.reply }]);
-        } catch {
-          setMessages(prev => [...prev, { role: 'model', text: t.ai.error }]);
-        } finally { setIsTyping(false); }
-      };
-
-      return (
-        <div className="max-w-4xl mx-auto h-[60vh] bg-slate-800/50 rounded-2xl border border-slate-700 flex flex-col overflow-hidden">
-          <div className="bg-slate-900 p-4 border-b border-slate-700 font-bold">{t.ai.title}</div>
-          <div className="flex-1 overflow-y-auto p-6 space-y-4">
-            {messages.map((msg, i) => (
-              <div key={i} className={`flex ${msg.role === 'user' ? 'justify-end' : 'justify-start'}`}>
-                <div className={`max-w-[80%] p-4 rounded-2xl ${msg.role === 'user' ? 'bg-purple-600' : 'bg-slate-700'}`}>{msg.text}</div>
-              </div>
-            ))}
-            {isTyping && <div className="text-slate-400 text-sm ml-4">Thinking...</div>}
-            <div ref={scrollRef} />
-          </div>
-          <form onSubmit={handleSend} className="p-4 bg-slate-900 flex gap-4">
-            <input type="text" value={input} onChange={e => setInput(e.target.value)} placeholder={t.ai.placeholder} className="flex-1 bg-slate-800 border-slate-600 rounded-xl px-4 py-3 text-white outline-none focus:border-purple-500" />
-            <button type="submit" className="bg-purple-600 px-6 py-3 rounded-xl font-bold text-white">전송</button>
-          </form>
-        </div>
-      );
-    };
-
-    const App = () => {
-      const [view, setView] = useState('HOME');
-      const [lang, setLang] = useState('ko');
-      const t = TRANSLATIONS[lang];
-
-      return (
-        <div className="min-h-screen">
-          {/* ✅ 성탄 고정 배너 (디자인을 해치지 않음) */}
-          <div className="xmas-banner py-3 text-center text-white text-sm font-bold shadow-lg">
-            {t.xmas.banner} 
-            <a href={XMAS_NFT_LINK} target="_blank" className="ml-4 underline hover:text-yellow-300 transition-colors">
-              {t.xmas.link}
-            </a>
-          </div>
-
-          <nav className="sticky top-0 z-50 bg-[#0F111A]/80 backdrop-blur-md border-b border-slate-800 h-20 flex items-center px-6 justify-between">
-            <div className="flex items-center gap-3 cursor-pointer" onClick={() => setView('HOME')}>
-              <span className="text-2xl font-bold serif text-white">WRISTORY</span>
-            </div>
-            <div className="flex gap-6 text-sm font-medium">
-              <button onClick={() => setView('HOME')} className={view === 'HOME' ? 'text-white' : 'text-slate-400'}>{t.nav.collections}</button>
-              <button onClick={() => setView('AI')} className="bg-slate-800 text-purple-300 px-4 py-1 rounded-full border border-slate-600">{t.nav.ai}</button>
-              <button onClick={() => setLang(l => l === 'en' ? 'ko' : 'en')} className="w-10 h-10 rounded-full bg-slate-700 text-xs">{lang.toUpperCase()}</button>
-            </div>
-          </nav>
-
-          <main className="relative z-10">
-            {view === 'HOME' && (
-              <div className="pb-20">
-                <div className="py-24 px-6 text-center">
-                  <h1 className="text-5xl md:text-7xl font-bold serif text-white mb-6">{t.hero.title}</h1>
-                  <p className="text-xl text-slate-400 max-w-2xl mx-auto">{t.hero.subtitle}</p>
-                </div>
-
-                {/* 아카이브 I */}
-                <div className="max-w-7xl mx-auto px-6 mb-20">
-                  <h2 className="text-3xl font-bold text-white serif mb-10 text-center">{t.home.fightersTitle}</h2>
-                  <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-6 gap-6">
-                    {INDEPENDENCE_FIGHTERS_COLLECTIONS.map(col => <CollectionCard key={col.id} collection={col} language={lang} />)}
+          const send = async (e) => {
+            e.preventDefault(); if (!input.trim() || loading) return;
+            const text = input; setInput(''); setMsgs(p => [...p, { role: 'user', text }]); setLoading(true);
+            try {
+              const res = await fetch(`/.netlify/functions/ask-ai`, {
+                method: 'POST', headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ userMessage: text })
+              });
+              const data = await res.json();
+              setMsgs(p => [...p, { role: 'model', text: data.reply }]);
+            } catch {
+              setMsgs(p => [...p, { role: 'model', text: t.ai.error }]);
+            } finally { setLoading(false); }
+          };
+          return (
+            <div className="max-w-4xl mx-auto h-[60vh] bg-slate-800/50 rounded-2xl border border-slate-700 flex flex-col overflow-hidden">
+              <div className="bg-slate-900 p-4 border-b border-slate-700 font-bold">{t.ai.title}</div>
+              <div className="flex-1 overflow-y-auto p-6 space-y-4">
+                {msgs.map((m, i) => (
+                  <div key={i} className={`flex ${m.role === 'user' ? 'justify-end' : 'justify-start'}`}>
+                    <div className={`max-w-[80%] p-4 rounded-2xl ${m.role === 'user' ? 'bg-purple-600' : 'bg-slate-700'}`}>{m.text}</div>
                   </div>
-                </div>
-
-                {/* 아카이브 II */}
-                <div className="space-y-10">
-                  <h2 className="text-3xl font-bold text-white serif text-center mb-8">{t.home.bitcoinTitle}</h2>
-                  {BITCOIN_CHRONICLES_COLLECTIONS.map((col, index) => (
-                    <SpecialCollectionSection key={col.id} collection={col} language={lang} index={index} />
-                  ))}
-                </div>
-
-                {/* 아카이브 III */}
-                <div className="max-w-7xl mx-auto px-6 mt-20">
-                  <h2 className="text-3xl font-bold text-white serif mb-10 text-center">{t.home.freeMintTitle}</h2>
-                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
-                    {FREE_MINTING_COLLECTIONS.map(col => <CollectionCard key={col.id} collection={col} language={lang} />)}
-                  </div>
-                </div>
+                ))}
+                <div ref={scroll} />
               </div>
-            )}
-            {view === 'AI' && <div className="py-12 px-6"><AiAssistant language={lang} /></div>}
-          </main>
+              <form onSubmit={send} className="p-4 bg-slate-900 flex gap-4">
+                <input type="text" value={input} onChange={e => setInput(e.target.value)} className="flex-1 bg-slate-800 rounded-xl px-4 py-3" placeholder={t.ai.placeholder} />
+                <button type="submit" className="bg-purple-600 px-6 py-3 rounded-xl font-bold">전송</button>
+              </form>
+            </div>
+          );
+        };
 
-          <footer className="py-12 text-center text-slate-600 text-sm border-t border-slate-800">
-            <p>{t.footer.rights}</p>
-          </footer>
-        </div>
-      );
-    };
+        const App = () => {
+          const [view, setView] = useState('HOME');
+          const [lang, setLang] = useState('ko');
+          const t = TRANSLATIONS[lang];
 
-    const root = ReactDOM.createRoot(document.getElementById('root'));
-    root.render(<App />);
-  </script>
+          return (
+            <div className="min-h-screen">
+              {/* ✅ 성탄 배너 */}
+              <div className="xmas-banner py-3 text-center text-white text-sm font-bold shadow-lg">
+                {t.xmas} <a href={XMAS_NFT_LINK} target="_blank" className="ml-4 underline hover:text-yellow-300">{t.xmasLink}</a>
+              </div>
+
+              <nav className="sticky top-0 z-50 bg-[#0F111A]/80 backdrop-blur-md border-b border-slate-800 h-20 flex items-center px-6 justify-between">
+                <div className="flex items-center gap-3 cursor-pointer" onClick={() => setView('HOME')}><span className="text-2xl font-bold serif text-white">WRISTORY</span></div>
+                <div className="flex gap-6 text-sm font-medium">
+                  <button onClick={() => setView('HOME')} className={view === 'HOME' ? 'text-white' : 'text-slate-400'}>{t.nav.collections}</button>
+                  <button onClick={() => setView('AI')} className="bg-slate-800 text-purple-300 px-4 py-1 rounded-full border border-slate-600">{t.nav.ai}</button>
+                  <button onClick={() => setLang(l => l === 'en' ? 'ko' : 'en')} className="w-10 h-10 rounded-full bg-slate-700 text-xs">{lang.toUpperCase()}</button>
+                </div>
+              </nav>
+
+              <main>
+                {view === 'HOME' && (
+                  <div className="pb-20">
+                    <div className="py-24 px-6 text-center"><h1 className="text-5xl md:text-7xl font-bold serif text-white mb-6">{t.hero.title}</h1><p className="text-xl text-slate-400 max-w-2xl mx-auto">{t.hero.subtitle}</p></div>
+                    
+                    <div className="max-w-7xl mx-auto px-6 mb-20">
+                      <h2 className="text-3xl font-bold text-white serif mb-10 text-center">{t.home.fightersTitle}</h2>
+                      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-6 gap-6">
+                        {INDEPENDENCE_FIGHTERS_COLLECTIONS.map(col => <CollectionCard key={col.id} col={col} />)}
+                      </div>
+                    </div>
+
+                    <div className="space-y-10">
+                      <h2 className="text-3xl font-bold text-white serif text-center mb-8">{t.home.bitcoinTitle}</h2>
+                      {BITCOIN_CHRONICLES_COLLECTIONS.map((col, index) => <SpecialSection key={col.id} col={col} index={index} />)}
+                    </div>
+
+                    <div className="max-w-7xl mx-auto px-6 mt-20">
+                      <h2 className="text-3xl font-bold text-white serif mb-10 text-center">{t.home.freeMintTitle}</h2>
+                      <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
+                        {FREE_MINTING_COLLECTIONS.map(col => <CollectionCard key={col.id} col={col} />)}
+                      </div>
+                    </div>
+                  </div>
+                )}
+                {view === 'AI' && <div className="py-12 px-6"><AiAssistant language={lang} /></div>}
+              </main>
+              <footer className="py-12 text-center text-slate-600 text-sm border-t border-slate-800"><p>{t.footer.rights}</p></footer>
+            </div>
+          );
+        };
+
+        const root = ReactDOM.createRoot(document.getElementById('root'));
+        root.render(<App />);
+    </script>
 </body>
 </html>
