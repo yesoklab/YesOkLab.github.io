@@ -1,403 +1,562 @@
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>WRISTORY | Digital Heritage by YesOkLab</title>
+  <meta name="description" content="블록체인 기술로 역사를 보존합니다. WRISTORY NFT 에어드랍 및 컬렉션 공식 페이지.">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="WRISTORY - 에어드랍 등록 및 컬렉션">
+  <meta property="og:description" content="안중근, 김구 등 한국의 위인들과 비트코인 역사를 담은 디지털 헤리티지 NFT.">
+  <meta property="og:image" content="https://amaranth-legal-sole-30.mypinata.cloud/ipfs/bafkreiaohqebkvodjwrnwt3673zaijntc3uc2g5mxg6vfdydqpeaf77s4a">
+  <meta property="twitter:card" content="summary_large_image">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://unpkg.com/react@18/umd/react.production.min.js" crossorigin></script>
+  <script src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js" crossorigin></script>
+  <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Noto+Sans+KR:wght@300;400;500;700&family=Inter:wght@300;400;600&display=swap');
+    body { font-family: 'Inter', 'Noto Sans KR', sans-serif; background-color: #0F111A; color: #E2E8F0; }
+    h1, h2, h3, .serif { font-family: 'Playfair Display', serif; }
+    .text-shadow { text-shadow: 0 2px 4px rgba(0,0,0,0.5); }
+    ::-webkit-scrollbar { width: 8px; }
+    ::-webkit-scrollbar-track { background: #1e293b; }
+    ::-webkit-scrollbar-thumb { background: #475569; border-radius: 4px; }
 
-import React, { useState, useEffect, useRef } from 'react';
-import { GoogleGenAI, Chat, GenerateContentResponse } from "@google/genai";
-import { generateNarrationAudio, decodeAudioBuffer } from './services/gemini';
-import { SCENES, EVIDENCE_IMAGES, TOTAL_DURATION, FULL_SCRIPT } from './constants';
-import { DocumentaryState } from './types';
+    /* 팝업 오픈 시 스크롤 잠금 */
+    body.modal-open { overflow: hidden; }
+  </style>
+</head>
+<body>
+  <div id="root"></div>
+  <script type="text/babel">
+    const { useState, useEffect, useRef, useMemo } = React;
 
-// --- 외부 링크 및 프로젝트 데이터 ---
-const GOOGLE_FORM_URL_EN = "https://forms.gle/4Y4dSMy4wAh9Pzx47";
-const GOOGLE_FORM_URL_KO = "https://docs.google.com/forms/d/e/1FAIpQLSdagQ6wk6fVVbl0Q4gc5htaCAnnBlJt0fW_aivdx7BrLKCN9g/viewform";
+    // ✅ 성탄 카드 이미지: repo에 assets/christmas-card.png 업로드 추천
+    const CHRISTMAS_IMAGE_URL = "assets/christmas-card.png";
 
-const INDEPENDENCE_FIGHTERS = [
-  { id: '1', title: { en: 'Kim Gu', ko: '백범 김구' }, description: { en: 'President of the Provisional Government.', ko: '임시정부의 주석, 문화강국을 꿈꾼 지도자.' }, imageUrl: 'https://amaranth-legal-sole-30.mypinata.cloud/ipfs/bafkreie4kz6obq6hjvwtrn5hi33yptemfch6kkjmwj5h22b7imipxjxd6u', link: 'https://objkt.com/tokens/KT1A77WVak4yMFoHDNzpAf8PGA7YLmh5wMJ8/32' },
-  { id: '2', title: { en: 'An Jung-geun', ko: '안중근' }, description: { en: 'Independence hero of Harbin.', ko: '하얼빈 의거의 영웅, 동양평화론의 선구자.' }, imageUrl: 'https://amaranth-legal-sole-30.mypinata.cloud/ipfs/bafkreic4bp2ylmmamglszxxnnbipbqlz535qfrhtlm5sgc72lpssvsi3x4', link: 'https://objkt.com/tokens/KT1A77WVak4yMFoHDNzpAf8PGA7YLmh5wMJ8/30' },
-  { id: '3', title: { en: 'Ahn Chang-ho', ko: '도산 안창호' }, description: { en: 'Educator and leader.', ko: '흥사단 창립, 민족의 스승.' }, imageUrl: 'https://amaranth-legal-sole-30.mypinata.cloud/ipfs/bafkreig2qpetwuern2nyndlzn4u2z3j752su7pmx7jxrdmwr7man7dfdg4', link: 'https://objkt.com/tokens/KT1A77WVak4yMFoHDNzpAf8PGA7YLmh5wMJ8/31' },
-  { id: '4', title: { en: 'Yun Bong-gil', ko: '윤봉길' }, description: { en: 'Hero of Hongkew Park.', ko: '상하이 홍커우 공원 의거의 영웅.' }, imageUrl: 'https://amaranth-legal-sole-30.mypinata.cloud/ipfs/bafkreiaayojxjidmtyu6rnqtfwmabestd7qf7aai4klqpjfflqk4pzytde', link: 'https://objkt.com/tokens/KT1A77WVak4yMFoHDNzpAf8PGA7YLmh5wMJ8/33' },
-  { id: '5', title: { en: 'Yun Dong-ju', ko: '윤동주' }, description: { en: 'Poet of resistance.', ko: '하늘과 바람과 별과 시, 저항 시인.' }, imageUrl: 'https://amaranth-legal-sole-30.mypinata.cloud/ipfs/bafkreibztbschh6cqj465duaajxf7r7n736jgdkuprw24des7nk57wyc3a', link: 'https://objkt.com/tokens/KT1A77WVak4yMFoHDNzpAf8PGA7YLmh5wMJ8/29' },
-];
+    // ✅ 팝업에서 연결할 NFT 링크 (요청하신 링크)
+    const CHRISTMAS_NFT_LINK = "https://objkt.com/tokens/KT1AQkX48gLHaKSv1NPyrrJFFvZTFsUu9GP8/7?ref=tz1eXLHqJXBnp4VFGwFDfMGWcLYVgBUYnA16";
 
-// --- 컴포넌트: 다큐멘터리 플레이어 ---
-const DocumentaryPlayer: React.FC = () => {
-  const [state, setState] = useState<DocumentaryState>({
-    isPlaying: false, currentTime: 0, duration: TOTAL_DURATION, audioLoaded: false, isBuffering: false,
-  });
-  const [audioBuffer, setAudioBuffer] = useState<AudioBuffer | null>(null);
-  const audioContextRef = useRef<AudioContext | null>(null);
-  const sourceNodeRef = useRef<AudioBufferSourceNode | null>(null);
-  const startTimeRef = useRef<number>(0);
-  const timerRef = useRef<number | null>(null);
+    // ✅ 성탄 시즌 자동 표시 날짜(로컬 기준): 12/24 ~ 12/31
+    const isChristmasSeason = () => {
+      const now = new Date();
+      const m = now.getMonth() + 1; // 1~12
+      const d = now.getDate();
+      return (m === 12 && d >= 24 && d <= 31);
+    };
 
-  useEffect(() => {
-    const init = async () => {
-      setState(s => ({ ...s, isBuffering: true }));
-      try {
-        const base64 = await generateNarrationAudio(FULL_SCRIPT);
-        audioContextRef.current = new (window.AudioContext || (window as any).webkitAudioContext)({ sampleRate: 24000 });
-        const buffer = await decodeAudioBuffer(base64, audioContextRef.current);
-        setAudioBuffer(buffer);
-        setState(s => ({ ...s, audioLoaded: true, isBuffering: false }));
-      } catch (e) {
-        console.error("Audio Load Error:", e);
-        setState(s => ({ ...s, isBuffering: false }));
+    // ✅ 같은 시즌에 닫았으면 재노출 방지 (다음 해 시즌엔 다시 뜸)
+    const seasonKey = () => {
+      const y = new Date().getFullYear();
+      return `wristory_xmas_closed_${y}`;
+    };
+
+    const GOOGLE_FORM_URL_EN = "https://forms.gle/4Y4dSMy4wAh9Pzx47";
+    const GOOGLE_FORM_URL_KO = "https://docs.google.com/forms/d/e/1FAIpQLSdagQ6wk6fVVbl0Q4gc5htaCAnnBlJt0fW_aivdx7BrLKCN9g/viewform";
+
+    const TRANSLATIONS = {
+      en: {
+        nav: { collections: 'Collections', register: 'Airdrop', guide: 'Guide', ai: '✨ Ask AI' },
+        hero: { title: 'History on Your Wrist', subtitle: 'Preserving legendary moments through blockchain technology. WRISTORY captures historical wisdom on the Tezos network.', viewBtn: 'View' },
+        home: { fightersTitle: 'Archive I: Korean Independence Fighters', bitcoinTitle: 'Archive II: The Bitcoin Chronicles', freeMintTitle: 'Archive III: Free Creation & Partner Labs' },
+        form: { title: 'How to Join the Airdrop', subtitle: 'Follow the instructions on our official channels to participate. Submissions are collected via Google Forms for security and transparency.', naverBtn: 'Read Announcement on Naver', telegramBtn: 'Join via Telegram Channel', directBtn: 'Register Directly (Google Form)' },
+        guide: { title: 'Airdrop Execution Procedure', steps: [
+          { title: '1. Check Announcement', desc: 'Visit our official Naver Blog or Telegram channel to read the detailed airdrop announcement and eligibility requirements.' },
+          { title: '2. Register via Google Form', desc: 'Click the link in the announcement to access the official Google Form. Submit your Tezos (tz1...) wallet address there.' },
+          { title: '3. Manage Submissions', desc: 'We will collect all addresses through a secure Google Sheet. This allows us to easily manage the whitelist for distribution.' },
+          { title: '4. Receive NFT & Announcement', desc: 'Once the registration period ends, we will distribute the NFTs. A completion announcement will be made on all our channels.' }
+        ]},
+        ai: {
+          title: 'WRISTORY Assistant',
+          subtitle: 'Ask about history or our project.',
+          placeholder: 'Ask about Kim Gu...',
+          send: 'Send',
+          initialMsg: 'Hello. I am the WRISTORY Curator AI. Ask me anything about our historical figures or the airdrop process.',
+          error: 'Connection failed. Please try again later.',
+          typing: 'Thinking...'
+        },
+        xmas: {
+          title: "Merry Christmas",
+          body: "May the light of Christmas help us remember the past, comfort the present, and guide us into a hopeful new year.",
+          cta1: "View Christmas NFT",
+          cta2: "Ask WRISTORY AI",
+          close: "Close"
+        },
+        footer: { rights: '© 2025 YesOkLab | WRISTORY Project. All Rights Reserved.' }
+      },
+      ko: {
+        nav: { collections: '컬렉션', register: '에어드랍', guide: '가이드', ai: '✨ AI 질문' },
+        hero: { title: '손목 위의 역사', subtitle: '블록체인 기술을 통해 전설적인 순간들을 보존합니다. WRISTORY는 테조스 네트워크 위에서 역사적 지혜를 담아냅니다.', viewBtn: '보기' },
+        home: { fightersTitle: '아카이브 I: 대한민국 독립운동가', bitcoinTitle: '아카이브 II: 비트코인 연대기', freeMintTitle: '아카이브 III: 자유 창작 및 파트너 랩' },
+        form: { title: '에어드랍 참여 방법', subtitle: '가장 정확한 정보는 공식 채널의 공지를 통해 확인하실 수 있습니다. 주소 수집은 안전한 Google 설문지를 통해 진행됩니다.', naverBtn: '네이버 블로그에서 공지 확인', telegramBtn: '텔레그램 채널에서 참여', directBtn: '바로 등록하기 (Google Form)' },
+        guide: { title: '에어드랍 진행 절차', steps: [
+          { title: '1. 공식 채널 공지 확인', desc: '네이버 블로그 또는 텔레그램 채널을 방문하여 에어드랍 상세 공지 및 참여 자격 조건을 확인합니다.' },
+          { title: '2. Google Form으로 주소 제출', desc: '공지 내에 포함된 링크를 통해 공식 Google 설문지로 이동하여 본인의 테조스(tz1...) 지갑 주소를 제출합니다.' },
+          { title: '3. 제출 명단 관리', desc: '제출된 모든 주소는 안전한 Google 스프레드시트를 통해 수집됩니다. 이를 통해 화이트리스트를 관리하고 NFT를 분배합니다.' },
+          { title: '4. NFT 수령 및 완료 공지', desc: '등록 기간이 종료된 후, NFT를 일괄 전송합니다. 완료 공지는 모든 공식 채널을 통해 알려드립니다.' }
+        ]},
+        ai: {
+          title: 'WRISTORY AI 비서',
+          subtitle: '역사적 배경이나 프로젝트에 대해 물어보세요.',
+          placeholder: '김구 선생에 대해 물어보세요...',
+          send: '전송',
+          initialMsg: '안녕하세요. WRISTORY 큐레이터 AI입니다. 역사적 인물이나 에어드랍 절차에 대해 무엇이든 물어보세요.',
+          error: '연결에 실패했습니다. 잠시 후 다시 시도해주세요.',
+          typing: '생각 중...'
+        },
+        xmas: {
+          title: "Merry Christmas",
+          body: "기쁜 성탄과 희망찬 새해를 맞이하여\n넘치는 기쁨 속에 건강과 행운이 함께 하시고\n가정에 축복이 늘 함께 하시기를 기원합니다.",
+          cta1: "성탄 NFT 보기",
+          cta2: "WRISTORY AI에게 묻기",
+          close: "닫기"
+        },
+        footer: { rights: '© 2025 YesOkLab | WRISTORY Project. All Rights Reserved.' }
       }
     };
-    init();
-    return () => {
-      if (timerRef.current) clearInterval(timerRef.current);
-      if (sourceNodeRef.current) sourceNodeRef.current.stop();
-    };
-  }, []);
 
-  const togglePlayback = () => {
-    if (state.isPlaying) {
-      sourceNodeRef.current?.stop();
-      if (timerRef.current) clearInterval(timerRef.current);
-      setState(s => ({ ...s, isPlaying: false }));
-    } else {
-      if (!audioBuffer || !audioContextRef.current) return;
-      if (audioContextRef.current.state === 'suspended') audioContextRef.current.resume();
+    const INDEPENDENCE_FIGHTERS_COLLECTIONS = [
+      { id: '1', title: { en: 'Baekbeom Kim Gu', ko: '백범 김구' }, description: { en: 'President of the Provisional Government.', ko: '임시정부의 주석, 문화강국을 꿈꾼 지도자.' }, imageUrl: 'https://amaranth-legal-sole-30.mypinata.cloud/ipfs/bafkreie4kz6obq6hjvwtrn5hi33yptemfch6kkjmwj5h22b7imipxjxd6u', link: 'https://objkt.com/tokens/KT1A77WVak4yMFoHDNzpAf8PGA7YLmh5wMJ8/32' },
+          { id: '2', title: { en: 'An Jung-geun', ko: '안중근' }, description: { en: 'Independence activist, hero of Harbin.', ko: '하얼빈 의거의 영웅, 동양평화론의 선구자.' }, imageUrl: 'https://amaranth-legal-sole-30.mypinata.cloud/ipfs/bafkreic4bp2ylmmamglszxxnnbipbqlz535qfrhtlm5sgc72lpssvsi3x4', link: 'https://objkt.com/tokens/KT1A77WVak4yMFoHDNzpAf8PGA7YLmh5wMJ8/30' },
+          { id: '3', title: { en: 'Ahn Chang-ho', ko: '도산 안창호' }, description: { en: 'Educator and independence leader.', ko: '흥사단 창립, 민족의 스승.' }, imageUrl: 'https://amaranth-legal-sole-30.mypinata.cloud/ipfs/bafkreig2qpetwuern2nyndlzn4u2z3j752su7pmx7jxrdmwr7man7dfdg4', link: 'https://objkt.com/tokens/KT1A77WVak4yMFoHDNzpAf8PGA7YLmh5wMJ8/31' },
+          { id: '4', title: { en: 'Yun Bong-gil', ko: '윤봉길' }, description: { en: 'Hero of Hongkew Park bombing.', ko: '상하이 홍커우 공원 의거의 영웅.' }, imageUrl: 'https://amaranth-legal-sole-30.mypinata.cloud/ipfs/bafkreiaayojxjidmtyu6rnqtfwmabestd7qf7aai4klqpjfflqk4pzytde', link: 'https://objkt.com/tokens/KT1A77WVak4yMFoHDNzpAf8PGA7YLmh5wMJ8/33' },
+          { id: '5', title: { en: 'Yun Dong-ju', ko: '윤동주' }, description: { en: 'Poet of resistance against imperialism.', ko: '하늘과 바람과 별과 시, 저항 시인.' }, imageUrl: 'https://amaranth-legal-sole-30.mypinata.cloud/ipfs/bafkreibztbschh6cqj465duaajxf7r7n736jgdkuprw24des7nk57wyc3a', link: 'https://objkt.com/tokens/KT1A77WVak4yMFoHDNzpAf8PGA7YLmh5wMJ8/29' },
+          { id: '6', title: { en: 'Yu Gwan-sun', ko: '유관순' }, description: { en: 'Symbol of March 1st Movement.', ko: '3.1 운동의 상징, 영원한 자유의 불꽃.' }, imageUrl: 'https://amaranth-legal-sole-30.mypinata.cloud/ipfs/bafkreiejrnn2dpacgyyexuil5obifqgnfapdgvctsxwm7ne2ny7d6ifh6i', link: 'https://objkt.com/tokens/KT1A77WVak4yMFoHDNzpAf8PGA7YLmh5wMJ8/27' },
+          { id: '7', title: { en: 'Kim Maria', ko: '김마리아' }, description: { en: 'Leading female activist.', ko: '대한민국 애국부인회, 여성 독립운동의 대모.' }, imageUrl: 'https://amaranth-legal-sole-30.mypinata.cloud/ipfs/bafkreietyzmroybbctmfgx2odcwfqupaew5qqyqanpg6pnz5dywe7okluy', link: 'https://objkt.com/tokens/KT1A77WVak4yMFoHDNzpAf8PGA7YLmh5wMJ8/28' },
+          { id: '8', title: { en: 'Ahn Kyung-shin', ko: '안경신' }, description: { en: 'Bombing attack on the Japanese Government-General.', ko: '평남 경찰부 폭탄 투척 의거의 영웅.' }, imageUrl: 'https://amaranth-legal-sole-30.mypinata.cloud/ipfs/bafkreiag3mmu2f7uze3zsmpmtm43x6mcgvkzywplxr2oeq72r6tteeoule', link: 'https://objkt.com/tokens/KT1A77WVak4yMFoHDNzpAf8PGA7YLmh5wMJ8/34' },
+          { id: '9', title: { en: 'Jeong Jeong-hwa', ko: '정정화' }, description: { en: 'The godmother of the Provisional Government.', ko: '임시정부의 안주인, 6차례의 국내 잠입.' }, imageUrl: 'https://amaranth-legal-sole-30.mypinata.cloud/ipfs/bafkreidqgxz3uecxorevnvttvpty2aetqakichk6mtcbc5sdxmobg2shpi', link: 'https://objkt.com/tokens/KT1A77WVak4yMFoHDNzpAf8PGA7YLmh5wMJ8/25' },
+          { id: '10', title: { en: 'Hwang Esther', ko: '황에스더' }, description: { en: 'First female doctor, independence activist.', ko: '최초의 여성 의사, 구국 활동에 헌신.' }, imageUrl: 'https://amaranth-legal-sole-30.mypinata.cloud/ipfs/bafkreigku62k4a2kweyyzrdixi3j4nss6rlz33666bhkhxr7w5ycxi5ejy', link: 'https://objkt.com/tokens/KT1A77WVak4yMFoHDNzpAf8PGA7YLmh5wMJ8/26' },
+    ];
 
-      const source = audioContextRef.current.createBufferSource();
-      source.buffer = audioBuffer;
-      source.connect(audioContextRef.current.destination);
-      
-      const offset = state.currentTime >= TOTAL_DURATION ? 0 : state.currentTime;
-      source.start(0, offset);
-      sourceNodeRef.current = source;
-      startTimeRef.current = audioContextRef.current.currentTime - offset;
-      
-      setState(s => ({ ...s, isPlaying: true, currentTime: offset }));
+    const BITCOIN_CHRONICLES_COLLECTIONS = [
+      { id: '11', title: { en: 'Bitcoin Pizza Genesis: 10K', ko: '비트코인 피자 제네시스 10k' }, description: { en: 'Celebrating the first real-world Bitcoin transaction.', ko: '최초의 비트코인 실물 거래를 기념하며.' }, videoUrl: 'bitcoin_promo.mp4', link: 'https://objkt.com/collections/KT1JU866vUaq8ac5KkmuW8XKnEbNXiVHRqUy', color: 'from-pink-600 to-orange-500' },
+      { id: '12', title: { en: 'BITCOIN Whitepaper Collection', ko: '비트코인 백서 컬렉션' }, description: { en: 'Preserving Satoshi Nakamoto\'s revolutionary paper.', ko: '사토시 나카모토의 혁명적인 논문을 보존합니다.' }, imageUrl: 'https://amaranth-legal-sole-30.mypinata.cloud/ipfs/bafkreifvrgo5jj3tfkf6yeuvodplfdg46pfx6mgfzilrwewxb333xu6sru', link: 'https://objkt.com/collections/KT1BywQidkDZoSaS38cv1xGWRgXBkx9qFeVe', color: 'from-amber-500 to-blue-700' },
+    ];
 
-      timerRef.current = window.setInterval(() => {
-        const elapsed = audioContextRef.current!.currentTime - startTimeRef.current;
-        if (elapsed >= TOTAL_DURATION) {
-          sourceNodeRef.current?.stop();
-          clearInterval(timerRef.current!);
-          setState(s => ({ ...s, isPlaying: false, currentTime: TOTAL_DURATION }));
-        } else {
-          setState(s => ({ ...s, currentTime: elapsed }));
-        }
-      }, 50);
-    }
-  };
+    const FREE_MINTING_COLLECTIONS = [
+      { id: '13', title: { en: 'FORK PROJECT', ko: '포크 프로젝트' }, description: { en: 'A generative art project exploring divergence.', ko: '분기를 탐구하는 제너레이티브 아트 프로젝트.' }, imageUrl: 'https://amaranth-legal-sole-30.mypinata.cloud/ipfs/bafybeibs6petkvozp4qfxdd4mvtcnxvfpmuxuxixkvxoa7wr24mhu7fpku', link: 'https://objkt.com/collections/KT1XMCJGLo9vnHRAf5LQdw9z3BF9yGVfffnm', color: 'from-teal-500 to-cyan-600' },
+      { id: '14', title: { en: 'Free Creation Lab', ko: '프리 크리에이션 랩' }, description: { en: 'An experimental space for digital art.', ko: '디지털 아트를 위한 실험적인 공간.' }, imageUrl: 'https://amaranth-legal-sole-30.mypinata.cloud/ipfs/bafkreihmtnnmlq4u3tanpax6zqo7oqzwkolmqsqn2gfeyko57s2ydmqo5e', link: 'https://objkt.com/collections/KT1AQkX48gLHaKSv1NPyrrJFFvZTFsUu9GP8', color: 'from-slate-600 to-gray-700' },
+      { id: '15', title: { en: 'Decentralized Dreams', ko: 'Decentralized Dreams' }, description: { en: 'Exploring the future of decentralization.', ko: '탈중앙화의 미래를 탐험합니다.' }, imageUrl: 'https://amaranth-legal-sole-30.mypinata.cloud/ipfs/bafybeiaup54vj4pk4ycugriitcizd4u2xxur4hrmtsieoww6ynbrtw554i', link: 'https://objkt.com/collections/KT1FofiGvwphNMfyzF181k3b5MbJZqXDsNd2', color: 'from-indigo-500 to-purple-600' }
+    ];
 
-  const activeScene = SCENES.find(s => state.currentTime >= s.startTime && state.currentTime < s.endTime) || SCENES[SCENES.length - 1];
-
-  return (
-    <div className="relative w-full aspect-video bg-black rounded-3xl overflow-hidden border border-slate-800 shadow-2xl group selection:bg-transparent">
-      {state.isBuffering && (
-        <div className="absolute inset-0 z-50 flex flex-col items-center justify-center bg-black/90">
-          <div className="w-10 h-10 border-2 border-white/10 border-t-purple-500 rounded-full animate-spin mb-4"></div>
-          <p className="text-[10px] tracking-widest text-slate-500 uppercase">Generating Forensic Audio...</p>
-        </div>
-      )}
-      
-      <div className="absolute inset-0 flex items-center justify-center bg-black">
-        {activeScene.imageIndex === -1 ? (
-          <h2 className="text-3xl md:text-5xl font-serif tracking-[0.3em] text-white animate-pulse text-center px-4 leading-tight">
-            {activeScene.caption}
-          </h2>
-        ) : (
-          <div className="w-full h-full relative overflow-hidden flex items-center justify-center">
-            <img 
-              src={EVIDENCE_IMAGES[activeScene.imageIndex]} 
-              className="max-w-full max-h-full object-contain transition-all duration-1000"
-              style={{ 
-                filter: `grayscale(0.2) contrast(1.1) brightness(${state.isPlaying ? 1 : 0.6})`,
-                transform: state.isPlaying ? 'scale(1.1)' : 'scale(1)'
-              }}
-            />
-            <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-transparent to-black/40"></div>
-          </div>
-        )}
-      </div>
-
-      <div className="absolute bottom-20 left-0 w-full px-12 text-center pointer-events-none transition-all duration-700">
-        <p className="text-xl md:text-3xl font-light tracking-widest text-white drop-shadow-2xl">{activeScene.caption}</p>
-      </div>
-
-      <div className="absolute bottom-0 left-0 w-full p-8 flex items-center gap-6 bg-gradient-to-t from-black to-transparent opacity-0 group-hover:opacity-100 transition-opacity">
-        <button onClick={togglePlayback} disabled={!state.audioLoaded} className="w-12 h-12 rounded-full border border-white/20 flex items-center justify-center hover:bg-white hover:text-black transition-all shadow-lg active:scale-90">
-          {state.isPlaying ? <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 24 24"><path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/></svg> : <svg className="w-4 h-4 ml-1" fill="currentColor" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>}
-        </button>
-        <div className="flex-grow">
-          <div className="h-1 bg-white/10 rounded-full overflow-hidden">
-            <div className="h-full bg-purple-500 transition-all duration-100" style={{ width: `${(state.currentTime / TOTAL_DURATION) * 100}%` }}></div>
+    const CollectionCard = ({ collection, language }) => (
+      <a href={collection.link} target="_blank" rel="noopener noreferrer"
+         className="block bg-slate-800/50 border border-slate-700 rounded-xl overflow-hidden hover:border-purple-500 transition-all duration-300 group cursor-pointer hover:shadow-xl hover:shadow-purple-900/20">
+        <div className="h-64 overflow-hidden relative">
+          <img src={collection.imageUrl} alt={collection.title[language]}
+               className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"/>
+          <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300 bg-black/30 backdrop-blur-[2px]">
+            <span className="bg-white/20 p-3 rounded-full border border-white/30 text-white">↗</span>
           </div>
         </div>
-        <span className="text-[10px] font-mono text-slate-400 w-16 text-right tracking-tighter">
-          {new Date(state.currentTime * 1000).toISOString().substr(14, 5)}
-        </span>
-      </div>
-    </div>
-  );
-};
+        <div className="p-5">
+          <h3 className="text-xl font-bold serif text-slate-100 mb-2 group-hover:text-purple-300">{collection.title[language]}</h3>
+          <p className="text-slate-400 text-sm mb-4 line-clamp-2 h-10">{collection.description[language]}</p>
+        </div>
+      </a>
+    );
 
-// --- 컴포넌트: AI 비서 (AIChat) ---
-const AIChat: React.FC<{ lang: string }> = ({ lang }) => {
-  const [isOpen, setIsOpen] = useState(false);
-  const [messages, setMessages] = useState<{ role: 'user' | 'model'; text: string }[]>([]);
-  const [input, setInput] = useState('');
-  const [isTyping, setIsTyping] = useState(false);
-  const chatInstanceRef = useRef<Chat | null>(null);
-  const scrollRef = useRef<HTMLDivElement>(null);
+    const SpecialCollectionSection = ({ collection, language, index }) => {
+      const t = TRANSLATIONS[language];
+      const isReversed = index % 2 === 1;
 
-  const t = {
-    ko: { title: "WRISTORY AI 가이드", placeholder: "무엇이든 물어보세요...", system: "당신은 WRISTORY 프로젝트의 공식 AI 가이드입니다. 독립운동가(김구, 안중근, 안창호, 윤봉길, 윤동주)의 업적과 테조스 기반 디지털 유산 NFT 프로젝트, 그리고 XRP 포렌식 보고서에 대해 안내합니다. 항상 친절하고 정확하게 답변하세요." },
-    en: { title: "WRISTORY AI Guide", placeholder: "Ask anything...", system: "You are the official AI guide for the WRISTORY project. You provide information about Korean independence fighters (Kim Gu, An Jung-geun, Ahn Chang-ho, Yun Bong-gil, Yun Dong-ju), the Tezos-based digital heritage NFT project, and the XRP forensic report. Always be professional, factual, and helpful." }
-  }[lang as 'ko' | 'en'] || { title: "AI Guide", placeholder: "Ask...", system: "Guide for WRISTORY." };
+      const MediaComponent = collection.videoUrl ? (
+        <video key={collection.videoUrl} src={collection.videoUrl} autoPlay loop muted playsInline
+               className="w-full h-full object-cover rounded-2xl shadow-2xl" />
+      ) : (
+        <img src={collection.imageUrl} alt={collection.title[language]}
+             className="w-full h-full object-cover rounded-2xl shadow-2xl" />
+      );
 
-  useEffect(() => {
-    if (isOpen && !chatInstanceRef.current) {
-      const ai = new GoogleGenAI({ apiKey: process.env.API_KEY || '' });
-      chatInstanceRef.current = ai.chats.create({
-        model: 'gemini-3-flash-preview',
-        config: { systemInstruction: t.system },
-      });
-      setMessages([{ role: 'model', text: lang === 'ko' ? "안녕하세요! WRISTORY 프로젝트에 대해 무엇을 도와드릴까요?" : "Hello! How can I help you with the WRISTORY project today?" }]);
-    }
-  }, [isOpen, lang, t.system]);
-
-  useEffect(() => {
-    if (scrollRef.current) {
-      scrollRef.current.scrollTop = scrollRef.current.scrollHeight;
-    }
-  }, [messages]);
-
-  const handleSend = async () => {
-    if (!input.trim() || !chatInstanceRef.current || isTyping) return;
-
-    const userText = input.trim();
-    setInput('');
-    setMessages(prev => [...prev, { role: 'user', text: userText }]);
-    setIsTyping(true);
-
-    try {
-      const response: GenerateContentResponse = await chatInstanceRef.current.sendMessage({ message: userText });
-      const reply = response.text || (lang === 'ko' ? "죄송합니다. 답변을 생성하지 못했습니다." : "Sorry, I couldn't generate a reply.");
-      setMessages(prev => [...prev, { role: 'model', text: reply }]);
-    } catch (err) {
-      console.error(err);
-      setMessages(prev => [...prev, { role: 'model', text: lang === 'ko' ? "오류가 발생했습니다. 나중에 다시 시도해 주세요." : "An error occurred. Please try again later." }]);
-    } finally {
-      setIsTyping(false);
-    }
-  };
-
-  return (
-    <div className="fixed bottom-6 right-6 z-[200]">
-      {isOpen ? (
-        <div className="w-[350px] md:w-[400px] h-[500px] bg-slate-900/95 backdrop-blur-xl border border-slate-700 rounded-3xl shadow-2xl flex flex-col overflow-hidden animate-in fade-in zoom-in duration-300">
-          <div className="p-5 border-b border-slate-800 flex justify-between items-center bg-slate-800/50">
-            <div className="flex items-center gap-3">
-              <div className="w-8 h-8 bg-purple-600 rounded-lg flex items-center justify-center text-white font-bold">W</div>
-              <h3 className="font-bold text-sm tracking-tight">{t.title}</h3>
+      return (
+        <section className="w-full py-16 md:py-20 relative overflow-hidden">
+          <div className={`absolute inset-0 bg-gradient-to-br ${collection.color} opacity-90`}></div>
+          <div className={`relative z-10 max-w-6xl mx-auto px-6 flex flex-col ${isReversed ? 'md:flex-row-reverse' : 'md:flex-row'} items-center gap-8 md:gap-12`}>
+            <div className="flex-1 text-center md:text-left text-white">
+              <h2 className="text-3xl md:text-5xl font-bold serif mb-4 md:mb-6">{collection.title[language]}</h2>
+              <p className="text-base md:text-xl text-white/90 mb-8 leading-relaxed">{collection.description[language]}</p>
+              <a href={collection.link} target="_blank" rel="noreferrer"
+                 className="inline-flex items-center gap-2 px-6 py-3 md:px-8 md:py-4 bg-white text-gray-800 font-bold rounded-full hover:bg-gray-200 transition-colors shadow-lg">
+                {t.hero.viewBtn} ↗
+              </a>
             </div>
-            <button onClick={() => setIsOpen(false)} className="text-slate-400 hover:text-white p-1">
-              <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" /></svg>
-            </button>
+            <div className="flex-1 w-full max-w-sm md:max-w-md">
+              <div className={`aspect-square bg-white/10 rounded-3xl p-4 backdrop-blur-sm border border-white/20 ${isReversed ? '-rotate-2' : 'rotate-2'} hover:rotate-0 transition-transform duration-500`}>
+                {MediaComponent}
+              </div>
+            </div>
           </div>
-          
-          <div ref={scrollRef} className="flex-grow p-5 overflow-y-auto space-y-4 text-sm leading-relaxed scrollbar-hide">
-            {messages.map((m, i) => (
-              <div key={i} className={`flex ${m.role === 'user' ? 'justify-end' : 'justify-start'}`}>
-                <div className={`max-w-[85%] px-4 py-3 rounded-2xl ${m.role === 'user' ? 'bg-purple-600 text-white rounded-tr-none' : 'bg-slate-800 text-slate-200 rounded-tl-none border border-slate-700'}`}>
-                  {m.text}
+        </section>
+      );
+    };
+
+    const AirdropForm = ({ language }) => {
+      const t = TRANSLATIONS[language];
+      const formUrl = language === 'ko' ? GOOGLE_FORM_URL_KO : GOOGLE_FORM_URL_EN;
+      return (
+        <div className="max-w-2xl mx-auto mt-10 text-center">
+          <div className="bg-slate-800/80 backdrop-blur-md p-6 md:p-8 rounded-3xl border border-slate-700 shadow-2xl">
+            <h2 className="text-2xl md:text-3xl font-bold serif text-white mb-4">{t.form.title}</h2>
+            <p className="text-slate-400 mb-8 px-2">{t.form.subtitle}</p>
+            <div className="space-y-4">
+              <a href="https://blog.naver.com/yesoklab/224093507134" target="_blank" rel="noopener noreferrer"
+                 className="block w-full max-w-sm mx-auto py-3 md:py-4 rounded-xl font-bold text-base md:text-lg bg-[#03C75A] text-white hover:bg-[#03A34A] transition-colors">
+                {t.form.naverBtn}
+              </a>
+              <a href="https://t.me/YesOkLab_WRISTORY_NFT" target="_blank" rel="noopener noreferrer"
+                 className="block w-full max-w-sm mx-auto py-3 md:py-4 rounded-xl font-bold text-base md:text-lg bg-[#2AABEE] text-white hover:bg-[#2598D1] transition-colors">
+                {t.form.telegramBtn}
+              </a>
+              <a href={formUrl} target="_blank" rel="noopener noreferrer"
+                 className="block w-full max-w-sm mx-auto py-3 md:py-4 rounded-xl font-bold text-base md:text-lg bg-gradient-to-r from-purple-600 to-indigo-600 hover:from-purple-500 hover:to-indigo-500 text-white shadow-lg transition-all mt-4">
+                {t.form.directBtn}
+              </a>
+            </div>
+          </div>
+        </div>
+      );
+    };
+
+    const Guide = ({ language }) => {
+      const t = TRANSLATIONS[language];
+      return (
+        <div className="max-w-4xl mx-auto py-12 px-4">
+          <h2 className="text-3xl md:text-4xl font-bold serif text-center mb-12 text-amber-200">{t.guide.title}</h2>
+          <div className="space-y-8">
+            {t.guide.steps.map((step, index) => (
+              <div key={index} className="flex flex-col sm:flex-row gap-6 bg-slate-800/40 p-6 rounded-2xl border border-slate-700">
+                <div className="flex-shrink-0 flex items-center justify-center w-12 h-12 rounded-full bg-purple-600 text-white font-bold text-xl mx-auto sm:mx-0">{index + 1}</div>
+                <div className="text-center sm:text-left">
+                  <h3 className="text-xl font-bold text-white mb-2">{step.title}</h3>
+                  <p className="text-slate-300 leading-relaxed">{step.desc}</p>
                 </div>
               </div>
             ))}
-            {isTyping && (
-              <div className="flex justify-start">
-                <div className="bg-slate-800 px-4 py-3 rounded-2xl rounded-tl-none border border-slate-700 flex gap-1">
-                  <div className="w-1.5 h-1.5 bg-slate-500 rounded-full animate-bounce"></div>
-                  <div className="w-1.5 h-1.5 bg-slate-500 rounded-full animate-bounce [animation-delay:0.2s]"></div>
-                  <div className="w-1.5 h-1.5 bg-slate-500 rounded-full animate-bounce [animation-delay:0.4s]"></div>
+          </div>
+        </div>
+      );
+    };
+
+    // ✅ 성탄 팝업 (12/24~12/31 자동 표시)
+    const ChristmasPopup = ({ language, onClose, onAskAi, nftLink }) => {
+      const t = TRANSLATIONS[language];
+      return (
+        <div className="fixed inset-0 z-[9999] flex items-center justify-center px-4">
+          <div className="absolute inset-0 bg-black/70 backdrop-blur-sm" onClick={onClose}></div>
+
+          <div className="relative w-full max-w-3xl rounded-3xl border border-slate-700 bg-[#0B0E16] shadow-2xl overflow-hidden">
+            <div className="absolute inset-0 pointer-events-none bg-gradient-to-br from-amber-500/10 via-transparent to-purple-500/10"></div>
+
+            <div className="p-5 sm:p-6 flex items-center justify-between border-b border-slate-800">
+              <div className="flex items-center gap-3">
+                <span className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-slate-800 border border-slate-700 text-slate-200 text-xs">
+                  🎄 WRISTORY Seasonal
+                </span>
+              </div>
+              <button onClick={onClose} className="text-slate-400 hover:text-white text-sm px-3 py-2 rounded-xl bg-slate-900/60 border border-slate-800">
+                {t.xmas.close}
+              </button>
+            </div>
+
+            <div className="p-6 sm:p-7 grid grid-cols-1 md:grid-cols-2 gap-6">
+              <div className="rounded-2xl overflow-hidden border border-slate-800 bg-slate-900/40">
+                <img src={CHRISTMAS_IMAGE_URL} alt="Christmas Card" className="w-full h-full object-cover" />
+              </div>
+
+              <div className="flex flex-col justify-between">
+                <div>
+                  <h3 className="text-3xl sm:text-4xl font-bold serif text-amber-200 mb-4">
+                    {t.xmas.title}
+                  </h3>
+                  <p className="text-slate-300 whitespace-pre-line leading-relaxed">
+                    {t.xmas.body}
+                  </p>
+
+                  <div className="mt-5 flex flex-wrap gap-2">
+                    <span className="inline-flex items-center px-3 py-1 rounded-full bg-slate-800/70 border border-slate-700 text-slate-200 text-xs">
+                      ✨ YesOkLab × WRISTORY
+                    </span>
+                    <span className="inline-flex items-center px-3 py-1 rounded-full bg-slate-800/70 border border-slate-700 text-slate-200 text-xs">
+                      ⛓ Tezos NFT
+                    </span>
+                  </div>
+                </div>
+
+                <div className="mt-6 flex flex-col gap-3">
+                  <a href={nftLink} target="_blank" rel="noreferrer"
+                     className="w-full text-center px-5 py-3 rounded-2xl font-bold bg-gradient-to-r from-amber-500 to-yellow-300 text-black hover:brightness-110 transition">
+                    {t.xmas.cta1} ↗
+                  </a>
+
+                  <button onClick={onAskAi}
+                          className="w-full px-5 py-3 rounded-2xl font-bold bg-slate-800 text-slate-100 border border-slate-700 hover:border-purple-500 hover:text-purple-200 transition">
+                    {t.xmas.cta2} →
+                  </button>
+
+                  <div className="text-xs text-slate-500 text-center pt-1">
+                    * This popup appears automatically during 12/24–12/31.
+                  </div>
                 </div>
               </div>
-            )}
-          </div>
-
-          <div className="p-4 border-t border-slate-800 bg-slate-900">
-            <div className="flex gap-2">
-              <input 
-                type="text" 
-                value={input}
-                onChange={(e) => setInput(e.target.value)}
-                onKeyDown={(e) => e.key === 'Enter' && handleSend()}
-                placeholder={t.placeholder}
-                className="flex-grow bg-slate-800 border border-slate-700 rounded-xl px-4 py-2 text-sm focus:outline-none focus:border-purple-500 transition"
-              />
-              <button 
-                onClick={handleSend}
-                disabled={isTyping || !input.trim()}
-                className="w-10 h-10 bg-purple-600 hover:bg-purple-500 text-white rounded-xl flex items-center justify-center transition disabled:opacity-50"
-              >
-                <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 12h14M12 5l7 7-7 7" /></svg>
-              </button>
             </div>
+
           </div>
         </div>
-      ) : (
-        <button 
-          onClick={() => setIsOpen(true)}
-          className="w-16 h-16 bg-purple-600 hover:bg-purple-500 text-white rounded-full shadow-2xl shadow-purple-500/30 flex items-center justify-center transition-all hover:scale-110 active:scale-90 group relative"
-        >
-          <svg className="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M8 10h.01M12 10h.01M16 10h.01M9 16H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-5l-5 5v-5z" /></svg>
-          <span className="absolute -top-1 -right-1 w-4 h-4 bg-red-500 rounded-full border-2 border-[#0F111A]"></span>
-        </button>
-      )}
-    </div>
-  );
-};
+      );
+    };
 
-// --- 메인 앱 컴포넌트 ---
-const App: React.FC = () => {
-  const [view, setView] = useState('HOME');
-  const [lang, setLang] = useState('ko');
-  const [showToast, setShowToast] = useState(false);
+    // ✅ AI (KO/EN 토글 언어 고정 + 배지 표시)
+    const AiAssistant = ({ language }) => {
+      const t = TRANSLATIONS[language];
+      const [messages, setMessages] = useState([]);
+      const [input, setInput] = useState('');
+      const [isTyping, setIsTyping] = useState(false);
+      const scrollRef = useRef(null);
 
-  useEffect(() => {
-    const params = new URLSearchParams(window.location.search);
-    if (params.get('view') === 'forensic') {
-      setView('FORENSIC');
-    }
-  }, []);
+      useEffect(() => {
+        setMessages([{ role: 'model', text: t.ai.initialMsg }]);
+      }, [language]);
 
-  const handleCopyLink = () => {
-    const baseUrl = window.location.origin + window.location.pathname;
-    const shareUrl = `${baseUrl}?view=forensic`;
-    navigator.clipboard.writeText(shareUrl).then(() => {
-      setShowToast(true);
-      setTimeout(() => setShowToast(false), 3000);
-    });
-  };
+      useEffect(() => {
+        scrollRef.current?.scrollIntoView({ behavior: "smooth" });
+      }, [messages, isTyping]);
 
-  const t = {
-    ko: { 
-      nav: ['컬렉션', '포렌식 보고서', '에어드랍', 'KO'], 
-      hero: '손목 위의 역사', 
-      sub: '블록체인을 통한 역사적 순간의 보존. WRISTORY는 테조스 위에서 디지털 유산을 기록합니다.', 
-      toast: '영상 링크가 복사되었습니다!',
-      btn: '포렌식 보고서 보기',
-      summary_title: '조사 개요',
-      summary_body: '본 조사는 2025년 7월 9일 발생한 1,447.4 XRP 반환 건의 미지급 상태를 다룹니다. 온체인 상의 전송 완료 증빙에도 불구하고 176일간 고객 계정에 반영되지 않은 사실을 근거로 작성되었습니다.'
-    },
-    en: { 
-      nav: ['Collections', 'Forensic Report', 'Airdrop', 'EN'], 
-      hero: 'History on Your Wrist', 
-      sub: 'Preserving legendary moments through blockchain. WRISTORY captures digital heritage on Tezos.', 
-      toast: 'Share link copied to clipboard!',
-      btn: 'View Forensic Report',
-      summary_title: 'Investigation Summary',
-      summary_body: 'This investigation documents the uncredited 1,447.4 XRP returned on July 9, 2025. Despite on-chain proof of successful delivery to the corporate wallet, the funds remain unassigned after 176 days.'
-    }
-  }[lang];
+      const langBadge = language === "en" ? "EN" : "KO";
 
-  return (
-    <div className="min-h-screen bg-[#0F111A] text-slate-200">
-      {showToast && (
-        <div className="fixed bottom-10 left-1/2 -translate-x-1/2 z-[100] bg-purple-600 text-white px-8 py-4 rounded-3xl shadow-2xl animate-bounce font-bold tracking-tight">
-          {t.toast}
-        </div>
-      )}
-      
-      <nav className="sticky top-0 z-50 bg-[#0F111A]/90 backdrop-blur-xl border-b border-slate-800 h-20 flex items-center px-8 justify-between">
-        <div className="flex items-center gap-4 cursor-pointer" onClick={() => { setView('HOME'); window.history.pushState({}, '', window.location.pathname); }}>
-          <div className="w-10 h-10 bg-gradient-to-tr from-purple-600 to-indigo-600 rounded-xl shadow-lg shadow-purple-500/20"></div>
-          <span className="text-2xl font-bold font-serif text-white tracking-tighter">WRISTORY</span>
-        </div>
-        
-        <div className="hidden md:flex gap-10 text-sm font-semibold tracking-wide">
-          <button onClick={() => setView('HOME')} className={view === 'HOME' ? 'text-white' : 'text-slate-400 hover:text-white transition'}>{t.nav[0]}</button>
-          <button onClick={() => setView('FORENSIC')} className={view === 'FORENSIC' ? 'text-white' : 'text-slate-400 hover:text-white transition'}>{t.nav[1]}</button>
-          <button onClick={() => setView('AIRDROP')} className={view === 'AIRDROP' ? 'text-white' : 'text-slate-400 hover:text-white transition'}>{t.nav[2]}</button>
-          <button onClick={() => setLang(l => l === 'ko' ? 'en' : 'ko')} className="bg-slate-800/80 px-4 py-1.5 rounded-full border border-slate-700 text-xs text-white hover:border-purple-500 transition">{t.nav[3]}</button>
-        </div>
-      </nav>
+      const handleSend = async (e) => {
+        e.preventDefault();
+        if (!input.trim() || isTyping) return;
 
-      <main className="relative">
-        {view === 'HOME' && (
-          <div className="py-24 px-8 max-w-7xl mx-auto">
-            <div className="text-center mb-24 max-w-4xl mx-auto">
-              <h1 className="text-6xl md:text-9xl font-bold font-serif text-white mb-10 tracking-tighter leading-none">{t.hero}</h1>
-              <p className="text-xl md:text-2xl text-slate-400 font-light leading-relaxed mb-12">{t.sub}</p>
-              <button onClick={() => setView('FORENSIC')} className="px-12 py-5 bg-white text-black font-bold rounded-2xl hover:scale-105 transition active:scale-95 shadow-2xl shadow-white/10">{t.btn}</button>
+        const userMsg = input;
+        setInput('');
+        setMessages(prev => [...prev, { role: 'user', text: userMsg }]);
+        setIsTyping(true);
+
+        try {
+          const response = await fetch(`/.netlify/functions/ask-ai`, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            // ✅ 언어 고정(B): lang을 함께 전달
+            body: JSON.stringify({ userMessage: userMsg, lang: language })
+          });
+
+          if (!response.ok) throw new Error(`Server error! status: ${response.status}`);
+          const data = await response.json();
+
+          setMessages(prev => [...prev, { role: 'model', text: data.reply }]);
+        } catch (err) {
+          console.error(err);
+          setMessages(prev => [...prev, { role: 'model', text: t.ai.error }]);
+        } finally {
+          setIsTyping(false);
+        }
+      };
+
+      return (
+        <div className="max-w-4xl mx-auto h-[70vh] bg-slate-800/50 rounded-2xl border border-slate-700 flex flex-col overflow-hidden">
+          <div className="bg-slate-900/80 p-4 border-b border-slate-700 font-bold flex items-center justify-between">
+            <div className="flex items-center gap-3">
+              <span>{t.ai.title}</span>
+              <span className="text-xs px-2.5 py-1 rounded-full bg-slate-800 border border-slate-700 text-slate-200">
+                {langBadge} Fixed
+              </span>
             </div>
-            
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-8">
-              {INDEPENDENCE_FIGHTERS.map(f => (
-                <a key={f.id} href={f.link} target="_blank" rel="noreferrer" className="group bg-slate-900/40 border border-slate-800/50 rounded-3xl overflow-hidden hover:border-purple-500/50 transition-all hover:shadow-[0_0_50px_rgba(168,85,247,0.1)]">
-                  <div className="h-56 overflow-hidden relative">
-                    <img src={f.imageUrl} className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700" alt={f.title[lang]} />
-                    <div className="absolute inset-0 bg-gradient-to-t from-slate-900 to-transparent opacity-60"></div>
-                  </div>
-                  <div className="p-6">
-                    <h3 className="font-bold text-lg text-white mb-2 font-serif tracking-tight">{f.title[lang]}</h3>
-                    <p className="text-xs text-slate-500 leading-relaxed font-light">{f.description[lang]}</p>
-                  </div>
-                </a>
-              ))}
-            </div>
+            <div className="text-xs text-slate-400 hidden sm:block">{t.ai.subtitle}</div>
           </div>
-        )}
 
-        {view === 'FORENSIC' && (
-          <div className="py-24 px-8 max-w-6xl mx-auto">
-            <div className="flex flex-col md:flex-row justify-between items-end mb-16 gap-8 border-l-2 border-purple-500 pl-8">
-              <div>
-                <h2 className="text-4xl md:text-7xl font-bold font-serif text-white mb-4 tracking-tighter">XRP Forensic Report</h2>
-                <p className="text-xl text-slate-400 italic font-light tracking-wide">Documented 176-Day Custody Inaction.</p>
+          <div className="flex-1 overflow-y-auto p-4 md:p-6 space-y-4">
+            {messages.map((msg, i) => (
+              <div key={i} className={`flex ${msg.role === 'user' ? 'justify-end' : 'justify-start'}`}>
+                <div className={`max-w-[85%] p-3 md:p-4 rounded-2xl ${msg.role === 'user' ? 'bg-purple-600' : 'bg-slate-700'}`}>
+                  {msg.text}
+                </div>
               </div>
-              <button 
-                onClick={handleCopyLink} 
-                className="px-8 py-4 bg-purple-600/10 border border-purple-500/40 text-purple-200 rounded-2xl font-bold hover:bg-purple-600 hover:text-white transition-all flex gap-3 items-center group active:scale-95"
-              >
-                <svg className="w-5 h-5 group-hover:rotate-12 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8.684 13.342C8.886 12.938 9 12.482 9 12c0-.482-.114-.938-.316-1.342m0 2.684a3 3 0 110-2.684m0 2.684l6.632 3.316m-6.632-6l6.632-3.316m0 0a3 3 0 105.367-2.684 3 3 0 00-5.367 2.684zm0 9.316a3 3 0 105.368 2.684 3 3 0 00-5.368-2.684z" /></svg>
-                {lang === 'ko' ? '영상 링크 복사' : 'Copy Video Link'}
-              </button>
-            </div>
-            
-            <DocumentaryPlayer />
-            
-            <div className="mt-20 p-12 bg-slate-900/30 rounded-[3rem] border border-slate-800/50 backdrop-blur-sm max-w-4xl mx-auto">
-              <h3 className="text-2xl font-serif text-amber-200/80 mb-6 tracking-[0.2em] uppercase">{t.summary_title}</h3>
-              <p className="text-lg text-slate-400 leading-relaxed font-light">{t.summary_body}</p>
-            </div>
+            ))}
+            {isTyping && <div className="text-slate-400 text-sm ml-4">{t.ai.typing}</div>}
+            <div ref={scrollRef} />
           </div>
-        )}
 
-        {view === 'AIRDROP' && (
-          <div className="py-40 px-8 text-center max-w-3xl mx-auto">
-            <h2 className="text-6xl font-bold font-serif text-white mb-10 tracking-tight">Airdrop Registration</h2>
-            <p className="text-xl text-slate-400 mb-16 font-light leading-relaxed">
-              WRISTORY 프로젝트의 공식 에어드랍에 참여하세요. 테조스(Tezos) 지갑 주소를 등록해 주시면 선정을 통해 디지털 유산 NFT를 보내드립니다.
-            </p>
-            <a 
-              href={lang === 'ko' ? GOOGLE_FORM_URL_KO : GOOGLE_FORM_URL_EN} 
-              target="_blank" 
-              rel="noreferrer" 
-              className="inline-block px-16 py-6 bg-gradient-to-r from-purple-600 to-indigo-600 text-white font-bold rounded-3xl shadow-2xl shadow-purple-500/30 hover:shadow-purple-500/50 transition-all hover:-translate-y-1 active:scale-95"
-            >
-              Google Form 으로 등록하기 ↗
-            </a>
-          </div>
-        )}
-      </main>
-
-      {/* AI 비서 위젯 */}
-      <AIChat lang={lang} />
-
-      <footer className="mt-48 border-t border-slate-800/50 py-24 text-center bg-black/20">
-        <div className="w-16 h-16 bg-slate-800/30 rounded-2xl mx-auto mb-10 flex items-center justify-center">
-          <div className="w-6 h-6 border-2 border-slate-600 rounded-full"></div>
+          <form onSubmit={handleSend} className="p-4 bg-slate-900/80 border-t border-slate-700 flex gap-2 md:gap-4">
+            <input
+              type="text"
+              value={input}
+              onChange={e => setInput(e.target.value)}
+              placeholder={t.ai.placeholder}
+              className="flex-1 bg-slate-800 border border-slate-600 rounded-xl px-4 py-3 text-sm md:text-base outline-none focus:border-purple-500"
+            />
+            <button type="submit"
+              className="bg-purple-600 px-4 md:px-6 py-3 rounded-xl font-bold text-sm md:text-base hover:brightness-110 transition">
+              {t.ai.send}
+            </button>
+          </form>
         </div>
-        <p className="text-[10px] tracking-[0.5em] text-slate-600 uppercase mb-4">Official Forensic Archive</p>
-        <p className="text-xs text-slate-500 font-light tracking-widest">© 2025 YesOkLab | WRISTORY Project</p>
-      </footer>
-    </div>
-  );
-};
+      );
+    };
 
-export default App;
+    const CollectionSection = ({ title, collections, language }) => (
+      <div className="max-w-7xl mx-auto px-6 mb-20">
+        <h2 className="text-2xl md:text-3xl font-bold text-white serif mb-8">{title}</h2>
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-6">
+          {collections.map(col => <CollectionCard key={col.id} collection={col} language={language} />)}
+        </div>
+      </div>
+    );
+
+    const App = () => {
+      const [view, setView] = useState('HOME');
+      const [lang, setLang] = useState('ko');
+      const [isMenuOpen, setIsMenuOpen] = useState(false);
+
+      // ✅ 성탄 팝업 상태
+      const [showXmas, setShowXmas] = useState(false);
+
+      const t = TRANSLATIONS[lang];
+
+      const handleNavClick = (newView) => {
+        setView(newView);
+        setIsMenuOpen(false);
+      };
+
+      // ✅ 성탄 시즌 자동 오픈
+      useEffect(() => {
+        const shouldShow = isChristmasSeason() && localStorage.getItem(seasonKey()) !== "1";
+        if (shouldShow) {
+          setShowXmas(true);
+          document.body.classList.add("modal-open");
+        }
+      }, []);
+
+      const closeXmas = () => {
+        setShowXmas(false);
+        localStorage.setItem(seasonKey(), "1");
+        document.body.classList.remove("modal-open");
+      };
+
+      const openAiFromXmas = () => {
+        closeXmas();
+        setView("AI");
+        window.scrollTo({ top: 0, behavior: "smooth" });
+      };
+
+      return (
+        <div className="min-h-screen">
+
+          {showXmas && (
+            <ChristmasPopup
+              language={lang}
+              onClose={closeXmas}
+              onAskAi={openAiFromXmas}
+              nftLink={CHRISTMAS_NFT_LINK}
+            />
+          )}
+
+          <nav className="sticky top-0 z-50 bg-[#0F111A]/80 backdrop-blur-md border-b border-slate-800">
+            <div className="max-w-7xl mx-auto px-6 h-20 flex justify-between items-center">
+              <div className="flex items-center gap-3 cursor-pointer" onClick={() => handleNavClick('HOME')}>
+                <img src="https://amaranth-legal-sole-30.mypinata.cloud/ipfs/bafkreiaohqebkvodjwrnwt3673zaijntc3uc2g5mxg6vfdydqpeaf77s4a" className="w-10 h-10 rounded-lg" />
+                <span className="text-xl md:text-2xl font-bold serif text-white">WRISTORY</span>
+              </div>
+
+              <div className="hidden md:flex items-center gap-6 text-sm font-medium">
+                <button onClick={() => handleNavClick('HOME')} className={view === 'HOME' ? 'text-white' : 'text-slate-400 hover:text-white'}>{t.nav.collections}</button>
+                <button onClick={() => handleNavClick('AIRDROP')} className={view === 'AIRDROP' ? 'text-white' : 'text-slate-400 hover:text-white'}>{t.nav.register}</button>
+                <button onClick={() => handleNavClick('GUIDE')} className={view === 'GUIDE' ? 'text-white' : 'text-slate-400 hover:text-white'}>{t.nav.guide}</button>
+
+                <button onClick={() => handleNavClick('AI')}
+                        className="bg-slate-800 text-purple-300 px-3 py-1 rounded-full border border-slate-600 hover:border-purple-500">
+                  {t.nav.ai}
+                </button>
+
+                {/* ✅ KO/EN 토글 (이 값이 AI 언어까지 고정됨) */}
+                <button
+                  onClick={() => setLang(l => l === 'en' ? 'ko' : 'en')}
+                  className="w-10 h-10 rounded-full bg-slate-800 border border-slate-600 text-xs text-slate-100 hover:border-purple-500">
+                  {lang === 'en' ? 'KO' : 'EN'}
+                </button>
+              </div>
+
+              <div className="md:hidden">
+                <button onClick={() => setIsMenuOpen(!isMenuOpen)} className="text-white p-2">
+                  {isMenuOpen
+                    ? <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                      </svg>
+                    : <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16m-7 6h7" />
+                      </svg>}
+                </button>
+              </div>
+            </div>
+
+            {isMenuOpen && (
+              <div className="md:hidden absolute top-20 left-0 w-full bg-[#0F111A] border-b border-slate-800 p-6 flex flex-col items-center gap-6 text-lg">
+                <button onClick={() => handleNavClick('HOME')} className="text-slate-200">{t.nav.collections}</button>
+                <button onClick={() => handleNavClick('AIRDROP')} className="text-slate-200">{t.nav.register}</button>
+                <button onClick={() => handleNavClick('GUIDE')} className="text-slate-200">{t.nav.guide}</button>
+                <button onClick={() => handleNavClick('AI')} className="text-slate-200">{t.nav.ai}</button>
+                <button onClick={() => { setLang(l => l === 'en' ? 'ko' : 'en'); setIsMenuOpen(false); }}
+                        className="w-12 h-12 mt-4 rounded-full bg-slate-800 border border-slate-600 text-xs text-slate-100">
+                  {lang === 'en' ? 'KO' : 'EN'}
+                </button>
+              </div>
+            )}
+          </nav>
+
+          <main className="relative z-10">
+            {view === 'HOME' && (
+              <div className="pb-20">
+                <div className="py-16 sm:py-20 md:py-24 px-6 text-center">
+                  <h1 className="text-4xl sm:text-5xl md:text-7xl font-bold serif text-white mb-6 text-shadow">{t.hero.title}</h1>
+                  <p className="text-lg md:text-xl text-slate-400 max-w-2xl mx-auto mb-10">{t.hero.subtitle}</p>
+
+                  {/* ✅ 성탄 시즌에는 수동으로도 팝업 다시 열 수 있게 버튼 제공(UX) */}
+                  {isChristmasSeason() && (
+                    <button
+                      onClick={() => { setShowXmas(true); document.body.classList.add("modal-open"); }}
+                      className="inline-flex items-center gap-2 px-5 py-3 rounded-2xl bg-slate-800/70 border border-slate-700 hover:border-amber-300 text-slate-100 hover:text-amber-200 transition">
+                      🎄 Christmas Card
+                    </button>
+                  )}
+                </div>
+
+                <CollectionSection title={t.home.fightersTitle} collections={INDEPENDENCE_FIGHTERS_COLLECTIONS} language={lang} />
+
+                <div className="space-y-10">
+                  <h2 className="text-3xl md:text-4xl font-bold text-white serif text-center mb-8">{t.home.bitcoinTitle}</h2>
+                  {BITCOIN_CHRONICLES_COLLECTIONS.map((col, index) => (
+                    <SpecialCollectionSection key={col.id} collection={col} language={lang} index={index} />
+                  ))}
+                </div>
+
+                <CollectionSection title={t.home.freeMintTitle} collections={FREE_MINTING_COLLECTIONS} language={lang} />
+              </div>
+            )}
+
+            {view === 'AIRDROP' && <div className="py-12 px-6"><AirdropForm language={lang} /></div>}
+            {view === 'GUIDE' && <div className="py-12 px-6"><Guide language={lang} /></div>}
+            {view === 'AI' && <div className="py-12 px-6"><AiAssistant language={lang} /></div>}
+          </main>
+
+          <footer className="border-t border-slate-800 bg-[#0F111A] py-12 text-center text-slate-500 text-sm">
+            <img src="https://amaranth-legal-sole-30.mypinata.cloud/ipfs/bafkreidus7uzr5rrxhhr47dhqqtx7nxfjzjbsomvb7edicoti6wz3oohli" alt="YesOkLab Logo" className="w-24 h-24 mx-auto mb-4" />
+            <p>{t.footer.rights}</p>
+            <div className="flex flex-wrap justify-center gap-4 sm:gap-6 mt-4">
+              <a href="https://twitter.com/YESOKLAB_OFFICE" target="_blank" rel="noreferrer" className="hover:text-purple-400">Twitter</a>
+              <a href="https://t.me/YesOkLab_WRISTORY_NFT" target="_blank" rel="noreferrer" className="hover:text-purple-400">Telegram</a>
+              <a href="https://blog.naver.com/yesoklab/224123267995" target="_blank" rel="noreferrer" className="hover:text-purple-400">Naver Blog</a>
+              <a href="https://cafe.naver.com/yesoklab" target="_blank" rel="noreferrer" className="hover:text-purple-400">Naver Cafe</a>
+              <a href="https://objkt.com/users/tz1eXLHqJXBnp4VFGwFDfMGWcLYVgBUYnA16/collections/created" target="_blank" rel="noreferrer" className="hover:text-purple-400">Objkt.com</a>
+            </div>
+          </footer>
+
+        </div>
+      );
+    };
+
+    const root = ReactDOM.createRoot(document.getElementById('root'));
+    root.render(<App />);
+  </script>
+</body>
+</html>
+
 
