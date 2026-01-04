@@ -1,0 +1,285 @@
+
+import React, { useState, useEffect, useRef } from 'react';
+import { generateNarrationAudio, decodeAudioBuffer } from './services/gemini';
+import { SCENES, EVIDENCE_IMAGES, TOTAL_DURATION, FULL_SCRIPT } from './constants';
+import { DocumentaryState } from './types';
+
+// --- 외부 링크 설정 ---
+const GOOGLE_FORM_URL_EN = "https://forms.gle/4Y4dSMy4wAh9Pzx47";
+const GOOGLE_FORM_URL_KO = "https://docs.google.com/forms/d/e/1FAIpQLSdagQ6wk6fVVbl0Q4gc5htaCAnnBlJt0fW_aivdx7BrLKCN9g/viewform";
+
+const INDEPENDENCE_FIGHTERS = [
+  { id: '1', title: { en: 'Kim Gu', ko: '백범 김구' }, description: { en: 'President of the Provisional Government.', ko: '임시정부의 주석, 문화강국을 꿈꾼 지도자.' }, imageUrl: 'https://amaranth-legal-sole-30.mypinata.cloud/ipfs/bafkreie4kz6obq6hjvwtrn5hi33yptemfch6kkjmwj5h22b7imipxjxd6u', link: 'https://objkt.com/tokens/KT1A77WVak4yMFoHDNzpAf8PGA7YLmh5wMJ8/32' },
+  { id: '2', title: { en: 'An Jung-geun', ko: '안중근' }, description: { en: 'Independence hero of Harbin.', ko: '하얼빈 의거의 영웅, 동양평화론의 선구자.' }, imageUrl: 'https://amaranth-legal-sole-30.mypinata.cloud/ipfs/bafkreic4bp2ylmmamglszxxnnbipbqlz535qfrhtlm5sgc72lpssvsi3x4', link: 'https://objkt.com/tokens/KT1A77WVak4yMFoHDNzpAf8PGA7YLmh5wMJ8/30' },
+  { id: '3', title: { en: 'Ahn Chang-ho', ko: '도산 안창호' }, description: { en: 'Educator and leader.', ko: '흥사단 창립, 민족의 스승.' }, imageUrl: 'https://amaranth-legal-sole-30.mypinata.cloud/ipfs/bafkreig2qpetwuern2nyndlzn4u2z3j752su7pmx7jxrdmwr7man7dfdg4', link: 'https://objkt.com/tokens/KT1A77WVak4yMFoHDNzpAf8PGA7YLmh5wMJ8/31' },
+  { id: '4', title: { en: 'Yun Bong-gil', ko: '윤봉길' }, description: { en: 'Hero of Hongkew Park.', ko: '상하이 홍커우 공원 의거의 영웅.' }, imageUrl: 'https://amaranth-legal-sole-30.mypinata.cloud/ipfs/bafkreiaayojxjidmtyu6rnqtfwmabestd7qf7aai4klqpjfflqk4pzytde', link: 'https://objkt.com/tokens/KT1A77WVak4yMFoHDNzpAf8PGA7YLmh5wMJ8/33' },
+  { id: '5', title: { en: 'Yun Dong-ju', ko: '윤동주' }, description: { en: 'Poet of resistance.', ko: '하늘과 바람과 별과 시, 저항 시인.' }, imageUrl: 'https://amaranth-legal-sole-30.mypinata.cloud/ipfs/bafkreibztbschh6cqj465duaajxf7r7n736jgdkuprw24des7nk57wyc3a', link: 'https://objkt.com/tokens/KT1A77WVak4yMFoHDNzpAf8PGA7YLmh5wMJ8/29' },
+];
+
+// --- 컴포넌트: 다큐멘터리 플레이어 ---
+const DocumentaryPlayer: React.FC = () => {
+  const [state, setState] = useState<DocumentaryState>({
+    isPlaying: false, currentTime: 0, duration: TOTAL_DURATION, audioLoaded: false, isBuffering: false,
+  });
+  const [audioBuffer, setAudioBuffer] = useState<AudioBuffer | null>(null);
+  const audioContextRef = useRef<AudioContext | null>(null);
+  const sourceNodeRef = useRef<AudioBufferSourceNode | null>(null);
+  const startTimeRef = useRef<number>(0);
+  const timerRef = useRef<number | null>(null);
+
+  useEffect(() => {
+    const init = async () => {
+      setState(s => ({ ...s, isBuffering: true }));
+      try {
+        const base64 = await generateNarrationAudio(FULL_SCRIPT);
+        audioContextRef.current = new (window.AudioContext || (window as any).webkitAudioContext)({ sampleRate: 24000 });
+        const buffer = await decodeAudioBuffer(base64, audioContextRef.current);
+        setAudioBuffer(buffer);
+        setState(s => ({ ...s, audioLoaded: true, isBuffering: false }));
+      } catch (e) {
+        console.error("Audio Load Error:", e);
+        setState(s => ({ ...s, isBuffering: false }));
+      }
+    };
+    init();
+    return () => {
+      if (timerRef.current) clearInterval(timerRef.current);
+      if (sourceNodeRef.current) sourceNodeRef.current.stop();
+    };
+  }, []);
+
+  const togglePlayback = () => {
+    if (state.isPlaying) {
+      sourceNodeRef.current?.stop();
+      if (timerRef.current) clearInterval(timerRef.current);
+      setState(s => ({ ...s, isPlaying: false }));
+    } else {
+      if (!audioBuffer || !audioContextRef.current) return;
+      if (audioContextRef.current.state === 'suspended') audioContextRef.current.resume();
+
+      const source = audioContextRef.current.createBufferSource();
+      source.buffer = audioBuffer;
+      source.connect(audioContextRef.current.destination);
+      
+      const offset = state.currentTime >= TOTAL_DURATION ? 0 : state.currentTime;
+      source.start(0, offset);
+      sourceNodeRef.current = source;
+      startTimeRef.current = audioContextRef.current.currentTime - offset;
+      
+      setState(s => ({ ...s, isPlaying: true, currentTime: offset }));
+
+      timerRef.current = window.setInterval(() => {
+        const elapsed = audioContextRef.current!.currentTime - startTimeRef.current;
+        if (elapsed >= TOTAL_DURATION) {
+          sourceNodeRef.current?.stop();
+          clearInterval(timerRef.current!);
+          setState(s => ({ ...s, isPlaying: false, currentTime: TOTAL_DURATION }));
+        } else {
+          setState(s => ({ ...s, currentTime: elapsed }));
+        }
+      }, 50);
+    }
+  };
+
+  const activeScene = SCENES.find(s => state.currentTime >= s.startTime && state.currentTime < s.endTime) || SCENES[SCENES.length - 1];
+
+  return (
+    <div className="relative w-full aspect-video bg-black rounded-3xl overflow-hidden border border-slate-800 shadow-2xl group selection:bg-transparent">
+      {state.isBuffering && (
+        <div className="absolute inset-0 z-50 flex flex-col items-center justify-center bg-black/90">
+          <div className="w-10 h-10 border-2 border-white/10 border-t-purple-500 rounded-full animate-spin mb-4"></div>
+          <p className="text-[10px] tracking-widest text-slate-500 uppercase">Generating Forensic Audio...</p>
+        </div>
+      )}
+      
+      <div className="absolute inset-0 flex items-center justify-center bg-black">
+        {activeScene.imageIndex === -1 ? (
+          <h2 className="text-3xl md:text-5xl font-serif tracking-[0.3em] text-white animate-pulse text-center px-4 leading-tight">
+            {activeScene.caption}
+          </h2>
+        ) : (
+          <div className="w-full h-full relative overflow-hidden flex items-center justify-center">
+            <img 
+              src={EVIDENCE_IMAGES[activeScene.imageIndex]} 
+              className="max-w-full max-h-full object-contain transition-all duration-1000"
+              style={{ 
+                filter: `grayscale(0.2) contrast(1.1) brightness(${state.isPlaying ? 1 : 0.6})`,
+                transform: state.isPlaying ? 'scale(1.1)' : 'scale(1)'
+              }}
+            />
+            <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-transparent to-black/40"></div>
+          </div>
+        )}
+      </div>
+
+      <div className="absolute bottom-20 left-0 w-full px-12 text-center pointer-events-none transition-all duration-700">
+        <p className="text-xl md:text-3xl font-light tracking-widest text-white drop-shadow-2xl">{activeScene.caption}</p>
+      </div>
+
+      <div className="absolute bottom-0 left-0 w-full p-8 flex items-center gap-6 bg-gradient-to-t from-black to-transparent opacity-0 group-hover:opacity-100 transition-opacity">
+        <button onClick={togglePlayback} disabled={!state.audioLoaded} className="w-12 h-12 rounded-full border border-white/20 flex items-center justify-center hover:bg-white hover:text-black transition-all shadow-lg active:scale-90">
+          {state.isPlaying ? <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 24 24"><path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/></svg> : <svg className="w-4 h-4 ml-1" fill="currentColor" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>}
+        </button>
+        <div className="flex-grow">
+          <div className="h-1 bg-white/10 rounded-full overflow-hidden">
+            <div className="h-full bg-purple-500 transition-all duration-100" style={{ width: `${(state.currentTime / TOTAL_DURATION) * 100}%` }}></div>
+          </div>
+        </div>
+        <span className="text-[10px] font-mono text-slate-400 w-16 text-right tracking-tighter">
+          {new Date(state.currentTime * 1000).toISOString().substr(14, 5)}
+        </span>
+      </div>
+    </div>
+  );
+};
+
+// --- 메인 앱 컴포넌트 ---
+const App: React.FC = () => {
+  const [view, setView] = useState('HOME');
+  const [lang, setLang] = useState('ko');
+  const [showToast, setShowToast] = useState(false);
+
+  useEffect(() => {
+    // URL 쿼리 파라미터 체크 (?view=forensic)
+    const params = new URLSearchParams(window.location.search);
+    if (params.get('view') === 'forensic') {
+      setView('FORENSIC');
+    }
+  }, []);
+
+  const handleCopyLink = () => {
+    // 현재 도메인을 기준으로 공유 링크 생성
+    const baseUrl = window.location.origin + window.location.pathname;
+    const shareUrl = `${baseUrl}?view=forensic`;
+    navigator.clipboard.writeText(shareUrl).then(() => {
+      setShowToast(true);
+      setTimeout(() => setShowToast(false), 3000);
+    });
+  };
+
+  const t = {
+    ko: { 
+      nav: ['컬렉션', '포렌식 보고서', '에어드랍', 'KO'], 
+      hero: '손목 위의 역사', 
+      sub: '블록체인을 통한 역사적 순간의 보존. WRISTORY는 테조스 위에서 디지털 유산을 기록합니다.', 
+      toast: '영상 링크가 복사되었습니다!',
+      btn: '포렌식 보고서 보기',
+      summary_title: '조사 개요',
+      summary_body: '본 조사는 2025년 7월 9일 발생한 1,447.4 XRP 반환 건의 미지급 상태를 다룹니다. 온체인 상의 전송 완료 증빙에도 불구하고 176일간 고객 계정에 반영되지 않은 사실을 근거로 작성되었습니다.'
+    },
+    en: { 
+      nav: ['Collections', 'Forensic Report', 'Airdrop', 'EN'], 
+      hero: 'History on Your Wrist', 
+      sub: 'Preserving legendary moments through blockchain. WRISTORY captures digital heritage on Tezos.', 
+      toast: 'Share link copied to clipboard!',
+      btn: 'View Forensic Report',
+      summary_title: 'Investigation Summary',
+      summary_body: 'This investigation documents the uncredited 1,447.4 XRP returned on July 9, 2025. Despite on-chain proof of successful delivery to the corporate wallet, the funds remain unassigned after 176 days.'
+    }
+  }[lang];
+
+  return (
+    <div className="min-h-screen bg-[#0F111A] text-slate-200">
+      {showToast && (
+        <div className="fixed bottom-10 left-1/2 -translate-x-1/2 z-[100] bg-purple-600 text-white px-8 py-4 rounded-3xl shadow-2xl animate-bounce font-bold tracking-tight">
+          {t.toast}
+        </div>
+      )}
+      
+      {/* 내비게이션 바 */}
+      <nav className="sticky top-0 z-50 bg-[#0F111A]/90 backdrop-blur-xl border-b border-slate-800 h-20 flex items-center px-8 justify-between">
+        <div className="flex items-center gap-4 cursor-pointer" onClick={() => { setView('HOME'); window.history.pushState({}, '', window.location.pathname); }}>
+          <div className="w-10 h-10 bg-gradient-to-tr from-purple-600 to-indigo-600 rounded-xl shadow-lg shadow-purple-500/20"></div>
+          <span className="text-2xl font-bold font-serif text-white tracking-tighter">WRISTORY</span>
+        </div>
+        
+        <div className="hidden md:flex gap-10 text-sm font-semibold tracking-wide">
+          <button onClick={() => setView('HOME')} className={view === 'HOME' ? 'text-white' : 'text-slate-400 hover:text-white transition'}>{t.nav[0]}</button>
+          <button onClick={() => setView('FORENSIC')} className={view === 'FORENSIC' ? 'text-white' : 'text-slate-400 hover:text-white transition'}>{t.nav[1]}</button>
+          <button onClick={() => setView('AIRDROP')} className={view === 'AIRDROP' ? 'text-white' : 'text-slate-400 hover:text-white transition'}>{t.nav[2]}</button>
+          <button onClick={() => setLang(l => l === 'ko' ? 'en' : 'ko')} className="bg-slate-800/80 px-4 py-1.5 rounded-full border border-slate-700 text-xs text-white hover:border-purple-500 transition">{t.nav[3]}</button>
+        </div>
+      </nav>
+
+      {/* 메인 콘텐츠 영역 */}
+      <main className="relative">
+        {view === 'HOME' && (
+          <div className="py-24 px-8 max-w-7xl mx-auto">
+            <div className="text-center mb-24 max-w-4xl mx-auto">
+              <h1 className="text-6xl md:text-9xl font-bold font-serif text-white mb-10 tracking-tighter leading-none">{t.hero}</h1>
+              <p className="text-xl md:text-2xl text-slate-400 font-light leading-relaxed mb-12">{t.sub}</p>
+              <button onClick={() => setView('FORENSIC')} className="px-12 py-5 bg-white text-black font-bold rounded-2xl hover:scale-105 transition active:scale-95 shadow-2xl shadow-white/10">{t.btn}</button>
+            </div>
+            
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-8">
+              {INDEPENDENCE_FIGHTERS.map(f => (
+                <a key={f.id} href={f.link} target="_blank" rel="noreferrer" className="group bg-slate-900/40 border border-slate-800/50 rounded-3xl overflow-hidden hover:border-purple-500/50 transition-all hover:shadow-[0_0_50px_rgba(168,85,247,0.1)]">
+                  <div className="h-56 overflow-hidden relative">
+                    <img src={f.imageUrl} className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700" alt={f.title[lang]} />
+                    <div className="absolute inset-0 bg-gradient-to-t from-slate-900 to-transparent opacity-60"></div>
+                  </div>
+                  <div className="p-6">
+                    <h3 className="font-bold text-lg text-white mb-2 font-serif tracking-tight">{f.title[lang]}</h3>
+                    <p className="text-xs text-slate-500 leading-relaxed font-light">{f.description[lang]}</p>
+                  </div>
+                </a>
+              ))}
+            </div>
+          </div>
+        )}
+
+        {view === 'FORENSIC' && (
+          <div className="py-24 px-8 max-w-6xl mx-auto">
+            <div className="flex flex-col md:flex-row justify-between items-end mb-16 gap-8 border-l-2 border-purple-500 pl-8">
+              <div>
+                <h2 className="text-4xl md:text-7xl font-bold font-serif text-white mb-4 tracking-tighter">XRP Forensic Report</h2>
+                <p className="text-xl text-slate-400 italic font-light tracking-wide">Documented 176-Day Custody Inaction.</p>
+              </div>
+              <button 
+                onClick={handleCopyLink} 
+                className="px-8 py-4 bg-purple-600/10 border border-purple-500/40 text-purple-200 rounded-2xl font-bold hover:bg-purple-600 hover:text-white transition-all flex gap-3 items-center group active:scale-95"
+              >
+                <svg className="w-5 h-5 group-hover:rotate-12 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8.684 13.342C8.886 12.938 9 12.482 9 12c0-.482-.114-.938-.316-1.342m0 2.684a3 3 0 110-2.684m0 2.684l6.632 3.316m-6.632-6l6.632-3.316m0 0a3 3 0 105.367-2.684 3 3 0 00-5.367 2.684zm0 9.316a3 3 0 105.368 2.684 3 3 0 00-5.368-2.684z" /></svg>
+                {lang === 'ko' ? '영상 링크 복사' : 'Copy Video Link'}
+              </button>
+            </div>
+            
+            <DocumentaryPlayer />
+            
+            <div className="mt-20 p-12 bg-slate-900/30 rounded-[3rem] border border-slate-800/50 backdrop-blur-sm max-w-4xl mx-auto">
+              <h3 className="text-2xl font-serif text-amber-200/80 mb-6 tracking-[0.2em] uppercase">{t.summary_title}</h3>
+              <p className="text-lg text-slate-400 leading-relaxed font-light">{t.summary_body}</p>
+            </div>
+          </div>
+        )}
+
+        {view === 'AIRDROP' && (
+          <div className="py-40 px-8 text-center max-w-3xl mx-auto">
+            <h2 className="text-6xl font-bold font-serif text-white mb-10 tracking-tight">Airdrop Registration</h2>
+            <p className="text-xl text-slate-400 mb-16 font-light leading-relaxed">
+              WRISTORY 프로젝트의 공식 에어드랍에 참여하세요. 테조스(Tezos) 지갑 주소를 등록해 주시면 선정을 통해 디지털 유산 NFT를 보내드립니다.
+            </p>
+            <a 
+              href={lang === 'ko' ? GOOGLE_FORM_URL_KO : GOOGLE_FORM_URL_EN} 
+              target="_blank" 
+              rel="noreferrer" 
+              className="inline-block px-16 py-6 bg-gradient-to-r from-purple-600 to-indigo-600 text-white font-bold rounded-3xl shadow-2xl shadow-purple-500/30 hover:shadow-purple-500/50 transition-all hover:-translate-y-1 active:scale-95"
+            >
+              Google Form 으로 등록하기 ↗
+            </a>
+          </div>
+        )}
+      </main>
+
+      <footer className="mt-48 border-t border-slate-800/50 py-24 text-center bg-black/20">
+        <div className="w-16 h-16 bg-slate-800/30 rounded-2xl mx-auto mb-10 flex items-center justify-center">
+          <div className="w-6 h-6 border-2 border-slate-600 rounded-full"></div>
+        </div>
+        <p className="text-[10px] tracking-[0.5em] text-slate-600 uppercase mb-4">Official Forensic Archive</p>
+        <p className="text-xs text-slate-500 font-light tracking-widest">© 2025 YesOkLab | WRISTORY Project</p>
+      </footer>
+    </div>
+  );
+};
+
+export default App;
