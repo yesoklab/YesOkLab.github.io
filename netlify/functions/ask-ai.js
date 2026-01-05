@@ -34,8 +34,10 @@ exports.handler = async (event) => {
         : "한국어로만 답변하세요.";
 
     // ✅ 안정적으로 동작하는 모델(당신 환경에서 이미 성공한 v1beta + 1.5 flash 유지)
-    const model = "gemini-1.5-flash";
-    const url = `https://generativelanguage.googleapis.com/v1beta/models/${model}:generateContent`;
+    // ✅ 안정 모델
+const model = "gemini-1.5-flash-latest";
+const url = `https://generativelanguage.googleapis.com/v1beta/models/${model}:generateContent`;
+
 
     const prompt = `
 You are the official guide for the WRISTORY project (Digital Heritage NFT on Tezos).
