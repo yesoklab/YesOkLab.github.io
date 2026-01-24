@@ -3,7 +3,7 @@
 <html lang="ko">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>WRISTORY | Digital Heritage by YesOkLab</title>
   <meta name="description" content="블록체인 기술로 역사를 보존합니다. WRISTORY NFT 에어드랍 및 컬렉션 공식 페이지.">
   <meta property="og:type" content="website">
@@ -15,15 +15,14 @@
   <script src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js" crossorigin></script>
   <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
   <style>
-    @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&family=Noto+Sans+KR:wght@300;400;500;700;900&family=Inter:wght@300;400;600;900&display=swap');
-    body { font-family: 'Inter', 'Noto Sans KR', sans-serif; background-color: #0F111A; color: #E2E8F0; margin: 0; }
+    @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Noto+Sans+KR:wght@300;400;500;700&family=Inter:wght@300;400;600&display=swap');
+    body { font-family: 'Inter', 'Noto Sans KR', sans-serif; background-color: #0F111A; color: #E2E8F0; }
     h1, h2, h3, .serif { font-family: 'Playfair Display', serif; }
-    .text-shadow { text-shadow: 0 2px 8px rgba(0,0,0,0.8); }
-    ::-webkit-scrollbar { width: 6px; }
-    ::-webkit-scrollbar-thumb { background: #334155; border-radius: 10px; }
+    .text-shadow { text-shadow: 0 2px 4px rgba(0,0,0,0.5); }
+    ::-webkit-scrollbar { width: 8px; }
+    ::-webkit-scrollbar-track { background: #1e293b; }
+    ::-webkit-scrollbar-thumb { background: #475569; border-radius: 4px; }
     body.modal-open { overflow: hidden; }
-    .glass-effect { background: rgba(30, 41, 59, 0.5); backdrop-filter: blur(12px); border: 1px solid rgba(255, 255, 255, 0.05); }
-    .nav-blur { background: rgba(15, 17, 26, 0.8); backdrop-filter: blur(10px); }
   </style>
 <script type="importmap">
 {
@@ -48,106 +47,168 @@
 
     const isChristmasSeason = () => {
       const now = new Date();
-      return (now.getMonth() + 1 === 12 && now.getDate() >= 24);
+      return (now.getMonth() + 1 === 12 && now.getDate() >= 24 && now.getDate() <= 31);
     };
 
     const TRANSLATIONS = {
       en: {
-        nav: { collections: 'Collections', register: 'Airdrop', guide: 'Guide', ai: '✨ AI' },
-        hero: { title: 'History on Your Wrist', subtitle: 'Preserving legendary moments through blockchain. WRISTORY captures historical wisdom in interactive art.', viewBtn: 'View' },
-        home: { 
-          fighters: 'Archive I: Independence Fighters', 
-          bitcoin: 'Archive II: Bitcoin Chronicles', 
-          voxel: 'Archive III: Voxel Heritage',
-          free: 'Archive IV: Creation Lab'
+        nav: { collections: 'Collections', register: 'Airdrop', guide: 'Guide', ai: '✨ Ask AI' },
+        hero: { title: 'History on Your Wrist', subtitle: 'Preserving legendary moments through blockchain technology. WRISTORY captures historical wisdom on the Tezos network.', viewBtn: 'View' },
+        home: { fightersTitle: 'Archive I: Korean Independence Fighters', bitcoinTitle: 'Archive II: The Bitcoin Chronicles', voxelTitle: 'Archive III: Voxel Heritage', freeMintTitle: 'Archive IV: Free Creation & Partner Labs' },
+        form: { title: 'How to Join the Airdrop', subtitle: 'Follow the instructions on our official channels to participate. Submissions are collected via Google Forms.', naverBtn: 'Read Announcement on Naver', telegramBtn: 'Join via Telegram Channel', directBtn: 'Register Directly (Google Form)' },
+        guide: { title: 'Airdrop Execution Procedure', steps: [
+          { title: '1. Check Announcement', desc: 'Visit our official Naver Blog or Telegram channel.' },
+          { title: '2. Register via Google Form', desc: 'Submit your Tezos (tz1...) wallet address.' },
+          { title: '3. Manage Submissions', desc: 'Addresses are collected securely.' },
+          { title: '4. Receive NFT', desc: 'NFTs are distributed after registration ends.' }
+        ]},
+        ai: {
+          title: 'WRISTORY Assistant',
+          subtitle: 'Ask about history or our project.',
+          placeholder: 'Ask about Kim Gu...',
+          send: 'Send',
+          initialMsg: 'Hello. I am the WRISTORY Curator AI. Ask me about historical figures or our voxel series.',
+          error: 'Connection failed.',
+          typing: 'Thinking...'
         },
-        footer: { rights: '© 2025 YesOkLab | WRISTORY Project.' }
+        xmas: { title: "Merry Christmas", body: "Celebrating history and a hopeful new year with WRISTORY.", cta1: "View Seasonal NFT", cta2: "Ask AI", close: "Close" },
+        footer: { rights: '© 2025 YesOkLab | WRISTORY Project. All Rights Reserved.' }
       },
       ko: {
         nav: { collections: '컬렉션', register: '에어드랍', guide: '가이드', ai: '✨ AI 질문' },
-        hero: { title: '손목 위의 역사', subtitle: '블록체인으로 영원히 보존되는 전설의 순간들. WRISTORY는 인터랙티브 아트로 역사의 지혜를 재현합니다.', viewBtn: '보기' },
-        home: { 
-          fighters: '아카이브 I: 독립운동가', 
-          bitcoin: '아카이브 II: 비트코인 연대기', 
-          voxel: '아카이브 III: 복셀 헤리티지',
-          free: '아카이브 IV: 자유 창작 랩'
+        hero: { title: '손목 위의 역사', subtitle: '블록체인 기술을 통해 전설적인 순간들을 보존합니다. WRISTORY는 테조스 네트워크 위에서 역사적 지혜를 담아냅니다.', viewBtn: '보기' },
+        home: { fightersTitle: '아카이브 I: 대한민국 독립운동가', bitcoinTitle: '아카이브 II: 비트코인 연대기', voxelTitle: '아카이브 III: 복셀 헤리티지', freeMintTitle: '아카이브 IV: 자유 창작 및 파트너 랩' },
+        form: { title: '에어드랍 참여 방법', subtitle: '가장 정확한 정보는 공식 채널의 공지를 통해 확인하실 수 있습니다. 주소 수집은 안전한 Google 설문지를 통해 진행됩니다.', naverBtn: '네이버 블로그에서 공지 확인', telegramBtn: '텔레그램 채널에서 참여', directBtn: '바로 등록하기 (Google Form)' },
+        guide: { title: '에어드랍 진행 절차', steps: [
+          { title: '1. 공식 채널 공지 확인', desc: '네이버 블로그 또는 텔레그램 채널을 방문하여 상세 공지를 확인합니다.' },
+          { title: '2. Google Form으로 주소 제출', desc: '공식 Google 설문지로 이동하여 본인의 테조스(tz1...) 지갑 주소를 제출합니다.' },
+          { title: '3. 제출 명단 관리', desc: '제출된 주소는 스프레드시트를 통해 안전하게 관리됩니다.' },
+          { title: '4. NFT 수령 및 완료 공지', desc: '등록 기간 종료 후 NFT를 일괄 전송합니다.' }
+        ]},
+        ai: {
+          title: 'WRISTORY AI 비서',
+          subtitle: '역사적 배경이나 프로젝트에 대해 물어보세요.',
+          placeholder: '김구 선생에 대해 물어보세요...',
+          send: '전송',
+          initialMsg: '안녕하세요. WRISTORY 큐레이터 AI입니다. 역사적 인물이나 복셀 헤리티지 시리즈에 대해 물어보세요.',
+          error: '연결에 실패했습니다.',
+          typing: '생각 중...'
         },
+        xmas: { title: "Merry Christmas", body: "기쁜 성탄과 희망찬 새해를 맞이하여 건강과 행운이 함께 하시기를 기원합니다.", cta1: "성탄 NFT 보기", cta2: "AI에게 묻기", close: "닫기" },
         footer: { rights: '© 2025 YesOkLab | WRISTORY Project. All Rights Reserved.' }
       }
     };
 
-    // --- DATA SETS ---
-    const INDEPENDENCE_DATA = [
-      { id: '1', title: { en: 'Kim Gu', ko: '백범 김구' }, imageUrl: 'https://amaranth-legal-sole-30.mypinata.cloud/ipfs/bafkreie4kz6obq6hjvwtrn5hi33yptemfch6kkjmwj5h22b7imipxjxd6u', link: 'https://objkt.com/tokens/KT1A77WVak4yMFoHDNzpAf8PGA7YLmh5wMJ8/32' },
-      { id: '2', title: { en: 'An Jung-geun', ko: '안중근' }, imageUrl: 'https://amaranth-legal-sole-30.mypinata.cloud/ipfs/bafkreic4bp2ylmmamglszxxnnbipbqlz535qfrhtlm5sgc72lpssvsi3x4', link: 'https://objkt.com/tokens/KT1A77WVak4yMFoHDNzpAf8PGA7YLmh5wMJ8/30' },
-      { id: '3', title: { en: 'Ahn Chang-ho', ko: '도산 안창호' }, imageUrl: 'https://amaranth-legal-sole-30.mypinata.cloud/ipfs/bafkreig2qpetwuern2nyndlzn4u2z3j752su7pmx7jxrdmwr7man7dfdg4', link: 'https://objkt.com/tokens/KT1A77WVak4yMFoHDNzpAf8PGA7YLmh5wMJ8/31' },
-      { id: '4', title: { en: 'Yun Bong-gil', ko: '윤봉길' }, imageUrl: 'https://amaranth-legal-sole-30.mypinata.cloud/ipfs/bafkreiaayojxjidmtyu6rnqtfwmabestd7qf7aai4klqpjfflqk4pzytde', link: 'https://objkt.com/tokens/KT1A77WVak4yMFoHDNzpAf8PGA7YLmh5wMJ8/33' },
-      { id: '5', title: { en: 'Yu Gwan-sun', ko: '유관순' }, imageUrl: 'https://amaranth-legal-sole-30.mypinata.cloud/ipfs/bafkreiejrnn2dpacgyyexuil5obifqgnfapdgvctsxwm7ne2ny7d6ifh6i', link: 'https://objkt.com/tokens/KT1A77WVak4yMFoHDNzpAf8PGA7YLmh5wMJ8/27' },
+    const INDEPENDENCE_FIGHTERS_COLLECTIONS = [
+      { id: '1', title: { en: 'Baekbeom Kim Gu', ko: '백범 김구' }, description: { en: 'President of the Provisional Government.', ko: '임시정부의 주석, 문화강국을 꿈꾼 지도자.' }, imageUrl: 'https://amaranth-legal-sole-30.mypinata.cloud/ipfs/bafkreie4kz6obq6hjvwtrn5hi33yptemfch6kkjmwj5h22b7imipxjxd6u', link: 'https://objkt.com/tokens/KT1A77WVak4yMFoHDNzpAf8PGA7YLmh5wMJ8/32' },
+      { id: '2', title: { en: 'An Jung-geun', ko: '안중근' }, description: { en: 'Hero of Harbin.', ko: '하얼빈 의거의 영웅, 동양평화론의 선구자.' }, imageUrl: 'https://amaranth-legal-sole-30.mypinata.cloud/ipfs/bafkreic4bp2ylmmamglszxxnnbipbqlz535qfrhtlm5sgc72lpssvsi3x4', link: 'https://objkt.com/tokens/KT1A77WVak4yMFoHDNzpAf8PGA7YLmh5wMJ8/30' },
+      { id: '3', title: { en: 'Ahn Chang-ho', ko: '도산 안창호' }, description: { en: 'Educator and independence leader.', ko: '흥사단 창립, 민족의 스승.' }, imageUrl: 'https://amaranth-legal-sole-30.mypinata.cloud/ipfs/bafkreig2qpetwuern2nyndlzn4u2z3j752su7pmx7jxrdmwr7man7dfdg4', link: 'https://objkt.com/tokens/KT1A77WVak4yMFoHDNzpAf8PGA7YLmh5wMJ8/31' },
+      { id: '4', title: { en: 'Yun Bong-gil', ko: '윤봉길' }, description: { en: 'Hero of Hongkew Park bombing.', ko: '상하이 홍커우 공원 의거의 영웅.' }, imageUrl: 'https://amaranth-legal-sole-30.mypinata.cloud/ipfs/bafkreiaayojxjidmtyu6rnqtfwmabestd7qf7aai4klqpjfflqk4pzytde', link: 'https://objkt.com/tokens/KT1A77WVak4yMFoHDNzpAf8PGA7YLmh5wMJ8/33' },
+      { id: '5', title: { en: 'Yun Dong-ju', ko: '윤동주' }, description: { en: 'Poet of resistance.', ko: '하늘과 바람과 별과 시, 저항 시인.' }, imageUrl: 'https://amaranth-legal-sole-30.mypinata.cloud/ipfs/bafkreibztbschh6cqj465duaajxf7r7n736jgdkuprw24des7nk57wyc3a', link: 'https://objkt.com/tokens/KT1A77WVak4yMFoHDNzpAf8PGA7YLmh5wMJ8/29' },
+      { id: '6', title: { en: 'Yu Gwan-sun', ko: '유관순' }, description: { en: 'Symbol of March 1st Movement.', ko: '3.1 운동의 상징, 영원한 자유의 불꽃.' }, imageUrl: 'https://amaranth-legal-sole-30.mypinata.cloud/ipfs/bafkreiejrnn2dpacgyyexuil5obifqgnfapdgvctsxwm7ne2ny7d6ifh6i', link: 'https://objkt.com/tokens/KT1A77WVak4yMFoHDNzpAf8PGA7YLmh5wMJ8/27' },
+      { id: '7', title: { en: 'Kim Maria', ko: '김마리아' }, description: { en: 'Leading female activist.', ko: '대한민국 애국부인회, 여성 독립운동의 대모.' }, imageUrl: 'https://amaranth-legal-sole-30.mypinata.cloud/ipfs/bafkreietyzmroybbctmfgx2odcwfqupaew5qqyqanpg6pnz5dywe7okluy', link: 'https://objkt.com/tokens/KT1A77WVak4yMFoHDNzpAf8PGA7YLmh5wMJ8/28' },
+      { id: '8', title: { en: 'Ahn Kyung-shin', ko: '안경신' }, description: { en: 'Bombing attack hero.', ko: '평남 경찰부 폭탄 투척 의거의 영웅.' }, imageUrl: 'https://amaranth-legal-sole-30.mypinata.cloud/ipfs/bafkreiag3mmu2f7uze3zsmpmtm43x6mcgvkzywplxr2oeq72r6tteeoule', link: 'https://objkt.com/tokens/KT1A77WVak4yMFoHDNzpAf8PGA7YLmh5wMJ8/34' },
+      { id: '9', title: { en: 'Jeong Jeong-hwa', ko: '정정화' }, description: { en: 'Godmother of Provisional Govt.', ko: '임시정부의 안주인, 6차례의 국내 잠입.' }, imageUrl: 'https://amaranth-legal-sole-30.mypinata.cloud/ipfs/bafkreidqgxz3uecxorevnvttvpty2aetqakichk6mtcbc5sdxmobg2shpi', link: 'https://objkt.com/tokens/KT1A77WVak4yMFoHDNzpAf8PGA7YLmh5wMJ8/25' },
+      { id: '10', title: { en: 'Hwang Esther', ko: '황에스더' }, description: { en: 'First female doctor, activist.', ko: '최초의 여성 의사, 구국 활동에 헌신.' }, imageUrl: 'https://amaranth-legal-sole-30.mypinata.cloud/ipfs/bafkreigku62k4a2kweyyzrdixi3j4nss6rlz33666bhkhxr7w5ycxi5ejy', link: 'https://objkt.com/tokens/KT1A77WVak4yMFoHDNzpAf8PGA7YLmh5wMJ8/26' },
     ];
 
-    const BITCOIN_DATA = [
-      { id: 'b1', title: { en: 'Pizza Genesis: 10K', ko: '비트코인 피자 제네시스 10K' }, videoUrl: 'https://amaranth-legal-sole-30.mypinata.cloud/ipfs/bafybeib7v7q7v7v7v7v7v7v7v7v7v7v7v7v7v7v7v7v7v7v7v7v7v7v7v7', link: 'https://objkt.com/collections/KT1JU866vUaq8ac5KkmuW8XKnEbNXiVHRqUy', color: 'from-orange-500 to-pink-600' },
-      { id: 'b2', title: { en: 'Satoshi Whitepaper', ko: '비트코인 백서 컬렉션' }, imageUrl: 'https://amaranth-legal-sole-30.mypinata.cloud/ipfs/bafkreifvrgo5jj3tfkf6yeuvodplfdg46pfx6mgfzilrwewxb333xu6sru', link: 'https://objkt.com/collections/KT1BywQidkDZoSaS38cv1xGWRgXBkx9qFeVe', color: 'from-blue-600 to-purple-700' }
+    const BITCOIN_CHRONICLES_COLLECTIONS = [
+      { id: '11', title: { en: 'Bitcoin Pizza Genesis: 10K', ko: '비트코인 피자 제네시스 10k' }, description: { en: 'First real-world Bitcoin transaction.', ko: '최초의 비트코인 실물 거래를 기념하며.' }, videoUrl: 'https://amaranth-legal-sole-30.mypinata.cloud/ipfs/bafybeib7v7q7v7v7v7v7v7v7v7v7v7v7v7v7v7v7v7v7v7v7v7v7v7v7v7', link: 'https://objkt.com/collections/KT1JU866vUaq8ac5KkmuW8XKnEbNXiVHRqUy', color: 'from-orange-500 to-pink-600' },
+      { id: '12', title: { en: 'BITCOIN Whitepaper', ko: '비트코인 백서 컬렉션' }, description: { en: 'Preserving Satoshi\'s paper.', ko: '사토시 나카모토의 혁명적인 논문을 보존합니다.' }, imageUrl: 'https://amaranth-legal-sole-30.mypinata.cloud/ipfs/bafkreifvrgo5jj3tfkf6yeuvodplfdg46pfx6mgfzilrwewxb333xu6sru', link: 'https://objkt.com/collections/KT1BywQidkDZoSaS38cv1xGWRgXBkx9qFeVe', color: 'from-blue-600 to-indigo-800' },
     ];
 
-    const VOXEL_HERITAGE_DATA = [
-      { id: 'v1', title: { en: 'Turtle Ship #1597', ko: '거북선 #1597 (명량)' }, imageUrl: 'https://amaranth-legal-sole-30.mypinata.cloud/ipfs/bafkreiaohqebkvodjwrnwt3673zaijntc3uc2g5mxg6vfdydqpeaf77s4a', link: 'https://objkt.com/tokens/KT1A77WVak4yMFoHDNzpAf8PGA7YLmh5wMJ8/35', badge: 'LEGENDARY' },
-      { id: 'v2', title: { en: 'Bubbles #011', ko: '버블스 #011 (황금 에디션)' }, imageUrl: 'https://amaranth-legal-sole-30.mypinata.cloud/ipfs/bafkreiaohqebkvodjwrnwt3673zaijntc3uc2g5mxg6vfdydqpeaf77s4a', link: 'https://objkt.com/tokens/KT1AQkX48gLHaKSv1NPyrrJFFvZTFsUu9GP8/7', badge: 'SOLD OUT', sold: true }
+    const VOXEL_HERITAGE_COLLECTIONS = [
+      { id: 'v1', title: { en: 'Turtle Ship #1597', ko: '거북선 #1597 (명량)' }, description: { en: 'Battle-scarred iron dragon.', ko: '1597년 울돌목의 기적을 재현한 인터랙티브 복셀 아트.' }, imageUrl: 'https://amaranth-legal-sole-30.mypinata.cloud/ipfs/bafkreiaohqebkvodjwrnwt3673zaijntc3uc2g5mxg6vfdydqpeaf77s4a', link: 'https://objkt.com/tokens/KT1A77WVak4yMFoHDNzpAf8PGA7YLmh5wMJ8/35', badge: 'LEGENDARY' },
+      { id: 'v2', title: { en: 'Bubbles #011', ko: '버블스 #011 (황금 에디션)' }, description: { en: 'Golden Legacy. Sold Out.', ko: '완판된 전설적인 황금 에디션. 영원한 기억.' }, imageUrl: 'https://amaranth-legal-sole-30.mypinata.cloud/ipfs/bafkreiaohqebkvodjwrnwt3673zaijntc3uc2g5mxg6vfdydqpeaf77s4a', link: 'https://objkt.com/tokens/KT1AQkX48gLHaKSv1NPyrrJFFvZTFsUu9GP8/7', badge: 'SOLD OUT', sold: true },
     ];
 
-    const FREE_MINT_DATA = [
-      { id: 'f1', title: { en: 'FORK PROJECT', ko: '포크 프로젝트' }, imageUrl: 'https://amaranth-legal-sole-30.mypinata.cloud/ipfs/bafybeibs6petkvozp4qfxdd4mvtcnxvfpmuxuxixkvxoa7wr24mhu7fpku', link: 'https://objkt.com/collections/KT1XMCJGLo9vnHRAf5LQdw9z3BF9yGVfffnm' }
+    const FREE_MINTING_COLLECTIONS = [
+      { id: '13', title: { en: 'FORK PROJECT', ko: '포크 프로젝트' }, description: { en: 'Generative art.', ko: '분기를 탐구하는 제너레이티브 아트.' }, imageUrl: 'https://amaranth-legal-sole-30.mypinata.cloud/ipfs/bafybeibs6petkvozp4qfxdd4mvtcnxvfpmuxuxixkvxoa7wr24mhu7fpku', link: 'https://objkt.com/collections/KT1XMCJGLo9vnHRAf5LQdw9z3BF9yGVfffnm' },
+      { id: '14', title: { en: 'Free Creation Lab', ko: '프리 크리에이션 랩' }, description: { en: 'Experimental space.', ko: '디지털 아트를 위한 실험적인 공간.' }, imageUrl: 'https://amaranth-legal-sole-30.mypinata.cloud/ipfs/bafkreihmtnnmlq4u3tanpax6zqo7oqzwkolmqsqn2gfeyko57s2ydmqo5e', link: 'https://objkt.com/collections/KT1AQkX48gLHaKSv1NPyrrJFFvZTFsUu9GP8' },
     ];
 
-    // --- COMPONENTS ---
-    const CollectionCard = ({ item, lang }) => (
-      <a href={item.link} target="_blank" className="group block glass-effect rounded-2xl overflow-hidden hover:border-purple-500 transition-all duration-300">
-        <div className="aspect-[1/1] overflow-hidden relative">
-          <img src={item.imageUrl} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" />
-          {item.badge && (
-            <div className={`absolute top-3 right-3 px-2 py-1 rounded-md text-[9px] font-black text-white ${item.sold ? 'bg-rose-600' : 'bg-indigo-600'}`}>
-              {item.badge}
+    const CollectionCard = ({ collection, language }) => (
+      <a href={collection.link} target="_blank" rel="noopener noreferrer"
+         className="block bg-slate-800/50 border border-slate-700 rounded-xl overflow-hidden hover:border-purple-500 transition-all duration-300 group cursor-pointer shadow-lg">
+        <div className="aspect-square overflow-hidden relative">
+          <img src={collection.imageUrl} alt={collection.title[language]}
+               className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"/>
+          {collection.badge && (
+            <div className={`absolute top-2 right-2 px-2 py-1 rounded text-[10px] font-black text-white ${collection.sold ? 'bg-rose-600' : 'bg-indigo-600'}`}>
+              {collection.badge}
             </div>
           )}
         </div>
         <div className="p-4">
-          <h3 className="text-sm md:text-base font-bold text-white group-hover:text-purple-400 truncate">{item.title[lang]}</h3>
+          <h3 className="text-sm md:text-base font-bold text-slate-100 group-hover:text-purple-300 truncate">{collection.title[language]}</h3>
+          <p className="text-slate-400 text-xs mt-1 truncate">{collection.description[language]}</p>
         </div>
       </a>
     );
 
-    const VideoSection = ({ item, lang }) => (
-      <section className={`relative w-full py-20 bg-gradient-to-br ${item.color} overflow-hidden rounded-[2rem] mb-10`}>
-        <div className="max-w-6xl mx-auto px-6 flex flex-col md:flex-row items-center gap-10">
-          <div className="flex-1 text-white text-center md:text-left">
-            <h2 className="text-3xl md:text-5xl font-black mb-6 italic tracking-tight">{item.title[lang]}</h2>
-            <a href={item.link} target="_blank" className="inline-block px-8 py-4 bg-white text-slate-900 font-bold rounded-full hover:bg-slate-100 transition shadow-xl">컬렉션 보기 ↗</a>
+    const VideoSection = ({ collection, language }) => (
+      <section className={`w-full py-16 relative overflow-hidden bg-gradient-to-br ${collection.color} rounded-[2.5rem] mb-10`}>
+        <div className="relative z-10 max-w-6xl mx-auto px-6 flex flex-col md:flex-row items-center gap-8">
+          <div className="flex-1 text-center md:text-left text-white">
+            <h2 className="text-3xl md:text-5xl font-black italic serif mb-4">{collection.title[language]}</h2>
+            <p className="text-base md:text-lg mb-8 opacity-90">{collection.description[language]}</p>
+            <a href={collection.link} target="_blank" className="inline-block px-8 py-3 bg-white text-slate-900 font-bold rounded-full shadow-lg">View Collection ↗</a>
           </div>
-          <div className="flex-1 w-full max-w-md aspect-square bg-black/20 rounded-3xl overflow-hidden border border-white/20 shadow-2xl">
-            {item.videoUrl ? (
-              <video src={item.videoUrl} autoPlay loop muted playsInline className="w-full h-full object-cover" />
+          <div className="flex-1 w-full max-w-md aspect-square bg-black/20 rounded-3xl overflow-hidden shadow-2xl border border-white/20">
+            {collection.videoUrl ? (
+              <video src={collection.videoUrl} autoPlay loop muted playsInline className="w-full h-full object-cover" />
             ) : (
-              <img src={item.imageUrl} className="w-full h-full object-cover" />
+              <img src={collection.imageUrl} className="w-full h-full object-cover" />
             )}
           </div>
         </div>
       </section>
     );
 
+    const ChristmasPopup = ({ language, onClose, onAskAi }) => {
+      const t = TRANSLATIONS[language];
+      return (
+        <div className="fixed inset-0 z-[9999] flex items-center justify-center px-4">
+          <div className="absolute inset-0 bg-black/70 backdrop-blur-sm" onClick={onClose}></div>
+          <div className="relative w-full max-w-2xl bg-[#0B0E16] rounded-[2.5rem] border border-slate-700 overflow-hidden shadow-2xl">
+             <div className="grid grid-cols-1 md:grid-cols-2">
+                <img src={CHRISTMAS_IMAGE_URL} className="w-full h-full object-cover min-h-[300px]" />
+                <div className="p-8 flex flex-col justify-center">
+                    <h3 className="text-3xl font-bold serif text-amber-200 mb-4">{t.xmas.title}</h3>
+                    <p className="text-slate-300 text-sm mb-8 leading-relaxed italic">{t.xmas.body}</p>
+                    <div className="space-y-3">
+                        <a href={CHRISTMAS_NFT_LINK} target="_blank" className="block w-full text-center py-3 bg-amber-500 text-black font-bold rounded-xl">{t.xmas.cta1}</a>
+                        <button onClick={onAskAi} className="w-full py-3 bg-slate-800 text-white font-bold rounded-xl">{t.xmas.cta2}</button>
+                        <button onClick={onClose} className="w-full text-slate-500 text-xs font-bold uppercase mt-4 tracking-widest">{t.xmas.close}</button>
+                    </div>
+                </div>
+             </div>
+          </div>
+        </div>
+      );
+    };
+
     const App = () => {
       const [view, setView] = useState('HOME');
       const [lang, setLang] = useState('ko');
+      const [showXmas, setShowXmas] = useState(false);
       const t = TRANSLATIONS[lang];
+
+      useEffect(() => {
+        if (isChristmasSeason()) setShowXmas(true);
+      }, []);
 
       return (
         <div className="min-h-screen">
-          <nav className="sticky top-0 z-[100] nav-blur border-b border-white/5 h-20 flex items-center">
+          {showXmas && <ChristmasPopup language={lang} onClose={() => setShowXmas(false)} onAskAi={() => { setShowXmas(false); setView('AI'); }} />}
+          
+          <nav className="sticky top-0 z-50 bg-[#0F111A]/80 backdrop-blur-md border-b border-slate-800 h-20 flex items-center">
             <div className="max-w-7xl mx-auto px-6 w-full flex justify-between items-center">
-              <div className="flex items-center gap-2 cursor-pointer" onClick={() => setView('HOME')}>
-                <div className="w-8 h-8 rounded-lg bg-indigo-600 flex items-center justify-center font-black text-white">W</div>
-                <span className="text-lg font-black serif text-white tracking-tighter">WRISTORY</span>
+              <div className="flex items-center gap-3 cursor-pointer" onClick={() => setView('HOME')}>
+                <img src="https://amaranth-legal-sole-30.mypinata.cloud/ipfs/bafkreiaohqebkvodjwrnwt3673zaijntc3uc2g5mxg6vfdydqpeaf77s4a" className="w-10 h-10 rounded-lg" />
+                <span className="text-xl md:text-2xl font-bold serif text-white">WRISTORY</span>
               </div>
-              <div className="flex items-center gap-4 md:gap-8 text-[10px] md:text-xs font-black uppercase tracking-widest text-slate-400">
+              <div className="flex items-center gap-4 md:gap-8 text-xs font-bold uppercase tracking-widest text-slate-400">
                 <button onClick={() => setView('HOME')} className={view === 'HOME' ? 'text-white' : ''}>{t.nav.collections}</button>
                 <button onClick={() => setView('AIRDROP')} className={view === 'AIRDROP' ? 'text-white' : ''}>{t.nav.register}</button>
                 <button onClick={() => setLang(l => l === 'en' ? 'ko' : 'en')} className="px-3 py-1 bg-slate-800 rounded-full text-white">{lang === 'en' ? 'KO' : 'EN'}</button>
@@ -155,59 +216,63 @@
             </div>
           </nav>
 
-          <main>
-            {view === 'HOME' ? (
-              <div className="pb-20">
-                <div className="py-24 text-center px-6">
-                  <h1 className="text-5xl md:text-8xl font-black text-white serif mb-6 tracking-tighter italic">{t.hero.title}</h1>
+          <main className="pb-20">
+            {view === 'HOME' && (
+              <div>
+                <div className="py-20 text-center px-6">
+                  <h1 className="text-4xl md:text-7xl font-black text-white mb-6 serif italic">{t.hero.title}</h1>
                   <p className="text-slate-400 max-w-2xl mx-auto font-medium">{t.hero.subtitle}</p>
                 </div>
 
                 <div className="max-w-7xl mx-auto px-6 mb-20">
-                  <h2 className="text-2xl font-black text-white mb-8 serif">{t.home.voxel}</h2>
-                  <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-5 gap-4 md:gap-6">
-                    {VOXEL_HERITAGE_DATA.map(it => <CollectionCard key={it.id} item={it} lang={lang} />)}
-                  </div>
+                    <h2 className="text-2xl font-bold text-white mb-8 serif">{t.home.voxelTitle}</h2>
+                    <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-5 gap-6">
+                        {VOXEL_HERITAGE_COLLECTIONS.map(col => <CollectionCard key={col.id} collection={col} language={lang} />)}
+                    </div>
                 </div>
 
                 <div className="max-w-7xl mx-auto px-6 mb-20">
-                   {BITCOIN_DATA.map(it => <VideoSection key={it.id} item={it} lang={lang} />)}
+                    {BITCOIN_CHRONICLES_COLLECTIONS.map(col => <VideoSection key={col.id} collection={col} language={lang} />)}
                 </div>
 
                 <div className="max-w-7xl mx-auto px-6 mb-20">
-                  <h2 className="text-2xl font-black text-white mb-8 serif">{t.home.fighters}</h2>
-                  <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-5 gap-4 md:gap-6">
-                    {INDEPENDENCE_DATA.map(it => <CollectionCard key={it.id} item={it} lang={lang} />)}
-                  </div>
+                    <h2 className="text-2xl font-bold text-white mb-8 serif">{t.home.fightersTitle}</h2>
+                    <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-5 gap-6">
+                        {INDEPENDENCE_FIGHTERS_COLLECTIONS.map(col => <CollectionCard key={col.id} collection={col} language={lang} />)}
+                    </div>
                 </div>
 
                 <div className="max-w-7xl mx-auto px-6 mb-20">
-                  <h2 className="text-2xl font-black text-white mb-8 serif">{t.home.free}</h2>
-                  <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-5 gap-4 md:gap-6">
-                    {FREE_MINT_DATA.map(it => <CollectionCard key={it.id} item={it} lang={lang} />)}
-                  </div>
+                    <h2 className="text-2xl font-bold text-white mb-8 serif">{t.home.freeMintTitle}</h2>
+                    <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-5 gap-6">
+                        {FREE_MINTING_COLLECTIONS.map(col => <CollectionCard key={col.id} collection={col} language={lang} />)}
+                    </div>
                 </div>
               </div>
-            ) : (
-              <div className="py-24 px-6 max-w-lg mx-auto text-center">
-                 <div className="glass-effect p-10 rounded-[2rem]">
-                    <h2 className="text-2xl font-black serif text-white mb-4">Airdrop Registration</h2>
-                    <p className="text-slate-400 mb-8 text-sm">테조스 지갑 주소를 등록하고 특별한 혜택을 받으세요.</p>
-                    <a href="https://forms.gle/4Y4dSMy4wAh9Pzx47" target="_blank" className="block w-full py-4 bg-indigo-600 rounded-xl font-bold text-white shadow-lg">Google Form으로 등록</a>
+            )}
+            {view === 'AIRDROP' && (
+              <div className="py-20 px-6 max-w-lg mx-auto text-center">
+                 <div className="bg-slate-800/80 p-10 rounded-[2.5rem] border border-slate-700">
+                    <h2 className="text-2xl font-bold text-white mb-4 serif">{t.form.title}</h2>
+                    <p className="text-slate-400 text-sm mb-10">{t.form.subtitle}</p>
+                    <div className="space-y-4">
+                        <a href="https://forms.gle/4Y4dSMy4wAh9Pzx47" target="_blank" className="block w-full py-4 bg-indigo-600 text-white font-bold rounded-xl shadow-lg">Google Form Registration</a>
+                        <a href="https://t.me/YesOkLab_WRISTORY_NFT" target="_blank" className="block w-full py-4 bg-[#2AABEE] text-white font-bold rounded-xl">Telegram Channel</a>
+                    </div>
                  </div>
               </div>
             )}
           </main>
 
-          <footer className="py-20 border-t border-white/5 bg-slate-950/50 text-center">
-            <img src="https://amaranth-legal-sole-30.mypinata.cloud/ipfs/bafkreiaohqebkvodjwrnwt3673zaijntc3uc2g5mxg6vfdydqpeaf77s4a" className="w-16 h-16 mx-auto mb-6 rounded-xl opacity-40 grayscale" />
-            <p className="text-slate-500 text-[10px] font-black uppercase tracking-[0.3em] mb-6">{t.footer.rights}</p>
-            <div className="flex flex-wrap justify-center gap-6 text-[10px] font-black uppercase tracking-widest text-slate-400">
-              <a href="https://twitter.com/YESOKLAB_OFFICE" target="_blank" className="hover:text-purple-400 transition">Twitter</a>
-              <a href="https://t.me/YesOkLab_WRISTORY_NFT" target="_blank" className="hover:text-purple-400 transition">Telegram</a>
-              <a href="https://blog.naver.com/yesoklab" target="_blank" className="hover:text-purple-400 transition">Naver Blog</a>
-              <a href="https://cafe.naver.com/yesoklab" target="_blank" className="hover:text-purple-400 transition">Naver Cafe</a>
-              <a href="https://objkt.com/users/tz1eXLHqJXBnp4VFGwFDfMGWcLYVgBUYnA16" target="_blank" className="hover:text-purple-400 transition">Objkt.com</a>
+          <footer className="py-20 border-t border-slate-800 bg-slate-950/50 text-center">
+            <img src="https://amaranth-legal-sole-30.mypinata.cloud/ipfs/bafkreiaohqebkvodjwrnwt3673zaijntc3uc2g5mxg6vfdydqpeaf77s4a" className="w-16 h-16 mx-auto mb-6 rounded-xl opacity-50 grayscale" />
+            <p className="text-slate-500 text-[10px] font-bold uppercase tracking-[0.3em] mb-8">{t.footer.rights}</p>
+            <div className="flex flex-wrap justify-center gap-8 text-[11px] font-black uppercase tracking-widest text-slate-400">
+              <a href="https://twitter.com/YESOKLAB_OFFICE" target="_blank" className="hover:text-purple-400">Twitter</a>
+              <a href="https://t.me/YesOkLab_WRISTORY_NFT" target="_blank" className="hover:text-purple-400">Telegram</a>
+              <a href="https://blog.naver.com/yesoklab" target="_blank" className="hover:text-purple-400">Naver Blog</a>
+              <a href="https://cafe.naver.com/yesoklab" target="_blank" className="hover:text-purple-400">Naver Cafe</a>
+              <a href="https://objkt.com/users/tz1eXLHqJXBnp4VFGwFDfMGWcLYVgBUYnA16" target="_blank" className="hover:text-purple-400">Objkt.com</a>
             </div>
           </footer>
         </div>
