@@ -1,10 +1,10 @@
-
 <!DOCTYPE html>
 <html lang="ko">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>WRISTORY | Digital Heritage Portal</title>
+    <!-- Tailwind CSS는 CDN으로 유지하여 빠른 스타일 적용 -->
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700&display=swap" rel="stylesheet">
     <style>
@@ -15,11 +15,13 @@
             margin: 0;
             overflow-x: hidden;
         }
-        /* 스크롤바 커스텀 */
+        #root {
+            min-height: 100vh;
+            background-color: #0F111A;
+        }
         ::-webkit-scrollbar { width: 8px; }
         ::-webkit-scrollbar-track { background: #0F111A; }
         ::-webkit-scrollbar-thumb { background: #1e293b; border-radius: 10px; }
-        ::-webkit-scrollbar-thumb:hover { background: #334155; }
     </style>
 <script type="importmap">
 {
@@ -38,7 +40,7 @@
 </head>
 <body>
     <div id="root"></div>
-    <!-- 상대 경로 ./ 사용: 깃허브 레포지토리 경로 대응 -->
-    <script type="module" src="./index.tsx"></script>
+    <!-- Vite 환경에서는 importmap 없이 바로 index.tsx를 호출해야 합니다 -->
+    <script type="module" src="/index.tsx"></script>
 </body>
 </html>
