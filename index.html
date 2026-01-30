@@ -12,237 +12,33 @@
             font-family: 'Noto Sans KR', sans-serif;
             background-color: #0F111A;
             color: #f8fafc;
+            margin: 0;
+            overflow-x: hidden;
         }
-        .animate-bounce-slow { animation: bounce 3s infinite; }
-        @keyframes bounce { 0%, 100% { transform: translateY(-5%); } 50% { transform: translateY(0); } }
+        /* 스크롤바 커스텀 */
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-track { background: #0F111A; }
+        ::-webkit-scrollbar-thumb { background: #1e293b; border-radius: 10px; }
+        ::-webkit-scrollbar-thumb:hover { background: #334155; }
     </style>
-    <script type="importmap">
+<script type="importmap">
 {
   "imports": {
-    "react": "https://esm.sh/react@19.2.4",
-    "react-dom": "https://esm.sh/react-dom@19.2.4",
-    "lucide-react": "https://esm.sh/lucide-react@0.463.0",
-    "recharts": "https://esm.sh/recharts@2.12.7",
-    "@google/genai": "https://esm.sh/@google/genai@1.3.0",
+    "react": "https://esm.sh/react@^19.2.4",
+    "react-dom/": "https://esm.sh/react-dom@^19.2.4/",
     "react/": "https://esm.sh/react@^19.2.4/",
-    "react-dom/": "https://esm.sh/react-dom@^19.2.4/"
+    "@google/genai": "https://esm.sh/@google/genai@^1.38.0",
+    "lucide-react": "https://esm.sh/lucide-react@^0.563.0",
+    "recharts": "https://esm.sh/recharts@^3.7.0",
+    "vite": "https://esm.sh/vite@^7.3.1",
+    "@vitejs/plugin-react": "https://esm.sh/@vitejs/plugin-react@^5.1.2"
   }
 }
 </script>
 </head>
 <body>
     <div id="root"></div>
-
-    <script type="module">
-        import React, { useState, useEffect, useRef } from 'react';
-        import ReactDOM from 'react-dom';
-        import { 
-            Home, Coins, Layers, Sparkles, ShieldCheck, LayoutDashboard, Code2, Globe, 
-            ExternalLink, ChevronRight, Menu, X, Lock, History, Info, Send, Loader2, 
-            User, ArrowUpRight, Zap, CheckCircle2, LogOut, Award, Flame, Cpu, ScrollText, Flag, Wallet
-        } from 'lucide-react';
-        import { PieChart, Pie, Cell, ResponsiveContainer, Tooltip, Legend, BarChart, Bar, XAxis, YAxis, CartesianGrid } from 'recharts';
-        import { GoogleGenAI, Type } from "@google/genai";
-
-        // --- Services ---
-        const ai = new GoogleGenAI({ apiKey: process.env.API_KEY });
-
-        const getCuratorResponse = async (prompt, lang) => {
-            const response = await ai.models.generateContent({
-                model: 'gemini-3-flash-preview',
-                contents: prompt,
-                config: {
-                    systemInstruction: `You are the WRISTORY Historical Curator. Educate users about Korean independence fighters and Bitcoin history. Lang: ${lang}. Tone: Respectful, Solemn.`,
-                }
-            });
-            return response.text;
-        };
-
-        // --- Components: Public Views ---
-        const LandingPage = ({ onNavigate }) => (
-            <div className="animate-in fade-in duration-1000">
-                <section className="relative h-[85vh] flex items-center justify-center overflow-hidden">
-                    <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,_#1e3a8a33_0%,_transparent_70%)] opacity-60" />
-                    <div className="relative z-10 text-center px-6 max-w-5xl space-y-8">
-                        <div className="inline-flex items-center gap-3 px-6 py-2 rounded-full bg-white/5 border border-white/10 text-[11px] font-black uppercase tracking-[0.5em] text-blue-400 mb-4 animate-bounce-slow">
-                            <History size={16} /> Digital Heritage Pioneer
-                        </div>
-                        <h1 className="text-6xl md:text-8xl font-black italic tracking-tighter text-white leading-none uppercase">
-                            History on <br/> <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-500 to-purple-500">Your Wrist</span>
-                        </h1>
-                        <p className="text-xl text-slate-400 font-medium max-w-3xl mx-auto">블록체인 기술로 전설적인 순간들을 보존합니다. WRISTORY는 테조스 위에서 역사적 지혜를 담아냅니다.</p>
-                        <div className="flex gap-6 justify-center pt-8">
-                            <button onClick={() => onNavigate('AIRDROP')} className="px-10 py-5 bg-white text-slate-950 rounded-3xl font-black text-lg hover:bg-blue-400 hover:text-white transition-all">에어드랍 참여</button>
-                            <button onClick={() => onNavigate('HOME')} className="px-10 py-5 bg-slate-900 text-white rounded-3xl border border-slate-700 font-black text-lg flex items-center gap-3">컬렉션 보기 <ArrowUpRight size={20}/></button>
-                        </div>
-                    </div>
-                </section>
-                {/* Simplified Collection Preview */}
-                <section className="max-w-7xl mx-auto px-6 py-20 grid grid-cols-1 md:grid-cols-4 gap-8">
-                    {['김구', '안중근', '유관순', '윤동주'].map((name, i) => (
-                        <div key={i} className="bg-slate-900 rounded-[2rem] border border-slate-800 p-8 space-y-4 hover:border-blue-500/50 transition-all">
-                            <div className="aspect-square bg-slate-950 rounded-2xl overflow-hidden">
-                                <img src={`https://picsum.photos/seed/${name}/400`} className="w-full h-full object-cover grayscale opacity-50" />
-                            </div>
-                            <h3 className="text-2xl font-black italic text-white">{name}</h3>
-                        </div>
-                    ))}
-                </section>
-            </div>
-        );
-
-        const AirdropView = () => (
-            <div className="max-w-4xl mx-auto py-24 px-6 text-center space-y-12">
-                <h2 className="text-6xl font-black italic text-white uppercase">Airdrop</h2>
-                <div className="bg-slate-900 p-16 rounded-[3rem] border border-slate-800 space-y-8">
-                    <ShieldCheck size={60} className="mx-auto text-blue-500" />
-                    <h3 className="text-3xl font-black text-white">공식 에어드랍 신청</h3>
-                    <p className="text-slate-400">Google Form을 통해 안전하게 테조스 지갑 주소를 제출하세요.</p>
-                    <a href="https://docs.google.com/forms/d/e/1FAIpQLSdagQ6wk6fVVbl0Q4gc5htaCAnnBlJt0fW_aivdx7BrLKCN9g/viewform" target="_blank" className="inline-block px-12 py-6 bg-blue-600 rounded-3xl font-black text-xl text-white shadow-xl shadow-blue-600/20">등록 바로가기</a>
-                </div>
-            </div>
-        );
-
-        const CuratorAi = ({ lang }) => {
-            const [messages, setMessages] = useState([]);
-            const [input, setInput] = useState('');
-            const [loading, setLoading] = useState(false);
-            const scrollRef = useRef();
-
-            useEffect(() => {
-                setMessages([{ role: 'ai', text: lang === 'ko' ? "안녕하세요. 역사 큐레이터입니다." : "Hello, I am the curator." }]);
-            }, [lang]);
-
-            const handleSend = async (e) => {
-                e.preventDefault();
-                if (!input.trim() || loading) return;
-                const userText = input; setInput('');
-                setMessages(prev => [...prev, { role: 'user', text: userText }]);
-                setLoading(true);
-                try {
-                    const reply = await getCuratorResponse(userText, lang);
-                    setMessages(prev => [...prev, { role: 'ai', text: reply }]);
-                } catch {
-                    setMessages(prev => [...prev, { role: 'ai', text: "Error connecting to AI." }]);
-                } finally { setLoading(false); }
-            };
-
-            return (
-                <div className="max-w-4xl mx-auto py-12 px-6 h-[80vh] flex flex-col space-y-6">
-                    <div className="flex-1 bg-slate-900 border border-slate-800 rounded-[2.5rem] p-8 overflow-y-auto space-y-6 shadow-inner">
-                        {messages.map((m, i) => (
-                            <div key={i} className={`flex ${m.role === 'user' ? 'justify-end' : 'justify-start'}`}>
-                                <div className={`max-w-[80%] p-6 rounded-3xl ${m.role === 'user' ? 'bg-blue-600 text-white' : 'bg-slate-950 border border-white/5'}`}>{m.text}</div>
-                            </div>
-                        ))}
-                        {loading && <div className="text-blue-500 animate-pulse">Thinking...</div>}
-                        <div ref={scrollRef} />
-                    </div>
-                    <form onSubmit={handleSend} className="relative">
-                        <input value={input} onChange={e => setInput(e.target.value)} className="w-full bg-slate-900 border-2 border-slate-800 rounded-3xl px-8 py-6 text-white outline-none focus:border-blue-500" placeholder="Ask about history..." />
-                        <button className="absolute right-4 top-1/2 -translate-y-1/2 p-3 bg-blue-600 rounded-2xl"><Send size={20}/></button>
-                    </form>
-                </div>
-            );
-        };
-
-        // --- Admin Components ---
-        const Tokenomics = () => (
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-                <div className="bg-slate-900 p-8 rounded-[2rem] border border-slate-800 h-[400px]">
-                    <h3 className="text-xl font-bold mb-6">WRI 토큰 분배</h3>
-                    <ResponsiveContainer width="100%" height="100%">
-                        <PieChart>
-                            <Pie data={[{name:'Reward', value:40}, {name:'Airdrop', value:20}, {name:'Eco', value:40}]} innerRadius={60} outerRadius={100} paddingAngle={5} dataKey="value">
-                                <Cell fill="#3b82f6" /><Cell fill="#8b5cf6" /><Cell fill="#10b981" />
-                            </Pie>
-                            <Tooltip />
-                        </PieChart>
-                    </ResponsiveContainer>
-                </div>
-                <div className="space-y-4">
-                    <div className="bg-slate-900 p-8 rounded-[2rem] border border-slate-800">
-                        <p className="text-slate-500 uppercase text-[10px] font-black tracking-widest">Total Supply</p>
-                        <p className="text-4xl font-black italic">100,000,000 WRI</p>
-                    </div>
-                    <div className="bg-blue-600/10 p-8 rounded-[2rem] border border-blue-500/20">
-                        <p className="text-blue-400 font-bold">Smart Contract Integrated</p>
-                        <p className="text-xs text-slate-400 mt-2">모든 배분은 테조스 메인넷의 FA2 컨트랙트를 통해 투명하게 관리됩니다.</p>
-                    </div>
-                </div>
-            </div>
-        );
-
-        // --- Main App ---
-        const App = () => {
-            const [mode, setMode] = useState('PUBLIC');
-            const [activeTab, setActiveTab] = useState('HOME');
-            const [lang, setLang] = useState('ko');
-
-            const toggleMode = () => {
-                if (mode === 'PUBLIC') {
-                    if (confirm("관리자 모드로 전환하시겠습니까?")) setMode('ADMIN');
-                } else setMode('PUBLIC');
-            };
-
-            if (mode === 'ADMIN') {
-                return (
-                    <div className="min-h-screen flex bg-slate-950">
-                        <nav className="w-72 bg-slate-900 border-r border-slate-800 p-8 flex flex-col gap-8">
-                            <div className="flex items-center gap-3">
-                                <div className="w-10 h-10 bg-blue-600 rounded-xl flex items-center justify-center"><ShieldCheck className="text-white"/></div>
-                                <h1 className="text-xl font-black italic">COMMAND</h1>
-                            </div>
-                            <div className="flex flex-col gap-2">
-                                <button onClick={() => setActiveTab('ADMIN_DASH')} className={`p-4 rounded-2xl text-left font-bold ${activeTab === 'ADMIN_DASH' ? 'bg-blue-600' : ''}`}>대시보드</button>
-                                <button onClick={() => setActiveTab('ADMIN_TOKEN')} className={`p-4 rounded-2xl text-left font-bold ${activeTab === 'ADMIN_TOKEN' ? 'bg-blue-600' : ''}`}>토크노믹스</button>
-                            </div>
-                            <button onClick={toggleMode} className="mt-auto flex items-center gap-2 p-4 text-slate-500 hover:text-red-400 font-bold"><LogOut size={18}/> Exit to Public</button>
-                        </nav>
-                        <main className="flex-1 p-12 overflow-y-auto">
-                            <header className="flex justify-between items-center mb-12">
-                                <h2 className="text-3xl font-black italic uppercase">Admin Hub</h2>
-                                <div className="text-right">
-                                    <p className="text-[10px] text-slate-500 uppercase font-black tracking-widest">Active Wallet</p>
-                                    <p className="font-mono text-blue-400">tz1eX...A16</p>
-                                </div>
-                            </header>
-                            {activeTab === 'ADMIN_TOKEN' ? <Tokenomics /> : <div className="p-20 border-2 border-dashed border-slate-800 rounded-[3rem] text-center text-slate-600 font-bold italic text-2xl tracking-tighter uppercase">Admin Console Ready</div>}
-                        </main>
-                    </div>
-                );
-            }
-
-            return (
-                <div className="min-h-screen flex flex-col">
-                    <nav className="sticky top-0 z-50 bg-[#0F111A]/80 backdrop-blur-md border-b border-slate-800 h-20 px-8 flex justify-between items-center">
-                        <div className="flex items-center gap-3 cursor-pointer" onClick={() => setActiveTab('HOME')}>
-                            <History className="text-blue-500" size={32} />
-                            <span className="text-2xl font-black italic tracking-tighter uppercase">WRISTORY</span>
-                        </div>
-                        <div className="flex items-center gap-8">
-                            <button onClick={() => setActiveTab('HOME')} className={`text-sm font-bold ${activeTab === 'HOME' ? 'text-blue-400' : ''}`}>홈</button>
-                            <button onClick={() => setActiveTab('AIRDROP')} className={`text-sm font-bold ${activeTab === 'AIRDROP' ? 'text-blue-400' : ''}`}>에어드랍</button>
-                            <button onClick={() => setActiveTab('AI')} className="px-5 py-2 rounded-full border border-blue-500/30 text-blue-400 text-sm font-black flex items-center gap-2"><Sparkles size={14}/> AI 큐레이터</button>
-                            <button onClick={toggleMode} className="p-2 bg-slate-800 rounded-xl text-slate-500 hover:text-blue-400"><Lock size={18}/></button>
-                        </div>
-                    </nav>
-                    <main className="flex-1">
-                        {activeTab === 'HOME' && <LandingPage onNavigate={setActiveTab} />}
-                        {activeTab === 'AIRDROP' && <AirdropView />}
-                        {activeTab === 'AI' && <CuratorAi lang={lang} />}
-                    </main>
-                    <footer className="py-20 border-t border-slate-800 text-center space-y-4">
-                        <p className="text-slate-600 text-sm">© 2025 YesOkLab | WRISTORY Project. All Rights Reserved.</p>
-                        <div className="flex justify-center gap-8 text-[10px] font-black uppercase text-slate-700">
-                            <a href="#">Twitter</a><a href="#">Telegram</a><a href="#">Naver Blog</a>
-                        </div>
-                    </footer>
-                </div>
-            );
-        };
-
-        ReactDOM.render(<App />, document.getElementById('root'));
-    </script>
+    <!-- 상대 경로 ./ 사용: 깃허브 레포지토리 경로 대응 -->
+    <script type="module" src="./index.tsx"></script>
 </body>
 </html>
